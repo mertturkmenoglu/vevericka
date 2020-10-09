@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/views/HomePage'
 import LoginPage from '@/views/LoginPage'
+import RegisterPage from '@/views/RegisterPage'
 
 Vue.use(Router);
 
@@ -10,6 +11,7 @@ export const router = new Router({
   routes: [
     { path: '/', component: HomePage },
     { path: '/login', component: LoginPage },
+    { path: '/register', component: RegisterPage },
 
     // Otherwise redirect to HomePage
     { path: '*', redirect: '/' }
@@ -17,7 +19,7 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login'];
+  const publicPages = ['/login', '/register'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 

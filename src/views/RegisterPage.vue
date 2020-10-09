@@ -19,6 +19,22 @@
         />
         <v-text-field
           class="px-5 pt-5"
+          label="Username"
+          v-model="username"
+          color="#dd2c00"
+          outlined
+          dense
+        />
+        <v-text-field
+          class="px-5 pt-5"
+          label="Name"
+          v-model="name"
+          color="#dd2c00"
+          outlined
+          dense
+        />
+        <v-text-field
+          class="px-5 pt-5"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showPassword ? 'text' : 'password'"
           @click:append="showPassword = !showPassword"
@@ -29,7 +45,7 @@
           dense
         />
         <div class="px-5 pb-5">
-          <div v-show="loginLoading" class="py-3 text-center">
+          <div v-show="registerLoading" class="py-3 text-center">
             <v-progress-circular
               indeterminate
               color="red"
@@ -37,51 +53,65 @@
           </div>
 
           <v-alert
-            v-show="loginError"
+            v-show="registerError"
             border="left"
             color="red"
             dense
             outlined
             type="error"
           >
-            Can't login
+            Can't Register
           </v-alert>
-          <v-btn @click="submit" color="#dd2c00" outlined block> Login </v-btn>
+          <v-btn @click="submit" color="#dd2c00" outlined block> Register </v-btn>
         </div>
       </v-form>
     </v-card>
     <div class="text-center mt-3 text-body-1">
-      New user? <router-link to="/register">Register</router-link>
+      Have an account? <router-link to="/login">Login</router-link>
     </div>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "LoginPage",
+  name: "RegisterPage",
   data: () => ({
     showPassword: false,
     email: "",
+    username: "",
+    name: "",
     password: "",
   }),
   methods: {
     submit() {
-      this.$store.dispatch("login", {
+      if (
+        !this.email.length ||
+        !this.username.length ||
+        !this.name.length ||
+        !this.password.length ||
+        this.password < 6
+      ) {
+        this.$store.state.error = "Can't register";
+        return;
+      }
+      this.$store.dispatch("register", {
         email: this.email,
+        username: this.username,
+        name: this.name,
         password: this.password,
       });
     },
   },
   computed: {
-    loginLoading() {
-      const value = this.$store.state.status.loggingIn;
+    registerLoading() {
+      const value = this.$store.state.status.registering;
       if (value) {
         return value;
       } else {
         return false;
       }
     },
-    loginError() {
+    registerError() {
       const value = this.$store.state.error;
       if (value) {
         return value;
