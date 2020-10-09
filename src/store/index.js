@@ -4,10 +4,13 @@ import { router } from '../router'
 
 Vue.use(Vuex)
 
-let user;
-const state = user
-  ? { status: { loggedIn: true }, user, error: null }
-  : { status: {}, user: null, error: null }
+let user = JSON.parse(localStorage.getItem('user'));
+
+const state = {
+  status: user ? { loggedIn: true } : {},
+  user: user ? user : null,
+  error: null
+}
 
 const actions = {
   async login({ commit }, { email, password }) {
@@ -28,7 +31,7 @@ const actions = {
         return;
       }
 
-      //localStorage.setItem('user', JSON.stringify(data.user))
+      localStorage.setItem('user', JSON.stringify(data.user))
       await commit('loginSuccess', data.user);
       router.push('/')
     } catch (err) {
