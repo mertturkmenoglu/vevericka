@@ -3,19 +3,39 @@
     <Navbar />
     <v-card outlined elevation="2" class="mx-auto mt-5" max-width="800">
       <v-card-text>
-        <v-row>
-          <v-col cols="3">
+        <v-row justify="center">
+          <v-col cols="5">
             <v-img
               class="rounded-circle"
               :src="user.image"
               elevation="12"
               alt="User image"
-              width="180"
+              width="256"
             ></v-img>
           </v-col>
-          <v-col cols="9" class="text-left">
-            <v-row class="text-lg-h3 text-h4">{{ user.name }}</v-row>
-            <v-row class="text-h5">@{{ user.username }}</v-row>
+        </v-row>
+
+        <v-row justify="center" class="text-center">
+          <v-col cols="10">
+            <v-row class="text-lg-h3 text-h4 black--text" justify="center">
+              {{ user.name }}
+            </v-row>
+            <v-row class="text-h5" justify="center">@{{ user.username }}</v-row>
+            <v-row justify="center" class="py-2">
+              <router-link :to="followersLink">
+                <v-chip color="white" label>
+                  <v-icon left> mdi-account-circle-outline </v-icon>
+                  {{ user.followers.length }} followers
+                </v-chip>
+              </router-link>
+
+              <router-link :to="followingLink">
+                <v-chip color="white" label>
+                  <v-icon left> mdi-account-circle-outline </v-icon>
+                  {{ user.following.length }} following
+                </v-chip>
+              </router-link>
+            </v-row>
             <v-row class="ml-n5">
               <v-col>
                 <v-chip
@@ -33,59 +53,31 @@
           </v-col>
         </v-row>
 
-        <v-row justify="space-between" class="ml-2">
-          <v-col cols="3" class="text-body-1">
-            <v-row class="black--text mt-1">
-              <router-link to="/">
-                <v-chip color="primary" label>
-                  <v-icon left> mdi-account-circle-outline </v-icon>
-                  {{ user.followers.length }} followers
-                </v-chip>
-              </router-link>
-            </v-row>
-            <v-row class="black--text mt-1">
-              <router-link to="/">
-                <v-chip color="primary" label>
-                  <v-icon left> mdi-account-circle-outline </v-icon>
-                  {{ user.following.length }} following
-                </v-chip>
-              </router-link>
-            </v-row>
-          </v-col>
-          <v-col cols="6" v-if="!isProfile">
-            <div v-if="isFriend" class="px-3">
-              <v-btn
-                color="error"
-                elevation="2"
-                outlined
-                @click="sendMessage()"
-              >
-                <v-icon>mdi-send-outline</v-icon>
-              </v-btn>
-              <v-btn
-                color="error"
-                elevation="2"
-                outlined
-                @click="isFriend = !isFriend"
-              >
-                <v-icon>mdi-account-off</v-icon>
-              </v-btn>
-            </div>
-            <v-row v-if="!isFriend" justify="center">
-              <v-btn
-                color="error"
-                elevation="2"
-                outlined
-                class="mr-3"
-                @click="isFriend = !isFriend"
-              >
-                Follow
-                <v-icon right>mdi-account-plus</v-icon>
-              </v-btn>
-            </v-row>
-          </v-col>
+        <v-row v-if="!isProfile" justify="space-around">
+          <div v-if="isFriend">
+            <v-btn color="error" class="mr-1" outlined @click="sendMessage()">
+              <v-icon>mdi-send-outline</v-icon>
+            </v-btn>
+            <v-btn color="error" class="ml-1" outlined @click="unfollow()">
+              <v-icon>mdi-account-off</v-icon>
+            </v-btn>
+          </div>
+          <div v-else>
+            <v-btn color="error" outlined @click="follow()">
+              Follow
+              <v-icon right>mdi-account-plus</v-icon>
+            </v-btn>
+          </div>
         </v-row>
+        <v-row v-else justify="space-around">
+          <v-btn color="error" outlined dense @click="edit()">
+            Edit Your Profile
+            <v-icon right>mdi-account-edit-outline</v-icon>
+          </v-btn>
+        </v-row>
+
         <v-divider class="my-3" />
+
         <v-row v-if="user.bdate" class="text-body-1 black--text mx-auto mt-2">
           <v-icon class="mr-2" large color="deep-orange accent-4">
             mdi-calendar
@@ -94,34 +86,31 @@
             {{ new Date(user.bdate).toLocaleDateString() }}
           </span>
         </v-row>
-        <v-row
-          v-if="user.location"
-          class="text-body-1 black--text mx-auto mt-2"
-        >
+        <v-row v-if="user.location" :class="userInfo">
           <v-icon class="mr-2" large color="deep-orange accent-4">
             mdi-map-marker
           </v-icon>
           <span class="my-1">{{ user.location.city }}</span>
         </v-row>
-        <v-row v-if="user.job" class="text-body-1 black--text mx-auto mt-2">
+        <v-row v-if="user.job" :class="userInfo">
           <v-icon class="mr-2" large color="deep-orange accent-4">
             mdi-account-tie
           </v-icon>
           <span class="my-1">{{ user.job }}</span>
         </v-row>
-        <v-row v-if="user.school" class="text-body-1 black--text mx-auto mt-2">
+        <v-row v-if="user.school" :class="userInfo">
           <v-icon class="mr-2" large color="deep-orange accent-4">
             mdi-school
           </v-icon>
           <span class="my-1">{{ user.school }}</span>
         </v-row>
-        <v-row v-if="user.website" class="text-body-1 black--text mx-auto mt-2">
+        <v-row v-if="user.website" :class="userInfo">
           <v-icon class="mr-2" large color="deep-orange accent-4">
             mdi-web
           </v-icon>
           <a class="my-1" :href="user.website">{{ user.website }}</a>
         </v-row>
-        <v-row v-if="user.twitter" class="text-body-1 black--text mx-auto mt-2">
+        <v-row v-if="user.twitter" :class="userInfo">
           <v-icon class="mr-2" large color="deep-orange accent-4">
             mdi-twitter
           </v-icon>
@@ -132,10 +121,7 @@
           <v-expansion-panel>
             <v-expansion-panel-header dark> Bio </v-expansion-panel-header>
             <v-expansion-panel-content>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              {{ user.bio }}
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -163,6 +149,7 @@ export default {
     user: {},
     snackbar: false,
     snackbarMsg: "",
+    userInfo: "text-body-1 black--text mx-auto mt-2",
   }),
   methods: {
     async fetchUser() {
@@ -171,11 +158,24 @@ export default {
       const response = await fetch(URL);
       const data = await response.json();
       this.user = data.user[0];
-      console.log(this.user);
-      this.user.image = "https://github.com/mertturkmenoglu.png";
+      this.user.image = this.user.image
+        ? this.user.image
+        : "https://avatars1.githubusercontent.com/u/36300526?s=400&v=4";
     },
     sendMessage() {
       this.snackbarMsg = "Send Message clicked";
+      this.snackbar = true;
+    },
+    edit() {
+      this.snackbarMsg = "Edit Profile clicked";
+      this.snackbar = true;
+    },
+    follow() {
+      this.snackbarMsg = "Follow clicked";
+      this.snackbar = true;
+    },
+    unfollow() {
+      this.snackbarMsg = "Unfollow clicked";
       this.snackbar = true;
     },
   },
