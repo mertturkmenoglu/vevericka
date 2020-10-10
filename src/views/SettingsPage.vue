@@ -1,18 +1,11 @@
 <template>
   <v-app>
     <Navbar />
-
     <v-container>
-      <v-row>
-        <v-col cols="12" sm="8">
-          <v-btn block outlined color="#dd2c00" @click="update"> Update </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-btn block outlined color="#dd2c00" @click="update"> Update </v-btn>
 
-    <v-container>
       <v-row>
-        <v-col cols="6" sm="4">
+        <v-col>
           <v-text-field
             v-model="user.username"
             outlined
@@ -22,7 +15,7 @@
             type="text"
           />
         </v-col>
-        <v-col cols="6" sm="4">
+        <v-col>
           <v-text-field
             v-model="user.name"
             outlined
@@ -32,11 +25,9 @@
           />
         </v-col>
       </v-row>
-    </v-container>
 
-    <v-container>
       <v-row>
-        <v-col cols="6" sm="4">
+        <v-col>
           <v-text-field
             v-model="user.twitter"
             outlined
@@ -45,7 +36,7 @@
             type="text"
           />
         </v-col>
-        <v-col cols="6" sm="4">
+        <v-col>
           <v-text-field
             v-model="user.gender"
             outlined
@@ -55,11 +46,9 @@
           />
         </v-col>
       </v-row>
-    </v-container>
 
-    <v-container>
       <v-row>
-        <v-col cols="6" sm="4">
+        <v-col>
           <v-text-field
             v-model="user.location.city"
             outlined
@@ -68,7 +57,7 @@
             type="text"
           />
         </v-col>
-        <v-col cols="6" sm="4">
+        <v-col>
           <v-text-field
             v-model="user.location.country"
             outlined
@@ -78,25 +67,25 @@
           />
         </v-col>
       </v-row>
-    </v-container>
 
-    <v-container>
-      <v-row>
-        <v-col cols="12" sm="8">
-          <v-text-field
-            v-model="user.image"
-            outlined
-            color="#dd2c00"
-            label="Profile Image Link"
-            type="text"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-text-field
+        v-model="user.image"
+        outlined
+        color="#dd2c00"
+        label="Profile Image Link"
+        type="text"
+      />
 
-    <v-container>
+      <v-text-field
+        v-model="user.website"
+        outlined
+        color="#dd2c00"
+        label="Website"
+        type="text"
+      />
+
       <v-row>
-        <v-col cols="12" sm="8">
+        <v-col>
           <v-text-field
             v-model="user.job"
             outlined
@@ -105,12 +94,7 @@
             type="text"
           />
         </v-col>
-      </v-row>
-    </v-container>
-
-    <v-container>
-      <v-row>
-        <v-col cols="12" sm="8">
+        <v-col>
           <v-text-field
             v-model="user.school"
             outlined
@@ -120,47 +104,17 @@
           />
         </v-col>
       </v-row>
-    </v-container>
 
-    <v-container>
+      <v-textarea
+        v-model="user.bio"
+        outlined
+        color="#dd2c00"
+        label="Bio"
+        type="text"
+      />
+
       <v-row>
-        <v-col cols="12" sm="8">
-          <v-text-field
-            v-model="user.website"
-            outlined
-            color="#dd2c00"
-            label="Website"
-            type="text"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <v-container>
-      <v-row>
-        <v-col cols="12" sm="8">
-          <v-textarea
-            v-model="user.bio"
-            outlined
-            color="#dd2c00"
-            label="Bio"
-            type="text"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <v-container>
-      <v-row justify="center">
-        <v-col cols="12" sm="8">
-          <v-date-picker v-model="picker"></v-date-picker>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <v-container>
-      <v-row>
-        <v-col cols="12" sm="8">
+        <v-col>
           <v-select
             v-model="user.wish_to_speak"
             :items="availableLanguages"
@@ -171,11 +125,9 @@
           ></v-select>
         </v-col>
       </v-row>
-    </v-container>
 
-    <v-container>
       <v-row>
-        <v-col cols="6" sm="4">
+        <v-col>
           <v-text-field
             v-model="newHobby"
             append-outer-icon="mdi-plus"
@@ -185,25 +137,19 @@
             label="New Hobby"
             type="text"
           />
+          <div v-for="(h, idx) in user.hobbies" :key="idx">
+            <v-text-field
+              :value="h"
+              prepend-inner-icon="mdi-close"
+              @click="() => filterHobbies(h)"
+              label="Hobby"
+              solo
+              readonly
+            />
+          </div>
         </v-col>
-      </v-row>
-      <v-row v-for="(h, idx) in user.hobbies" :key="idx">
-        <v-col cols="6" sm="4">
-          <v-text-field
-            :value="h"
-            prepend-inner-icon="mdi-close"
-            @click="() => filterHobbies(h)"
-            label="Hobby"
-            solo
-            readonly
-          />
-        </v-col>
-      </v-row>
-    </v-container>
 
-    <v-container>
-      <v-row>
-        <v-col cols="6" sm="4">
+        <v-col>
           <v-text-field
             v-model="newFeature"
             append-outer-icon="mdi-plus"
@@ -214,56 +160,61 @@
             type="text"
             class="disabled"
           />
+          <div v-for="(f, idx) in user.features" :key="idx">
+            <v-text-field
+              :value="f"
+              prepend-inner-icon="mdi-close"
+              @click="() => filterFeatures(f)"
+              label="Feature"
+              solo
+              readonly
+            />
+          </div>
         </v-col>
       </v-row>
-      <v-row v-for="(f, idx) in user.features" :key="idx">
-        <v-col cols="6" sm="4">
-          <v-text-field
-            :value="f"
-            prepend-inner-icon="mdi-close"
-            @click="() => filterFeatures(f)"
-            label="Feature"
-            solo
-            readonly
-          />
-        </v-col>
-      </v-row>
-    </v-container>
 
-    <v-container>
       <v-row>
-        <v-col cols="5" sm="3">
+        <v-col>
           <v-select
             v-model="newLanguage"
             :items="availableLanguages"
             chips
             label="Languages"
             outlined
-          ></v-select>
+          />
         </v-col>
-        <v-col cols="5" sm="3">
+        <v-col>
           <v-select
             v-model="newProficiency"
             :items="availableProficiencies"
             chips
             label="Proficiency"
             outlined
-          ></v-select>
-        </v-col>
-        <v-col cols="2" sm="2">
-          <v-icon class="mt-4" @click="addLanguage"> mdi-plus </v-icon>
+          />
         </v-col>
       </v-row>
-      <v-row v-for="(l, idx) in user.languages" :key="idx">
-        <v-col cols="6" sm="4">
+
+      <v-btn block outlined color="#dd2c00" @click="addLanguage">
+        Add
+        <v-icon right>mdi-plus</v-icon>
+      </v-btn>
+
+      <v-container>
+        <v-row v-for="(l, idx) in user.languages" :key="idx">
           <v-text-field
-            :value="`Language: ${l.language} Proficiency: ${l.proficiency}`"
+            :value="`${l.language}-${l.proficiency}`"
             prepend-inner-icon="mdi-close"
             @click="() => filterLanguages(l)"
             label="Feature"
             solo
             readonly
           />
+        </v-row>
+      </v-container>
+
+      <v-row class="text-center">
+        <v-col>
+          <v-date-picker v-model="picker"></v-date-picker>
         </v-col>
       </v-row>
     </v-container>
@@ -341,7 +292,7 @@ export default {
       const langs = this.user.languages;
       const cond = langs.indexOf((e) => e.language == this.newLanguage) != -1;
 
-      if (cond) {
+      if (cond || this.newLanguage == "" || this.newProficiency == "") {
         return;
       }
 
@@ -356,6 +307,8 @@ export default {
       const CORS = "https://cors-anywhere.herokuapp.com";
       const BASE = "https://user-info-service.herokuapp.com/user";
       const URL = `${CORS}/${BASE}/${this.user._id}`;
+
+      this.user.bdate = this.picker;
 
       const requestOptions = {
         method: "PUT",
