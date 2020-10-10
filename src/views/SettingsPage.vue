@@ -1,7 +1,272 @@
 <template>
   <v-app>
     <Navbar />
-    <h1>Settings</h1>
+
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="8">
+          <v-btn block outlined color="#dd2c00" @click="update"> Update </v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="6" sm="4">
+          <v-text-field
+            v-model="user.username"
+            outlined
+            disabled
+            color="#dd2c00"
+            label="Username"
+            type="text"
+          />
+        </v-col>
+        <v-col cols="6" sm="4">
+          <v-text-field
+            v-model="user.name"
+            outlined
+            color="#dd2c00"
+            label="Name"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="6" sm="4">
+          <v-text-field
+            v-model="user.twitter"
+            outlined
+            color="#dd2c00"
+            label="Twitter Username"
+            type="text"
+          />
+        </v-col>
+        <v-col cols="6" sm="4">
+          <v-text-field
+            v-model="user.gender"
+            outlined
+            color="#dd2c00"
+            label="Gender"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="6" sm="4">
+          <v-text-field
+            v-model="user.location.city"
+            outlined
+            color="#dd2c00"
+            label="City"
+            type="text"
+          />
+        </v-col>
+        <v-col cols="6" sm="4">
+          <v-text-field
+            v-model="user.location.country"
+            outlined
+            color="#dd2c00"
+            label="Country"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="8">
+          <v-text-field
+            v-model="user.image"
+            outlined
+            color="#dd2c00"
+            label="Profile Image Link"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="8">
+          <v-text-field
+            v-model="user.job"
+            outlined
+            color="#dd2c00"
+            label="Job"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="8">
+          <v-text-field
+            v-model="user.school"
+            outlined
+            color="#dd2c00"
+            label="School"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="8">
+          <v-text-field
+            v-model="user.website"
+            outlined
+            color="#dd2c00"
+            label="Website"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="8">
+          <v-textarea
+            v-model="user.bio"
+            outlined
+            color="#dd2c00"
+            label="Bio"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row justify="center">
+        <v-col cols="12" sm="8">
+          <v-date-picker v-model="picker"></v-date-picker>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="8">
+          <v-select
+            v-model="user.wish_to_speak"
+            :items="availableLanguages"
+            chips
+            label="Wish to speak"
+            multiple
+            outlined
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="6" sm="4">
+          <v-text-field
+            v-model="newHobby"
+            append-outer-icon="mdi-plus"
+            @click:append-outer="addHobby"
+            outlined
+            color="#dd2c00"
+            label="New Hobby"
+            type="text"
+          />
+        </v-col>
+      </v-row>
+      <v-row v-for="(h, idx) in user.hobbies" :key="idx">
+        <v-col cols="6" sm="4">
+          <v-text-field
+            :value="h"
+            prepend-inner-icon="mdi-close"
+            @click="() => filterHobbies(h)"
+            label="Hobby"
+            solo
+            readonly
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="6" sm="4">
+          <v-text-field
+            v-model="newFeature"
+            append-outer-icon="mdi-plus"
+            @click:append-outer="addFeature"
+            outlined
+            color="#dd2c00"
+            label="Add Feature"
+            type="text"
+            class="disabled"
+          />
+        </v-col>
+      </v-row>
+      <v-row v-for="(f, idx) in user.features" :key="idx">
+        <v-col cols="6" sm="4">
+          <v-text-field
+            :value="f"
+            prepend-inner-icon="mdi-close"
+            @click="() => filterFeatures(f)"
+            label="Feature"
+            solo
+            readonly
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container>
+      <v-row>
+        <v-col cols="5" sm="3">
+          <v-select
+            v-model="newLanguage"
+            :items="availableLanguages"
+            chips
+            label="Languages"
+            outlined
+          ></v-select>
+        </v-col>
+        <v-col cols="5" sm="3">
+          <v-select
+            v-model="newProficiency"
+            :items="availableProficiencies"
+            chips
+            label="Proficiency"
+            outlined
+          ></v-select>
+        </v-col>
+        <v-col cols="2" sm="2">
+          <v-icon class="mt-4" @click="addLanguage"> mdi-plus </v-icon>
+        </v-col>
+      </v-row>
+      <v-row v-for="(l, idx) in user.languages" :key="idx">
+        <v-col cols="6" sm="4">
+          <v-text-field
+            :value="`Language: ${l.language} Proficiency: ${l.proficiency}`"
+            prepend-inner-icon="mdi-close"
+            @click="() => filterLanguages(l)"
+            label="Feature"
+            solo
+            readonly
+          />
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 
@@ -10,6 +275,109 @@ import Navbar from "@/components/Navbar";
 export default {
   name: "SettingsPage",
   components: { Navbar },
+  data: () => ({
+    user: { location: {} },
+    loadingCompleted: false,
+    picker: "",
+    newHobby: "",
+    newFeature: "",
+    newLanguage: "",
+    newProficiency: "",
+    availableLanguages: [
+      "English",
+      "Spanish",
+      "Japanese",
+      "German",
+      "Russian",
+      "French",
+      "Italian",
+    ],
+    availableProficiencies: [
+      "Elementery",
+      "Intermediate",
+      "Professional",
+      "Native",
+    ],
+  }),
+  methods: {
+    async fetchUser() {
+      const username = this.$store.state.user.username;
+      const CORS = "https://cors-anywhere.herokuapp.com";
+      const BASE = "https://user-info-service.herokuapp.com";
+      const URL = `${CORS}/${BASE}/user/username/${username}`;
+
+      const response = await fetch(URL);
+      const data = await response.json();
+      this.user = data.user[0];
+      this.loadingCompleted = true;
+    },
+    filterHobbies(h) {
+      this.user.hobbies = this.user.hobbies.filter((e) => e != h);
+    },
+    filterFeatures(f) {
+      this.user.features = this.user.features.filter((e) => e != f);
+    },
+    filterLanguages(l) {
+      this.user.languages = this.user.languages.filter(
+        (e) => e.language != l.language
+      );
+    },
+    addHobby() {
+      this.user.hobbies.push(this.newHobby);
+      this.newHobby = "";
+    },
+    addFeature() {
+      if (this.user.features.length >= 5) {
+        return;
+      }
+
+      this.user.features.push(this.newFeature);
+      this.newFeature = "";
+    },
+    addLanguage() {
+      const langs = this.user.languages;
+      const cond = langs.indexOf((e) => e.language == this.newLanguage) != -1;
+
+      if (cond) {
+        return;
+      }
+
+      this.user.languages.push({
+        language: this.newLanguage,
+        proficiency: this.newProficiency,
+      });
+      this.newLanguage = "";
+      this.newProficiency = "";
+    },
+    async update() {
+      const CORS = "https://cors-anywhere.herokuapp.com";
+      const BASE = "https://user-info-service.herokuapp.com/user";
+      const URL = `${CORS}/${BASE}/${this.user._id}`;
+
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(this.user),
+      };
+
+      const response = await fetch(URL, requestOptions);
+      const data = await response.json();
+
+      if (data.status_code) {
+        return;
+      }
+
+      window.location.reload();
+    },
+  },
+  mounted() {
+    this.fetchUser();
+  },
+  watch: {
+    loadingCompleted() {
+      this.picker = this.user.bdate.substr(0, 10);
+    },
+  },
 };
 </script>
 
