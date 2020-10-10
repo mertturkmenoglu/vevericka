@@ -41,6 +41,7 @@ const actions = {
 
   async register({ commit }, { email, username, name, password }) {
     commit('registerRequest', { email, username, name, password })
+    let authData
 
     try {
       const requestOptions = {
@@ -50,19 +51,46 @@ const actions = {
       };
 
       const response = await fetch(`https://cors-anywhere.herokuapp.com/https://vevericka-auth-service.herokuapp.com/auth/register`, requestOptions);
-      const data = await response.json();
+      authData = await response.json();
 
-      if (!data || data.message) {
-        commit('registerFailure', data.message)
+      if (!authData || authData.message) {
+        commit('registerFailure', authData.message)
         return;
       }
-
-      localStorage.setItem('user', JSON.stringify(data))
-      await commit('registerSuccess', data)
-      router.push('/')
     } catch (err) {
       commit('registerFailure', err.message);
+      return;
     }
+
+    const defaultImageUrl = "https://avatars1.githubusercontent.com/u/36300526?s=400&v=4"
+    let infoData
+
+    try {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          username,
+          name,
+          isAdmin: false,
+          image: defaultImageUrl,
+          bdate: (new Date()).toISOString(),
+          location: {}
+        })
+      };
+
+      const response = await fetch(`https://cors-anywhere.herokuapp.com/https://user-info-service.herokuapp.com/user/`, requestOptions);
+      infoData = await response.json();
+    } catch (err) {
+      commit('registerFailure', err.message);
+      return;
+    }
+
+    localStorage.setItem('info', JSON.stringify(infoData))
+    localStorage.setItem('user', JSON.stringify(authData))
+    await commit('registerSuccess', authData)
+    router.push('/')
   },
 
   logout({ commit }) {
