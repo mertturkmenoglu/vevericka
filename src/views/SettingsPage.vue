@@ -309,6 +309,9 @@ export default {
       const response = await fetch(URL);
       const data = await response.json();
       this.user = data.user[0];
+      this.user.location = this.user.location
+        ? this.user.location
+        : { city: "", country: "" };
       this.loadingCompleted = true;
     },
     filterHobbies(h) {
