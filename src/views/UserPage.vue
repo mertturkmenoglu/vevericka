@@ -233,13 +233,52 @@ export default {
       this.snackbarMsg = "Edit Profile clicked";
       this.snackbar = true;
     },
-    follow() {
-      this.snackbarMsg = "Follow clicked";
-      this.snackbar = true;
+    async follow() {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          thisUsername: this.$store.state.user.username,
+          otherUsername: this.user.username,
+        }),
+      };
+
+      const URL = `https://cors-anywhere.herokuapp.com/https://user-info-service.herokuapp.com/user/follow/`;
+      const response = await fetch(URL, requestOptions);
+      const data = await response.json();
+
+      if (data.status_code) {
+        console.log(data.message);
+        return;
+      }
+
+      this.user.followers.push(this.$store.state.user.username);
+      window.location.reload();
     },
-    unfollow() {
-      this.snackbarMsg = "Unfollow clicked";
-      this.snackbar = true;
+    async unfollow() {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          thisUsername: this.$store.state.user.username,
+          otherUsername: this.user.username,
+        }),
+      };
+
+      const URL = `https://cors-anywhere.herokuapp.com/https://user-info-service.herokuapp.com/user/unfollow/`;
+      const response = await fetch(URL, requestOptions);
+      const data = await response.json();
+
+      if (data.status_code) {
+        console.log(data.message);
+        return;
+      }
+
+      this.user.followers = this.user.followers.filter(
+        (username) => username == this.$store.state.user.username
+      );
+
+      window.location.reload();
     },
     toggleFollowers() {
       this.showFollowers = !this.showFollowers;
