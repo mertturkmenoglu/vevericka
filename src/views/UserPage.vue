@@ -146,7 +146,7 @@
         <div v-else>
           <v-card v-for="(u, idx) in followers" :key="idx">
             <router-link :to="`/user/${u.username}`" @click="toggleFollowers">
-              <div class="text-h5">{{ u.username }}</div>
+              <UserCard :user="u" style="card-style" />
             </router-link>
           </v-card>
         </div>
@@ -164,7 +164,7 @@
         <div v-else>
           <v-card v-for="(u, idx) in following" :key="idx">
             <router-link :to="`/user/${u.username}`" @click="toggleFollowing">
-              {{ u.username }}
+              <UserCard :user="u" style="card-style" />
             </router-link>
           </v-card>
         </div>
@@ -176,11 +176,12 @@
 
 <script>
 import Navbar from "@/components/Navbar";
+import UserCard from "@/components/UserCard";
 import { router } from "@/router";
 
 export default {
   name: "UserPage",
-  components: { Navbar },
+  components: { Navbar, UserCard },
   props: ["username"],
   data: () => ({
     user: { followers: [], following: [] },
@@ -292,5 +293,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.card-style {
+  cursor: pointer;
+}
 </style>

@@ -1,0 +1,37 @@
+<template>
+  <v-card>
+    <v-row>
+      <v-col cols="4" md="2" sm="2" class="mx-3">
+        <v-img
+          class="rounded-circle"
+          :src="user.image"
+          elevation="12"
+          alt="User image"
+          width="128"
+        />
+      </v-col>
+      <v-col>
+        <v-row>
+          <div class="text-lg-h2 text-md-h3 black--text">
+            {{ user.name }}
+          </div>
+        </v-row>
+        <v-row>
+          <div class="text-lg-h4 text-md-h5 black--text">
+            @{{ user.username }}
+          </div>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-card>
+</template>
+
+<script>
+export default {
+  name: "UserCard",
+  props: ["user"],
+};
+</script>
+
+<style>
+</style>
