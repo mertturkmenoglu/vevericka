@@ -205,21 +205,21 @@ export default {
         : "https://avatars1.githubusercontent.com/u/36300526?s=400&v=4";
 
       if (this.user.followers.length > 0) {
-        this.followers = await this.getUsersFromIds(this.user.followers);
+        this.followers = await this.getUsersFromUsernames(this.user.followers);
       }
 
       if (this.user.following.length > 0) {
-        this.following = await this.getUsersFromIds(this.user.following);
+        this.following = await this.getUsersFromUsernames(this.user.following);
       }
     },
-    async getUsersFromIds(list) {
-      const id_list = list;
+    async getUsersFromUsernames(list) {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_list }),
+        body: JSON.stringify({ list }),
       };
-      const URL = `https://cors-anywhere.herokuapp.com/https://user-info-service.herokuapp.com/user/get_all/`;
+
+      const URL = `https://cors-anywhere.herokuapp.com/https://user-info-service.herokuapp.com/user/get_all_by_username/`;
       const response = await fetch(URL, requestOptions);
       const { users } = await response.json();
 
