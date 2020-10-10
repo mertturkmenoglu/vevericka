@@ -17,8 +17,6 @@ export const router = new Router({
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
     { path: '/user/:username', name: 'UserPage', component: UserPage },
-    { path: '/user/:username/followers', name: 'UserFollowers', component: UserPage },
-    { path: '/user/:username/following', name: 'UserFollowing', component: UserPage },
     { path: '/settings', component: SettingsPage },
     { path: '/search', component: SearchPage },
     { path: '/messages', component: MessagesPage },

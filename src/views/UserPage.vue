@@ -22,19 +22,19 @@
             </v-row>
             <v-row class="text-h5" justify="center">@{{ user.username }}</v-row>
             <v-row justify="center" class="py-2">
-              <router-link :to="followersLink">
+              <v-btn outlined class="mr-2" @click="toggleFollowers">
                 <v-chip color="white" label>
                   <v-icon left> mdi-account-circle-outline </v-icon>
                   {{ user.followers.length }} followers
                 </v-chip>
-              </router-link>
+              </v-btn>
 
-              <router-link :to="followingLink">
+              <v-btn outlined @click="toggleFollowing">
                 <v-chip color="white" label>
                   <v-icon left> mdi-account-circle-outline </v-icon>
                   {{ user.following.length }} following
                 </v-chip>
-              </router-link>
+              </v-btn>
             </v-row>
             <v-row class="ml-n5">
               <v-col>
@@ -135,21 +135,62 @@
         </v-snackbar>
       </v-card-text>
     </v-card>
+
+    <v-dialog v-model="showFollowers" scrollable max-width="800">
+      <v-card>
+        <v-card-title>Followers</v-card-title>
+        <v-divider></v-divider>
+        <div v-if="user.followers.length <= 0" class="text-h5 text-center">
+          <span>No followers</span>
+        </div>
+        <div v-else>
+          <v-card v-for="(u, idx) in followers" :key="idx">
+            <router-link :to="`/user/${u.username}`" @click="toggleFollowers">
+              <div class="text-h5">{{ u.username }}</div>
+            </router-link>
+          </v-card>
+        </div>
+        <v-divider></v-divider>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="showFollowing" scrollable max-width="800">
+      <v-card>
+        <v-card-title>Following</v-card-title>
+        <v-divider></v-divider>
+        <div v-if="user.following.length <= 0" class="text-h5 text-center">
+          <span>No following</span>
+        </div>
+        <div v-else>
+          <v-card v-for="(u, idx) in following" :key="idx">
+            <router-link :to="`/user/${u.username}`" @click="toggleFollowing">
+              {{ u.username }}
+            </router-link>
+          </v-card>
+        </div>
+        <v-divider></v-divider>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar";
+import { router } from "@/router";
 
 export default {
   name: "UserPage",
   components: { Navbar },
   props: ["username"],
   data: () => ({
-    user: {},
+    user: { followers: [], following: [] },
     snackbar: false,
     snackbarMsg: "",
     userInfo: "text-body-1 black--text mx-auto mt-2",
+    followers: [],
+    following: [],
+    showFollowers: false,
+    showFollowing: false,
   }),
   methods: {
     async fetchUser() {
@@ -161,6 +202,27 @@ export default {
       this.user.image = this.user.image
         ? this.user.image
         : "https://avatars1.githubusercontent.com/u/36300526?s=400&v=4";
+
+      if (this.user.followers.length > 0) {
+        this.followers = await this.getUsersFromIds(this.user.followers);
+      }
+
+      if (this.user.following.length > 0) {
+        this.following = await this.getUsersFromIds(this.user.following);
+      }
+    },
+    async getUsersFromIds(list) {
+      const id_list = list;
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_list }),
+      };
+      const URL = `https://cors-anywhere.herokuapp.com/https://user-info-service.herokuapp.com/user/get_all/`;
+      const response = await fetch(URL, requestOptions);
+      const { users } = await response.json();
+
+      return users;
     },
     sendMessage() {
       this.snackbarMsg = "Send Message clicked";
@@ -178,9 +240,23 @@ export default {
       this.snackbarMsg = "Unfollow clicked";
       this.snackbar = true;
     },
+    toggleFollowers() {
+      this.showFollowers = !this.showFollowers;
+    },
+    toggleFollowing() {
+      this.showFollowing = !this.showFollowing;
+    },
+    routeFollowers(e) {
+      this.toggleFollowers();
+      router.push(`/user/${e.target.innerText}`);
+    },
   },
   mounted() {
-    this.fetchUser().then(() => console.log("User load"));
+    this.fetchUser();
+  },
+  beforeRouteUpdate(to, from, next) {
+    next();
+    window.location.reload();
   },
   computed: {
     isProfile() {
