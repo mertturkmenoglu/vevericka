@@ -8,6 +8,8 @@
             <v-img
               class="rounded-circle"
               :src="user.image"
+              contain
+              aspect-ratio="1"
               elevation="12"
               alt="User image"
               width="256"
