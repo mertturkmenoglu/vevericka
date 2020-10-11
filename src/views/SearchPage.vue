@@ -1,7 +1,5 @@
 <template>
   <v-app>
-    <Navbar />
-
     <v-form>
       <v-container>
         <v-row>
@@ -47,12 +45,11 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
 import UserCard from "@/components/UserCard";
 
 export default {
   name: "SearchPage",
-  components: { Navbar, UserCard },
+  components: { UserCard },
   data: () => ({
     searchTerm: "",
     showLoading: false,

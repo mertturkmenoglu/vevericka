@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <Navbar />
     <v-main class="mx-auto mt-5">
       <h1>Messages Feature</h1>
       <h1>Our team works hard to develop this feature.</h1>
@@ -13,10 +12,8 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
 export default {
   name: "MessagesPage",
-  components: { Navbar },
   data: () => ({
     user: {},
   }),

@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <Navbar />
     <v-container>
       <v-btn block outlined color="#dd2c00" @click="update"> Update </v-btn>
 
@@ -222,10 +221,9 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
+
 export default {
   name: "SettingsPage",
-  components: { Navbar },
   data: () => ({
     user: { location: {} },
     loadingCompleted: false,
