@@ -232,8 +232,7 @@ export default {
       this.snackbar = true;
     },
     edit() {
-      this.snackbarMsg = "Edit Profile clicked";
-      this.snackbar = true;
+      router.push("/settings");
     },
     async follow() {
       const requestOptions = {
