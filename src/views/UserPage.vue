@@ -24,14 +24,14 @@
             </v-row>
             <v-row class="text-h5" justify="center">@{{ user.username }}</v-row>
             <v-row justify="center" class="py-2">
-              <v-btn outlined class="mr-2" @click="toggleFollowers">
+              <v-btn outlined class="mx-2 mt-2" @click="toggleFollowers">
                 <v-chip color="white" label>
                   <v-icon left> mdi-account-circle-outline </v-icon>
                   {{ user.followers.length }} followers
                 </v-chip>
               </v-btn>
 
-              <v-btn outlined @click="toggleFollowing">
+              <v-btn outlined class="mx-2 mt-2" @click="toggleFollowing">
                 <v-chip color="white" label>
                   <v-icon left> mdi-account-circle-outline </v-icon>
                   {{ user.following.length }} following
