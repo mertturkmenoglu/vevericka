@@ -1,227 +1,224 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-btn block outlined color="#dd2c00" @click="update"> Update </v-btn>
+  <v-container style="background-color: #f0f2f5">
+    <v-btn block outlined color="#dd2c00" @click="update"> Update </v-btn>
 
-      <v-row>
-        <v-col>
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="user.username"
+          outlined
+          disabled
+          color="#dd2c00"
+          label="Username"
+          type="text"
+        />
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="user.name"
+          outlined
+          color="#dd2c00"
+          label="Name"
+          type="text"
+        />
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="user.twitter"
+          outlined
+          color="#dd2c00"
+          label="Twitter Username"
+          type="text"
+        />
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="user.gender"
+          outlined
+          color="#dd2c00"
+          label="Gender"
+          type="text"
+        />
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="user.location.city"
+          outlined
+          color="#dd2c00"
+          label="City"
+          type="text"
+        />
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="user.location.country"
+          outlined
+          color="#dd2c00"
+          label="Country"
+          type="text"
+        />
+      </v-col>
+    </v-row>
+
+    <v-text-field
+      v-model="user.image"
+      outlined
+      color="#dd2c00"
+      label="Profile Image Link"
+      type="text"
+    />
+
+    <v-text-field
+      v-model="user.website"
+      outlined
+      color="#dd2c00"
+      label="Website"
+      type="text"
+    />
+
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="user.job"
+          outlined
+          color="#dd2c00"
+          label="Job"
+          type="text"
+        />
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="user.school"
+          outlined
+          color="#dd2c00"
+          label="School"
+          type="text"
+        />
+      </v-col>
+    </v-row>
+
+    <v-textarea
+      v-model="user.bio"
+      outlined
+      color="#dd2c00"
+      label="Bio"
+      type="text"
+    />
+
+    <v-row>
+      <v-col>
+        <v-select
+          v-model="user.wish_to_speak"
+          :items="availableLanguages"
+          chips
+          label="Wish to speak"
+          multiple
+          outlined
+        ></v-select>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="newHobby"
+          append-outer-icon="mdi-plus"
+          @click:append-outer="addHobby"
+          outlined
+          color="#dd2c00"
+          label="New Hobby"
+          type="text"
+        />
+        <div v-for="(h, idx) in user.hobbies" :key="idx">
           <v-text-field
-            v-model="user.username"
-            outlined
-            disabled
-            color="#dd2c00"
-            label="Username"
-            type="text"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="user.name"
-            outlined
-            color="#dd2c00"
-            label="Name"
-            type="text"
-          />
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
-          <v-text-field
-            v-model="user.twitter"
-            outlined
-            color="#dd2c00"
-            label="Twitter Username"
-            type="text"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="user.gender"
-            outlined
-            color="#dd2c00"
-            label="Gender"
-            type="text"
-          />
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
-          <v-text-field
-            v-model="user.location.city"
-            outlined
-            color="#dd2c00"
-            label="City"
-            type="text"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="user.location.country"
-            outlined
-            color="#dd2c00"
-            label="Country"
-            type="text"
-          />
-        </v-col>
-      </v-row>
-
-      <v-text-field
-        v-model="user.image"
-        outlined
-        color="#dd2c00"
-        label="Profile Image Link"
-        type="text"
-      />
-
-      <v-text-field
-        v-model="user.website"
-        outlined
-        color="#dd2c00"
-        label="Website"
-        type="text"
-      />
-
-      <v-row>
-        <v-col>
-          <v-text-field
-            v-model="user.job"
-            outlined
-            color="#dd2c00"
-            label="Job"
-            type="text"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="user.school"
-            outlined
-            color="#dd2c00"
-            label="School"
-            type="text"
-          />
-        </v-col>
-      </v-row>
-
-      <v-textarea
-        v-model="user.bio"
-        outlined
-        color="#dd2c00"
-        label="Bio"
-        type="text"
-      />
-
-      <v-row>
-        <v-col>
-          <v-select
-            v-model="user.wish_to_speak"
-            :items="availableLanguages"
-            chips
-            label="Wish to speak"
-            multiple
-            outlined
-          ></v-select>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
-          <v-text-field
-            v-model="newHobby"
-            append-outer-icon="mdi-plus"
-            @click:append-outer="addHobby"
-            outlined
-            color="#dd2c00"
-            label="New Hobby"
-            type="text"
-          />
-          <div v-for="(h, idx) in user.hobbies" :key="idx">
-            <v-text-field
-              :value="h"
-              prepend-inner-icon="mdi-close"
-              @click="() => filterHobbies(h)"
-              label="Hobby"
-              solo
-              readonly
-            />
-          </div>
-        </v-col>
-
-        <v-col>
-          <v-text-field
-            v-model="newFeature"
-            append-outer-icon="mdi-plus"
-            @click:append-outer="addFeature"
-            outlined
-            color="#dd2c00"
-            label="Add Feature"
-            type="text"
-            class="disabled"
-          />
-          <div v-for="(f, idx) in user.features" :key="idx">
-            <v-text-field
-              :value="f"
-              prepend-inner-icon="mdi-close"
-              @click="() => filterFeatures(f)"
-              label="Feature"
-              solo
-              readonly
-            />
-          </div>
-        </v-col>
-      </v-row>
-
-      <v-row>
-        <v-col>
-          <v-select
-            v-model="newLanguage"
-            :items="availableLanguages"
-            chips
-            label="Languages"
-            outlined
-          />
-        </v-col>
-        <v-col>
-          <v-select
-            v-model="newProficiency"
-            :items="availableProficiencies"
-            chips
-            label="Proficiency"
-            outlined
-          />
-        </v-col>
-      </v-row>
-
-      <v-btn block outlined color="#dd2c00" @click="addLanguage">
-        Add
-        <v-icon right>mdi-plus</v-icon>
-      </v-btn>
-
-      <v-container>
-        <v-row v-for="(l, idx) in user.languages" :key="idx">
-          <v-text-field
-            :value="`${l.language}-${l.proficiency}`"
+            :value="h"
             prepend-inner-icon="mdi-close"
-            @click="() => filterLanguages(l)"
+            @click="() => filterHobbies(h)"
+            label="Hobby"
+            solo
+            readonly
+          />
+        </div>
+      </v-col>
+
+      <v-col>
+        <v-text-field
+          v-model="newFeature"
+          append-outer-icon="mdi-plus"
+          @click:append-outer="addFeature"
+          outlined
+          color="#dd2c00"
+          label="Add Feature"
+          type="text"
+          class="disabled"
+        />
+        <div v-for="(f, idx) in user.features" :key="idx">
+          <v-text-field
+            :value="f"
+            prepend-inner-icon="mdi-close"
+            @click="() => filterFeatures(f)"
             label="Feature"
             solo
             readonly
           />
-        </v-row>
-      </v-container>
+        </div>
+      </v-col>
+    </v-row>
 
-      <v-row class="text-center">
-        <v-col>
-          <v-date-picker v-model="picker"></v-date-picker>
-        </v-col>
+    <v-row>
+      <v-col>
+        <v-select
+          v-model="newLanguage"
+          :items="availableLanguages"
+          chips
+          label="Languages"
+          outlined
+        />
+      </v-col>
+      <v-col>
+        <v-select
+          v-model="newProficiency"
+          :items="availableProficiencies"
+          chips
+          label="Proficiency"
+          outlined
+        />
+      </v-col>
+    </v-row>
+
+    <v-btn block outlined color="#dd2c00" @click="addLanguage">
+      Add
+      <v-icon right>mdi-plus</v-icon>
+    </v-btn>
+
+    <v-container>
+      <v-row v-for="(l, idx) in user.languages" :key="idx">
+        <v-text-field
+          :value="`${l.language}-${l.proficiency}`"
+          prepend-inner-icon="mdi-close"
+          @click="() => filterLanguages(l)"
+          label="Feature"
+          solo
+          readonly
+        />
       </v-row>
     </v-container>
-  </v-app>
+
+    <v-row class="text-center">
+      <v-col>
+        <v-date-picker v-model="picker"></v-date-picker>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-
 export default {
   name: "SettingsPage",
   data: () => ({

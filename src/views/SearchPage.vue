@@ -1,22 +1,18 @@
 <template>
-  <v-app>
-    <v-form>
-      <v-container>
-        <v-row>
-          <v-col cols="12" sm="8" class="mx-auto">
-            <v-text-field
-              v-model="searchTerm"
-              append-outer-icon="mdi-magnify"
-              outlined
-              color="#dd2c00"
-              label="Search"
-              type="text"
-              @click:append-outer="search"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
+  <v-container>
+    <v-card class="mx-auto custom-width">
+      <v-col>
+        <v-text-field
+            v-model="searchTerm"
+            append-outer-icon="mdi-magnify"
+            outlined
+            class="pt-5"
+            color="#dd2c00"
+            label="Search"
+            type="text"
+            @click:append-outer="search"/>
+      </v-col>
+    </v-card>
 
     <div v-show="showLoading" class="py-3 text-center">
       <v-progress-circular indeterminate color="red"></v-progress-circular>
@@ -24,74 +20,92 @@
 
     <v-container v-show="!showLoading && error" class="py-3 text-center">
       <v-col cols="12" sm="8" class="mx-auto">
-        <v-alert color="red" dense outlined type="error"> {{ error }} </v-alert>
+        <v-alert color="red" dense outlined type="error"> {{ error }}</v-alert>
       </v-col>
     </v-container>
 
-    <v-container v-show="!showLoading && !error" class="py-3">
-      <v-col
-        cols="12"
-        sm="8"
-        class="mx-auto"
-        v-for="(result, idx) in searchResults"
-        :key="idx"
-      >
-        <router-link :to="`/user/${result.username}`">
-          <UserCard :user="result" style="card-style" />
-        </router-link>
-      </v-col>
-    </v-container>
-  </v-app>
+    <v-card v-for="(result, idx) in searchResults" :key="idx" outlined class="mx-auto my-5 custom-width">
+      <router-link :to="`/user/${result.username}`">
+        <UserCard :user="result" class="card-style"/>
+      </router-link>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-import UserCard from "@/components/UserCard";
+  import UserCard from "@/components/UserCard";
 
-export default {
-  name: "SearchPage",
-  components: { UserCard },
-  data: () => ({
-    searchTerm: "",
-    showLoading: false,
-    error: "",
-    searchResults: [],
-  }),
-  methods: {
-    async search() {
-      this.showLoading = true;
-      const CORS = "https://cors-anywhere.herokuapp.com";
-      const BASE = "https://user-info-service.herokuapp.com/user";
-      const URL = `${CORS}/${BASE}/q?searchTerm=${this.searchTerm}`;
-      const response = await fetch(URL);
-      const data = await response.json();
+  export default {
+    name: "SearchPage",
+    components: {UserCard},
+    data: () => ({
+      searchTerm: "",
+      showLoading: false,
+      error: "",
+      searchResults: [],
+    }),
+    methods: {
+      async search() {
+        this.showLoading = true;
+        const CORS = "https://cors-anywhere.herokuapp.com";
+        const BASE = "https://user-info-service.herokuapp.com/user";
+        const URL = `${CORS}/${BASE}/q?searchTerm=${this.searchTerm}`;
+        const response = await fetch(URL);
+        const data = await response.json();
 
-      this.showLoading = false;
+        this.showLoading = false;
 
-      if (!data.users) {
-        this.error = "User not found";
-        return;
-      }
+        if (!data.users) {
+          this.error = "User not found";
+          return;
+        }
 
-      if (data.users.length == 0) {
-        this.searchResults = [];
-        this.error = "User not found";
-        return;
-      }
+        if (data.users.length == 0) {
+          this.searchResults = [];
+          this.error = "User not found";
+          return;
+        }
 
-      this.searchResults = data.users;
-      this.error = "";
-      this.searchTerm = "";
+        this.searchResults = data.users;
+        this.error = "";
+        this.searchTerm = "";
+      },
     },
-  },
-  beforeRouteUpdate(to, from, next) {
-    next();
-    window.location.reload();
-  },
-};
+    beforeRouteUpdate(to, from, next) {
+      next();
+      window.location.reload();
+    },
+  };
 </script>
 
 <style scoped>
-.card-style {
-  cursor: pointer;
-}
+  .card-style {
+    cursor: pointer;
+  }
+
+  .bg-white {
+    background-color: white;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    .custom-width {
+      width: 96vw;
+    }
+  }
+
+  @media screen and (min-width: 600px) and (max-width: 768px) {
+    .custom-width {
+      width: 90vw;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .custom-width {
+      max-width: 60vw;
+    }
+  }
 </style>

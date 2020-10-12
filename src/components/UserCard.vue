@@ -1,9 +1,9 @@
 <template>
-  <v-card>
+  <v-card dark color="#dd2c00">
     <v-row>
-      <v-col cols="4" md="2" sm="2" class="mx-3">
+      <v-col cols="4" md="2" sm="2">
         <v-img
-          class="rounded-circle"
+          class="rounded-circle ml-3"
           :src="user.image"
           contain
           aspect-ratio="1"
@@ -14,14 +14,12 @@
       </v-col>
       <v-col>
         <v-row>
-          <div class="text-lg-h4 text-md-h5 black--text">
+          <div class="text-lg-h4 text-md-h5">
             {{ user.name }}
           </div>
         </v-row>
         <v-row>
-          <div class="text-lg-h5 text-md-h6 black--text">
-            @{{ user.username }}
-          </div>
+          <div class="text-lg-h5 text-md-h6">@{{ user.username }}</div>
         </v-row>
       </v-col>
     </v-row>
