@@ -1,12 +1,9 @@
 <template>
-  <v-card class="pl-5 pt-5" min-height="70vh">
-    <v-row v-if="user.bdate" class="text-body-1 black--text mx-auto mt-2">
-      <v-icon class="mr-2" large color="deep-orange accent-4">
-        mdi-calendar
-      </v-icon>
-      <span class="my-1">
-        {{ new Date(user.bdate).toLocaleDateString() }}
-      </span>
+  <v-card>
+    <v-card-title class="card-title">Information</v-card-title>
+    <v-container>
+    <v-row v-if="user.bdate" class="text-body-1 black--text mx-auto mt-2 pl-2">
+
     </v-row>
     <v-row v-if="user.location" :class="userInfo">
       <v-icon class="mr-2" large color="deep-orange accent-4">
@@ -36,12 +33,6 @@
       </v-icon>
       <a class="my-1" :href="twitterLink">@{{ user.twitter }}</a>
     </v-row>
-    <v-divider class="my-3"></v-divider>
-    <v-row class="ml-2 bio-header text-h3"> Bio </v-row>
-    <v-container class="bio-content">
-      <v-row class="mx-5 py-3 text-body-1 text-justify bio-content">
-        {{ user.bio }}
-      </v-row>
     </v-container>
   </v-card>
 </template>
@@ -51,7 +42,7 @@ export default {
   name: "UserInfo",
   props: ["user"],
   data: () => ({
-    userInfo: "text-body-1 black--text mx-auto mt-2",
+    userInfo: "text-body-1 black--text mx-auto mt-2 pl-2",
   }),
   computed: {
     twitterLink() {
@@ -64,10 +55,8 @@ export default {
 </script>
 
 <style>
-.bio-header {
-  color: #dd2c00;
-}
-.bio-content {
-  overflow: auto;
-}
+  .card-title {
+    color: white;
+    background-color: #dd2c00;
+  }
 </style>

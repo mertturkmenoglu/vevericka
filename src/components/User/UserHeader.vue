@@ -1,5 +1,5 @@
 <template>
-  <v-card min-height="70vh">
+  <v-card>
     <v-row justify="center">
       <v-col cols="5">
         <v-img
@@ -35,50 +35,18 @@
             </v-chip>
           </v-btn>
         </v-row>
-        <v-row class="ml-n5 my-5">
-          <v-col>
-            <v-chip
-              v-for="(feat, idx) in user.features"
-              :key="idx"
-              color="purple"
-              class="mr-2 mb-2"
-              outlined
-            >
-              <v-icon left> mdi-fire </v-icon>
-              {{ feat }}
-            </v-chip>
-          </v-col>
-        </v-row>
       </v-col>
     </v-row>
-    <v-row v-if="!isProfile" justify="space-around">
-      <div v-if="isFriend">
-        <v-btn color="error" class="mr-1" outlined @click="sendMessage()">
-          <v-icon>mdi-send-outline</v-icon>
-        </v-btn>
-        <v-btn color="error" class="ml-1" outlined @click="unfollow()">
-          <v-icon>mdi-account-off</v-icon>
-        </v-btn>
-      </div>
-      <div v-else>
-        <v-btn color="error" outlined @click="follow()">
-          Follow
-          <v-icon right>mdi-account-plus</v-icon>
-        </v-btn>
-      </div>
-    </v-row>
-    <v-row v-else justify="space-around">
-      <v-btn color="#dd2c00" outlined dense @click="edit()">
-        Edit Your Profile
-        <v-icon right>mdi-account-edit-outline</v-icon>
-      </v-btn>
-    </v-row>
+    <UserActions :user="user" :edit="edit" class="mt-5" :follow="follow" :unfollow="unfollow"
+                 :sendMessage="sendMessage"/>
   </v-card>
 </template>
 
 <script>
+import UserActions from "./UserActions";
 export default {
   name: "UserHeader",
+  components: {UserActions},
   props: [
     "user",
     "toggleFollowers",
@@ -88,16 +56,6 @@ export default {
     "unfollow",
     "sendMessage",
   ],
-  data: () => ({}),
-  computed: {
-    isProfile() {
-      return this.user.username == this.$store.state.user.username;
-    },
-    isFriend() {
-      const thisUsername = this.$store.state.user.username;
-      return this.user.followers.indexOf(thisUsername) != -1;
-    },
-  },
 };
 </script>
 

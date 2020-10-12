@@ -1,37 +1,31 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12" sm="4">
-        <v-card outlined elevation="12" class="mx-auto" height="70vh">
-          <UserHeader
-                  :user="user"
-                  :toggleFollowers="toggleFollowers"
-                  :toggleFollowing="toggleFollowing"
-                  :edit="edit"
-                  :follow="follow"
-                  :unfollow="unfollow"
-                  :sendMessage="sendMessage"
-          />
-        </v-card>
+    <v-row align="start" align-content="space-between" justify="space-around" height="35vh">
+      <v-col cols="0" sm="3" height="35vh">
+        <UserHeader
+            :user="user"
+            :toggleFollowers="toggleFollowers"
+            :toggleFollowing="toggleFollowing"
+            :edit="edit"
+            :follow="follow"
+            :unfollow="unfollow"
+            :sendMessage="sendMessage"/>
+        <UserBio :bio="user.bio" class="mt-5"/>
       </v-col>
-      <v-col cols="0" sm="8">
-        <v-card outlined elevation="12" class="mx-auto" height="70vh">
-          <UserInfo :user="user"/>
-        </v-card>
+
+      <v-col sm="5" height="35vh">
+        <UserInfo :user="user"  height="35vh"/>
+        <UserLanguages :user="user" class="mt-5"/>
+        <UserWishToSpeak :user="user" class="mt-5"/>
+      </v-col>
+      <v-col cols="0" sm="4" class="">
+        <UserFeatures :user="user" class=""/>
+        <UserHobbies :user="user" class="mt-5"/>
       </v-col>
     </v-row>
-    <UserListDialog
-            v-if="showFollowers"
-            title="Followers"
-            :list="followers"
-            :onItemClick="toggleFollowers"
-    />
-    <UserListDialog
-            v-if="showFollowing"
-            title="Following"
-            :list="following"
-            :onItemClick="toggleFollowing"
-    />
+
+    <UserListDialog v-if="showFollowers" title="Followers" :list="followers" :onItemClick="toggleFollowers"/>
+    <UserListDialog v-if="showFollowing" title="Following" :list="following" :onItemClick="toggleFollowing"/>
   </v-container>
 </template>
 
@@ -40,13 +34,27 @@
   import UserInfo from "@/components/User/UserInfo";
   import UserListDialog from "@/components/User/UserListDialog";
   import {router} from "@/router";
+  import UserFeatures from "../components/User/UserFeatures";
+  import UserBio from "../components/User/UserBio";
+  import UserLanguages from "../components/User/UserLanguages";
+  import UserWishToSpeak from "../components/User/UserWishToSpeak";
+  import UserHobbies from "@/components/User/UserHobbies"
 
   export default {
     name: "UserPage",
-    components: {UserHeader, UserInfo, UserListDialog},
+    components: {
+      UserHobbies,
+      UserWishToSpeak,
+      UserLanguages,
+      UserBio,
+      UserFeatures,
+      UserHeader,
+      UserInfo,
+      UserListDialog,
+    },
     props: ["username"],
     data: () => ({
-      user: {followers: [], following: []},
+      user: {followers: [], following: [], bio: ""},
       followers: [],
       following: [],
       showFollowers: false,
@@ -149,4 +157,7 @@
 </script>
 
 <style scoped>
+  .card-bg {
+    background-color: #f0f2f5;
+  }
 </style>

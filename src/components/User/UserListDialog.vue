@@ -7,9 +7,9 @@
         <span>No user</span>
       </div>
       <div v-else>
-        <v-card v-for="(u, idx) in list" :key="idx">
+        <v-card v-for="(u, idx) in list" :key="idx" class="my-1 mx-5">
           <router-link :to="`/user/${u.username}`" @click="onItemClick">
-            <UserCard :user="u" style="card-style" />
+            <UserCard :user="u" class="card-style" />
           </router-link>
         </v-card>
       </div>
@@ -40,4 +40,7 @@ export default {
 .card-style {
   cursor: pointer;
 }
+  a {
+    text-decoration: none;
+  }
 </style>
