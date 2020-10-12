@@ -51,9 +51,8 @@
         }
 
         this.showLoading = true;
-        const CORS = "https://cors-anywhere.herokuapp.com";
         const BASE = "https://user-info-service.herokuapp.com/user";
-        const URL = `${CORS}/${BASE}/q?searchTerm=${this.searchTerm}`;
+        const URL = `${BASE}/q?searchTerm=${this.searchTerm}`;
         const response = await fetch(URL);
         const data = await response.json();
 

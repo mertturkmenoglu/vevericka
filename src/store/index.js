@@ -23,7 +23,7 @@ const actions = {
         body: JSON.stringify({ email, password })
       };
 
-      const response = await fetch(`https://cors-anywhere.herokuapp.com/https://vevericka-auth-service.herokuapp.com/auth/login`, requestOptions);
+      const response = await fetch(`https://vevericka-auth-service.herokuapp.com/auth/login`, requestOptions);
       const data = await response.json();
 
       if (!data.user) {
@@ -50,7 +50,7 @@ const actions = {
         body: JSON.stringify({ email, username, name, password })
       };
 
-      const response = await fetch(`https://cors-anywhere.herokuapp.com/https://vevericka-auth-service.herokuapp.com/auth/register`, requestOptions);
+      const response = await fetch(`https://vevericka-auth-service.herokuapp.com/auth/register`, requestOptions);
       authData = await response.json();
 
       if (!authData || authData.message) {
@@ -80,7 +80,7 @@ const actions = {
         })
       };
 
-      const response = await fetch(`https://cors-anywhere.herokuapp.com/https://user-info-service.herokuapp.com/user/`, requestOptions);
+      const response = await fetch(`https://user-info-service.herokuapp.com/user/`, requestOptions);
       infoData = await response.json();
     } catch (err) {
       commit('registerFailure', err.message);

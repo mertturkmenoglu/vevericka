@@ -51,8 +51,7 @@
       following: [],
       showFollowers: false,
       showFollowing: false,
-      BASE_URL:
-          "https://cors-anywhere.herokuapp.com/https://user-info-service.herokuapp.com/user",
+      BASE_URL: "https://user-info-service.herokuapp.com/user",
     }),
     methods: {
       async fetchUser() {
