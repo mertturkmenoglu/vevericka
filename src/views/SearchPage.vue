@@ -46,6 +46,10 @@
     }),
     methods: {
       async search() {
+        if (this.searchTerm === "") {
+          return
+        }
+
         this.showLoading = true;
         const CORS = "https://cors-anywhere.herokuapp.com";
         const BASE = "https://user-info-service.herokuapp.com/user";
@@ -60,7 +64,7 @@
           return;
         }
 
-        if (data.users.length == 0) {
+        if (data.users.length === 0) {
           this.searchResults = [];
           this.error = "User not found";
           return;
@@ -81,10 +85,6 @@
 <style scoped>
   .card-style {
     cursor: pointer;
-  }
-
-  .bg-white {
-    background-color: white;
   }
 
   a {
