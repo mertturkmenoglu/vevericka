@@ -9,8 +9,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(l, idx) in user.languages" :key="idx">
-          <td>{{ l.language }}</td>
+        <tr v-for="(l, idx) in user.wish_to_speak" :key="idx">
+          <td>{{ l }}</td>
         </tr>
         </tbody>
       </template>

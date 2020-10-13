@@ -74,4 +74,8 @@
     .body {
         background-color: #f0f2f5;
     }
+
+    a {
+        text-decoration: none;
+    }
 </style>
