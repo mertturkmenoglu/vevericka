@@ -1,5 +1,5 @@
 <template>
-  <v-card dark color="#dd2c00">
+  <v-card class="v-card" border="top" elevation="2">
     <v-row>
       <v-col cols="5" class="mx-auto">
         <v-img class="rounded-circle mx-auto"
@@ -26,6 +26,10 @@
 </script>
 
 <style scoped>
+  .v-card {
+    border: 2px solid #dd2c00 !important;
+  }
+
   @media screen and (max-width: 960px) {
     .two-line-text {
       line-height: 1.5em;
