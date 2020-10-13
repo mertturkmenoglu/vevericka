@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <v-container>
     <v-card class="my-8 recommendation-title">
       <h1 class="pa-8">Your Recommendations</h1>
     </v-card>
     <v-row>
-      <v-col v-for="(i, idx) in recommendations[page-1]" :key="idx" cols="4">
+      <v-col v-for="(i, idx) in recommendations[page-1]" :key="idx" xs="12" sm="12" md="6" lg="4">
         <router-link :to="`/user/${i.username}`">
           <Recommendation :user="i" class=" "/>
         </router-link>
@@ -16,7 +16,7 @@
     <div class="text-center mt-16">
       <v-pagination color="#dd2c00" v-model="page" :length="5"/>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

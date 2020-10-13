@@ -1,8 +1,8 @@
 <template>
   <v-card dark color="#dd2c00">
     <v-row>
-      <v-col cols="5">
-        <v-img class="rounded-circle ml-3"
+      <v-col cols="5" class="mx-auto">
+        <v-img class="rounded-circle mx-auto"
                :src="user.image"
                contain
                aspect-ratio="1"
@@ -11,16 +11,10 @@
                width="160"
         />
       </v-col>
-
-      <v-col>
-        <v-row class="text-h5">
-          {{ user.name }}
-        </v-row>
-        <v-row class="text-h6">
-          @{{ user.username }}
-        </v-row>
-      </v-col>
     </v-row>
+    <v-container>
+      <v-col class="text-h4 text-center font-weight-light two-line-text">{{ user.name }}</v-col>
+    </v-container>
   </v-card>
 </template>
 
@@ -30,3 +24,13 @@
     props: ["user"],
   }
 </script>
+
+<style scoped>
+  @media screen and (max-width: 960px) {
+    .two-line-text {
+      line-height: 1.5em;
+      height: 3em;
+      overflow: hidden;
+    }
+  }
+</style>
