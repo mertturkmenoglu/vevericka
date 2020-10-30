@@ -20,7 +20,6 @@ export const router = new Router({
     { path: '/settings', component: SettingsPage },
     { path: '/search', component: SearchPage },
     { path: '/messages', component: MessagesPage },
-    { path: '/messages/:username', component: MessagesPage },
 
     // Otherwise redirect to HomePage
     { path: '*', redirect: '/' }
