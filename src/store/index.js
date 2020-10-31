@@ -8,7 +8,7 @@ let user = JSON.parse(localStorage.getItem('user'));
 
 const state = {
   status: user ? { loggedIn: true } : {},
-  user: user ? user : null,
+  user: user ? user : {},
   error: null
 }
 
