@@ -6,7 +6,7 @@
         <tbody>
         <tr v-for="(f, idx) in user.features" :key="idx">
           <td>
-            <v-chip class="mx-2 my-3"  color="#dd2c00" outlined>
+            <v-chip class="mx-2 my-3"  color="deep-orange text--darken-2" outlined>
               <v-icon left> mdi-fire</v-icon>
               {{ f }}
             </v-chip>
@@ -27,7 +27,7 @@
 
 <style scoped>
   .features-header {
-    background-color: #dd2c00;
+    background-color: #E64A19;
     color: white;
   }
 </style>

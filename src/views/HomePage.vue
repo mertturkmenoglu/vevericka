@@ -11,10 +11,10 @@
       </v-col>
     </v-row>
     <div v-show="isLoading" class="py-3 text-center">
-      <v-progress-circular indeterminate color="#dd2c00"/>
+      <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
     </div>
     <div class="text-center mt-16">
-      <v-pagination color="#dd2c00" v-model="page" :length="5"/>
+      <v-pagination color="deep-orange text--darken-2" v-model="page" :length="5"/>
     </div>
   </v-container>
 </template>
@@ -101,7 +101,7 @@
 
 <style scoped>
   .recommendation-title {
-    background-color: #dd2c00;
+    background-color: #E64A19;
     color: white;
   }
 

@@ -54,9 +54,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .card-title {
     color: white;
-    background-color: #dd2c00;
+    background-color: #E64A19;
   }
 </style>

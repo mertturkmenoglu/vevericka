@@ -26,5 +26,8 @@
 </script>
 
 <style scoped>
-
+  .card-title {
+    color: white;
+    background-color: #E64A19;
+  }
 </style>

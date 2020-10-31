@@ -1,5 +1,5 @@
 <template>
-  <v-card dark color="#dd2c00">
+  <v-card dark color="deep-orange text--darken-2">
     <v-row>
       <v-col cols="4" md="2" sm="2">
         <v-img

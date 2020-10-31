@@ -16,22 +16,22 @@
 
     <v-row justify="center" class="text-center">
       <v-col cols="10">
-        <v-row class="text-lg-h3 text-h4 black--text" justify="center">
+        <v-row class="text-lg-h3 text-h4 grey--text text--darken-2" justify="center">
           {{ user.name }}
         </v-row>
-        <v-row class="text-h5" justify="center">@{{ user.username }}</v-row>
+        <v-row class="text-h5 grey--text text--darken-1" justify="center">@{{ user.username }}</v-row>
         <v-row justify="center" class="py-5">
-          <v-btn outlined class="mx-2 mt-2" @click="toggleFollowers">
+          <v-btn outlined class="mx-2 mt-2" color="deep-orange text--darken-2" @click="toggleFollowers">
             <v-chip color="white" label>
               <v-icon left> mdi-account-circle-outline </v-icon>
-              {{ user.followers.length }} followers
+              <span class="grey--text text--darken-2">{{ user.followers.length }} followers</span>
             </v-chip>
           </v-btn>
 
-          <v-btn outlined class="mx-2 mt-2" @click="toggleFollowing">
+          <v-btn outlined class="mx-2 mt-2" color="deep-orange text--darken-2" @click="toggleFollowing">
             <v-chip color="white" label>
               <v-icon left> mdi-account-circle-outline </v-icon>
-              {{ user.following.length }} following
+              <span class="grey--text text--darken-2">{{ user.following.length }} following</span>
             </v-chip>
           </v-btn>
         </v-row>

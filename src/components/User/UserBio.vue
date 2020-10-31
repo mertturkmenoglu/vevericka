@@ -12,9 +12,9 @@
   };
 </script>
 
-<style>
+<style scoped>
   .card-title {
-    background-color: #dd2c00;
+    background-color: #E64A19;
     color: white;
   }
 </style>

@@ -27,7 +27,7 @@
 
 <style scoped>
   .v-card {
-    border: 2px solid #dd2c00 !important;
+    border: 2px solid #E64A19 !important;
   }
 
   @media screen and (max-width: 960px) {

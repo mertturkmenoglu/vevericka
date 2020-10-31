@@ -1,104 +1,130 @@
 <template>
-  <v-container class="my-3">
-    <v-img
-      class="mx-auto"
-      max-height="128"
-      max-width="128"
-      src="../assets/icon_primary.svg"
-    />
-    <div class="app-name text-center mt-3 text-h2">Vevericka</div>
-    <v-card max-width="800" class="mx-auto mt-3 login-card">
-      <v-form ref="form" @submit.prevent="submit">
-        <v-text-field
-          class="px-5 pt-5"
-          label="Email"
-          v-model="email"
-          color="#dd2c00"
-          outlined
-          dense
-        />
-        <v-text-field
-          class="px-5 pt-5"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
-          v-model="password"
-          label="Password"
-          color="#dd2c00"
-          outlined
-          dense
-        />
-        <div class="px-5 pb-5">
-          <div v-show="loginLoading" class="py-3 text-center">
-            <v-progress-circular
-              indeterminate
-              color="red"
-            ></v-progress-circular>
-          </div>
+  <v-container class="fill-height" fluid>
+    <v-row align="center" justify="center" no-gutters>
+      <v-col cols="12">
+        <v-card class="elevation-12 card">
+          <v-row class="fill-height">
+            <v-col cols="12" md="8" class="darken-2 vcenter" :class="`${bgColor}`">
+              <div>
+                <div class="text-center mb-6">
+                  <v-img class="mx-auto" max-height="256" max-width="256" src="../assets/icon_white.svg"/>
+                </div>
+                <v-card-text :class="`${fgColor}--text`">
+                  <h1 class="text-center text-h2 headline mb-3">Vevericka</h1>
+                  <h5 class="text-center overline mb-3">Wingardium Leviosa</h5>
+                </v-card-text>
+              </div>
+            </v-col>
+            <v-col cols="12" md="4" class=" pt-6 pb-6 vcenter">
+              <v-card-text>
+                <h1 class="text-center display-1 mb-10 deep-orange--text text--darken-2" >
+                  Login
+                </h1>
+                <v-form class="login-form-form" @submit.prevent="submit">
+                  <v-text-field
+                      class="pt-5"
+                      label="Email"
+                      v-model="email"
+                      color="deep-orange text--darken-2"
+                      outlined
+                      dense
+                  />
+                  <v-text-field
+                      class="pt-5"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showPassword ? 'text' : 'password'"
+                      @click:append="showPassword = !showPassword"
+                      v-model="password"
+                      label="Password"
+                      color="deep-orange text--darken-2"
+                      outlined
+                      dense
+                  />
+                  <div class="text-center mt-6">
+                    <div v-show="loginLoading" class="py-3 text-center">
+                      <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
+                    </div>
 
-          <v-alert
-            v-show="loginError"
-            border="left"
-            color="red"
-            dense
-            outlined
-            type="error"
-          >
-            Can't login
-          </v-alert>
-          <v-btn @click="submit" color="#dd2c00" outlined block> Login </v-btn>
-        </div>
-      </v-form>
-    </v-card>
-    <div class="text-center mt-3 text-body-1">
-      New user? <router-link to="/register">Register</router-link>
-    </div>
+                    <v-alert v-show="loginError" border="left" color="deep-orange text--darken-2" dense outlined type="error">
+                      Can't login
+                    </v-alert>
+                    <v-btn @click="submit" color="deep-orange text--darken-2" outlined block> Login</v-btn>
+                  </div>
+                  <div class="text-center mt-5 text-body-1">
+                    <span class="grey--text text--darken-1">New user? </span>
+                    <router-link to="/register" class="link">Register</router-link>
+                  </div>
+                </v-form>
+              </v-card-text>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-export default {
-  name: "LoginPage",
-  data: () => ({
-    showPassword: false,
-    email: "",
-    password: "",
-  }),
-  methods: {
-    submit() {
-      this.$store.dispatch("login", {
-        email: this.email,
-        password: this.password,
-      });
+  export default {
+    name: "LoginPage",
+    data: () => ({
+      showPassword: false,
+      email: "",
+      password: "",
+      bgColor: 'deep-orange darken-2',
+      fgColor: 'white',
+    }),
+    methods: {
+      submit() {
+        this.$store.dispatch("login", {
+          email: this.email,
+          password: this.password,
+        });
+      },
     },
-  },
-  computed: {
-    loginLoading() {
-      const value = this.$store.state.status.loggingIn;
-      if (value) {
-        return value;
-      } else {
-        return false;
-      }
+    computed: {
+      loginLoading() {
+        const value = this.$store.state.status.loggingIn;
+        if (value) {
+          return value;
+        } else {
+          return false;
+        }
+      },
+      loginError() {
+        const value = this.$store.state.error;
+        if (value) {
+          return value;
+        } else {
+          return false;
+        }
+      },
     },
-    loginError() {
-      const value = this.$store.state.error;
-      if (value) {
-        return value;
-      } else {
-        return false;
-      }
-    },
-  },
-};
+  };
 </script>
 
-<style>
-.app-name {
-  color: #dd2c00;
-}
+<style scoped lang="scss">
+  a.no-text-decoration {
+    text-decoration: none;
+  }
 
-.login-card {
-  border-color: #dd2c00;
-}
+  .login-form-form {
+    max-width: 25rem;
+    margin: 0 auto;
+  }
+
+  .card {
+    overflow: hidden;
+    height: 97vh;
+  }
+
+  .vcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .link {
+    color: #E64A19;
+  }
 </style>

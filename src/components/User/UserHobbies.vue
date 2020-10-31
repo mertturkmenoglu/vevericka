@@ -5,7 +5,7 @@
       <template v-slot:default>
         <tbody>
         <tr v-for="(h, idx) in user.hobbies" :key="idx">
-          <td>{{ h }}</td>
+          <td><span class="grey--text text--darken-2">{{ h }}</span></td>
         </tr>
         </tbody>
       </template>
@@ -23,6 +23,6 @@
 <style scoped>
   .card-title {
     color: white;
-    background-color: #dd2c00;
+    background-color: #E64A19;
   }
 </style>
