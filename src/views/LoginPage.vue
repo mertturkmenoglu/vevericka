@@ -15,7 +15,7 @@
                 </v-card-text>
               </div>
             </v-col>
-            <v-col cols="12" md="4" class=" pt-6 pb-6 vcenter">
+            <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
               <v-card-text>
                 <h1 class="text-center display-1 mb-10 deep-orange--text text--darken-2" >
                   Login
@@ -114,7 +114,7 @@
   }
 
   .card {
-    overflow: hidden;
+    overflow: auto;
     height: 97vh;
   }
 

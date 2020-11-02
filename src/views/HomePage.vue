@@ -4,7 +4,7 @@
       <h1 class="pa-8">Your Recommendations</h1>
     </v-card>
     <v-row>
-      <v-col v-for="(i, idx) in recommendations[page-1]" :key="idx" xs="12" sm="12" md="6" lg="4">
+      <v-col v-for="(i, idx) in recommendations[page-1]" :key="idx" cols="12" md="4">
         <router-link :to="`/user/${i.username}`">
           <Recommendation :user="i" class=" "/>
         </router-link>
