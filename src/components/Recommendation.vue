@@ -28,6 +28,16 @@
 <style scoped>
   .v-card {
     border: 2px solid #E64A19 !important;
+    transition: all 0.35s ease-out;
+  }
+
+  .v-card:hover {
+    transform: translateY(-5px) scale(1.005);
+    box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
+    0 24px 46px rgba(255, 215, 97, 0.48) !important;
+    background-color: #E64A19 !important;
+    color: #fff;
+    border: 2px solid #c62828 !important;
   }
 
   @media screen and (max-width: 960px) {
