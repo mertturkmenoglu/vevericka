@@ -1,9 +1,9 @@
 <template>
   <v-container class="mx-auto mt-5 message-container" v-if="!otherUsername">
     <v-card color="deep-orange text--darken-2" class="white--text">
-      <v-row align="center mx-5" no-gutters>
+      <v-row align="center py-2 px-3" no-gutters>
         <v-col>
-          <h1>Recent Chats</h1>
+          <h1 class="display-1">Recent Chats</h1>
         </v-col>
         <v-btn outlined color="white" @click="showNewChatDialog = !showNewChatDialog">New Chat</v-btn>
       </v-row>

@@ -1,25 +1,24 @@
 <template>
-  <v-card dark color="deep-orange text--darken-2">
+  <v-card dark color="deep-orange text--darken-2" class="v-card">
     <v-row>
       <v-col cols="4" md="2" sm="2">
         <v-img
           class="rounded-circle ml-3"
           :src="user.image"
-          contain
-          aspect-ratio="1"
+          :aspect-ratio="1"
           elevation="12"
           alt="User image"
           width="128"
         />
       </v-col>
-      <v-col>
+      <v-col align-self="center" class="ml-3">
         <v-row>
-          <div class="text-lg-h4 text-md-h5">
+          <div class="text-h4">
             {{ user.name }}
           </div>
         </v-row>
         <v-row>
-          <div class="text-lg-h5 text-md-h6">@{{ user.username }}</div>
+          <div class="text-body-1">@{{ user.username }}</div>
         </v-row>
       </v-col>
     </v-row>
@@ -33,5 +32,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+  .v-card {
+    transition: all 0.35s ease-out;
+  }
+
+  .v-card:hover {
+    background-color: #FF7043 !important;
+    color: #fff;
+  }
 </style>
