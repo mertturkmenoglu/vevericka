@@ -1,10 +1,13 @@
 <template>
   <v-container class="mx-auto mt-5 message-container" v-if="!otherUsername">
-    <v-row align="center">
-      <h1>Recent Chats</h1>
-      <v-spacer></v-spacer>
-      <v-btn outlined color="#dd2c00" @click="showNewChatDialog = !showNewChatDialog">New Chat</v-btn>
-    </v-row>
+    <v-card color="deep-orange text--darken-2" class="white--text">
+      <v-row align="center mx-5" no-gutters>
+        <v-col>
+          <h1>Recent Chats</h1>
+        </v-col>
+        <v-btn outlined color="white" @click="showNewChatDialog = !showNewChatDialog">New Chat</v-btn>
+      </v-row>
+    </v-card>
     <div v-if="users.length > 0" class="mt-5">
       <div v-for="(u, idx) in users" :key="idx" @click="onCardClick(u)">
         <UserCard :user="u" class="card-style mb-5"/>
