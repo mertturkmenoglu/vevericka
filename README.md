@@ -1,29 +1,11 @@
-# vevericka-web-client
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Vevericka Web Client
+* * *
+* Vevericka is a full-stack chat application.
+* You can see the end product from https://vevericka.herokuapp.com/
+* * *
+## Related Repositories
+* [Vevericka Android Client](https://github.com/mertturkmenoglu/vevericka)
+* [Vevericka Auth Service](https://github.com/mertturkmenoglu/vevericka-auth-service)
+* [Vevericka User Info Service](https://github.com/mertturkmenoglu/user-info-service)
+* [Vevericka Match Service](https://github.com/CagdasAyyildiz/match-service)
+* [Vevericka Message Service](https://github.com/mertturkmenoglu/vevericka-message-service)
