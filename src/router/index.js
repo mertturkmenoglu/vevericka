@@ -7,6 +7,7 @@ import UserPage from '@/views/UserPage'
 import SettingsPage from '@/views/SettingsPage'
 import MessagesPage from '@/views/MessagesPage'
 import SearchPage from '@/views/SearchPage'
+import PasswordResetPage from "../views/PasswordResetPage";
 
 Vue.use(Router);
 
@@ -16,6 +17,7 @@ export const router = new Router({
     { path: '/', component: HomePage },
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
+    { path: '/password', component: PasswordResetPage },
     { path: '/user/:username', name: 'UserPage', component: UserPage },
     { path: '/settings', component: SettingsPage },
     { path: '/search', component: SearchPage },
@@ -27,7 +29,7 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register'];
+  const publicPages = ['/login', '/register', '/password'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 

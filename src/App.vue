@@ -61,7 +61,7 @@
     computed: {
       showNavbar() {
         return !(
-            this.$route.path === "/login" || this.$route.path === "/register"
+            this.$route.path === "/login" || this.$route.path === "/register" || this.$route.path === '/password'
         );
       },
     },

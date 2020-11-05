@@ -20,7 +20,7 @@
                   <h1 class="text-center display-1 mb-10 deep-orange--text text--darken-2" >
                     Register
                   </h1>
-                  <v-form class="login-form-form" @submit.prevent="submit">
+                  <v-form class="reset-form-form" @submit.prevent="submit">
                     <v-text-field
                         class="pt-5"
                         label="Email"
@@ -69,6 +69,10 @@
                     <div class="text-center mt-5 text-body-1">
                       <span class="grey--text text--darken-1">Have an account? </span>
                       <router-link to="/login" class="link">Login</router-link>
+                    </div>
+                    <div class="text-center mt-5 text-body-1">
+                      <span class="grey--text text--darken-1">Forgot password? </span>
+                      <router-link to="/password" class="link">Reset</router-link>
                     </div>
                   </v-form>
                 </v-card-text>
@@ -139,13 +143,14 @@ export default {
     text-decoration: none;
   }
 
-  .login-form-form {
+  .reset-form-form {
     max-width: 25rem;
     margin: 0 auto;
   }
 
   .card {
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     height: 97vh;
   }
 

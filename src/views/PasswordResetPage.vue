@@ -18,9 +18,13 @@
             <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
               <v-card-text>
                 <h1 class="text-center display-1 mb-10 deep-orange--text text--darken-2" >
-                  Login
+                  Forgot Password
                 </h1>
-                <v-form class="login-form-form" @submit.prevent="submit">
+                <v-form class="reset-form-form" @submit.prevent="submit">
+                  <div class="text-center mt-5 text-body-1">
+                    <span class="grey--text text--darken-1">Enter the email address you used to register with. </span>
+                    <span class="grey--text text--darken-1">We will send you a password reset email.</span>
+                  </div>
                   <v-text-field
                       class="pt-5"
                       label="Email"
@@ -29,35 +33,25 @@
                       outlined
                       dense
                   />
-                  <v-text-field
-                      class="pt-5"
-                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="showPassword ? 'text' : 'password'"
-                      @click:append="showPassword = !showPassword"
-                      v-model="password"
-                      label="Password"
-                      color="deep-orange text--darken-2"
-                      outlined
-                      dense
-                  />
-                  <div class="text-center mt-6">
-                    <div v-show="loginLoading" class="py-3 text-center">
-                      <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
-                    </div>
-
-                    <v-alert v-show="loginError" border="left" color="deep-orange text--darken-2" dense outlined type="error">
-                      Can't login
-                    </v-alert>
-                    <v-btn @click="submit" color="deep-orange text--darken-2" outlined block> Login</v-btn>
+                  <div class="text-center mt-3">
+                    <v-btn @click="submit" color="deep-orange text--darken-2" outlined block>Send Reset Code</v-btn>
+                  </div>
+                  <div class="text-center mt-5 text-body-1">
+                    <span class="grey--text text--darken-1">Have an account? </span>
+                    <router-link to="/login" class="link">Login</router-link>
                   </div>
                   <div class="text-center mt-5 text-body-1">
                     <span class="grey--text text--darken-1">New user? </span>
                     <router-link to="/register" class="link">Register</router-link>
                   </div>
-                  <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1">Forgot password? </span>
-                    <router-link to="/password" class="link">Reset</router-link>
-                  </div>
+                  <v-snackbar v-model="snackbar" absolute right>
+                    {{ snackbarMessage }}
+                    <template v-slot:action="{ attrs }">
+                      <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+                        Close
+                      </v-btn>
+                    </template>
+                  </v-snackbar>
                 </v-form>
               </v-card-text>
             </v-col>
@@ -70,41 +64,20 @@
 
 <script>
   export default {
-    name: "LoginPage",
+    name: "PasswordResetPage",
     data: () => ({
-      showPassword: false,
       email: "",
-      password: "",
       bgColor: 'deep-orange darken-2',
       fgColor: 'white',
+      snackbar: false,
+      snackbarMessage: "Currently unavailable",
     }),
     methods: {
       submit() {
-        this.$store.dispatch("login", {
-          email: this.email,
-          password: this.password,
-        });
+        this.snackbar = true;
       },
     },
-    computed: {
-      loginLoading() {
-        const value = this.$store.state.status.loggingIn;
-        if (value) {
-          return value;
-        } else {
-          return false;
-        }
-      },
-      loginError() {
-        const value = this.$store.state.error;
-        if (value) {
-          return value;
-        } else {
-          return false;
-        }
-      },
-    },
-  };
+  }
 </script>
 
 <style scoped lang="scss">
@@ -112,7 +85,7 @@
     text-decoration: none;
   }
 
-  .login-form-form {
+  .reset-form-form {
     max-width: 25rem;
     margin: 0 auto;
   }
@@ -133,3 +106,4 @@
     color: #E64A19;
   }
 </style>
+
