@@ -9,7 +9,8 @@ let user = JSON.parse(localStorage.getItem('user'));
 const state = {
   status: user ? { loggedIn: true } : {},
   user: user ? user : {},
-  error: null
+  error: null,
+  gSearchTerm: '',
 }
 
 const actions = {

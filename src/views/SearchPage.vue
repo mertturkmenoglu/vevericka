@@ -3,7 +3,7 @@
     <v-card class="mx-auto custom-width">
       <v-col>
         <v-text-field
-            v-model="searchTerm"
+            v-model="searchStr"
             append-outer-icon="mdi-magnify"
             outlined
             class="pt-5"
@@ -37,22 +37,29 @@
 
   export default {
     name: "SearchPage",
-    components: {UserCard},
+    components: { UserCard },
     data: () => ({
-      searchTerm: "",
+      searchStr: "",
       showLoading: false,
       error: "",
       searchResults: [],
     }),
+    mounted() {
+      this.searchStr = this.$store.state.gSearchTerm || '';
+
+      if (this.searchStr.length > 0) {
+        this.search();
+      }
+    },
     methods: {
       async search() {
-        if (this.searchTerm === "") {
+        if (this.searchStr === "") {
           return
         }
 
         this.showLoading = true;
         const BASE = "https://user-info-service.herokuapp.com/user";
-        const URL = `${BASE}/q?searchTerm=${this.searchTerm}`;
+        const URL = `${BASE}/q?searchTerm=${this.searchStr}`;
         const response = await fetch(URL);
         const data = await response.json();
 
@@ -71,7 +78,8 @@
 
         this.searchResults = data.users;
         this.error = "";
-        this.searchTerm = "";
+        this.searchStr = "";
+        this.$store.state.gSearchTerm = "";
       },
     },
     beforeRouteUpdate(to, from, next) {

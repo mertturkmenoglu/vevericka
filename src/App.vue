@@ -22,7 +22,7 @@
       </v-row>
 
       <router-link :to="{ name: 'UserPage', params: { username: this.$store.state.user.username } }">
-        <v-btn icon width="48" height="24" class="ml-2" v-bind="attrs" v-on="on">
+        <v-btn icon width="48" height="24" class="ml-2">
           <v-avatar class="border-white hvr">
             <v-img
                 class="rounded-circle mx-auto"
@@ -92,8 +92,12 @@
       logout() {
         this.$store.dispatch("logout");
       },
-      search() {
-        router.push('/search')
+      async search() {
+        if (this.searchTerm.length > 0) {
+          this.$store.state.gSearchTerm = this.searchTerm;
+          this.searchTerm = '';
+          await router.push('/search');
+        }
       },
     },
     computed: {
@@ -116,7 +120,7 @@
   }
 
   .border-white {
-    border: 2px solid white !important;
+    border: 2px solid rgba(255, 255, 255, 0.6) !important;
   }
 
   .hvr {
