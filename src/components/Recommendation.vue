@@ -8,12 +8,17 @@
                aspect-ratio="1"
                elevation="12"
                alt="User image"
-               width="160"
+               width="80"
         />
       </v-col>
     </v-row>
     <v-container>
-      <v-col class="text-h4 text-center font-weight-light two-line-text">{{ user.name }}</v-col>
+      <v-col class="text-h4 text-center two-line-text text-truncate name-text">{{ user.name }}</v-col>
+      <v-row>
+        <v-col class="text-h6 text-center">
+          <v-btn text class="social-text">{{ user.followers.length }} follower{{plural}}</v-btn>
+        </v-col>
+      </v-row>
     </v-container>
   </v-card>
 </template>
@@ -22,22 +27,49 @@
   export default {
     name: "Recommendation",
     props: ["user"],
+    computed: {
+      plural() {
+        const l = this.user?.followers?.length;
+        return (l === 0 || l > 1) ? 's' : '';
+      }
+    },
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  * {
+    --color-primary: #E64A19;
+    --color-secondary: #c62828;
+  }
+
+  .name-text {
+    color: #6F6F6F;
+  }
+
   .v-card {
-    border: 2px solid #E64A19 !important;
+    border: 2px solid var(--color-primary) !important;
     transition: all 0.35s ease-out;
+  }
+
+  .social-text {
+    color: var(--color-primary)
   }
 
   .v-card:hover {
     transform: translateY(-5px) scale(1.005);
     box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
     0 24px 46px rgba(255, 215, 97, 0.48) !important;
-    background-color: #E64A19 !important;
+    background-color: var(--color-primary) !important;
     color: #fff;
-    border: 2px solid #c62828 !important;
+    border: 2px solid var(--color-secondary) !important;
+
+    .name-text {
+      color: #fff;
+    }
+
+    .social-text {
+      color: #fff;
+    }
   }
 
   @media screen and (max-width: 960px) {

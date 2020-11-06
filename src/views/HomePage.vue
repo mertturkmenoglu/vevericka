@@ -1,20 +1,20 @@
 <template>
   <v-container>
-    <v-card class="my-8 recommendation-title">
-      <h1 class="pa-8">Your Recommendations</h1>
+    <v-card class="my-4 recommendation-title">
+      <h2 class="px-8 py-4 text-center font-weight-light">Recommendations</h2>
     </v-card>
     <v-row>
-      <v-col v-for="(i, idx) in recommendations[page-1]" :key="idx" cols="12" md="4">
-        <router-link :to="`/user/${i.username}`">
-          <Recommendation :user="i" class=" "/>
+      <v-col v-for="(u, idx) in recommendations[page-1]" :key="idx" cols="12" md="3">
+        <router-link :to="`/user/${u.username}`">
+          <Recommendation :user="u" class=" "/>
         </router-link>
       </v-col>
     </v-row>
     <div v-show="isLoading" class="py-3 text-center">
       <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
     </div>
-    <div class="text-center mt-16">
-      <v-pagination color="deep-orange text--darken-2" v-model="page" :length="5"/>
+    <div class="text-center mt-8">
+      <v-pagination color="deep-orange text--darken-2" v-model="page" :length="4"/>
     </div>
   </v-container>
 </template>
@@ -54,13 +54,15 @@
 
         if (this.recommendations.length > 0) {
           const arr = [];
+          const pageCount = 4;
+          const itemsPerPage = 8;
 
-          for (let i = 0; i < 5; i++) {
+          for (let i = 0; i < pageCount; i++) {
             const tmp = []
 
-            for (let j = 0; j < 6; j++) {
-              if (this.recommendations[i * 6 + j]) {
-                tmp.push(this.recommendations[i * 6 + j])
+            for (let j = 0; j < itemsPerPage; j++) {
+              if (this.recommendations[i * itemsPerPage + j]) {
+                tmp.push(this.recommendations[i * itemsPerPage + j])
               }
             }
 
