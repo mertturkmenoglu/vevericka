@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card-title class="features-header">Features</v-card-title>
-    <v-simple-table>
+    <v-simple-table v-if="user.features.length > 0">
       <template v-slot:default>
         <tbody>
         <tr v-for="(f, idx) in user.features" :key="idx">
@@ -15,6 +15,7 @@
         </tbody>
       </template>
     </v-simple-table>
+    <div v-else class="text-h6 text-center font-weight-light mt-3">No Features</div>
   </v-card>
 </template>
 

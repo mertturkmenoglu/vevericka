@@ -294,7 +294,7 @@
   export default {
     name: "SettingsPage",
     data: () => ({
-      user: {location: {}},
+      user: {location: {}, gender: "", wish_to_speak: []},
       loadingCompleted: false,
       picker: "",
       newHobby: "",
@@ -345,14 +345,14 @@
         this.loadingCompleted = true;
       },
       filterHobbies(h) {
-        this.user.hobbies = this.user.hobbies.filter((e) => e != h);
+        this.user.hobbies = this.user.hobbies.filter((e) => e !== h);
       },
       filterFeatures(f) {
-        this.user.features = this.user.features.filter((e) => e != f);
+        this.user.features = this.user.features.filter((e) => e !== f);
       },
       filterLanguages(l) {
         this.user.languages = this.user.languages.filter(
-            (e) => e.language != l.language
+            (e) => e.language !== l.language
         );
       },
       addHobby() {
@@ -369,9 +369,9 @@
       },
       addLanguage() {
         const langs = this.user.languages;
-        const cond = langs.indexOf((e) => e.language == this.newLanguage) != -1;
+        const cond = langs.indexOf((e) => e.language === this.newLanguage) !== -1;
 
-        if (cond || this.newLanguage == "" || this.newProficiency == "") {
+        if (cond || this.newLanguage === "" || this.newProficiency === "") {
           return;
         }
 
@@ -397,10 +397,7 @@
         const response = await fetch(URL, requestOptions);
         const data = await response.json();
 
-        if (data.status_code) {
-          return;
-        }
-
+        if (data['status_code']) return;
         window.location.reload();
       },
     },

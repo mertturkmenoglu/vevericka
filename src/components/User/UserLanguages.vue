@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card-title class="card-title">Languages</v-card-title>
-    <v-simple-table>
+    <v-simple-table v-if="user.languages.length > 0">
       <template v-slot:default>
         <thead>
         <tr>
@@ -17,6 +17,7 @@
         </tbody>
       </template>
     </v-simple-table>
+    <div v-else class="text-h6 text-center font-weight-light mt-3">No languages</div>
   </v-card>
 </template>
 

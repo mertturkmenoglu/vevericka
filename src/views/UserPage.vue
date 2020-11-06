@@ -146,7 +146,7 @@
         const response = await fetch(URL, requestOptions);
         const data = await response.json();
 
-        if (data.status_code) return;
+        if (data['status_code']) return;
 
         this.user.followers.push(this.$store.state.user.username);
         window.location.reload();
@@ -164,10 +164,10 @@
         const response = await fetch(URL, requestOptions);
         const data = await response.json();
 
-        if (data.status_code) return;
+        if (data['status_code']) return;
 
         this.user.followers = this.user.followers.filter(
-            (u) => u == this.$store.state.user.username
+            (u) => u === this.$store.state.user.username
         );
 
         window.location.reload();
@@ -194,7 +194,4 @@
 </script>
 
 <style scoped>
-  .card-bg {
-    background-color: #f0f2f5;
-  }
 </style>

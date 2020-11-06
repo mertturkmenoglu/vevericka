@@ -1,5 +1,5 @@
 <template>
-  <v-card  class="pb-5" flat>
+  <v-card flat>
     <v-row v-if="!isProfile" justify="space-around">
       <div v-if="isFriend">
         <v-btn color="deep-orange text--darken-2" class="mx-2" outlined @click="sendMessage()">
@@ -12,7 +12,7 @@
       <div v-else>
         <v-btn color="deep-orange text--darken-2" outlined @click="follow()">
           Follow
-          <v-icon>mdi-account-plus</v-icon>
+          <v-icon class="ml-2">mdi-account-plus</v-icon>
         </v-btn>
       </div>
     </v-row>
@@ -37,11 +37,10 @@
     ],
     computed: {
       isProfile() {
-        return this.user.username == this.$store.state.user.username;
+        return this.user.username === this.$store.state.user.username;
       },
       isFriend() {
-        const thisUsername = this.$store.state.user.username;
-        return this.user.followers.indexOf(thisUsername) !== -1;
+        return this.user.followers.indexOf(this.$store.state.user.username) !== -1;
       },
     },
   }
