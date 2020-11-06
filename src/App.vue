@@ -26,7 +26,7 @@
           <v-avatar class="border-white hvr">
             <v-img
                 class="rounded-circle mx-auto"
-                src="https://github.com/mertturkmenoglu.png"
+                :src="imgURL"
                 contain
                 width="12"
                 aspect-ratio="1"
@@ -87,7 +87,20 @@
     components: {},
     data: () => ({
       searchTerm: "",
+      imgURL: '',
     }),
+    mounted() {
+      this.getImageURL();
+    },
+    updated() {
+      if (this.imgURL === '') {
+        this.getImageURL();
+      }
+
+      if (!this.showNavbar) {
+        this.imgURL = '';
+      }
+    },
     methods: {
       logout() {
         this.$store.dispatch("logout");
@@ -99,12 +112,17 @@
           await router.push('/search');
         }
       },
+      async getImageURL() {
+        const username = this.$store.state.user.username;
+        const BASE = "https://user-info-service.herokuapp.com";
+        const URL = `${BASE}/user/username/${username}`;
+        const response = await fetch(URL);
+        const data = await response.json();
+        const user = data.user[0];
+        this.imgURL = user.image;
+      },
     },
     computed: {
-      userImg() {
-        const img = this.$store.state.user?.image;
-        return img ? img : 'mdi-account-circle-outline'
-      },
       showNavbar() {
         return !(
             this.$route.path === "/login" || this.$route.path === "/register" || this.$route.path === '/password'

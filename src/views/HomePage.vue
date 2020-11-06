@@ -34,13 +34,8 @@
     methods: {
       async fetchUser() {
         const BASE = "https://user-info-service.herokuapp.com";
-        const URL = `https://cors-anywhere.herokuapp.com/${BASE}/user/username/${this.username}`;
-        const requestOptions = {
-          headers: {
-            "Origin": "https://vevericka.herokuapp.com"
-          }
-        }
-        const response = await fetch(URL, requestOptions);
+        const URL = `${BASE}/user/username/${this.username}`;
+        const response = await fetch(URL);
         const data = await response.json();
         this.user = data.user[0];
       },
