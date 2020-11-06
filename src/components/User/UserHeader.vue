@@ -1,16 +1,16 @@
 <template>
-  <v-card>
-    <v-row justify="center">
-      <v-col cols="5">
+  <v-card flat>
+    <v-row>
+      <v-col cols="3" sm="8" class="mx-auto">
         <v-img
-          class="rounded-circle"
-          :src="user.image"
-          contain
-          aspect-ratio="1"
-          elevation="12"
-          alt="User image"
-          width="256"
-        ></v-img>
+            class="rounded-circle mx-auto"
+            :src="user.image"
+            contain
+            aspect-ratio="1"
+            elevation="12"
+            alt="User image"
+            width="256"
+        />
       </v-col>
     </v-row>
 
@@ -37,7 +37,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <UserActions :user="user" :edit="edit" class="mt-5" :follow="follow" :unfollow="unfollow"
+    <UserActions :user="user" :edit="edit" :follow="follow" :unfollow="unfollow"
                  :sendMessage="sendMessage"/>
   </v-card>
 </template>

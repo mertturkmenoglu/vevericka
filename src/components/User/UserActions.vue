@@ -1,5 +1,5 @@
 <template>
-  <v-card  class="pt-5 pb-5" flat>
+  <v-card  class="pb-5" flat>
     <v-row v-if="!isProfile" justify="space-around">
       <div v-if="isFriend">
         <v-btn color="deep-orange text--darken-2" class="mx-2" outlined @click="sendMessage()">

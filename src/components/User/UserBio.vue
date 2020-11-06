@@ -1,7 +1,6 @@
 <template>
-  <v-card>
-    <v-card-title class="card-title">Bio</v-card-title>
-    <v-card-text class="mt-3">{{bio}}</v-card-text>
+  <v-card flat>
+    <v-card-text class="text-h6 font-weight-light">{{bio}}</v-card-text>
   </v-card>
 </template>
 
@@ -13,8 +12,4 @@
 </script>
 
 <style scoped>
-  .card-title {
-    background-color: #E64A19;
-    color: white;
-  }
 </style>

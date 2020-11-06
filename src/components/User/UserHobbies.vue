@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <v-card-title class="card-title">Hobbies</v-card-title>
     <v-simple-table>
       <template v-slot:default>

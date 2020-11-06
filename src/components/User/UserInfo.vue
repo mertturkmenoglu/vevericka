@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <v-card-title class="card-title">Information</v-card-title>
     <v-container>
     <v-row v-if="user.bdate" class="text-body-1 black--text mx-auto mt-2 pl-2">

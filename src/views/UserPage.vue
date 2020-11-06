@@ -1,28 +1,65 @@
 <template>
   <v-container>
-    <v-row align="start" align-content="space-between" justify="space-around" height="35vh">
-      <v-col cols="0" sm="3" height="35vh">
-        <UserHeader
-            :user="user"
-            :toggleFollowers="toggleFollowers"
-            :toggleFollowing="toggleFollowing"
-            :edit="edit"
-            :follow="follow"
-            :unfollow="unfollow"
-            :sendMessage="sendMessage"/>
-        <UserBio :bio="user.bio" class="mt-5"/>
-      </v-col>
+    <v-card flat>
+      <UserHeader
+          :user="user"
+          :toggleFollowers="toggleFollowers"
+          :toggleFollowing="toggleFollowing"
+          :edit="edit"
+          :follow="follow"
+          :unfollow="unfollow"
+          :sendMessage="sendMessage"/>
+      <div class="text-center">
+        <UserBio :bio="user.bio" />
+      </div>
+      <v-tabs color="deep-orange text--darken-2" fixed-tabs>
+        <v-tab>
+          Info
+        </v-tab>
+        <v-tab>
+          Social
+        </v-tab>
+        <v-tab>
+          Languages
+        </v-tab>
 
-      <v-col sm="5" height="35vh">
-        <UserInfo :user="user"  height="35vh"/>
-        <UserLanguages :user="user" class="mt-5"/>
-        <UserWishToSpeak :user="user" class="mt-5"/>
-      </v-col>
-      <v-col cols="0" sm="4" class="">
-        <UserFeatures :user="user" class=""/>
-        <UserHobbies :user="user" class="mt-5"/>
-      </v-col>
-    </v-row>
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-col>
+                <UserInfo :user="user" />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-col cols="12" md="6">
+                <UserFeatures :user="user" />
+              </v-col>
+              <v-col cols="12" md="6">
+                <UserHobbies :user="user" />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-col cols="12" md="6">
+                <UserLanguages :user="user" />
+              </v-col>
+              <v-col cols="12" md="6">
+                <UserWishToSpeak :user="user" />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
 
     <UserListDialog v-if="showFollowers" title="Followers" :list="followers" :onItemClick="toggleFollowers"/>
     <UserListDialog v-if="showFollowing" title="Following" :list="following" :onItemClick="toggleFollowing"/>
