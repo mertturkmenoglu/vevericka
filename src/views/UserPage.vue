@@ -104,6 +104,13 @@
         const URL = `${this.BASE_URL}/username/${username}`;
         const response = await fetch(URL);
         const data = await response.json();
+
+        // No User
+        if (data.user.length <= 0) {
+          await router.push("/");
+          return;
+        }
+
         this.user = data.user[0];
 
         if (this.user.followers.length > 0) {
@@ -183,7 +190,7 @@
         router.push(`/user/${e.target.innerText}`);
       },
     },
-    mounted() {
+    beforeMount() {
       this.fetchUser();
     },
     beforeRouteUpdate(to, from, next) {
