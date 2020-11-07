@@ -2,12 +2,12 @@
   <v-card class="v-card" border="top" elevation="2">
     <v-row>
       <v-col cols="12" class="mx-auto">
-        <v-img class="rounded-circle mx-auto"
+        <v-img class="rounded-circle mx-auto rec-img"
                :src="user.image"
                aspect-ratio="1"
                elevation="12"
                alt="User image"
-               width="256"
+               width="128"
         />
       </v-col>
     </v-row>
@@ -15,7 +15,7 @@
       <v-col class="text-h4 text-center two-line-text text-truncate name-text">{{ user.name }}</v-col>
       <v-row>
         <v-col class="text-h6 text-center">
-          <v-btn text class="social-text">{{ user.followers.length }} follower{{plural}}</v-btn>
+          <div class="social-text">{{ user.followers.length }} follower{{plural}}</div>
         </v-col>
       </v-row>
     </v-container>
@@ -51,7 +51,13 @@
   }
 
   .social-text {
-    color: var(--color-primary)
+    color: var(--color-primary);
+    font-size: 0.9em;
+    opacity: 0;
+  }
+
+  .rec-img {
+    border: 4px solid white !important;
   }
 
   .v-card:hover {
@@ -68,6 +74,7 @@
 
     .social-text {
       color: #fff;
+      opacity: 1;
     }
   }
 
