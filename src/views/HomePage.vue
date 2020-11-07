@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="my-4 recommendation-title">
+    <v-card class="my-4 recommendation-title hidden-lg-and-up">
       <h2 class="px-8 py-4 text-center font-weight-light">Recommendations</h2>
     </v-card>
     <v-row>

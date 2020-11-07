@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-app-bar app color="red darken-3" v-if="showNavbar">
-      <router-link to="/" class="text-decoration-none white--text">
+    <v-app-bar app color="blue-grey lighten-5" v-if="showNavbar">
+      <router-link to="/" class="text-decoration-none deep-orange--text text--darken-2">
         <v-toolbar-title>Vevericka</v-toolbar-title>
       </router-link>
 
@@ -37,7 +37,7 @@
 
       <router-link to="/search">
         <v-btn icon color="white" class="ml-2 hidden-md-and-up">
-          <v-avatar color="#c62828" class="border-white hvr">
+          <v-avatar color="blue-grey lighten-4" class="border-white hvr">
             <v-icon>mdi-magnify</v-icon>
           </v-avatar>
         </v-btn>
@@ -45,7 +45,7 @@
 
       <router-link to="/messages">
         <v-btn icon color="white" class="ml-2">
-          <v-avatar color="#c62828" class="border-white hvr">
+          <v-avatar color="blue-grey lighten-4" class="border-white hvr">
             <v-icon>mdi-android-messages</v-icon>
           </v-avatar>
         </v-btn>
@@ -54,7 +54,7 @@
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" color="white" class="ml-2">
-            <v-avatar color="#c62828" class="border-white hvr">
+            <v-avatar color="blue-grey lighten-4" class="border-white hvr">
               <v-icon>mdi-dots-vertical</v-icon>
             </v-avatar>
           </v-btn>
@@ -148,7 +148,7 @@
 
   .hvr:hover {
     transform: scale(1.005);
-    background-color: #E64A19 !important;
+    background-color: #B0BEC5 !important;
   }
 
   a {

@@ -1,14 +1,13 @@
 <template>
   <v-card class="v-card" border="top" elevation="2">
     <v-row>
-      <v-col cols="5" class="mx-auto">
+      <v-col cols="12" class="mx-auto">
         <v-img class="rounded-circle mx-auto"
                :src="user.image"
-               contain
                aspect-ratio="1"
                elevation="12"
                alt="User image"
-               width="80"
+               width="256"
         />
       </v-col>
     </v-row>
