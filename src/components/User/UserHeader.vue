@@ -14,11 +14,11 @@
 
     <v-row justify="center" class="text-center">
       <v-col cols="10">
-        <v-row class="text-lg-h3 text-h4 grey--text text--darken-2" justify="center">
-          {{ user.name }}
+        <v-row class="em-14 grey--text text--darken-2" justify="center">
+          <span class="em-14">{{ user.name }}</span>
         </v-row>
-        <v-row class="text-h5 grey--text text--darken-1" justify="center">@{{ user.username }}</v-row>
-        <v-row justify="center" class="py-5">
+        <v-row class="em-14 grey--text text--darken-1" justify="center">@{{ user.username }}</v-row>
+        <v-row justify="center">
           <v-btn outlined class="mx-2 mt-2 blue" color="deep-orange text--darken-2 blue" @click="toggleFollowers">
             <v-chip color="blue" label>
               <v-icon left color="white"> mdi-account-circle-outline </v-icon>
@@ -57,5 +57,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.em-14 {
+  font-size: 1.4em;
+}
 </style>

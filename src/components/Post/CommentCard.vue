@@ -52,7 +52,6 @@ export default {
   }),
   methods: {
     async fetchUser() {
-      console.log("Comment", this.comment)
       const BASE = "https://user-info-service.herokuapp.com";
       const URL = `${BASE}/user/username/${this.comment.username}`;
       const response = await fetch(URL);

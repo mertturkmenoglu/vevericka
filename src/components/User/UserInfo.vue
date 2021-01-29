@@ -2,42 +2,42 @@
   <v-card flat>
     <v-card-title class="card-title">Information</v-card-title>
     <v-container>
-      <v-row v-if="user.bdate" class="text-body-1 black--text mx-auto mt-2 pl-2">
+      <v-row v-if="user.bdate" class="em-08 black--text mx-auto mt-2 pl-2">
         <v-icon class="mr-2" large color="deep-orange accent-4">
           mdi-calendar
         </v-icon>
-        <span class="my-1">{{(new Date(user.bdate)).toLocaleDateString() }}</span>
+        <span class="my-1 pt-1">{{(new Date(user.bdate)).toLocaleDateString() }}</span>
       </v-row>
       <v-row v-if="locationExists" :class="userInfo">
         <v-icon class="mr-2" large color="deep-orange accent-4">
           mdi-map-marker
         </v-icon>
-        <span class="my-1">{{ user.location.city }}</span>
+        <span class="my-1 pt-1 em-08">{{ user.location.city }}</span>
       </v-row>
       <v-row v-if="user.job" :class="userInfo">
         <v-icon class="mr-2" large color="deep-orange accent-4">
           mdi-account-tie
         </v-icon>
-        <span class="my-1">{{ user.job }}</span>
+        <span class="my-1 pt-1 em-08">{{ user.job }}</span>
       </v-row>
       <v-row v-if="user.school" :class="userInfo">
         <v-icon class="mr-2" large color="deep-orange accent-4">
           mdi-school
         </v-icon>
-        <span class="my-1">{{ user.school }}</span>
+        <span class="my-1 pt-1 em-08">{{ user.school }}</span>
       </v-row>
       <v-row v-if="user.website" :class="userInfo">
         <v-icon class="mr-2" large color="deep-orange accent-4"> mdi-web</v-icon>
-        <a class="my-1" :href="user.website">{{ user.website }}</a>
+        <a class="my-1 pt-1 em-08" :href="user.website">{{ user.website }}</a>
       </v-row>
       <v-row v-if="user.twitter" :class="userInfo">
         <v-icon class="mr-2" large color="deep-orange accent-4">
           mdi-twitter
         </v-icon>
-        <a class="my-1" :href="twitterLink">@{{ user.twitter }}</a>
+        <a class="my-1 pt-1 em-08" :href="twitterLink">@{{ user.twitter }}</a>
       </v-row>
       <v-row v-if="noInfo">
-        <div class="text-h6 text-center font-weight-light mt-3">No Information</div>
+        <div class="em-08 text-center font-weight-light mt-3">No Information</div>
       </v-row>
     </v-container>
   </v-card>
@@ -93,5 +93,8 @@
   .card-title {
     color: white;
     background-color: #E64A19;
+  }
+  .em-08 {
+    font-size: .8em;
   }
 </style>

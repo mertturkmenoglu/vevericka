@@ -7,11 +7,9 @@
           :key="idx"
           class="text-decoration-none"
         >
-          <h3>
             <router-link :to="`/messages/${m.username}`">
               {{ m.name }}
             </router-link>
-          </h3>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>

@@ -1,17 +1,17 @@
 <template>
   <v-card class="px-5 v-card" flat>
     <v-row>
-      <v-col cols="6" xs="6" sm="6" md="2" lg="1" class="hidden-md-and-down">
+
         <router-link :to="{ name: 'UserPage', params: { username: post.username } }">
           <v-img
-              class="rounded-circle mx-auto"
+              class="rounded-circle ml-3 mr-3 mt-4"
               :src="user.image"
               aspect-ratio="1"
               elevation="12"
               alt="User image"
+              width="40"
           />
         </router-link>
-      </v-col>
 
       <v-col>
         <router-link :to="{ name: 'UserPage', params: { username: post.username } }">

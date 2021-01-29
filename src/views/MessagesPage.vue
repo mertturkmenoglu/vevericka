@@ -1,26 +1,26 @@
 <template>
-  <v-container class="mx-auto mt-5 message-container" v-if="!otherUsername">
+  <v-container class="mx-auto mt-3 message-container" v-if="!otherUsername">
     <v-card color="deep-orange text--darken-2" class="white--text">
       <v-row align="center py-2 px-3" no-gutters>
         <v-col>
-          <h1 class="display-1">Recent Chats</h1>
+          <h1 class="em-13 font-weight-light">Recent Chats</h1>
         </v-col>
-        <v-btn outlined color="white" @click="showNewChatDialog = !showNewChatDialog">New Chat</v-btn>
+        <v-btn outlined color="white" class="font-weight-light" @click="showNewChatDialog = !showNewChatDialog">New Chat</v-btn>
       </v-row>
     </v-card>
-    <div v-if="users.length > 0" class="mt-5">
+    <div v-if="users.length > 0" class="mt-3">
       <div v-for="(u, idx) in users" :key="idx" @click="onCardClick(u)">
-        <UserCard :user="u" class="card-style mb-5"/>
+        <UserCard :user="u" class="card-style mb-3"/>
       </div>
     </div>
-    <div v-else class="mt-5 text-h5 text-center">
+    <div v-else class="mt-5 em-13 font-weight-light text-center">
       No chats
     </div>
     <v-dialog v-model="showNewChatDialog" scrollable max-width="800">
       <v-card>
-        <v-card-title>New Chat</v-card-title>
+        <v-card-title class="red darken-3 white--text">New Chat</v-card-title>
         <v-divider></v-divider>
-        <div v-if="following.length <= 0" class="text-h5 text-center">
+        <div v-if="following.length <= 0" class="em-13 font-weight-light text-center">
           <span>No user</span>
         </div>
         <div v-else>
@@ -38,13 +38,13 @@
 
   <v-container class="mx-auto mt-5 message-container" v-else>
     <v-row align="center">
-      <h1>{{ otherUsername }}</h1>
+      <div class="font-weight-light em-16 ml-3">{{ otherUsername }}</div>
     </v-row>
-    <div v-if="messages.length <= 0" class="text-h5 text-center">
+    <div v-if="messages.length <= 0" class="em-14 font-weight-light text-center">
       <span>No messages</span>
     </div>
     <div v-else class="scrollable-content">
-      <v-card v-for="(m, idx) in messages" :key="idx" class="my-1 mx-5">
+      <v-card v-for="(m, idx) in messages" :key="idx" class="my-1">
         <MessageCard :message="m" class="my-2"/>
       </v-card>
     </div>
@@ -53,6 +53,7 @@
           v-model="newMessage"
           append-outer-icon="mdi-send"
           outlined
+          dense
           class="pt-5"
           color="#dd2c00"
           label="Type a message"
@@ -247,5 +248,13 @@
 
   .message-container {
     width: min(1000px, calc(70% + 100px));
+  }
+
+  .em-13 {
+    font-size: 1.3em;
+  }
+
+  .em-16 {
+    font-size: 1.6em;
   }
 </style>

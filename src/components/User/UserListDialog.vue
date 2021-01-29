@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title class="red darken-3 white--text">{{ title }}</v-card-title>
       <v-divider></v-divider>
-      <div v-if="list.length <= 0" class="text-h5 text-center">
+      <div v-if="list.length <= 0" class="em-1 text-center">
         <span>No user</span>
       </div>
       <div v-else>

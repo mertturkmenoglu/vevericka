@@ -89,7 +89,7 @@ export default {
       return data;
     },
     async createComment() {
-      if (this.commentContent.length > 255) {
+      if (this.commentContent.length > 255 || this.commentContent.length === 0) {
         return;
       }
 

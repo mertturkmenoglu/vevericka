@@ -5,12 +5,12 @@
       <template v-slot:default>
         <tbody>
         <tr v-for="(h, idx) in user.hobbies" :key="idx">
-          <td><span class="grey--text text--darken-2">{{ h }}</span></td>
+          <td><span class="grey--text text--darken-2 em-08">{{ h }}</span></td>
         </tr>
         </tbody>
       </template>
     </v-simple-table>
-    <div v-else class="text-h6 text-center font-weight-light mt-3">No Hobbies</div>
+    <div v-else class="em-08 text-center font-weight-light mt-3">No Hobbies</div>
   </v-card>
 </template>
 
@@ -25,5 +25,8 @@
   .card-title {
     color: white;
     background-color: #E64A19;
+  }
+  .em-08 {
+    font-size: .8em;
   }
 </style>

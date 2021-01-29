@@ -1,7 +1,7 @@
 <template>
   <v-card dark color="deep-orange text--darken-2" class="v-card">
     <v-row>
-      <v-col cols="4" md="2" sm="2">
+      <v-col cols="4" xs="2" sm="2" md="2" lg="2">
         <v-img
             id="user-image"
             class="rounded-circle ml-3"
@@ -14,12 +14,12 @@
       </v-col>
       <v-col align-self="center" class="ml-3">
         <v-row>
-          <div id="user-name-text" class="text-h4">
+          <div id="user-name-text" class="text-h6 font-weight-light">
             {{ user.name }}
           </div>
         </v-row>
         <v-row>
-          <div id="username-text" class="text-body-1">@{{ user.username }}</div>
+          <div id="username-text" class="text-body-1 font-weight-light">@{{ user.username }}</div>
         </v-row>
       </v-col>
     </v-row>
