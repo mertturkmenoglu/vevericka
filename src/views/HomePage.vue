@@ -3,13 +3,22 @@
     <v-container>
       <v-col class="mx-auto" cols="12" sm="8">
         <CreatePost :user="user" @postCreated="postCreatedHandler" />
-        <UserFeed :feed="feed" class="mt-8" />
+        <UserFeed :feed="feed" class="mt-8" @shareLinkCopied="() => this.snackbar = true"/>
       </v-col>
     </v-container>
 
     <div v-show="isLoading" class="py-3 text-center">
       <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
     </div>
+
+    <v-snackbar v-model="snackbar" bottom right>
+      {{ snackbarMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -23,9 +32,9 @@ export default {
   data: () => ({
     user: {},
     feed: [],
-    recommendations: [],
     isLoading: true,
-    page: 1,
+    snackbar: false,
+    snackbarMessage: "Post link copied to your clipboard",
   }),
   methods: {
     async fetchUser() {

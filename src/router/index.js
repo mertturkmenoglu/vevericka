@@ -8,6 +8,7 @@ import SettingsPage from '@/views/SettingsPage'
 import MessagesPage from '@/views/MessagesPage'
 import SearchPage from '@/views/SearchPage'
 import PasswordResetPage from "../views/PasswordResetPage";
+import PostDetailPage from "@/views/PostDetailPage";
 
 Vue.use(Router);
 
@@ -22,6 +23,7 @@ export const router = new Router({
     { path: '/settings', component: SettingsPage },
     { path: '/search', component: SearchPage },
     { path: '/messages', component: MessagesPage },
+    { path: '/post/:id', name: 'PostDetailPage', component: PostDetailPage },
 
     // Otherwise redirect to HomePage
     { path: '*', redirect: '/' }

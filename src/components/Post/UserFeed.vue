@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card v-for="(post, idx) in feed" :key="idx">
-      <PostCard :post="post" class="my-4"/>
+      <PostCard :post="post" class="my-2" @shareLinkCopied="() => $emit('shareLinkCopied')"/>
     </v-card>
   </div>
 </template>
