@@ -11,6 +11,7 @@
               v-model="searchTerm"
               append-icon="mdi-magnify"
               @click:append="search"
+              @keyup.enter.native="search"
               class="mt-6 hidden-sm-and-down"
               solo
               flat
