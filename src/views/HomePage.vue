@@ -3,7 +3,8 @@
     <v-container>
       <v-col class="mx-auto" cols="12" sm="8">
         <CreatePost :user="user" @postCreated="postCreatedHandler" />
-        <UserFeed :feed="feed" class="mt-8" @shareLinkCopied="() => this.snackbar = true"/>
+        <v-divider class="my-4"></v-divider>
+        <UserFeed :feed="feed" @shareLinkCopied="() => this.snackbar = true"/>
       </v-col>
     </v-container>
 

@@ -1,40 +1,43 @@
 <template>
-  <v-card class="pt-2 px-5">
-    <v-row>
-      <v-col cols="1" sm="2" md="2" lg="1" class="mx-auto hidden-xs-only">
+  <v-card class="pt-5 px-5" outlined>
+    <v-card-title>
+      <v-avatar size="40" class="ml-n3">
         <v-img
-            class="rounded-circle mx-auto mt-2"
+            class="rounded-circle"
             :src="user.image"
+            contain
+            width="12"
             aspect-ratio="1"
-            elevation="12"
-            alt="User image"
-        />
-      </v-col>
-      <v-col>
-        <v-textarea
-            outlined
-            rows="1"
-            clearable
-            dense
-            no-resize
-            clear-icon="mdi-close-circle"
-            counter
-            color="deep-orange text--darken-2"
-            type="text"
-            name="create-post-text-area"
-            :rules="postTextAreaRules"
-            label="Say what you must, don't leave it there."
-            v-model="postContent"
-        />
-      </v-col>
-    </v-row>
-    <v-row justify="end">
-      <div class="pb-2 pr-3">
-          <v-btn outlined small dense color="deep-orange text--darken-2" @click="createPost">
-            Post
-          </v-btn>
-      </div>
-    </v-row>
+            alt="Profile"/>
+      </v-avatar>
+      <span class="ml-5 font-weight-light">{{user.name}}</span>
+      <span class="ml-2 font-weight-thin">@{{user.username}}</span>
+    </v-card-title>
+    <v-textarea
+        flat
+        rows="2"
+        clearable
+        auto-grow
+        no-resize
+        solo
+        background-color="#f0f2f5"
+        clear-icon="mdi-close-circle"
+        counter
+
+        color="deep-orange text--darken-2"
+        type="text"
+        name="create-post-text-area"
+        :rules="postTextAreaRules"
+        label="Say what you must, don't leave it there."
+        v-model="postContent"
+    />
+
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn outlined small tile plain color="deep-orange text--darken-2" class="mr-n2" @click="createPost">
+        Post
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 

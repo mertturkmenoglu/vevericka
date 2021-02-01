@@ -1,64 +1,74 @@
 <template>
   <v-container class="mx-auto mt-3 message-container" v-if="!otherUsername">
-    <v-card color="deep-orange text--darken-2" class="white--text">
-      <v-row align="center py-2 px-3" no-gutters>
+    <v-card color="white" class="" flat outlined>
+      <v-row align="center" class="py-2 pr-3" no-gutters>
         <v-col>
-          <h1 class="em-13 font-weight-light">Recent Chats</h1>
+          <h1 class="em-13 font-weight-light deep-orange--text">Recent Chats</h1>
         </v-col>
-        <v-btn outlined color="white" class="font-weight-light" @click="showNewChatDialog = !showNewChatDialog">New Chat</v-btn>
+        <v-btn outlined color="deep-orange text--darken-2" class="font-weight-light mr-n3" @click="showNewChatDialog = !showNewChatDialog">New Chat</v-btn>
       </v-row>
     </v-card>
+
+    <v-divider></v-divider>
+
     <div v-if="users.length > 0" class="mt-3">
       <div v-for="(u, idx) in users" :key="idx" @click="onCardClick(u)">
         <UserCard :user="u" class="card-style mb-3"/>
       </div>
     </div>
-    <div v-else class="mt-5 em-13 font-weight-light text-center">
+    <div v-else-if="!isLoading" class="mt-5 em-13 font-weight-light text-center">
       No chats
     </div>
-    <v-dialog v-model="showNewChatDialog" scrollable max-width="800">
+    <v-dialog v-model="showNewChatDialog" scrollable max-width="600">
       <v-card>
-        <v-card-title class="red darken-3 white--text">New Chat</v-card-title>
-        <v-divider></v-divider>
-        <div v-if="following.length <= 0" class="em-13 font-weight-light text-center">
-          <span>No user</span>
-        </div>
-        <div v-else>
-          <v-card v-for="(u, idx) in following" :key="idx" class="my-1 mx-5" @click="onCardClick(u)">
-            <UserCard :user="u" class="card-style"/>
-          </v-card>
-        </div>
-        <v-divider></v-divider>
+        <v-card-title class="deep-orange text--darken-2 white--text">New Chat</v-card-title>
+        <v-card-text>
+          <div v-if="following.length <= 0" class="em-1 text-center">
+            <span>No user</span>
+          </div>
+          <div v-else>
+            <div v-for="(u, idx) in following" :key="idx" class="my-1 mx-5">
+              <router-link :to="`/user/${u.username}`" @click="onCardClick(u)">
+                <UserCard :user="u" class="card-style"/>
+              </router-link>
+            </div>
+          </div>
+        </v-card-text>
       </v-card>
     </v-dialog>
     <div v-show="isLoading" class="py-3 text-center">
-      <v-progress-circular indeterminate color="#dd2c00"/>
+      <v-progress-circular indeterminate color="deep-orange"/>
     </div>
   </v-container>
 
   <v-container class="mx-auto mt-5 message-container" v-else>
     <v-row align="center">
-      <div class="font-weight-light em-16 ml-3">{{ otherUsername }}</div>
+      <div class="font-weight-thin em-16 ml-3">{{ otherUsername }}</div>
     </v-row>
+    <v-divider></v-divider>
     <div v-if="messages.length <= 0" class="em-14 font-weight-light text-center">
       <span>No messages</span>
     </div>
     <div v-else class="scrollable-content">
-      <v-card v-for="(m, idx) in messages" :key="idx" class="my-1">
+      <div v-for="(m, idx) in messages" :key="idx" class="my-1">
         <MessageCard :message="m" class="my-2"/>
-      </v-card>
+      </div>
     </div>
     <v-col>
       <v-text-field
           v-model="newMessage"
-          append-outer-icon="mdi-send"
+          append-icon="mdi-send"
+          rows="1"
           outlined
+          flat
+          solo
           dense
-          class="pt-5"
-          color="#dd2c00"
+          class="ml-n3 mr-n3 font-weight-thin"
+          color="deep-orange"
           label="Type a message"
           type="text"
-          @click:append-outer="sendMessage"/>
+          @keyup.enter.native="sendMessage"
+          @click:append="sendMessage"/>
     </v-col>
   </v-container>
 </template>
@@ -238,7 +248,7 @@
   }
 
   .scrollable-content {
-    height: 50vh;
+    height: 65vh;
     overflow: auto;
   }
 
@@ -248,6 +258,10 @@
 
   .message-container {
     width: min(1000px, calc(70% + 100px));
+  }
+
+  .em-1 {
+    font-size: 1em;
   }
 
   .em-13 {

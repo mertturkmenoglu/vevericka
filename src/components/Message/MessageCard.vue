@@ -1,13 +1,20 @@
 <template>
-  <v-card class="px-8 v-card" :class="[ isThisUser ? 'this-user' : 'other-user']">
-        <v-row>
-          <div class="em-1 py-3 font-weight-light">
-            {{ message.sent_by }}:
-          </div>
-          <div class="em-1 font-weight-light py-3 ml-4"> {{ message.content }}</div>
-          <v-spacer></v-spacer>
-          <div class="em-1 font-weight-light pt-1 ml-4"> {{ (new Date(message.createdAt)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) }}</div>
-        </v-row>
+  <v-card class="px-4" flat outlined>
+    <v-card-title class="mt-n3">
+      <span class="font-weight-light em-08"  :class="[ isThisUser ? 'this-user' : 'other-user']">
+        {{ isThisUser ? 'You' : message.sent_by}}
+      </span>
+    </v-card-title>
+    <v-card-subtitle class="font-weight-regular em-06 mt-n6">
+     {{formattedMessageTime}} {{ formattedMessageDate }}
+    </v-card-subtitle>
+
+    <v-divider class="mt-n5"></v-divider>
+
+    <v-card-text class="font-weight-light mt-n3 mb-n3">
+      {{ message.content }}
+    </v-card-text>
+
   </v-card>
 </template>
 
@@ -17,28 +24,32 @@
     props: ["message"],
     computed: {
       isThisUser() {
-        return this.$store.state.user.username === this.message.sent_by
+        return this.$store.state.user.username === this.message.sent_by;
+      },
+      formattedMessageTime() {
+        return (new Date(this.message.createdAt)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'})
+      },
+      formattedMessageDate() {
+        return (new Date(this.message.createdAt)).toLocaleDateString([], { month: 'numeric', day: 'numeric', year: 'numeric'})
       }
     }
   }
 </script>
 
 <style scoped>
-  .v-card {
-    border: 1px solid black !important;
-  }
-
   .this-user {
-    background-color: #f45d22;
-    color: white;
+    color: #f45d22;
   }
 
   .other-user {
-    background-color: rgb(247, 247, 247);
     color: black;
   }
 
-  .em-1 {
-    font-size: 1em;
+  .em-08 {
+    font-size: 0.8em;
+  }
+
+  .em-06 {
+    font-size: 0.6em;
   }
 </style>

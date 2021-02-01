@@ -1,47 +1,61 @@
 <template>
-  <v-card flat>
-    <v-row>
-      <v-col cols="8" xs="8" sm="6" md="4" lg="2" class="mx-auto">
-        <v-img
-            class="rounded-circle mx-auto"
-            :src="user.image"
-            aspect-ratio="1"
-            elevation="12"
-            alt="User image"
-        />
-      </v-col>
-    </v-row>
+  <v-card flat outlined>
+    <v-card-title>
+      <v-row>
+        <v-col>
+          <v-row justify="space-around">
+            <v-avatar size="96">
+              <v-img
+                  class="rounded-circle"
+                  :src="user.image"
+                  contain
+                  width="12"
+                  aspect-ratio="1"
+                  alt="Profile"/>
+            </v-avatar>
+          </v-row>
+          <v-row justify="space-around" class="mt-5">
+            <div class="font-weight-light text-h5">{{ user.name }}</div>
+          </v-row>
+          <v-row justify="space-around">
+            <div class="font-weight-thin">@{{ user.username }}</div>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-card-title>
 
-    <v-row justify="center" class="text-center">
-      <v-col cols="10">
-        <v-row class="em-14 grey--text text--darken-2" justify="center">
-          <span class="em-14">{{ user.name }}</span>
-        </v-row>
-        <v-row class="em-14 grey--text text--darken-1" justify="center">@{{ user.username }}</v-row>
-        <v-row justify="center">
-          <v-btn outlined class="mx-2 mt-2 blue" color="deep-orange text--darken-2 blue" @click="toggleFollowers">
-            <v-chip color="blue" label>
-              <v-icon left color="white"> mdi-account-circle-outline </v-icon>
-              <span class="white--text">{{ user.followers.length }} followers</span>
-            </v-chip>
-          </v-btn>
+    <v-card-text>
+      <v-row justify="center" class="text-center">
+        <div class="font-weight-light em-12">{{user.bio}}</div>
+      </v-row>
+    </v-card-text>
 
-          <v-btn outlined class="mx-2 mt-2 blue" color="deep-orange text--darken-2" @click="toggleFollowing">
-            <v-chip color="blue" label>
-              <v-icon left color="white"> mdi-account-circle-outline </v-icon>
-              <span class="white--text">{{ user.following.length }} following</span>
-            </v-chip>
-          </v-btn>
-        </v-row>
-      </v-col>
-    </v-row>
-    <UserActions :user="user" :edit="edit" :follow="follow" :unfollow="unfollow"
-                 :sendMessage="sendMessage"/>
+    <v-card-actions>
+      <v-row>
+        <v-col>
+          <v-row justify="space-around">
+            <v-spacer></v-spacer>
+            <v-btn text color="deep-orange text--darken-2" class="font-weight-light" @click="toggleFollowers">
+              {{ user.followers.length }} followers
+            </v-btn>
+            <v-btn text color="deep-orange text--darken-2" class="font-weight-light" @click="toggleFollowing">
+              {{ user.following.length }} following
+            </v-btn>
+            <v-spacer></v-spacer>
+          </v-row>
+          <v-row justify="space-around" class="mt-5">
+            <UserActions :user="user" :edit="edit" :follow="follow" :unfollow="unfollow"
+                         :sendMessage="sendMessage"/>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import UserActions from "./UserActions";
+
+import UserActions from "@/components/User/UserActions";
 export default {
   name: "UserHeader",
   components: {UserActions},
@@ -54,11 +68,23 @@ export default {
     "unfollow",
     "sendMessage",
   ],
+  computed: {
+    isProfile() {
+      return this.user.username === this.$store.state.user.username;
+    },
+    isFriend() {
+      return this.user.followers.indexOf(this.$store.state.user.username) !== -1;
+    },
+  },
 };
 </script>
 
 <style scoped>
-.em-14 {
-  font-size: 1.4em;
+.em-12 {
+  font-size: 1.2em;
+}
+
+.em-08 {
+  font-size: .8em;
 }
 </style>

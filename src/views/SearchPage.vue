@@ -1,16 +1,25 @@
 <template>
   <v-container>
-    <v-card class="mx-auto custom-width">
+    <v-card class="mx-auto custom-width" flat outlined>
       <v-col>
         <v-text-field
             v-model="searchStr"
-            append-outer-icon="mdi-magnify"
+            append-icon="mdi-magnify"
             outlined
             class="pt-5"
-            color="#dd2c00"
+            color="deep-orange text--darken-2"
             label="Search"
             type="text"
-            @click:append-outer="search"/>
+            flat
+            solo
+            dense
+            clearable
+            single-line
+            :prefix="prefix"
+            @focusin="prefix = '@'"
+            @focusout="prefix = ''"
+            @keyup.enter.native="search"
+            @click:append="search"/>
       </v-col>
     </v-card>
 
@@ -43,6 +52,7 @@
       showLoading: false,
       error: "",
       searchResults: [],
+      prefix: '',
     }),
     mounted() {
       this.searchStr = this.$store.state.gSearchTerm || '';
@@ -78,8 +88,6 @@
 
         this.searchResults = data.users;
         this.error = "";
-        this.searchStr = "";
-        this.$store.state.gSearchTerm = "";
       },
     },
     beforeRouteUpdate(to, from, next) {
