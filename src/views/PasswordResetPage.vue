@@ -17,24 +17,53 @@
             </v-col>
             <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
               <v-card-text>
-                <h1 class="text-center display-1 mb-10 deep-orange--text text--darken-2" >
+                <h1 class="text-center display-1 mb-10 deep-orange--text text--darken-2">
                   Forgot Password
                 </h1>
-                <v-form class="reset-form-form" @submit.prevent="submit">
+                <v-form class="reset-form-form" @submit.prevent="sendPasswordResetEmail">
                   <div class="text-center mt-5 text-body-1">
                     <span class="grey--text text--darken-1">Enter the email address you used to register with. </span>
                     <span class="grey--text text--darken-1">We will send you a password reset email.</span>
                   </div>
                   <v-text-field
+                      v-if="!emailSend"
                       class="pt-5"
+                      type="email"
                       label="Email"
                       v-model="email"
                       color="deep-orange text--darken-2"
                       outlined
                       dense
                   />
+                  <v-text-field
+                      v-if="emailSend"
+                      class="pt-5"
+                      type="text"
+                      label="Password Reset Code"
+                      v-model="resetCode"
+                      color="deep-orange text--darken-2"
+                      outlined
+                      dense
+                  />
+                  <v-text-field
+                      v-if="emailSend"
+                      class="pt-5"
+                      label="Your new password"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showPassword ? 'text' : 'password'"
+                      @click:append="showPassword = !showPassword"
+                      v-model="password"
+                      color="deep-orange text--darken-2"
+                      outlined
+                      dense
+                  />
                   <div class="text-center mt-3">
-                    <v-btn @click="submit" color="deep-orange text--darken-2" outlined block>Send Reset Code</v-btn>
+                    <v-btn v-if="!emailSend" @click="sendPasswordResetEmail" color="deep-orange text--darken-2" outlined block>
+                      Send Reset Code
+                    </v-btn>
+                    <v-btn v-else @click="resetPassword" color="deep-orange text--darken-2" outlined block>
+                      Reset Password
+                    </v-btn>
                   </div>
                   <div class="text-center mt-5 text-body-1">
                     <span class="grey--text text--darken-1">Have an account? </span>
@@ -63,47 +92,101 @@
 </template>
 
 <script>
-  export default {
-    name: "PasswordResetPage",
-    data: () => ({
-      email: "",
-      bgColor: 'deep-orange darken-2',
-      fgColor: 'white',
-      snackbar: false,
-      snackbarMessage: "Currently unavailable",
-    }),
-    methods: {
-      submit() {
+export default {
+  name: "PasswordResetPage",
+  data: () => ({
+    email: "",
+    bgColor: 'deep-orange darken-2',
+    fgColor: 'white',
+    snackbar: false,
+    snackbarMessage: "",
+    emailSend: false,
+    resetCode: "",
+    password: "",
+    showPassword: false,
+  }),
+  methods: {
+    async sendPasswordResetEmail() {
+      const BASE = "https://vevericka-auth-service.herokuapp.com";
+      const URL = `${BASE}/auth/send_password_reset_email`;
+      const requestBody = {
+        email: this.email
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(requestBody)
+      };
+
+      const response = await fetch(URL, requestOptions);
+      const {data} = await response.json();
+
+      if (data.error) {
         this.snackbar = true;
-      },
+        this.snackbarMessage = data.error.message;
+      } else {
+        this.snackbar = true;
+        this.snackbarMessage = data.message;
+        this.emailSend = true;
+      }
     },
-  }
+    async resetPassword() {
+      const BASE = "https://vevericka-auth-service.herokuapp.com";
+      const URL = `${BASE}/auth/reset_password`;
+
+      const requestBody = {
+        email: this.email,
+        code: this.resetCode,
+        newPassword: this.password
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(requestBody)
+      };
+
+      const response = await fetch(URL, requestOptions);
+      const {data} = await response.json();
+
+      if (data.error) {
+        this.snackbar = true;
+        this.snackbarMessage = data.error.message;
+      } else {
+        this.snackbar = true;
+        this.snackbarMessage = data.message;
+        this.emailSend = true;
+      }
+    }
+  },
+}
 </script>
 
 <style scoped lang="scss">
-  a.no-text-decoration {
-    text-decoration: none;
-  }
+a.no-text-decoration {
+  text-decoration: none;
+}
 
-  .reset-form-form {
-    max-width: 25rem;
-    margin: 0 auto;
-  }
+.reset-form-form {
+  max-width: 25rem;
+  margin: 0 auto;
+}
 
-  .card {
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 97vh;
-  }
+.card {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 97vh;
+}
 
-  .vcenter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.vcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .link {
-    color: #E64A19;
-  }
+.link {
+  color: #E64A19;
+}
 </style>
 
