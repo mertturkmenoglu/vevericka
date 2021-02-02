@@ -24,8 +24,6 @@
           Languages
         </v-tab>
 
-        <v-divider class="mt-5"></v-divider>
-
         <v-tab-item>
           <v-container>
             <v-col cols="12" sm="8" class="mx-auto">
