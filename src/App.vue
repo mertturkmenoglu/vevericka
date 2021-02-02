@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="white" v-if="showNavbar" flat short elevate-on-scroll class="custom-app-bar">
+    <v-app-bar app color="white" v-if="showNavbar" flat short elevate-on-scroll>
       <router-link to="/" class="text-decoration-none">
         <v-img
             class="mx-4"
@@ -12,7 +12,7 @@
       </router-link>
 
       <router-link to="/" class="text-decoration-none deep-orange--text text--darken-2">
-        <v-toolbar-title class="font-weight-light hidden-xs-only">Vevericka</v-toolbar-title>
+        <v-toolbar-title class="font-weight-light hidden-xs-only text-h5">Vevericka</v-toolbar-title>
       </router-link>
 
       <v-row justify="end" class="mr-1">
@@ -173,10 +173,6 @@ export default {
 <style scoped>
 .body {
   background-color: white;
-}
-
-.custom-app-bar {
-  border-bottom: 1px solid #E64A19 !important;
 }
 
 a {
