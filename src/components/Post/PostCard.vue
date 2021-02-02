@@ -20,13 +20,13 @@
 
     <v-card-text>
       <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
-        <div v-html="linkify(post.content)" class="text--darken-2 content font-weight-light text-wrap mt-2">
+        <div v-html="linkify(post.content)" class="text--darken-2 ml-n3 content font-weight-light text-wrap mt-2">
         </div>
       </router-link>
     </v-card-text>
 
     <v-card-actions>
-      <div class="content-small font-weight-thin">
+      <div class="content-small font-weight-thin ml-n1">
         {{ (new Date(post.date)).toLocaleDateString() }}
       </div>
       <v-spacer></v-spacer>

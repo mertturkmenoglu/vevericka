@@ -1,15 +1,15 @@
 <template>
   <v-container>
     <div v-if="!loading">
-      <v-card>
-        <PostCard :post="post" class="mb-2" @shareLinkCopied="() => this.snackbar = true"/>
-      </v-card>
-      <v-card class="pt-5 px-5 mb-8">
+      <PostCard :post="post" class="mb-2" @shareLinkCopied="() => this.snackbar = true"/>
+      <v-card class="pt-5 px-5 mb-8" outlined flat>
         <v-textarea
-            outlined
+            flat
             rows="1"
             clearable
             no-resize
+            solo
+            background-color="#f0f2f5"
             clear-icon="mdi-close-circle"
             counter
             color="deep-orange text--darken-2"
@@ -18,8 +18,8 @@
             :rules="commentTextAreaRules"
             label="Add comment"
             v-model="commentContent"
-            append-outer-icon="mdi-send"
-            @click:append-outer="createComment"
+            append-icon="mdi-send"
+            @click:append="createComment"
         />
       </v-card>
 

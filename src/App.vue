@@ -12,7 +12,7 @@
       </router-link>
 
       <router-link to="/" class="text-decoration-none deep-orange--text text--darken-2">
-        <v-toolbar-title class="font-weight-light">Vevericka</v-toolbar-title>
+        <v-toolbar-title class="font-weight-light hidden-xs-only">Vevericka</v-toolbar-title>
       </router-link>
 
       <v-row justify="end" class="mr-1">
@@ -58,6 +58,14 @@
         <v-btn icon color="white" class="hidden-md-and-up">
           <v-avatar class="ml-1">
             <v-icon color="deep-orange text--darken-2" size="32">mdi-magnify</v-icon>
+          </v-avatar>
+        </v-btn>
+      </router-link>
+
+      <router-link to="/explore">
+        <v-btn icon color="#f0f2f5">
+          <v-avatar class="ml-1" size="40">
+            <v-icon color="deep-orange text--darken-2" size="32">mdi-pound</v-icon>
           </v-avatar>
         </v-btn>
       </router-link>

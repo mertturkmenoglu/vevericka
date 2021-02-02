@@ -9,6 +9,7 @@ import MessagesPage from '@/views/MessagesPage'
 import SearchPage from '@/views/SearchPage'
 import PasswordResetPage from "../views/PasswordResetPage";
 import PostDetailPage from "@/views/PostDetailPage";
+import ExplorePage from "@/views/ExplorePage";
 
 Vue.use(Router);
 
@@ -24,6 +25,7 @@ export const router = new Router({
     { path: '/search', component: SearchPage },
     { path: '/messages', component: MessagesPage },
     { path: '/post/:id', name: 'PostDetailPage', component: PostDetailPage },
+    { path: '/explore', component: ExplorePage},
 
     // Otherwise redirect to HomePage
     { path: '*', redirect: '/' }

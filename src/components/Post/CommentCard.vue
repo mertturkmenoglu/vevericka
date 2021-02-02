@@ -1,40 +1,34 @@
 <template>
-  <v-card class="px-5 v-card" v-if="!loading">
-    <v-row>
-      <v-col cols="6" xs="6" sm="6" md="2" lg="1" class="hidden-md-and-down">
-        <router-link :to="{ name: 'UserPage', params: { username: user.username } }">
+  <v-card class="px-5 v-card" v-if="!loading" flat outlined>
+    <router-link :to="{ name: 'UserPage', params: { username: user.username } }">
+      <v-card-title>
+        <v-avatar size="40" class="ml-n3">
           <v-img
-              class="rounded-circle mx-auto"
+              class="rounded-circle"
               :src="user.image"
+              contain
+              width="12"
               aspect-ratio="1"
-              elevation="12"
-              alt="User image"
-          />
-        </router-link>
-      </v-col>
+              alt="Profile"/>
+        </v-avatar>
+        <span class="ml-5 font-weight-light">{{ user.name }}</span>
+        <span class="ml-2 font-weight-thin">@{{ user.username }}</span>
+      </v-card-title>
+    </router-link>
 
-      <v-col>
-        <router-link :to="{ name: 'UserPage', params: { username: user.username } }">
-          <span class="text--darken-2 content text-wrap name-link">
-            {{ user.name }}
-          </span>
-          <span class="content font-weight-light">
-              @{{ user.username }}
-          </span>
-        </router-link>
-        <div class="content-small font-weight-thin">
-          {{ (new Date(comment.date)).toLocaleDateString() }}
-        </div>
+    <v-divider></v-divider>
 
-        <v-divider></v-divider>
+    <v-card-text>
+      <div v-html="linkify(comment.content)" class="text--darken-2 content font-weight-light text-wrap mt-2 ml-n3" />
+    </v-card-text>
 
-        <router-link :to="{ name: 'PostDetailPage', params: { id: comment.postId } }">
-          <div class="text--darken-2 content font-weight-light text-wrap mt-2">
-            {{ comment.content }}
-          </div>
-        </router-link>
-      </v-col>
-    </v-row>
+    <v-card-actions>
+      <div class="content-small font-weight-thin ml-n1">
+        {{ (new Date(comment.date)).toLocaleDateString() }}
+      </div>
+
+      <v-spacer></v-spacer>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -48,7 +42,8 @@ export default {
       name: "",
       image: ""
     },
-    loading: true
+    loading: true,
+    URL_REGEX: /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig,
   }),
   methods: {
     async fetchUser() {
@@ -57,6 +52,9 @@ export default {
       const response = await fetch(URL);
       const data = await response.json();
       this.user = data.user[0];
+    },
+    linkify(text) {
+      return text.replace(this.URL_REGEX, (url) => `<a href="${url}">${url}</a>`);
     },
   },
   mounted() {
