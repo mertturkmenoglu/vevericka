@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-card class="elevation-12 card">
           <v-row class="fill-height">
-            <v-col cols="12" md="8" class="darken-2 vcenter" :class="`${bgColor}`">
+            <v-col cols="12" md="8" class="vcenter" :class="`${bgColor}`">
               <div>
                 <div class="text-center mb-6">
                   <v-img class="mx-auto" max-height="256" max-width="256" src="../assets/icon_white.svg"/>
@@ -17,21 +17,23 @@
             </v-col>
             <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
               <v-card-text>
-                <h1 class="text-center display-1 mb-10 deep-orange--text text--darken-2">
+                <h1 class="text-center display-1 mb-10 deep-orange--text font-weight-light">
                   Forgot Password
                 </h1>
                 <v-form class="reset-form-form" @submit.prevent="sendPasswordResetEmail">
-                  <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1">Enter the email address you used to register with. </span>
-                    <span class="grey--text text--darken-1">We will send you a password reset email.</span>
+                  <div class="text-center mt-5 text-body-2">
+                    <div class="grey--text text--darken-1 font-weight-light">Enter the email address you used to register with. </div>
+                    <div class="grey--text text--darken-1 font-weight-light">We will send you a password reset email.</div>
                   </div>
                   <v-text-field
                       v-if="!emailSend"
                       class="pt-5"
                       type="email"
-                      label="Email"
                       v-model="email"
-                      color="deep-orange text--darken-2"
+                      color="deep-orange"
+                      label="E-mail"
+                      prepend-inner-icon="mdi-email"
+                      :rules="[rules.required, rules.email]"
                       outlined
                       dense
                   />
@@ -58,20 +60,20 @@
                       dense
                   />
                   <div class="text-center mt-3">
-                    <v-btn v-if="!emailSend" @click="sendPasswordResetEmail" color="deep-orange text--darken-2" outlined block>
+                    <v-btn v-if="!emailSend" :disabled="!isSendResetCodeButtonEnabled" @click="sendPasswordResetEmail" color="deep-orange" outlined block>
                       Send Reset Code
                     </v-btn>
-                    <v-btn v-else @click="resetPassword" color="deep-orange text--darken-2" outlined block>
+                    <v-btn v-else @click="resetPassword" color="deep-orange" outlined block>
                       Reset Password
                     </v-btn>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1">Have an account? </span>
-                    <router-link to="/login" class="link">Login</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">Have an account? </span>
+                    <router-link to="/login" class="link font-weight-light">Login</router-link>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1">New user? </span>
-                    <router-link to="/register" class="link">Register</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">New user? </span>
+                    <router-link to="/register" class="link font-weight-light">Register</router-link>
                   </div>
                   <v-snackbar v-model="snackbar" absolute right>
                     {{ snackbarMessage }}
@@ -104,6 +106,14 @@ export default {
     resetCode: "",
     password: "",
     showPassword: false,
+    isSendResetCodeButtonEnabled: false,
+    rules: {
+      required: value => !!value || 'This field is required',
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Please enter a valid email address';
+      },
+    },
   }),
   methods: {
     async sendPasswordResetEmail() {
@@ -159,6 +169,16 @@ export default {
         this.emailSend = true;
       }
     }
+  },
+  watch: {
+    email() {
+      this.isSendResetCodeButtonEnabled = this.computeSendResetCodeButton;
+    },
+  },
+  computed: {
+    computeSendResetCodeButton() {
+      return !!(this.rules.email(this.email) === true && this.email !== '');
+    },
   },
 }
 </script>

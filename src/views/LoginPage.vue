@@ -17,46 +17,53 @@
             </v-col>
             <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
               <v-card-text>
-                <h1 class="text-center display-1 mb-10 deep-orange--text text--darken-2" >
+                <h1 class="text-center display-1 mb-10 deep-orange--text font-weight-light">
                   Login
                 </h1>
                 <v-form class="login-form-form" @submit.prevent="submit">
                   <v-text-field
                       class="pt-5"
-                      label="Email"
+                      label="E-mail"
+                      type="email"
+                      prepend-inner-icon="mdi-email"
                       v-model="email"
-                      color="deep-orange text--darken-2"
+                      :rules="[rules.required, rules.email]"
+                      color="deep-orange"
                       outlined
                       dense
                   />
                   <v-text-field
                       class="pt-5"
+                      :rules="[rules.required]"
                       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="showPassword ? 'text' : 'password'"
                       @click:append="showPassword = !showPassword"
                       v-model="password"
                       label="Password"
-                      color="deep-orange text--darken-2"
+                      prepend-inner-icon="mdi-lock"
+                      color="deep-orange"
                       outlined
                       dense
                   />
                   <div class="text-center mt-6">
-                    <div v-show="loginLoading" class="py-3 text-center">
-                      <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
+                    <div v-if="loginLoading" class="py-3 text-center">
+                      <v-progress-circular indeterminate color="deep-orange"/>
                     </div>
 
-                    <v-alert v-show="loginError" border="left" color="deep-orange text--darken-2" dense outlined type="error">
-                      Can't login
+                    <v-alert v-model="loginError" dense close-icon="mdi-close" type="error" dismissible>
+                      {{ loginError }}
                     </v-alert>
-                    <v-btn @click="submit" color="deep-orange text--darken-2" outlined block> Login</v-btn>
+                    <v-btn @click="submit" color="deep-orange" outlined block :disabled="!isLoginButtonEnabled">
+                      Login
+                    </v-btn>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1">New user? </span>
-                    <router-link to="/register" class="link">Register</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">New user? </span>
+                    <router-link to="/register" class="link font-weight-light">Register</router-link>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1">Forgot password? </span>
-                    <router-link to="/password" class="link">Reset</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">Forgot password? </span>
+                    <router-link to="/password" class="link font-weight-light">Reset</router-link>
                   </div>
                 </v-form>
               </v-card-text>
@@ -69,67 +76,90 @@
 </template>
 
 <script>
-  export default {
-    name: "LoginPage",
-    data: () => ({
-      showPassword: false,
-      email: "",
-      password: "",
-      bgColor: 'deep-orange darken-2',
-      fgColor: 'white',
-    }),
-    methods: {
-      submit() {
-        this.$store.dispatch("login", {
-          email: this.email,
-          password: this.password,
-        });
+export default {
+  name: "LoginPage",
+  data: () => ({
+    showPassword: false,
+    email: "",
+    password: "",
+    bgColor: 'deep-orange',
+    fgColor: 'white',
+    isLoginButtonEnabled: false,
+    rules: {
+      required: value => !!value || 'This field is required',
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Please enter a valid email address';
       },
+    }
+  }),
+  beforeRouteLeave(to, from, next) {
+    this.$store.state.error = null;
+    next();
+  },
+  methods: {
+    submit() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password,
+      });
     },
-    computed: {
-      loginLoading() {
-        const value = this.$store.state.status.loggingIn;
-        if (value) {
-          return value;
-        } else {
-          return false;
-        }
-      },
-      loginError() {
-        const value = this.$store.state.error;
-        if (value) {
-          return value;
-        } else {
-          return false;
-        }
-      },
+  },
+  watch: {
+    email() {
+      this.isLoginButtonEnabled = this.computeLoginButton;
     },
-  };
+    password() {
+      this.isLoginButtonEnabled = this.computeLoginButton;
+    },
+  },
+  computed: {
+    computeLoginButton() {
+      return !!(this.rules.email(this.email) === true && this.email !== '' && this.password !== '');
+    },
+    loginLoading() {
+      const value = this.$store.state.status.loggingIn;
+      if (value) {
+        return value;
+      } else {
+        return false;
+      }
+    },
+    loginError() {
+      const value = this.$store.state.error;
+      if (value) {
+        return value;
+      } else {
+        return false;
+      }
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
-  a.no-text-decoration {
-    text-decoration: none;
-  }
+a.no-text-decoration {
+  text-decoration: none;
+}
 
-  .login-form-form {
-    max-width: 25rem;
-    margin: 0 auto;
-  }
+.login-form-form {
+  max-width: 25rem;
+  margin: 0 auto;
+}
 
-  .card {
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 97vh;
-  }
+.card {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 97vh;
+}
 
-  .vcenter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.vcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .link {
-    color: #E64A19;
-  }
+.link {
+  color: #E64A19;
+}
 </style>
