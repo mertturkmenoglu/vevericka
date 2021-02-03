@@ -80,6 +80,7 @@ export default {
         const comment = await this.fetchComment(commentId);
         this.comments.push(comment)
       }
+      this.comments = this.comments.reverse();
     },
     async fetchComment(commentId) {
       const BASE = "https://vevericka-post-service.herokuapp.com";
@@ -110,10 +111,7 @@ export default {
       };
 
       await fetch(URL, requestOptions);
-      this.loading = true;
-      await this.fetchPost();
-      this.loading = false;
-      this.postContent = '';
+      window.location.reload();
     }
   },
   mounted() {
