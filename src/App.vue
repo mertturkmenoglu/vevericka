@@ -103,6 +103,11 @@
               <v-list-item-title>Contact</v-list-item-title>
             </router-link>
           </v-list-item>
+          <v-list-item>
+            <router-link to="/terms" class="text-decoration-none black--text">
+              <v-list-item-title>Terms</v-list-item-title>
+            </router-link>
+          </v-list-item>
           <v-list-item @click="logout">
             <v-list-item-title>Logout</v-list-item-title>
           </v-list-item>
@@ -162,9 +167,20 @@ export default {
   },
   computed: {
     showNavbar() {
-      return !(
-          this.$route.path === "/login" || this.$route.path === "/register" || this.$route.path === '/password'
-      );
+      const publicPages = [
+          '/login',
+          '/register',
+          '/password',
+          '/terms'
+      ]
+
+      for (let page of publicPages) {
+        if (this.$route.path === page) {
+          return false;
+        }
+      }
+
+      return true;
     },
   },
 };

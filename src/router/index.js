@@ -10,6 +10,7 @@ import SearchPage from '@/views/SearchPage'
 import PasswordResetPage from "../views/PasswordResetPage";
 import PostDetailPage from "@/views/PostDetailPage";
 import ExplorePage from "@/views/ExplorePage";
+import TermsPage from "@/views/TermsPage";
 
 Vue.use(Router);
 
@@ -26,6 +27,7 @@ export const router = new Router({
     { path: '/messages', component: MessagesPage },
     { path: '/post/:id', name: 'PostDetailPage', component: PostDetailPage },
     { path: '/explore', component: ExplorePage},
+    { path: '/terms', component: TermsPage},
 
     // Otherwise redirect to HomePage
     { path: '*', redirect: '/' }
@@ -33,9 +35,13 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/password'];
+  const publicPages = ['/login', '/register', '/password', '/terms'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
+
+  if (to.path === '/terms') {
+    return next();
+  }
 
   if (loggedIn && !authRequired) {
     return next('/');
