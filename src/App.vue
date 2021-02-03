@@ -87,33 +87,112 @@
           </v-btn>
         </template>
 
-        <v-list>
-          <v-list-item>
-            <router-link to="/settings" class="text-decoration-none black--text">
-              <v-list-item-title>Settings</v-list-item-title>
-            </router-link>
+        <v-list flat class="text-decoration-none font-weight-light">
+          <router-link :to="{ name: 'UserPage', params: { username: this.$store.state.user.username } }">
+            <v-list-item>
+              <v-list-item-avatar>
+                <v-avatar size="40">
+                  <v-img
+                      class="rounded-circle mx-auto"
+                      :src="imgURL"
+                      contain
+                      width="12"
+                      aspect-ratio="1"
+                      alt="Profile"/>
+                </v-avatar>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <span class="deep-orange--text">@{{ this.$store.state.user.username.substr(0, 20) }}</span>
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <span class="text-caption font-weight-light">View your profile</span>
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+
+          <v-divider></v-divider>
+
+          <router-link to="/settings">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="deep-orange">mdi-cog-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Settings</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+
+          <v-list-item disabled>
+            <v-list-item-icon>
+              <v-icon disabled color="deep-orange">mdi-brightness-6</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>Dark theme</v-list-item-title>
+              <v-list-item-subtitle>Unavailable</v-list-item-subtitle>
+            </v-list-item-content>
+
+            <v-list-item-action>
+              <v-checkbox disabled color="deep-orange" :input-value="isDarkModeEnabled"/>
+            </v-list-item-action>
           </v-list-item>
-          <v-list-item>
-            <router-link to="/" class="text-decoration-none black--text">
-              <v-list-item-title>Help</v-list-item-title>
-            </router-link>
-          </v-list-item>
-          <v-list-item>
-            <router-link to="/" class="text-decoration-none black--text">
-              <v-list-item-title>Contact</v-list-item-title>
-            </router-link>
-          </v-list-item>
-          <v-list-item>
-            <router-link to="/terms" class="text-decoration-none black--text">
-              <v-list-item-title>Terms</v-list-item-title>
-            </router-link>
-          </v-list-item>
+
           <v-list-item @click="logout">
-            <v-list-item-title>Logout</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon color="deep-orange">mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
+
+          <v-divider></v-divider>
+
+          <router-link to="/help">
+            <v-list-item disabled>
+              <v-list-item-icon>
+                <v-icon disabled color="deep-orange">mdi-help-circle-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Help</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+          <router-link to="/contact">
+            <v-list-item disabled>
+              <v-list-item-icon>
+                <v-icon disabled color="deep-orange">mdi-at</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Contact</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+          <router-link to="/terms">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="deep-orange">mdi-book-open-blank-variant</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Terms</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+          <router-link to="/privacy">
+            <v-list-item disabled>
+              <v-list-item-icon>
+                <v-icon disabled color="deep-orange">mdi-lock</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Privacy</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
         </v-list>
       </v-menu>
-
     </v-app-bar>
 
     <v-main class="body">
@@ -131,7 +210,8 @@ export default {
   data: () => ({
     searchTerm: "",
     imgURL: '',
-    isAppBarSearchFocused: false
+    isAppBarSearchFocused: false,
+    isDarkModeEnabled: false,
   }),
   mounted() {
     this.getImageURL();
@@ -168,10 +248,10 @@ export default {
   computed: {
     showNavbar() {
       const publicPages = [
-          '/login',
-          '/register',
-          '/password',
-          '/terms'
+        '/login',
+        '/register',
+        '/password',
+        '/terms'
       ]
 
       for (let page of publicPages) {
