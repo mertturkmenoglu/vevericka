@@ -12,6 +12,12 @@
       <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
     </div>
 
+    <v-fab-transition>
+      <v-btn v-if="showFab" fab bottom small absolute fixed color="deep-orange" dark right class="mb-10" @click="scrollToTop">
+        <v-icon>mdi-chevron-up</v-icon>
+      </v-btn>
+    </v-fab-transition>
+
     <v-snackbar v-model="snackbar" bottom right>
       {{ snackbarMessage }}
       <template v-slot:action="{ attrs }">
@@ -35,6 +41,7 @@ export default {
     feed: [],
     isLoading: true,
     snackbar: false,
+    showFab: false,
     snackbarMessage: "Post link copied to your clipboard",
   }),
   methods: {
@@ -57,7 +64,23 @@ export default {
       this.isLoading = true;
       await this.fetchFeed();
       this.isLoading = false;
-    }
+    },
+    handleScroll() {
+       this.showFab = window.scrollY > 0
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    },
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   mounted() {
     this.fetchUser().then( async () => {
@@ -68,8 +91,8 @@ export default {
   computed: {
     username() {
       return this.$store.state.user.username;
-    }
-  }
+    },
+  },
 };
 </script>
 
