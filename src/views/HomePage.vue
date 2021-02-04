@@ -4,7 +4,14 @@
       <v-col class="mx-auto" cols="12" sm="8">
         <CreatePost :user="user" @postCreated="postCreatedHandler" />
         <v-divider class="my-4"></v-divider>
-        <UserFeed :feed="feed" @shareLinkCopied="() => this.snackbar = true"/>
+        <UserFeed
+            :feed="feed"
+            @shareLinkCopied="shareLinkCopied"
+            @shareDM="shareDM"
+            @postSaved="postSaved"
+            @postReported="postReported"
+            @postDeleted="postDeleted"
+            @userUnfollowed="userUnfollowed"/>
       </v-col>
     </v-container>
 
@@ -42,7 +49,7 @@ export default {
     isLoading: true,
     snackbar: false,
     showFab: false,
-    snackbarMessage: "Post link copied to your clipboard",
+    snackbarMessage: "",
   }),
   methods: {
     async fetchUser() {
@@ -74,6 +81,30 @@ export default {
         left: 0,
         behavior: 'smooth'
       });
+    },
+    shareLinkCopied() {
+      this.snackbar = true;
+      this.snackbarMessage = "Post link copied to your clipboard";
+    },
+    shareDM() {
+      this.snackbar = true;
+      this.snackbarMessage = "shareDM";
+    },
+    postSaved() {
+      this.snackbar = true;
+      this.snackbarMessage = "postSaved";
+    },
+    postReported() {
+      this.snackbar = true;
+      this.snackbarMessage = "postReported";
+    },
+    postDeleted() {
+      this.snackbar = true;
+      this.snackbarMessage = "postDeleted";
+    },
+    userUnfollowed() {
+      this.snackbar = true;
+      this.snackbarMessage = "userUnfollowed";
     },
   },
   created() {

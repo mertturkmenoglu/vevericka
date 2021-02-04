@@ -1,7 +1,16 @@
 <template>
   <div>
     <div v-for="(post, idx) in feed" :key="idx">
-      <PostCard :post="post" class="my-2" @shareLinkCopied="() => $emit('shareLinkCopied')"/>
+      <PostCard
+          :post="post"
+          class="my-2"
+          @shareLinkCopied="() => $emit('shareLinkCopied')"
+          @shareDM="() => $emit('shareDM')"
+          @postSaved="() => $emit('postSaved')"
+          @postReported="() => $emit('postReported')"
+          @postDeleted="() => $emit('postDeleted')"
+          @userUnfollowed="() => $emit('userUnfollowed')"
+      />
     </div>
   </div>
 </template>
