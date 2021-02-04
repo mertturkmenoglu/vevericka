@@ -40,7 +40,7 @@
         </v-col>
       </v-row>
 
-      <router-link :to="{ name: 'UserPage', params: { username: this.$store.state.user.username } }">
+      <router-link :to="{ name: 'UserPage', params: { username: this.$store.state.user.username } }" class="mr-1">
         <v-btn icon width="40" height="40">
           <v-avatar size="40">
             <v-img
@@ -55,17 +55,17 @@
       </router-link>
 
       <router-link to="/search">
-        <v-btn icon color="white" class="hidden-md-and-up">
+        <v-btn icon color="deep-orange" class="hidden-md-and-up">
           <v-avatar class="ml-1">
-            <v-icon color="deep-orange text--darken-2" size="32">mdi-magnify</v-icon>
+            <v-icon color="deep-orange" size="32">mdi-magnify</v-icon>
           </v-avatar>
         </v-btn>
       </router-link>
 
       <router-link to="/explore">
-        <v-btn icon color="#f0f2f5">
+        <v-btn icon color="deep-orange">
           <v-avatar class="ml-1" size="40">
-            <v-icon color="deep-orange text--darken-2" size="32">mdi-pound</v-icon>
+            <v-icon color="deep-orange" size="32">mdi-pound</v-icon>
           </v-avatar>
         </v-btn>
       </router-link>
@@ -87,18 +87,18 @@
       </router-link>
 
       <router-link to="/messages">
-        <v-btn icon color="#f0f2f5">
+        <v-btn icon color="deep-orange">
           <v-avatar class="ml-1" size="40">
-            <v-icon color="deep-orange text--darken-2" size="32">mdi-email-outline</v-icon>
+            <v-icon color="deep-orange" size="32">mdi-email-outline</v-icon>
           </v-avatar>
         </v-btn>
       </router-link>
 
       <v-menu left bottom nudge-left="24" nudge-bottom="48">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
+          <v-btn icon v-bind="attrs" v-on="on" color="deep-orange">
             <v-avatar size="40">
-              <v-icon color="deep-orange text--darken-2" size="32">mdi-chevron-down</v-icon>
+              <v-icon color="deep-orange" size="32">mdi-chevron-down</v-icon>
             </v-avatar>
           </v-btn>
         </template>

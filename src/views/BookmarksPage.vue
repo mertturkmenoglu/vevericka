@@ -2,6 +2,11 @@
   <v-container>
     <v-container>
       <v-col class="mx-auto" cols="12" sm="8">
+        <h2 class="font-weight-light">
+          <v-icon x-large color="deep-orange">mdi-bookmark</v-icon>
+          Your Bookmarks
+        </h2>
+        <v-divider></v-divider>
         <div v-for="(post, idx) in posts" :key="idx">
           <BookmarkCard
               :post="post"
@@ -9,6 +14,12 @@
               class="my-2"
               @bookmarkRemoved="bookmarkRemoved"
           />
+        </div>
+        <div v-if="!loading && posts.length === 0" class="text-center mt-3">
+          <h2 class="font-weight-light">
+            No bookmarks here.
+          </h2>
+          <v-icon x-large color="deep-orange">mdi-emoticon-sad-outline</v-icon>
         </div>
       </v-col>
     </v-container>
@@ -59,7 +70,7 @@ export default {
       const BASE = "https://vevericka-post-service.herokuapp.com";
       const URL = `${BASE}/bookmark/user/${this.$store.state.user.username}`;
       const response = await fetch(URL);
-      const { data } = await response.json();
+      const {data} = await response.json();
       this.bookmarks = data;
     },
     async fetchPosts() {
@@ -67,7 +78,7 @@ export default {
       for (let b of this.bookmarks) {
         const URL = `${BASE}/post/${b.postId}`;
         const response = await fetch(URL);
-        const { data } = await response.json();
+        const {data} = await response.json();
         this.posts.push(data);
       }
       console.log(this.bookmarks)
