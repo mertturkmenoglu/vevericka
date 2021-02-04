@@ -65,17 +65,17 @@
 
           <v-divider></v-divider>
 
-          <v-list-item v-if="isThisUserPost" @click="deletePost" disabled>
+          <v-list-item v-if="isThisUserPost" @click="deletePost">
             <v-list-item-icon>
-              <v-icon disabled>mdi-delete-outline</v-icon>
+              <v-icon>mdi-delete-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Delete</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item v-else @click="unfollowUser">
-            <v-list-item-icon disabled>
-              <v-icon color="amber" disabled>mdi-account-off-outline</v-icon>
+            <v-list-item-icon>
+              <v-icon color="amber">mdi-account-off-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Unfollow user</v-list-item-title>
@@ -158,10 +158,36 @@ export default {
     reportPost() {
       this.$emit("postReported");
     },
-    deletePost() {
+    async deletePost() {
+      const BASE = "https://vevericka-post-service.herokuapp.com";
+      const POST_URL = `${BASE}/post/${this.post.id}`;
+      const requestOptions = {
+        method: 'DELETE',
+      };
+
+      await fetch(POST_URL, requestOptions);
       this.$emit("postDeleted");
     },
-    unfollowUser() {
+    async unfollowUser() {
+      const BASE = "https://user-info-service.herokuapp.com/user";
+      const thisUsername = this.$store.state.user.username;
+      const otherUsername = this.post.username;
+      const requestBody = {
+        thisUsername,
+        otherUsername,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(requestBody),
+      };
+
+      const URL = `${BASE}/unfollow/`;
+      const response = await fetch(URL, requestOptions);
+      const data = await response.json();
+
+      if (data['status_code']) return;
       this.$emit("userUnfollowed");
     },
   },

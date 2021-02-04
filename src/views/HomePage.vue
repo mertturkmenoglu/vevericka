@@ -100,11 +100,11 @@ export default {
     },
     postDeleted() {
       this.snackbar = true;
-      this.snackbarMessage = "postDeleted";
+      this.snackbarMessage = "Post deleted";
     },
     userUnfollowed() {
       this.snackbar = true;
-      this.snackbarMessage = "userUnfollowed";
+      this.snackbarMessage = "Unfollowed";
     },
   },
   created() {
