@@ -88,7 +88,7 @@ export default {
     },
     shareDM() {
       this.snackbar = true;
-      this.snackbarMessage = "shareDM";
+      this.snackbarMessage = "Message sent";
     },
     postSaved() {
       this.snackbar = true;

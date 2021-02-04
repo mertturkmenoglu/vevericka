@@ -36,9 +36,9 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item @click="shareDM" disabled>
+          <v-list-item @click="dmDialog = true">
             <v-list-item-icon>
-              <v-icon color="deep-orange" disabled>mdi-email-outline</v-icon>
+              <v-icon color="deep-orange">mdi-email-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Send via DM</v-list-item-title>
@@ -146,13 +146,31 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="deletePostDialog = false">
+          <v-btn color="primary" text @click="unfollowDialog = false">
             Cancel
           </v-btn>
           <v-btn color="red" text @click="unfollowUser">
             Unfollow
           </v-btn>
         </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dmDialog" scrollable width="400">
+      <v-card>
+        <v-card-title class="deep-orange white--text">Send via DM</v-card-title>
+        <v-card-text>
+          <div v-if="user.following.length <= 0" class="em-1 text-center">
+            <span>No user</span>
+          </div>
+          <div v-else>
+            <div v-for="(u, idx) in user.following" :key="idx" class="my-1">
+              <v-list-item @click="shareDM(u)">
+                <v-list-item-title>{{u}}</v-list-item-title>
+              </v-list-item>
+            </div>
+          </div>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </v-card>
@@ -163,12 +181,15 @@ export default {
   name: "PostCard",
   props: ["post"],
   data: () => ({
-    user: {},
+    user: {
+      following: []
+    },
     URL_REGEX: /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig,
     USERNAME_REGEX: /@[-A-Z0-9_]+/ig,
     HASHTAG_REGEX: /#[-A-Z0-9_]+/ig,
     deletePostDialog: false,
     unfollowDialog: false,
+    dmDialog: false,
   }),
   methods: {
     makeHTML(text) {
@@ -199,8 +220,54 @@ export default {
       document.body.removeChild(tmpInput);
       this.$emit("shareLinkCopied");
     },
-    shareDM() {
-      this.$emit("shareDM");
+    async sendMessage(msg, otherUsername) {
+      if (msg === "") return false;
+      let chatId = await this.getChatId(otherUsername);
+
+      if (!chatId) {
+        chatId = await this.createNewChat();
+      }
+
+      const BASE = "https://vevericka-message-service.herokuapp.com";
+      const URL = `${BASE}/message/new_message/${chatId}`;
+
+      const requestBody = {
+        content: msg,
+        sent_by: this.post.username,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(requestBody),
+      };
+
+      const response = await fetch(URL, requestOptions);
+      const data = await response.json();
+
+      return !data.status_code;
+    },
+    async getChatId(otherUsername) {
+      const BASE = "https://vevericka-message-service.herokuapp.com";
+      const URL = `${BASE}/message/get_chat/${this.post.username}/${otherUsername}`;
+
+      const response = await fetch(URL);
+      const data = await response.json();
+
+      if (data['chat']) {
+        return data['chat']['_id'];
+      }
+
+      return undefined;
+    },
+    async shareDM(u) {
+      this.dmDialog = false;
+      const msg = `https://vevericka.herokuapp.com/post/${this.post.id}`;
+      const result = await this.sendMessage(msg, u)
+
+      if (result) {
+        this.$emit("shareDM");
+      }
     },
     savePost() {
       this.$emit("postSaved");
