@@ -11,7 +11,7 @@ import PasswordResetPage from "../views/PasswordResetPage";
 import PostDetailPage from "@/views/PostDetailPage";
 import ExplorePage from "@/views/ExplorePage";
 import TermsPage from "@/views/TermsPage";
-import SavedPostsPage from "@/views/SavedPostsPage";
+import BookmarksPage from "@/views/BookmarksPage";
 import NotificationsPage from "@/views/NotificationsPage";
 
 Vue.use(Router);
@@ -29,7 +29,7 @@ export const router = new Router({
         {path: '/messages', component: MessagesPage},
         {path: '/post/:id', name: 'PostDetailPage', component: PostDetailPage},
         {path: '/explore', component: ExplorePage},
-        {path: '/saved', component: SavedPostsPage},
+        {path: '/bookmarks', component: BookmarksPage},
         {path: '/notifications', component: NotificationsPage},
         {path: '/terms', component: TermsPage},
 

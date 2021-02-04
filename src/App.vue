@@ -78,7 +78,7 @@
         </v-btn>
       </router-link>
 
-      <router-link to="/saved">
+      <router-link to="/bookmarks">
         <v-btn icon color="deep-orange">
           <v-avatar class="ml-1" size="40">
             <v-icon color="deep-orange" size="32">mdi-bookmark-outline</v-icon>

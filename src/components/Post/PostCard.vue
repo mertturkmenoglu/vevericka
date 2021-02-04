@@ -45,9 +45,9 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item @click="savePost" disabled>
+          <v-list-item @click="savePost">
             <v-list-item-icon>
-              <v-icon color="deep-orange" disabled>mdi-bookmark-outline</v-icon>
+              <v-icon color="deep-orange">mdi-bookmark-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Save</v-list-item-title>
@@ -269,7 +269,21 @@ export default {
         this.$emit("shareDM");
       }
     },
-    savePost() {
+    async savePost() {
+      const BASE = "https://vevericka-post-service.herokuapp.com/";
+      const URL = `${BASE}/bookmark/`;
+      const requestBody = {
+        username: this.$store.state.user.username,
+        postId: this.post.id,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(requestBody),
+      }
+
+      await fetch(URL, requestOptions);
       this.$emit("postSaved");
     },
     reportPost() {

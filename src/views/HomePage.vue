@@ -92,7 +92,7 @@ export default {
     },
     postSaved() {
       this.snackbar = true;
-      this.snackbarMessage = "postSaved";
+      this.snackbarMessage = "Saved";
     },
     postReported() {
       this.snackbar = true;
