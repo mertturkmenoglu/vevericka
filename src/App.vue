@@ -177,10 +177,11 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
+
           <router-link to="/contact">
-            <v-list-item disabled>
+            <v-list-item>
               <v-list-item-icon>
-                <v-icon disabled color="deep-orange">mdi-at</v-icon>
+                <v-icon color="deep-orange">mdi-at</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>Contact</v-list-item-title>

@@ -13,6 +13,7 @@ import ExplorePage from "@/views/ExplorePage";
 import TermsPage from "@/views/TermsPage";
 import BookmarksPage from "@/views/BookmarksPage";
 import NotificationsPage from "@/views/NotificationsPage";
+import ContactPage from "@/views/ContactPage";
 
 Vue.use(Router);
 
@@ -32,6 +33,7 @@ export const router = new Router({
         {path: '/bookmarks', component: BookmarksPage},
         {path: '/notifications', component: NotificationsPage},
         {path: '/terms', component: TermsPage},
+        {path: '/contact', component: ContactPage},
 
         // Otherwise redirect to HomePage
         {path: '*', redirect: '/'}
