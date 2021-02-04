@@ -70,10 +70,26 @@
         </v-btn>
       </router-link>
 
+      <router-link to="/notifications">
+        <v-btn icon color="deep-orange">
+          <v-avatar class="ml-1" size="40">
+            <v-icon color="deep-orange" size="32">mdi-bell-outline</v-icon>
+          </v-avatar>
+        </v-btn>
+      </router-link>
+
+      <router-link to="/saved">
+        <v-btn icon color="deep-orange">
+          <v-avatar class="ml-1" size="40">
+            <v-icon color="deep-orange" size="32">mdi-bookmark-outline</v-icon>
+          </v-avatar>
+        </v-btn>
+      </router-link>
+
       <router-link to="/messages">
         <v-btn icon color="#f0f2f5">
           <v-avatar class="ml-1" size="40">
-            <v-icon color="deep-orange text--darken-2" size="32">mdi-android-messages</v-icon>
+            <v-icon color="deep-orange text--darken-2" size="32">mdi-email-outline</v-icon>
           </v-avatar>
         </v-btn>
       </router-link>
