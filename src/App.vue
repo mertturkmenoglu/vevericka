@@ -78,16 +78,16 @@
         </v-btn>
       </router-link>
 
-      <v-menu left bottom>
+      <v-menu left bottom nudge-left="24" nudge-bottom="48">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
             <v-avatar size="40">
-              <v-icon color="deep-orange text--darken-2" size="32">mdi-dots-vertical</v-icon>
+              <v-icon color="deep-orange text--darken-2" size="32">mdi-chevron-down</v-icon>
             </v-avatar>
           </v-btn>
         </template>
 
-        <v-list flat class="text-decoration-none font-weight-light">
+        <v-list flat class="text-decoration-none font-weight-light" dense>
           <router-link :to="{ name: 'UserPage', params: { username: this.$store.state.user.username } }">
             <v-list-item>
               <v-list-item-avatar>
@@ -171,6 +171,16 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
+          <router-link to="/report">
+            <v-list-item disabled>
+              <v-list-item-icon>
+                <v-icon disabled color="deep-orange">mdi-flag-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Report</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
           <router-link to="/terms">
             <v-list-item>
               <v-list-item-icon>
@@ -191,6 +201,28 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
+
+          <v-divider></v-divider>
+
+          <a :href="statusServiceUrl">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="deep-orange">mdi-thermostat</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Status</v-list-item-title>
+                <v-list-item-subtitle>View service status</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </a>
+
+          <v-divider></v-divider>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle class="em-08">Vevericka  &copy; 2021</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -212,6 +244,7 @@ export default {
     imgURL: '',
     isAppBarSearchFocused: false,
     isDarkModeEnabled: false,
+    statusServiceUrl: "https://veverickastatus.surge.sh/"
   }),
   mounted() {
     this.getImageURL();
@@ -273,5 +306,9 @@ export default {
 
 a {
   text-decoration: none;
+}
+
+.em-08 {
+  font-size: 0.7em !important;
 }
 </style>
