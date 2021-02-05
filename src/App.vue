@@ -15,7 +15,7 @@
         <v-toolbar-title class="font-weight-light hidden-xs-only text-h5">Vevericka</v-toolbar-title>
       </router-link>
 
-      <v-row justify="end" class="mr-1">
+      <v-row justify="end">
         <v-col cols="12" sm="3">
           <v-text-field
               v-model="searchTerm"
@@ -40,20 +40,6 @@
         </v-col>
       </v-row>
 
-      <router-link :to="{ name: 'UserPage', params: { username: this.$store.state.user.username } }" class="mr-1">
-        <v-btn icon width="40" height="40">
-          <v-avatar size="40">
-            <v-img
-                class="rounded-circle mx-auto"
-                :src="imgURL"
-                contain
-                width="12"
-                aspect-ratio="1"
-                alt="Profile"/>
-          </v-avatar>
-        </v-btn>
-      </router-link>
-
       <router-link to="/search">
         <v-btn icon color="deep-orange" class="hidden-md-and-up">
           <v-avatar class="ml-1">
@@ -62,26 +48,10 @@
         </v-btn>
       </router-link>
 
-      <router-link to="/explore">
-        <v-btn icon color="deep-orange">
-          <v-avatar class="ml-1" size="40">
-            <v-icon color="deep-orange" size="32">mdi-pound</v-icon>
-          </v-avatar>
-        </v-btn>
-      </router-link>
-
       <router-link to="/notifications">
         <v-btn icon color="deep-orange">
           <v-avatar class="ml-1" size="40">
             <v-icon color="deep-orange" size="32">mdi-bell-outline</v-icon>
-          </v-avatar>
-        </v-btn>
-      </router-link>
-
-      <router-link to="/bookmarks">
-        <v-btn icon color="deep-orange">
-          <v-avatar class="ml-1" size="40">
-            <v-icon color="deep-orange" size="32">mdi-bookmark-outline</v-icon>
           </v-avatar>
         </v-btn>
       </router-link>
@@ -129,6 +99,29 @@
           </router-link>
 
           <v-divider></v-divider>
+
+          <router-link to="/explore">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="deep-orange">mdi-pound</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Explore</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+
+
+          <router-link to="/bookmarks">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon color="deep-orange">mdi-bookmark-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Bookmarks</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
 
           <router-link to="/settings">
             <v-list-item>
