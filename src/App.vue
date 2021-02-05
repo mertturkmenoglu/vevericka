@@ -189,9 +189,9 @@
             </v-list-item>
           </router-link>
           <router-link to="/report">
-            <v-list-item disabled>
+            <v-list-item>
               <v-list-item-icon>
-                <v-icon disabled color="deep-orange">mdi-flag-outline</v-icon>
+                <v-icon color="deep-orange">mdi-flag-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>Report</v-list-item-title>

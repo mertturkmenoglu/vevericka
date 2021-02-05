@@ -54,9 +54,9 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item @click="reportPost" disabled>
+          <v-list-item @click="reportPost">
             <v-list-item-icon>
-              <v-icon color="deep-orange" disabled>mdi-flag-outline</v-icon>
+              <v-icon color="deep-orange">mdi-flag-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Report</v-list-item-title>
@@ -177,6 +177,8 @@
 </template>
 
 <script>
+import { router } from '@/router'
+
 export default {
   name: "PostCard",
   props: ["post"],
@@ -287,7 +289,7 @@ export default {
       this.$emit("postSaved");
     },
     reportPost() {
-      this.$emit("postReported");
+      router.push({ name: 'ReportPage', params: { postId: this.post.id, postUsername: this.post.username } })
     },
     async deletePost() {
       const BASE = "https://vevericka-post-service.herokuapp.com";

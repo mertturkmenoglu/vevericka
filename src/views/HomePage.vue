@@ -9,7 +9,6 @@
             @shareLinkCopied="shareLinkCopied"
             @shareDM="shareDM"
             @postSaved="postSaved"
-            @postReported="postReported"
             @postDeleted="postDeleted"
             @userUnfollowed="userUnfollowed"/>
       </v-col>
@@ -93,10 +92,6 @@ export default {
     postSaved() {
       this.snackbar = true;
       this.snackbarMessage = "Saved";
-    },
-    postReported() {
-      this.snackbar = true;
-      this.snackbarMessage = "postReported";
     },
     postDeleted() {
       this.snackbar = true;

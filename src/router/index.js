@@ -14,6 +14,7 @@ import TermsPage from "@/views/TermsPage";
 import BookmarksPage from "@/views/BookmarksPage";
 import NotificationsPage from "@/views/NotificationsPage";
 import ContactPage from "@/views/ContactPage";
+import ReportPage from "@/views/ReportPage";
 
 Vue.use(Router);
 
@@ -34,6 +35,7 @@ export const router = new Router({
         {path: '/notifications', component: NotificationsPage},
         {path: '/terms', component: TermsPage},
         {path: '/contact', component: ContactPage},
+        {path: '/report', name: 'ReportPage', component: ReportPage},
 
         // Otherwise redirect to HomePage
         {path: '*', redirect: '/'}
