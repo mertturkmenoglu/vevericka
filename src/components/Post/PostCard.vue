@@ -11,7 +11,7 @@
               aspect-ratio="1"
               alt="Profile"/>
         </v-avatar>
-        <span class="ml-5 font-weight-light">{{ user.name }}</span>
+        <span class="ml-5 font-weight-light hidden-sm-and-down">{{ user.name }}</span>
         <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">@{{ user.username }}</span>
       </router-link>
 
@@ -166,7 +166,7 @@
           <div v-else>
             <div v-for="(u, idx) in user.following" :key="idx" class="my-1">
               <v-list-item @click="shareDM(u)">
-                <v-list-item-title>{{u}}</v-list-item-title>
+                <v-list-item-title>{{ u }}</v-list-item-title>
               </v-list-item>
             </div>
           </div>
@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import { router } from '@/router'
+import {router} from '@/router'
 
 export default {
   name: "PostCard",
@@ -289,7 +289,7 @@ export default {
       this.$emit("postSaved");
     },
     reportPost() {
-      router.push({ name: 'ReportPage', params: { postId: this.post.id, postUsername: this.post.username } })
+      router.push({name: 'ReportPage', params: {postId: this.post.id, postUsername: this.post.username}})
     },
     async deletePost() {
       const BASE = "https://vevericka-post-service.herokuapp.com";
