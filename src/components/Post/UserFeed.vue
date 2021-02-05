@@ -3,7 +3,7 @@
     <div v-for="(post, idx) in feed" :key="idx">
       <PostCard
           :post="post"
-          class="my-2"
+          class="my-8"
           @shareLinkCopied="() => $emit('shareLinkCopied')"
           @shareDM="() => $emit('shareDM')"
           @postSaved="() => $emit('postSaved')"

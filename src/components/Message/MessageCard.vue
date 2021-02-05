@@ -42,7 +42,7 @@
   }
 
   .other-user {
-    color: black;
+    color: #555;
   }
 
   .em-08 {

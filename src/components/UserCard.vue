@@ -1,5 +1,5 @@
 <template>
-  <v-card color="" class="v-card" flat outlined>
+  <v-card flat outlined>
     <v-row>
       <v-col cols="4" xs="2" sm="2" md="2" lg="2">
         <v-img
@@ -34,11 +34,5 @@ export default {
 </script>
 
 <style scoped>
-.v-card {
-  transition: all .4s ease-out;
-}
 
-.v-card:hover {
-  background-color: #f0f2f5 !important;
-}
 </style>

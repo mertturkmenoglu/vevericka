@@ -11,19 +11,19 @@
               aspect-ratio="1"
               alt="Profile"/>
         </v-avatar>
-        <span class="ml-5 font-weight-light">{{ user.name }}</span>
-        <span class="ml-2 font-weight-thin">@{{ user.username }}</span>
+        <span class="ml-5 font-weight-light text--primary">{{ user.name }}</span>
+        <span class="ml-2 font-weight-thin deep-orange--text">@{{ user.username }}</span>
       </v-card-title>
     </router-link>
 
     <v-divider></v-divider>
 
     <v-card-text>
-      <div v-html="linkify(comment.content)" class="text--darken-2 content font-weight-light text-wrap mt-2 ml-n3" />
+      <div v-html="linkify(comment.content)" class="content font-weight-light text-wrap mt-2 ml-n3 text--primary" />
     </v-card-text>
 
     <v-card-actions>
-      <div class="content-small font-weight-thin ml-n1">
+      <div class="content-small font-weight-thin ml-n1 text--primary">
         {{ (new Date(comment.date)).toLocaleDateString() }}
       </div>
 
@@ -64,12 +64,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  --color-primary: #E64A19;
-  --color-secondary: #c62828;
-  --color-hover-highlight: #f7f7f7;
-}
-
 a {
   color: #001000 !important;
 }
@@ -90,11 +84,4 @@ a {
   font-size: 0.8em;
 }
 
-.v-card {
-  transition: all 0.35s ease-out;
-}
-
-.v-card:hover {
-  background-color: var(--color-hover-highlight) !important;
-}
 </style>

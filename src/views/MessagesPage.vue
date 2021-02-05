@@ -1,6 +1,6 @@
 <template>
   <v-container class="mx-auto mt-3 message-container" v-if="!otherUsername">
-    <v-card color="white" class="" flat outlined>
+    <v-card flat>
       <v-row align="center" class="py-2 pr-3" no-gutters>
         <v-col>
           <h1 class="em-13 font-weight-light deep-orange--text">Recent Chats</h1>

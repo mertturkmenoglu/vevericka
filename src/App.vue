@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="white" v-if="showNavbar" flat short elevate-on-scroll>
+    <v-app-bar app v-if="showNavbar" flat short elevate-on-scroll :color="appBarColor">
       <router-link to="/" class="text-decoration-none">
         <v-img
             class="mx-4"
@@ -19,9 +19,9 @@
         <v-col cols="12" sm="3">
           <v-text-field
               v-model="searchTerm"
-              background-color="#f0f2f5"
+              :background-color="textFieldBackground"
               append-icon="mdi-magnify"
-              color="deep-orange text--darken-2"
+              color="deep-orange"
               @click:append="search"
               @keyup.enter.native="search"
               class="mt-6 hidden-sm-and-down"
@@ -134,18 +134,17 @@
             </v-list-item>
           </router-link>
 
-          <v-list-item disabled>
+          <v-list-item @click="toggleDarkMode">
             <v-list-item-icon>
-              <v-icon disabled color="deep-orange">mdi-brightness-6</v-icon>
+              <v-icon color="deep-orange">mdi-brightness-6</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
               <v-list-item-title>Dark theme</v-list-item-title>
-              <v-list-item-subtitle>Unavailable</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-checkbox disabled color="deep-orange" :input-value="isDarkModeEnabled"/>
+              <v-checkbox color="deep-orange" :input-value="isDarkModeEnabled"/>
             </v-list-item-action>
           </v-list-item>
 
@@ -181,6 +180,7 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
+
           <router-link to="/report">
             <v-list-item>
               <v-list-item-icon>
@@ -191,6 +191,7 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
+
           <router-link to="/terms">
             <v-list-item>
               <v-list-item-icon>
@@ -201,6 +202,7 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
+
           <router-link to="/privacy">
             <v-list-item disabled>
               <v-list-item-icon>
@@ -237,7 +239,7 @@
       </v-menu>
     </v-app-bar>
 
-    <v-main class="body">
+    <v-main>
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -253,10 +255,10 @@ export default {
     searchTerm: "",
     imgURL: '',
     isAppBarSearchFocused: false,
-    isDarkModeEnabled: false,
     statusServiceUrl: "https://veverickastatus.surge.sh/"
   }),
   mounted() {
+    this.setTheme();
     this.getImageURL();
   },
   updated() {
@@ -269,7 +271,24 @@ export default {
     }
   },
   methods: {
+    setTheme() {
+      const theme = localStorage.getItem('veverickaTheme');
+      this.$vuetify.theme.dark = theme === '"dark"';
+    },
+    toggleDarkMode() {
+      const isDark = this.$vuetify.theme.dark;
+
+      if (isDark) {
+        this.$vuetify.theme.dark = false;
+        localStorage.setItem('veverickaTheme', JSON.stringify('light'));
+      } else {
+        this.$vuetify.theme.dark = true;
+        localStorage.setItem('veverickaTheme', JSON.stringify('dark'));
+      }
+    },
     logout() {
+      localStorage.setItem('veverickaTheme', 'light');
+      this.$vuetify.theme.dark = false;
       this.$store.dispatch("logout");
     },
     async search() {
@@ -280,6 +299,11 @@ export default {
     },
     async getImageURL() {
       const username = this.$store.state.user.username;
+
+      if (username === undefined) {
+        return;
+      }
+
       const BASE = "https://user-info-service.herokuapp.com";
       const URL = `${BASE}/user/username/${username}`;
       const response = await fetch(URL);
@@ -289,6 +313,9 @@ export default {
     },
   },
   computed: {
+    isDarkModeEnabled() {
+      return this.$vuetify.theme.dark;
+    },
     showNavbar() {
       const publicPages = [
         '/login',
@@ -305,15 +332,25 @@ export default {
 
       return true;
     },
+    appBarColor() {
+      if (this.$vuetify.theme.dark) {
+        return '#272727';
+      } else {
+        return '#fff';
+      }
+    },
+    textFieldBackground() {
+      if (this.$vuetify.theme.dark) {
+        return '#1e1e1e';
+      } else {
+        return '#f0f2f5';
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
-.body {
-  background-color: white;
-}
-
 a {
   text-decoration: none;
 }

@@ -11,7 +11,7 @@
               aspect-ratio="1"
               alt="Profile"/>
         </v-avatar>
-        <span class="ml-5 font-weight-light">{{ user.name }}</span>
+        <span class="ml-5 font-weight-light text--primary">{{ user.name }}</span>
         <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">@{{ user.username }}</span>
       </router-link>
 
@@ -43,20 +43,20 @@
 
     <v-card-text>
       <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
-        <div v-html="makeHTML(post.content)" class="text--darken-2 ml-n3 content font-weight-light text-wrap mt-2">
+        <div v-html="makeHTML(post.content)" class="text--darken-2 ml-n3 content font-weight-light text-wrap mt-2 text--primary">
         </div>
       </router-link>
     </v-card-text>
 
     <v-card-actions>
-      <div class="content-small font-weight-thin ml-n1">
+      <div class="content-small font-weight-thin ml-n1 text--primary">
         {{ (new Date(post.date)).toLocaleDateString() }}
       </div>
       <v-spacer></v-spacer>
       <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
           <span class="content-small font-weight-light">
             <v-icon color="deep-orange"> mdi-comment-outline </v-icon>
-            <span class="ml-2 pt-1">{{ post.comments.length }}</span>
+            <span class="ml-2 pt-1 text--primary">{{ post.comments.length }}</span>
           </span>
       </router-link>
     </v-card-actions>
@@ -113,12 +113,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-* {
-  --color-primary: #E64A19;
-  --color-secondary: #c62828;
-  --color-hover-highlight: #f7f7f7;
-}
-
 a {
   color: #001000 !important;
 }
@@ -127,23 +121,11 @@ a {
   cursor: pointer;
 }
 
-.name-link:hover {
-  text-decoration: underline !important;
-}
-
 .content {
   font-size: 1em;
 }
 
 .content-small {
   font-size: 0.8em;
-}
-
-.v-card {
-  transition: all 0.35s ease-out;
-}
-
-.v-card:hover {
-  background-color: var(--color-hover-highlight) !important;
 }
 </style>

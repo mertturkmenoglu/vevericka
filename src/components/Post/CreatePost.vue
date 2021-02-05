@@ -10,8 +10,8 @@
             aspect-ratio="1"
             alt="Profile"/>
       </v-avatar>
-      <span class="ml-5 font-weight-light">{{ user.name }}</span>
-      <span class="ml-2 font-weight-thin">@{{ user.username }}</span>
+      <span class="ml-5 font-weight-light text--primary">{{ user.name }}</span>
+      <span class="ml-2 font-weight-thin text--primary">@{{ user.username }}</span>
     </v-card-title>
     <v-textarea
         v-model="postContent"
@@ -21,10 +21,11 @@
         auto-grow
         no-resize
         solo
-        background-color="#f0f2f5"
+        class="text--primary"
+        :background-color="textFieldBackground"
         clear-icon="mdi-close-circle"
         counter
-        color="deep-orange text--darken-2"
+        color="deep-orange"
         type="text"
         name="create-post-text-area"
         :rules="postTextAreaRules"
@@ -100,6 +101,13 @@ export default {
     typingProgress() {
       const MAX_CHARACTERS = 255;
       return this.postContent.length / MAX_CHARACTERS * 100;
+    },
+    textFieldBackground() {
+      if (this.$vuetify.theme.dark) {
+        return '#272727';
+      } else {
+        return '#f0f2f5';
+      }
     }
   },
 }

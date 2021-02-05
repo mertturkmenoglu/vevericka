@@ -9,10 +9,10 @@
             clearable
             no-resize
             solo
-            background-color="#f0f2f5"
+            :background-color="textFieldBackground"
             clear-icon="mdi-close-circle"
             counter
-            color="deep-orange text--darken-2"
+            color="deep-orange"
             type="text"
             name="create-post-text-area"
             :rules="commentTextAreaRules"
@@ -123,7 +123,14 @@ export default {
   computed: {
     id() {
       return this.$route.params.id;
-    }
+    },
+    textFieldBackground() {
+      if (this.$vuetify.theme.dark) {
+        return '#272727';
+      } else {
+        return '#f0f2f5';
+      }
+    },
   }
 }
 </script>
