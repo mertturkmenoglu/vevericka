@@ -156,6 +156,49 @@
               <v-list-item-title>Logout</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-dialog v-model="displayLanguageDialog" width="500">
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item @click="displayLanguageDialog = true" v-bind="attrs" v-on="on">
+                <v-list-item-icon>
+                  <v-icon color="deep-orange">mdi-translate</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                  <v-list-item-title>Display Language</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+
+            <v-card>
+              <v-card-title class="deep-orange white--text">
+                Change Display Language
+              </v-card-title>
+
+              <v-card-text>
+                <v-radio-group v-model="selectedDisplayLanguage" dense mandatory>
+                  <v-radio
+                      v-for="l in Object.keys(displayLanguages)"
+                      color="deep-orange"
+                      :key="l"
+                      :label="displayLanguages[l]"
+                      :value="l"
+                  ></v-radio>
+                </v-radio-group>
+              </v-card-text>
+
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="error" text @click="closeDisplayLanguageDialog">
+                  Close
+                </v-btn>
+                <v-btn color="primary" text @click="changeDisplayLanguage">
+                  Change
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
           <v-divider></v-divider>
 
@@ -247,6 +290,7 @@
 
 <script>
 import {router} from "@/router";
+import {displayLanguages} from "@/data/displayLanguages";
 
 export default {
   name: "App",
@@ -255,11 +299,16 @@ export default {
     searchTerm: "",
     imgURL: '',
     isAppBarSearchFocused: false,
-    statusServiceUrl: "https://veverickastatus.surge.sh/"
+    statusServiceUrl: "https://veverickastatus.surge.sh/",
+    displayLanguages: displayLanguages.data,
+    selectedDisplayLanguage: '',
+    displayLanguageDialog: false,
   }),
   mounted() {
     this.setTheme();
+    this.setDisplayLanguage();
     this.getImageURL();
+    this.selectedDisplayLanguage = this.$i18n.locale;
   },
   updated() {
     if (this.imgURL === '') {
@@ -271,9 +320,27 @@ export default {
     }
   },
   methods: {
+    closeDisplayLanguageDialog() {
+      this.selectedDisplayLanguage = '';
+      this.displayLanguageDialog = false;
+    },
+    changeDisplayLanguage() {
+      console.log(this.selectedDisplayLanguage);
+      this.$i18n.locale = this.selectedDisplayLanguage;
+      localStorage.setItem("veverickaDisplayLanguage", this.selectedDisplayLanguage);
+      this.displayLanguageDialog = false;
+    },
     setTheme() {
       const theme = localStorage.getItem('veverickaTheme');
       this.$vuetify.theme.dark = theme === '"dark"';
+    },
+    setDisplayLanguage() {
+      const lang = localStorage.getItem('veverickaDisplayLanguage');
+      if (typeof lang !== 'string' || lang.length !== 2) {
+        this.$i18n.locale = 'en';
+      } else {
+        this.$i18n.locale = lang;
+      }
     },
     toggleDarkMode() {
       const isDark = this.$vuetify.theme.dark;
