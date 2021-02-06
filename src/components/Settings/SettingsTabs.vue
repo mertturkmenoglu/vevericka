@@ -39,15 +39,6 @@ export default {
   name: "SettingsTabs",
   components: {SettingsLanguages, SettingsHobbies, SettingsSocial, SettingsProfile, SettingsGeneral},
   props: ["user"],
-  data: () => ({
-    tabs: [
-      {title: "General", icon: "mdi-account-cog-outline"},
-      {title: "Profile", icon: "mdi-account-circle-outline"},
-      {title: "Social", icon: "mdi-account-group"},
-      {title: "Hobbies", icon: "mdi-heart-outline"},
-      {title: "Languages", icon: "mdi-account-voice"}
-    ]
-  }),
   methods: {
     async updateUser(user) {
       const BASE = "https://user-info-service.herokuapp.com/user";
@@ -65,6 +56,17 @@ export default {
       if (data['status_code']) return;
       window.location.reload();
     },
+  },
+  computed: {
+    tabs() {
+      return [
+        {title: this.$t('settings.tabs.general'), icon: "mdi-account-cog-outline"},
+        {title: this.$t('settings.tabs.profile'), icon: "mdi-account-circle-outline"},
+        {title: this.$t('settings.tabs.social'), icon: "mdi-account-group"},
+        {title: this.$t('settings.tabs.hobbies'), icon: "mdi-heart-outline"},
+        {title: this.$t('settings.tabs.languages'), icon: "mdi-account-voice"}
+      ]
+    }
   }
 }
 </script>

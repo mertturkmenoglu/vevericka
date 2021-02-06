@@ -70,5 +70,110 @@
       "title": "Send via DM",
       "no_user": "No user"
     }
+  },
+  "bookmark_card": {
+    "remove": "Remove Bookmark"
+  },
+  "settings": {
+    "card_title": "Settings",
+    "tabs": {
+      "general": "General",
+      "profile": "Profile",
+      "social": "Social",
+      "hobbies": "Hobbies",
+      "languages": "Languages"
+    },
+    "general": {
+      "title": "General",
+      "subtitle": "General and account settings",
+      "username": "Username",
+      "email": "E-mail",
+      "name": "Name"
+    },
+    "social": {
+      "title": "Social",
+      "subtitle": "Edit your social information",
+      "website": {
+        "label": "Website",
+        "hint": "Enter your personal website URL"
+      },
+      "twitter": {
+        "label": "Twitter",
+        "hint": "Enter your Twitter username"
+      },
+      "job": "Job",
+      "school": "Education"
+    },
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Edit your profile",
+      "gender": {
+        "label": "Gender",
+        "hint": "You can enter anything you want"
+      },
+      "location": {
+        "city": "City",
+        "country": "Country"
+      },
+      "image": {
+        "label": "Profile Image",
+        "hint": "Enter an image URL. Be sure that you have the rights to use the image"
+      },
+      "bio": {
+        "label": "Bio",
+        "hint": "Express yourself"
+      }
+    },
+    "hobbies": {
+      "title": "Hobbies & Features",
+      "subtitle": "Edit your hobbies and features",
+      "hobbies": {
+        "title": "Hobbies",
+        "dialog": {
+          "title": "Add Hobby",
+          "question": "What do you like?",
+          "close": "Close",
+          "add_button": "Add"
+        },
+        "subtitle": "What are your interests?"
+      },
+      "features": {
+        "title": "Features",
+        "dialog": {
+          "title": "Add Feature",
+          "question": "What do you like?",
+          "close": "Close",
+          "add_button": "Add"
+        },
+        "subtitle": "What are your passions? Add up to 5 features"
+      }
+
+    },
+    "languages": {
+      "title": "Languages",
+      "subtitle": "Tune your language settings",
+      "speaking": {
+        "title": "I am speaking:",
+        "dialog": {
+          "title": "Add Language",
+          "language": "Language",
+          "proficiency": "Proficiency",
+          "close": "Close",
+          "add": "Add"
+        },
+        "subtitle": "Languages you can speak"
+      },
+      "wish_to_speak": {
+        "title": "I want to speak:",
+        "dialog": {
+          "title": "Add Language",
+          "language": "Language",
+          "close": "Close",
+          "add": "Add"
+        },
+        "subtitle": "What languages do you want to speak?"
+      }
+    },
+    "update": "Update"
   }
 }

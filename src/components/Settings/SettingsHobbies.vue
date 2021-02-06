@@ -1,14 +1,14 @@
 <template>
   <v-card flat>
-    <v-card-title class="text-body-1">Hobbies & Features</v-card-title>
-    <v-card-subtitle class="font-weight-light">Edit your hobbies and features</v-card-subtitle>
+    <v-card-title class="text-body-1">{{ $t('settings.hobbies.title') }}</v-card-title>
+    <v-card-subtitle class="font-weight-light">{{ $t('settings.hobbies.subtitle') }}</v-card-subtitle>
 
     <v-divider class="ml-4 mr-4"></v-divider>
 
     <v-card-text>
       <v-card flat>
         <v-card-title>
-          <span class="text-body-1">Hobbies</span>
+          <span class="text-body-1">{{ $t('settings.hobbies.hobbies.title') }}</span>
           <v-dialog v-model="hobbyDialog" max-width="600px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn text color="deep-orange" class="ml-2" v-bind="attrs" v-on="on">
@@ -17,13 +17,13 @@
             </template>
             <v-card>
               <v-card-title>
-                <span class="headline">Add Hobby</span>
+                <span class="headline">{{ $t('settings.hobbies.hobbies.dialog.title') }}</span>
               </v-card-title>
               <v-card-text>
                 <v-container>
                   <v-text-field
                       v-model="newHobby"
-                      label="What do you like?"
+                      :label="$t('settings.hobbies.hobbies.dialog.question')"
                       outlined
                       solo
                       flat
@@ -37,16 +37,16 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="hobbyDialog = false">
-                  Close
+                  {{ $t('settings.hobbies.hobbies.dialog.close') }}
                 </v-btn>
                 <v-btn color="deep-orange" text @click="addHobby">
-                  Add
+                  {{ $t('settings.hobbies.hobbies.dialog.add_button') }}
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-card-title>
-        <v-card-subtitle>What are your interests?</v-card-subtitle>
+        <v-card-subtitle>{{ $t('settings.hobbies.hobbies.subtitle')}}</v-card-subtitle>
         <v-card-text>
           <v-list-item v-for="(h,idx) in user.hobbies" :key="idx">
             <v-list-item-content>
@@ -64,7 +64,7 @@
 
       <v-card flat>
         <v-card-title>
-          <span class="text-body-1">Features</span>
+          <span class="text-body-1">{{ $t('settings.hobbies.features.title') }}</span>
           <v-dialog v-model="featureDialog" max-width="600px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn text color="deep-orange" class="ml-2" v-bind="attrs" v-on="on">
@@ -73,13 +73,13 @@
             </template>
             <v-card>
               <v-card-title>
-                <span class="headline">Add Feature</span>
+                <span class="headline">{{ $t('settings.hobbies.features.dialog.title') }}</span>
               </v-card-title>
               <v-card-text>
                 <v-container>
                   <v-text-field
                       v-model="newFeature"
-                      label="What do you like?"
+                      :label="$t('settings.hobbies.features.dialog.question')"
                       outlined
                       solo
                       flat
@@ -93,16 +93,16 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="featureDialog = false">
-                  Close
+                  {{ $t('settings.hobbies.features.dialog.close') }}
                 </v-btn>
                 <v-btn color="deep-orange" text @click="addFeature">
-                  Add
+                  {{ $t('settings.hobbies.features.dialog.add_button') }}
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-card-title>
-        <v-card-subtitle>What are your passions? Add up to 5 features</v-card-subtitle>
+        <v-card-subtitle>{{ $t('settings.hobbies.features.subtitle')}}</v-card-subtitle>
         <v-card-text>
           <v-list-item v-for="(f,idx) in user.features" :key="idx">
             <v-list-item-content>
@@ -119,7 +119,7 @@
 
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn outlined small color="deep-orange" class="mr-2" @click="update">Update</v-btn>
+      <v-btn outlined small color="deep-orange" class="mr-2" @click="update">{{ $t('settings.update') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>

@@ -2,7 +2,7 @@
   <v-container>
     <v-card flat>
       <v-toolbar flat color="deep-orange" dark dense>
-        <v-toolbar-title class="font-weight-light">Settings</v-toolbar-title>
+        <v-toolbar-title class="font-weight-light">{{ $t('settings.card_title') }}</v-toolbar-title>
       </v-toolbar>
       <SettingsTabs v-if="loadingCompleted" :user="user"/>
     </v-card>

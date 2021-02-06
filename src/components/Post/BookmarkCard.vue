@@ -32,7 +32,7 @@
               <v-icon color="deep-orange">mdi-bookmark</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Remove Bookmark</v-list-item-title>
+              <v-list-item-title>{{ $t('bookmark_card.remove')}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>

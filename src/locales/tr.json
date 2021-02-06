@@ -70,5 +70,109 @@
       "title": "DM Gönder",
       "no_user": "Kullanıcı yok"
     }
+  },
+  "bookmark_card": {
+    "remove": "Kaldır"
+  },
+  "settings": {
+    "card_title": "Ayarlar",
+    "tabs": {
+      "general": "Genel",
+      "profile": "Profil",
+      "social": "Sosyal",
+      "hobbies": "Hobiler",
+      "languages": "Diller"
+    },
+    "general": {
+      "title": "Genel",
+      "subtitle": "Genel ayarlar ve hesap ayarları",
+      "username": "Kullanıcı Adı",
+      "email": "E-mail",
+      "name": "İsim"
+    },
+    "social": {
+      "title": "Sosyal",
+      "subtitle": "Sosyal bilgilerinizi düzenleyin",
+      "website": {
+        "label": "Web Sitesi",
+        "hint": "Özel web sitenizin URL'sini girin"
+      },
+      "twitter": {
+        "label": "Twitter",
+        "hint": "Twitter kullanıcı adınızı girin"
+      },
+      "job": "İş",
+      "school": "Eğitim"
+    },
+    "profile": {
+      "title": "Profil",
+      "subtitle": "Profilinizi düzenleyin",
+      "gender": {
+        "label": "Cinsiyet",
+        "hint": "İstediğinizi girebilirsiniz"
+      },
+      "location": {
+        "city": "Şehir",
+        "country": "Ülke"
+      },
+      "image": {
+        "label": "Profil Fotoğrafı",
+        "hint": "Fotoğraf URL'sini girin. Fotoğrafın kullanım haklarına sahip olduğunuzdan emin olun"
+      },
+      "bio": {
+        "label": "Bio",
+        "hint": "Kendinizi ifade edin"
+      }
+    },
+    "hobbies": {
+      "title": "Hobiler & Özellikler",
+      "subtitle": "Yeteneklerinizi ve özelliklerinizi düzenleyin",
+      "hobbies": {
+        "title": "Hobiler",
+        "dialog": {
+          "title": "Hobi Ekle",
+          "question": "Neyden hoşlanırsın?",
+          "close": "Kapat",
+          "add_button": "Ekle"
+        },
+        "subtitle": "İlgileriniz nelerdir?"
+      },
+      "features": {
+        "title": "Özellikler",
+        "dialog": {
+          "title": "Özellik Ekle",
+          "question": "Neyden hoşlanırsın?",
+          "close": "Kapat",
+          "add_button": "Ekle"
+        },
+        "subtitle": "Tutkuların nelerdir? 5 tane ekleyebilirsin"
+      }
+    },
+    "languages": {
+      "title": "Diller",
+      "subtitle": "Dil ayarlarınızı yapın",
+      "speaking": {
+        "title": "Konuşabildiğim diller:",
+        "dialog": {
+          "title": "Dil Ekle",
+          "language": "Dil",
+          "proficiency": "Seviye",
+          "close": "Kapat",
+          "add": "Ekle"
+        },
+        "subtitle": "Konuşabildiğiniz dillerdir"
+      },
+      "wish_to_speak": {
+        "title": "Konuşmak istediğim diller:",
+        "dialog": {
+          "title": "Dil Ekle",
+          "language": "Dil",
+          "close": "Kapat",
+          "add": "Ekle"
+        },
+        "subtitle": "Hangi dilleri konuşmak istiyorsun?"
+      }
+    },
+    "update": "Güncelle"
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
-    <v-card-title class="text-body-1">Social</v-card-title>
-    <v-card-subtitle class="font-weight-light">Edit your social information</v-card-subtitle>
+    <v-card-title class="text-body-1">{{ $t('settings.social.title') }}</v-card-title>
+    <v-card-subtitle class="font-weight-light">{{ $t('settings.social.subtitle') }}</v-card-subtitle>
     <v-divider class="ml-4 mr-4"></v-divider>
     <v-card-text>
       <v-text-field
@@ -10,10 +10,10 @@
           dense
           flat
           prepend-inner-icon="mdi-web"
-          hint="Enter your personal website URL"
+          :hint="$t('settings.social.website.hint')"
           class="font-weight-light"
           color="deep-orange"
-          label="Website"
+          :label="$t('settings.social.website.label')"
           type="text"
       />
 
@@ -24,10 +24,10 @@
           flat
           prepend-inner-icon="mdi-twitter"
           prefix="@"
-          hint="Enter your Twitter username"
+          :hint="$t('settings.social.twitter.hint')"
           class="font-weight-light"
           color="deep-orange"
-          label="Twitter"
+          :label="$t('settings.social.twitter.label')"
           type="text"
       />
 
@@ -39,7 +39,7 @@
           prepend-inner-icon="mdi-account-tie"
           class="font-weight-light"
           color="deep-orange"
-          label="Job"
+          :label="$t('settings.social.job')"
           type="text"
       />
 
@@ -51,13 +51,13 @@
           prepend-inner-icon="mdi-school"
           class="font-weight-light"
           color="deep-orange"
-          label="Education"
+          :label="$t('settings.social.school')"
           type="text"
       />
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn outlined small color="deep-orange" class="mr-2" @click="update">Update</v-btn>
+      <v-btn outlined small color="deep-orange" class="mr-2" @click="update">{{ $t('settings.update') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
