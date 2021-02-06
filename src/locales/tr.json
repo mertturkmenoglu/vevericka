@@ -360,5 +360,9 @@
       "text_err": "Lütfen daha sonra tekrar deneyiniz",
       "close": "Kapat"
     }
+  },
+  "search": {
+    "search": "Ara",
+    "user_not_found": "Kullanıcı bulunamadı"
   }
 }

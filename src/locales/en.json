@@ -360,5 +360,9 @@
       "text_err": "Please try again later",
       "close": "Close"
     }
+  },
+  "search": {
+    "search": "Search",
+    "user_not_found": "User not found"
   }
 }

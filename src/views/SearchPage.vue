@@ -8,7 +8,7 @@
             outlined
             class="pt-5"
             color="deep-orange text--darken-2"
-            label="Search"
+            :label="$t('search.search')"
             type="text"
             flat
             solo
@@ -76,13 +76,13 @@
         this.showLoading = false;
 
         if (!data.users) {
-          this.error = "User not found";
+          this.error = this.$t('search.user_not_found');
           return;
         }
 
         if (data.users.length === 0) {
           this.searchResults = [];
-          this.error = "User not found";
+          this.error = this.$t('search.user_not_found');
           return;
         }
 
