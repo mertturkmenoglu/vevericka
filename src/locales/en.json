@@ -255,5 +255,32 @@
       "no_message": "No message",
       "text_field": "Type a message"
     }
+  },
+  "password_reset": {
+    "title": "Forgot Password",
+    "info": {
+      "first_sentence": "Enter the email address you used to register with. ",
+      "second_sentence": "We will send you a password reset email."
+    },
+    "email": "E-mail",
+    "reset_code": "Password Reset Code",
+    "new_password": "Your new password",
+    "send_reset_code_button": "Send Reset Code",
+    "reset_password_button": "Reset Password",
+    "to_login": {
+      "text": "Have an account?",
+      "login": "Login"
+    },
+    "to_register": {
+      "text": "New user?",
+      "register": "Register"
+    },
+    "snackbar": {
+      "close": "Close"
+    },
+    "rules": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address"
+    }
   }
 }

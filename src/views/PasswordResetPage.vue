@@ -18,12 +18,16 @@
             <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
               <v-card-text>
                 <h1 class="text-center display-1 mb-10 deep-orange--text font-weight-light">
-                  Forgot Password
+                  {{ $t('password_reset.title') }}
                 </h1>
                 <v-form class="reset-form-form" @submit.prevent="sendPasswordResetEmail">
                   <div class="text-center mt-5 text-body-2">
-                    <div class="grey--text text--darken-1 font-weight-light">Enter the email address you used to register with. </div>
-                    <div class="grey--text text--darken-1 font-weight-light">We will send you a password reset email.</div>
+                    <div class="grey--text text--darken-1 font-weight-light">
+                      {{ $t('password_reset.info.first_sentence') }}
+                    </div>
+                    <div class="grey--text text--darken-1 font-weight-light">
+                      {{ $t('password_reset.info.second_sentence') }}
+                    </div>
                   </div>
                   <v-text-field
                       v-if="!emailSend"
@@ -31,9 +35,9 @@
                       type="email"
                       v-model="email"
                       color="deep-orange"
-                      label="E-mail"
+                      :label="$t('password_reset.email')"
                       prepend-inner-icon="mdi-email"
-                      :rules="[rules.required, rules.email]"
+                      :rules="[rulesRequired, rulesEmail]"
                       outlined
                       dense
                   />
@@ -41,7 +45,7 @@
                       v-if="emailSend"
                       class="pt-5"
                       type="text"
-                      label="Password Reset Code"
+                      :label="$t('password_reset.reset_code')"
                       v-model="resetCode"
                       color="deep-orange text--darken-2"
                       outlined
@@ -50,7 +54,7 @@
                   <v-text-field
                       v-if="emailSend"
                       class="pt-5"
-                      label="Your new password"
+                      :label="$t('password_reset.new_password')"
                       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="showPassword ? 'text' : 'password'"
                       @click:append="showPassword = !showPassword"
@@ -61,25 +65,33 @@
                   />
                   <div class="text-center mt-3">
                     <v-btn v-if="!emailSend" :disabled="!isSendResetCodeButtonEnabled" @click="sendPasswordResetEmail" color="deep-orange" outlined block>
-                      Send Reset Code
+                      {{ $t('password_reset.send_reset_code_button') }}
                     </v-btn>
                     <v-btn v-else @click="resetPassword" color="deep-orange" outlined block>
-                      Reset Password
+                      {{ $t('password_reset.reset_password_button') }}
                     </v-btn>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1 font-weight-light">Have an account? </span>
-                    <router-link to="/login" class="link font-weight-light">Login</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">
+                      {{ $t('password_reset.to_login.text') }}
+                    </span>
+                    <router-link to="/login" class="link font-weight-light">
+                      {{ $t('password_reset.to_login.login') }}
+                    </router-link>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1 font-weight-light">New user? </span>
-                    <router-link to="/register" class="link font-weight-light">Register</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">
+                      {{ $t('password_reset.to_register.text') }}
+                    </span>
+                    <router-link to="/register" class="link font-weight-light">
+                      {{ $t('password_reset.to_register.register') }}
+                    </router-link>
                   </div>
                   <v-snackbar v-model="snackbar" absolute right>
                     {{ snackbarMessage }}
                     <template v-slot:action="{ attrs }">
                       <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-                        Close
+                        {{ $t('password_reset.snackbar.close') }}
                       </v-btn>
                     </template>
                   </v-snackbar>
@@ -107,13 +119,6 @@ export default {
     password: "",
     showPassword: false,
     isSendResetCodeButtonEnabled: false,
-    rules: {
-      required: value => !!value || 'This field is required',
-      email: value => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || 'Please enter a valid email address';
-      },
-    },
   }),
   methods: {
     async sendPasswordResetEmail() {
@@ -176,8 +181,17 @@ export default {
     },
   },
   computed: {
+    rulesRequired() {
+      return value => !!value || this.$t('password_reset.rules.required')
+    },
+    rulesEmail() {
+      return (value) => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || this.$t('password_reset.rules.email');
+      }
+    },
     computeSendResetCodeButton() {
-      return !!(this.rules.email(this.email) === true && this.email !== '');
+      return !!(this.rulesEmail(this.email) === true && this.email !== '');
     },
   },
 }
