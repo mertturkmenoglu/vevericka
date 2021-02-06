@@ -364,5 +364,20 @@
   "search": {
     "search": "Ara",
     "user_not_found": "Kullanıcı bulunamadı"
+  },
+  "user_page": {
+    "tabs": {
+      "posts": "Paylaşımlar",
+      "info": "Bilgi",
+      "social": "Sosyal",
+      "languages": "Diller"
+    },
+    "no_post": "Paylaşım Yok",
+    "followers": "Takipçiler",
+    "following": "Takip Edilenler",
+    "snackbar": {
+      "message": "Link kopyalandı",
+      "close": "Kapat"
+    }
   }
 }

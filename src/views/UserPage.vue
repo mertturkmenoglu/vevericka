@@ -12,22 +12,22 @@
 
       <v-tabs color="deep-orange text--darken-2" class="mt-3" fixed-tabs>
         <v-tab>
-          Posts
+          {{ $t('user_page.tabs.posts') }}
         </v-tab>
         <v-tab>
-          Info
+          {{ $t('user_page.tabs.info') }}
         </v-tab>
         <v-tab>
-          Social
+          {{ $t('user_page.tabs.social') }}
         </v-tab>
         <v-tab>
-          Languages
+          {{ $t('user_page.tabs.languages') }}
         </v-tab>
 
         <v-tab-item>
           <v-container>
             <v-col cols="12" sm="8" class="mx-auto">
-              <UserFeed :feed="posts" class="mt-8" @shareLinkCopied="() => this.snackbar = true"/>
+              <UserFeed :feed="posts" class="mt-8" @shareLinkCopied="linkCopied"/>
             </v-col>
 
             <div v-show="loading" class="py-3 text-center">
@@ -35,11 +35,10 @@
             </div>
 
             <div v-if="!loading && posts.length === 0" class="text-center font-weight-light">
-              No posts
+              {{ $t('user_page.no_post') }}
             </div>
           </v-container>
         </v-tab-item>
-
 
         <v-tab-item>
           <v-container>
@@ -79,15 +78,16 @@
       </v-tabs>
     </v-card>
 
-
-    <UserListDialog v-if="showFollowers" title="Followers" :list="followers" :onItemClick="toggleFollowers"/>
-    <UserListDialog v-if="showFollowing" title="Following" :list="following" :onItemClick="toggleFollowing"/>
+    <UserListDialog v-if="showFollowers" :title="$t('user_page.followers')" :list="followers"
+                    :onItemClick="toggleFollowers"/>
+    <UserListDialog v-if="showFollowing" :title="$t('user_page.following')" :list="following"
+                    :onItemClick="toggleFollowing"/>
 
     <v-snackbar v-model="snackbar" bottom right>
       {{ snackbarMessage }}
       <template v-slot:action="{ attrs }">
         <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-          Close
+          {{ $t('user_page.snackbar.close') }}
         </v-btn>
       </template>
     </v-snackbar>
@@ -95,15 +95,15 @@
 </template>
 
 <script>
-  import UserHeader from "@/components/User/UserHeader";
-  import UserInfo from "@/components/User/UserInfo";
-  import UserListDialog from "@/components/User/UserListDialog";
-  import {router} from "@/router";
-  import UserFeatures from "../components/User/UserFeatures";
-  import UserLanguages from "../components/User/UserLanguages";
-  import UserWishToSpeak from "../components/User/UserWishToSpeak";
-  import UserHobbies from "@/components/User/UserHobbies"
-  import UserFeed from "@/components/Post/UserFeed";
+import UserHeader from "@/components/User/UserHeader";
+import UserInfo from "@/components/User/UserInfo";
+import UserListDialog from "@/components/User/UserListDialog";
+import {router} from "@/router";
+import UserFeatures from "../components/User/UserFeatures";
+import UserLanguages from "../components/User/UserLanguages";
+import UserWishToSpeak from "../components/User/UserWishToSpeak";
+import UserHobbies from "@/components/User/UserHobbies"
+import UserFeed from "@/components/Post/UserFeed";
 
 export default {
   name: "UserPage",
@@ -127,7 +127,7 @@ export default {
     posts: [],
     BASE_URL: "https://user-info-service.herokuapp.com/user",
     snackbar: false,
-    snackbarMessage: "Post link copied to your clipboard",
+    snackbarMessage: "",
     loading: true,
   }),
   methods: {
@@ -172,6 +172,10 @@ export default {
       const {users} = await response.json();
 
       return users;
+    },
+    linkCopied() {
+      this.snackbarMessage = this.$t('user_page.snackbar.message');
+      this.snackbar = true;
     },
     sendMessage() {
       router.push("/messages");

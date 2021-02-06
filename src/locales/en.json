@@ -364,5 +364,20 @@
   "search": {
     "search": "Search",
     "user_not_found": "User not found"
+  },
+  "user_page": {
+    "tabs": {
+      "posts": "Posts",
+      "info": "Info",
+      "social": "Social",
+      "languages": "Languages"
+    },
+    "no_post": "No post",
+    "followers": "Followers",
+    "following": "Following",
+    "snackbar": {
+      "message": "Post link copied to your clipboard",
+      "close": "Close"
+    }
   }
 }
