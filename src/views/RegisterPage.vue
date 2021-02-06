@@ -18,26 +18,26 @@
             <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
               <v-card-text>
                 <h1 class="text-center display-1 mb-10 deep-orange--text font-weight-light">
-                  Register
+                  {{  $t('register.title') }}
                 </h1>
                 <v-form class="reset-form-form" @submit.prevent="submit">
                   <v-text-field
                       class="pt-5"
-                      label="E-mail"
+                      :label="$t('register.email')"
                       type="email"
                       v-model="email"
                       prepend-inner-icon="mdi-email"
-                      :rules="[rules.required, rules.email]"
+                      :rules="[rulesRequired, rulesEmail]"
                       color="deep-orange"
                       outlined
                       dense
                   />
                   <v-text-field
                       class="pt-5"
-                      label="Username"
+                      :label="$t('register.username')"
                       prepend-inner-icon="mdi-at"
                       type="text"
-                      :rules="[rules.required]"
+                      :rules="[rulesRequired]"
                       v-model="username"
                       color="deep-orange"
                       outlined
@@ -45,9 +45,9 @@
                   />
                   <v-text-field
                       class="pt-5"
-                      label="Name"
+                      :label="$t('register.name')"
                       prepend-inner-icon="mdi-account-outline"
-                      :rules="[rules.required]"
+                      :rules="[rulesRequired]"
                       v-model="name"
                       color="deep-orange"
                       outlined
@@ -57,12 +57,12 @@
                       class="pt-5"
                       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="showPassword ? 'text' : 'password'"
-                      :rules="[rules.required]"
+                      :rules="[rulesRequired]"
                       prepend-inner-icon="mdi-lock"
                       @click:append="showPassword = !showPassword"
                       v-model="password"
-                      hint="Your password must be at least 8 characters long"
-                      label="Password"
+                      :hint="$t('register.password.hint')"
+                      :label="$t('register.password.label')"
                       color="deep-orange"
                       outlined
                       dense
@@ -77,22 +77,32 @@
                     </v-alert>
 
                     <p>
-                      By signing up, you agree to the
-                      <router-link to="/terms" class="link">Terms of Service</router-link>
-                      and
-                      <router-link to="/privacy" class="link">Privacy Policy</router-link>
-                      , including Cookie use.
+                      {{ $t('register.info.first_sentence') }}
+                      <router-link to="/terms" class="link">{{ $t('register.info.tos') }}</router-link>
+                      {{ $t('register.info.and') }}
+                      <router-link to="/privacy" class="link">{{ $t('register.info.privacy') }}</router-link>
+                      {{ $t('register.info.last_sentence') }}
                     </p>
 
-                    <v-btn @click="submit" color="deep-orange text--darken-2" outlined block :disabled="!isRegisterButtonEnabled">Register</v-btn>
+                    <v-btn @click="submit" color="deep-orange text--darken-2" outlined block :disabled="!isRegisterButtonEnabled">
+                      {{ $t('register.register_button') }}
+                    </v-btn>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1 font-weight-light">Have an account? </span>
-                    <router-link to="/login" class="link font-weight-light">Login</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">
+                      {{ $t('register.to_login.text') }}
+                    </span>
+                    <router-link to="/login" class="link font-weight-light">
+                      {{ $t('register.to_login.login') }}
+                    </router-link>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1 font-weight-light">Forgot password? </span>
-                    <router-link to="/password" class="link font-weight-light">Reset</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">
+                      {{ $t('register.to_password_reset.text') }}
+                    </span>
+                    <router-link to="/password" class="link font-weight-light">
+                      {{ $t('register.to_password_reset.reset') }}
+                    </router-link>
                   </div>
                 </v-form>
               </v-card-text>
@@ -116,13 +126,6 @@ export default {
     bgColor: 'deep-orange darken-2',
     fgColor: 'white',
     isRegisterButtonEnabled: false,
-    rules: {
-      required: value => !!value || 'This field is required',
-      email: value => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || 'Please enter a valid email address';
-      },
-    }
   }),
   beforeRouteLeave(to, from, next) {
     this.$store.state.error = null;
@@ -131,37 +134,37 @@ export default {
   methods: {
     submit() {
       if (this.email.length === 0) {
-        this.$store.state.error = "E-mail cannot be empty";
+        this.$store.state.error = this.$t('register.errors.email.empty');
         return;
       } else if (this.email.length < 6) {
-        this.$store.state.error = "E-mail cannot be shorter than 6 characters";
+        this.$store.state.error = this.$t('register.errors.email.short');
         return;
       } else if (this.email.length > 255) {
-        this.$store.state.error = "E-mail cannot be longer than 255 characters";
+        this.$store.state.error = this.$t('register.errors.email.long');
         return;
       }
 
       if (this.username.length === 0) {
-        this.$store.state.error = "Username cannot be empty";
+        this.$store.state.error = this.$t('register.errors.username.empty');
         return;
       } else if (this.username.length > 32) {
-        this.$store.state.error = "Username cannot be longer than 32 characters";
+        this.$store.state.error = this.$t('register.errors.username.long');
         return;
       }
 
       if (this.name.length === 0) {
-        this.$store.state.error = "Name cannot be empty";
+        this.$store.state.error = this.$t('register.errors.name.empty');
         return;
       } else if (this.name.length > 255) {
-        this.$store.state.error = "Name cannot be longer than 255 characters";
+        this.$store.state.error = this.$t('register.errors.name.long');
         return;
       }
 
       if (this.password.length === 0) {
-        this.$store.state.error = "Password cannot be empty";
+        this.$store.state.error = this.$t('register.errors.password.empty');
         return;
       } else if (this.password.length < 8) {
-        this.$store.state.error = "Password cannot be shorter than 8 characters";
+        this.$store.state.error = this.$t('register.errors.password.short');
         return;
       }
 
@@ -188,8 +191,17 @@ export default {
     },
   },
   computed: {
+    rulesRequired() {
+      return value => !!value || this.$t('register.rules.required');
+    },
+    rulesEmail() {
+      return (value) => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || this.$t('register.rules.email');
+      }
+    },
     computeRegisterButton() {
-      return !!(this.rules.email(this.email) === true
+      return !!(this.rulesEmail(this.email) === true
           && this.email.length !== 0
           && this.username.length !== 0
           && this.name.length !== 0

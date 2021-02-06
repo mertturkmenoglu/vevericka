@@ -292,5 +292,54 @@
     "rules": {
       "character_limit": "En fazla 255 karakter"
     }
+  },
+  "register": {
+    "title": "Kaydol",
+    "email": "E-posta",
+    "username": "Kullanıcı Adı",
+    "name": "İsim",
+    "password": {
+      "label": "Şifre",
+      "hint": "Şifreniz en az 8 karakter uzunluğunda olmalıdır"
+    },
+    "info": {
+      "first_sentence": "Kaydolarak kabul etmiş olursunuz: ",
+      "tos": "Kullanım Şartları",
+      "and": "ve",
+      "privacy": "Gizlilik Hükümleri",
+      "last_sentence": "(Cookie kullanımları dahil)."
+    },
+    "register_button": "Kaydol",
+    "to_login": {
+      "text": "Hesabınız mı var?",
+      "login": "Giriş Yapın"
+    },
+    "to_password_reset": {
+      "text": "Şifrenizi mi unuttunuz?",
+      "reset": "Sıfırlayın"
+    },
+    "rules": {
+      "required": "Lütfen bu alanı doldurun",
+      "email": "Lütfen geçerli bir e-posta adresi girin"
+    },
+    "errors": {
+      "email": {
+        "empty": "E-posta boş olamaz",
+        "short": "E-posta 6 karakterden kısa olamaz",
+        "long": "E-posta 255 karakterden uzun olamaz"
+      },
+      "username": {
+        "empty": "Kullanıcı adı boş olamaz",
+        "long": "Kullanıcı adı 32 karakterden uzun olamaz"
+      },
+      "name": {
+        "empty": "İsim boş olamaz",
+        "long": "İsim 255 karakterden uzun olamaz"
+      },
+      "password": {
+        "empty": "Şifre boş olamaz",
+        "short": "Şifre 8 karakterden kısa olamaz"
+      }
+    }
   }
 }
