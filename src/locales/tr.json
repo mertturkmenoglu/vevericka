@@ -282,5 +282,15 @@
       "required": "Lütfen bu alanı doldurun",
       "email": "Lütfen geçerli bir e-posta adresi girin"
     }
+  },
+  "post_detail_page": {
+    "add_comment": "Yorum ekle",
+    "snackbar": {
+      "message": "Link kopyalandı",
+      "close": "Kapat"
+    },
+    "rules": {
+      "character_limit": "En fazla 255 karakter"
+    }
   }
 }

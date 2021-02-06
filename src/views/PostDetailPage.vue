@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div v-if="!loading">
-      <PostCard :post="post" class="mb-2" @shareLinkCopied="() => this.snackbar = true"/>
+      <PostCard :post="post" class="mb-2" @shareLinkCopied="linkCopied"/>
       <v-card class="pt-5 px-5 mb-8" outlined flat>
         <v-textarea
             flat
@@ -16,7 +16,7 @@
             type="text"
             name="create-post-text-area"
             :rules="commentTextAreaRules"
-            label="Add comment"
+            :label="$t('post_detail_page.add_comment')"
             v-model="commentContent"
             append-icon="mdi-send"
             @click:append="createComment"
@@ -37,7 +37,7 @@
       {{ snackbarMessage }}
       <template v-slot:action="{ attrs }">
         <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-          Close
+          {{ $t('post_detail_page.snackbar.close') }}
         </v-btn>
       </template>
     </v-snackbar>
@@ -62,8 +62,7 @@ export default {
     },
     loading: true,
     snackbar: false,
-    snackbarMessage: "Post link copied to your clipboard",
-    commentTextAreaRules: [v => v.length <= 255 || 'Max 255 characters'],
+    snackbarMessage: "",
     commentContent: '',
     comments: []
   }),
@@ -112,6 +111,10 @@ export default {
 
       await fetch(URL, requestOptions);
       window.location.reload();
+    },
+    linkCopied() {
+      this.snackbarMessage = this.$t('post_detail_page.snackbar.message');
+      this.snackbar = true;
     }
   },
   mounted() {
@@ -121,6 +124,9 @@ export default {
     })
   },
   computed: {
+    commentTextAreaRules() {
+      return [v => v.length <= 255 || this.$t('post_detail_page.rules.character_limit')];
+    },
     id() {
       return this.$route.params.id;
     },

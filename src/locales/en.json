@@ -282,5 +282,15 @@
       "required": "This field is required",
       "email": "Please enter a valid email address"
     }
+  },
+  "post_detail_page": {
+    "add_comment": "Add comment",
+    "snackbar": {
+      "message": "Post link copied to your clipboard",
+      "close": "Close"
+    },
+    "rules": {
+      "character_limit": "Max 255 characters"
+    }
   }
 }
