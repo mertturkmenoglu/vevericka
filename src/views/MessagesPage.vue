@@ -3,9 +3,11 @@
     <v-card flat>
       <v-row align="center" class="py-2 pr-3" no-gutters>
         <v-col>
-          <h1 class="em-13 font-weight-light deep-orange--text">Recent Chats</h1>
+          <h1 class="em-13 font-weight-light deep-orange--text">{{ $t('messages_page.title') }}</h1>
         </v-col>
-        <v-btn outlined color="deep-orange text--darken-2" class="font-weight-light mr-n3" @click="showNewChatDialog = !showNewChatDialog">New Chat</v-btn>
+        <v-btn outlined color="deep-orange" class="font-weight-light mr-n3" @click="showNewChatDialog = !showNewChatDialog">
+          {{ $t('messages_page.new_chat') }}
+        </v-btn>
       </v-row>
     </v-card>
 
@@ -17,14 +19,16 @@
       </div>
     </div>
     <div v-else-if="!isLoading" class="mt-5 em-13 font-weight-light text-center">
-      No chats
+      {{ $t('messages_page.no_chat') }}
     </div>
     <v-dialog v-model="showNewChatDialog" scrollable max-width="600">
       <v-card>
-        <v-card-title class="deep-orange text--darken-2 white--text">New Chat</v-card-title>
+        <v-card-title class="deep-orange text--darken-2 white--text">
+          {{ $t('messages_page.dialog.title') }}
+        </v-card-title>
         <v-card-text>
           <div v-if="following.length <= 0" class="em-1 text-center">
-            <span>No user</span>
+            <span>{{ $t('messages_page.dialog.no_user') }}</span>
           </div>
           <div v-else>
             <div v-for="(u, idx) in following" :key="idx" class="my-1 mx-5">
@@ -65,7 +69,7 @@
           dense
           class="ml-n3 mr-n3 font-weight-thin"
           color="deep-orange"
-          label="Type a message"
+          :label="$t('messages_page.chat.text_field')"
           type="text"
           @keyup.enter.native="sendMessage"
           @click:append="sendMessage"/>
@@ -74,201 +78,199 @@
 </template>
 
 <script>
-  import UserCard from "../components/UserCard";
-  import MessageCard from "../components/Message/MessageCard";
+import UserCard from "../components/UserCard";
+import MessageCard from "../components/Message/MessageCard";
 
-  export default {
-    name: "MessagesPage",
-    components: {MessageCard, UserCard},
-    data: () => ({
-      user: {followers: [], following: [], bio: ""},
-      otherUsername: '',
-      followers: [],
-      following: [],
-      chats: [],
-      users: [],
-      messages: [],
-      showNewChatDialog: false,
-      newMessage: '',
-      msgListener: {},
-      isLoading: true,
-    }),
-    mounted() {
-      this.fetchUser();
-      this.fetchUserChats();
-      this.msgListener = setInterval(() => {
-        if (this.otherUsername === '') return;
-        console.log('Fetching messages')
-        this.fetchMessages()
-      }, 15000);
+export default {
+  name: "MessagesPage",
+  components: {MessageCard, UserCard},
+  data: () => ({
+    user: {followers: [], following: [], bio: ""},
+    otherUsername: '',
+    followers: [],
+    following: [],
+    chats: [],
+    users: [],
+    messages: [],
+    showNewChatDialog: false,
+    newMessage: '',
+    msgListener: {},
+    isLoading: true,
+  }),
+  mounted() {
+    this.fetchUser();
+    this.fetchUserChats();
+    this.msgListener = setInterval(() => {
+      if (this.otherUsername === '') return;
+      this.fetchMessages()
+    }, 15000);
+  },
+  beforeDestroy() {
+    clearInterval(this.msgListener);
+  },
+  methods: {
+    async sendMessage() {
+      if (this.newMessage === "") return;
+      let chatId = await this.getChatId();
+
+      if (!chatId) {
+        chatId = await this.createNewChat();
+      }
+
+      const BASE = "https://vevericka-message-service.herokuapp.com";
+      const URL = `${BASE}/message/new_message/${chatId}`;
+
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({content: this.newMessage, sent_by: this.username}),
+      };
+
+      const response = await fetch(URL, requestOptions);
+      const data = await response.json();
+
+      if (data.status_code) {
+        return;
+      }
+
+      this.messages = [...this.messages, data.message]
+      this.newMessage = '';
     },
-    beforeDestroy() {
-      clearInterval(this.msgListener);
+    async getChatId() {
+      const BASE = "https://vevericka-message-service.herokuapp.com";
+      const URL = `${BASE}/message/get_chat/${this.username}/${this.otherUsername}`;
+
+      const response = await fetch(URL);
+      const data = await response.json();
+
+      if (data['chat']) {
+        return data['chat']['_id'];
+      }
+
+      return undefined;
     },
-    methods: {
-      async sendMessage() {
-        if (this.newMessage === "") return;
-        let chatId = await this.getChatId();
+    onCardClick(u) {
+      this.showNewChatDialog = false;
+      this.otherUsername = u.username;
+    },
+    async fetchUser() {
+      const BASE_URL = "https://user-info-service.herokuapp.com/user";
+      const URL = `${BASE_URL}/username/${this.username}`;
+      const response = await fetch(URL);
+      const data = await response.json();
+      this.user = data.user[0];
 
-        if (!chatId) {
-          chatId = await this.createNewChat();
-        }
+      if (this.user.followers.length > 0) {
+        this.followers = await this.getUsersFromUsernames(this.user.followers);
+      }
 
-        const BASE = "https://vevericka-message-service.herokuapp.com";
-        const URL = `${BASE}/message/new_message/${chatId}`;
-
-        const requestOptions = {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({content: this.newMessage, sent_by: this.username}),
-        };
-
-        const response = await fetch(URL, requestOptions);
-        const data = await response.json();
-
-        if (data.status_code) {
-          console.log('Send message status_code')
-          return
-        }
-
-        this.messages = [...this.messages, data.message]
-        this.newMessage = '';
-      },
-      async getChatId() {
-        const BASE = "https://vevericka-message-service.herokuapp.com";
-        const URL = `${BASE}/message/get_chat/${this.username}/${this.otherUsername}`;
-
-        const response = await fetch(URL);
-        const data = await response.json();
-
-        if (data['chat']) {
-          return data['chat']['_id'];
-        }
-
-        return undefined;
-      },
-      onCardClick(u) {
-        this.showNewChatDialog = false;
-        this.otherUsername = u.username;
-      },
-      async fetchUser() {
-        const BASE_URL = "https://user-info-service.herokuapp.com/user";
-        const URL = `${BASE_URL}/username/${this.username}`;
-        const response = await fetch(URL);
-        const data = await response.json();
-        this.user = data.user[0];
-
-        if (this.user.followers.length > 0) {
-          this.followers = await this.getUsersFromUsernames(this.user.followers);
-        }
-
-        if (this.user.following.length > 0) {
-          this.following = await this.getUsersFromUsernames(this.user.following);
-        }
-      },
-      async fetchUserChats() {
-        const BASE = "https://vevericka-message-service.herokuapp.com";
-        const URL = `${BASE}/message/get_chats/${this.username}`;
-
-        const response = await fetch(URL);
-        const {chats} = await response.json();
-
-        this.chats = chats;
-        this.users = await this.getUsersFromUsernames(chats.map(c => c.fst !== this.username ? c.fst : c.snd));
-        this.isLoading = false;
-      },
-      async getUsersFromUsernames(list) {
-        if (list.length === 0) return [];
-        const BASE = "https://user-info-service.herokuapp.com";
-        const requestOptions = {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({list}),
-        };
-
-        const URL = `${BASE}/user/get_all_by_username/`;
-        const response = await fetch(URL, requestOptions);
-        const {users} = await response.json();
-
-        return users;
-      },
-      async createNewChat() {
-        if (this.otherUsername === '') return;
-
-        const BASE = "https://vevericka-message-service.herokuapp.com";
-        const URL = `${BASE}/message/new_chat`;
-
-        const requestOptions = {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({'fst': this.username, 'snd': this.otherUsername}),
-        };
-
-        const response = await fetch(URL, requestOptions);
-        const data = await response.json();
-
-        if (data.status_code) {
-          return;
-        }
-
-        return data?.chat?._id;
-      },
-      async fetchMessages() {
-        const BASE = "https://vevericka-message-service.herokuapp.com";
-        const URL = `${BASE}/message/get_messages/${this.username}/${this.otherUsername}`;
-
-        const response = await fetch(URL);
-        const data = await response.json();
-
-        if (data.status_code) return;
-
-        this.messages = data.messages;
+      if (this.user.following.length > 0) {
+        this.following = await this.getUsersFromUsernames(this.user.following);
       }
     },
-    computed: {
-      name() {
-        return this.$store.state.user.name;
-      },
-      username() {
-        return this.$store.state.user.username;
-      },
+    async fetchUserChats() {
+      const BASE = "https://vevericka-message-service.herokuapp.com";
+      const URL = `${BASE}/message/get_chats/${this.username}`;
+
+      const response = await fetch(URL);
+      const {chats} = await response.json();
+
+      this.chats = chats;
+      this.users = await this.getUsersFromUsernames(chats.map(c => c.fst !== this.username ? c.fst : c.snd));
+      this.isLoading = false;
     },
-    watch: {
-      otherUsername() {
-        if (this.otherUsername === '') return;
-        this.fetchMessages()
+    async getUsersFromUsernames(list) {
+      if (list.length === 0) return [];
+      const BASE = "https://user-info-service.herokuapp.com";
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({list}),
+      };
+
+      const URL = `${BASE}/user/get_all_by_username/`;
+      const response = await fetch(URL, requestOptions);
+      const {users} = await response.json();
+
+      return users;
+    },
+    async createNewChat() {
+      if (this.otherUsername === '') return;
+
+      const BASE = "https://vevericka-message-service.herokuapp.com";
+      const URL = `${BASE}/message/new_chat`;
+
+      const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({'fst': this.username, 'snd': this.otherUsername}),
+      };
+
+      const response = await fetch(URL, requestOptions);
+      const data = await response.json();
+
+      if (data.status_code) {
+        return;
       }
+
+      return data?.chat?._id;
+    },
+    async fetchMessages() {
+      const BASE = "https://vevericka-message-service.herokuapp.com";
+      const URL = `${BASE}/message/get_messages/${this.username}/${this.otherUsername}`;
+
+      const response = await fetch(URL);
+      const data = await response.json();
+
+      if (data.status_code) return;
+
+      this.messages = data.messages;
     }
-  };
+  },
+  computed: {
+    name() {
+      return this.$store.state.user.name;
+    },
+    username() {
+      return this.$store.state.user.username;
+    },
+  },
+  watch: {
+    otherUsername() {
+      if (this.otherUsername === '') return;
+      this.fetchMessages()
+    }
+  }
+};
 </script>
 
 <style>
-  .card-style {
-    cursor: pointer;
-  }
+.card-style {
+  cursor: pointer;
+}
 
-  .scrollable-content {
-    height: 65vh;
-    overflow: auto;
-  }
+.scrollable-content {
+  height: 65vh;
+  overflow: auto;
+}
 
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
+}
 
-  .message-container {
-    width: min(1000px, calc(70% + 100px));
-  }
+.message-container {
+  width: min(1000px, calc(70% + 100px));
+}
 
-  .em-1 {
-    font-size: 1em;
-  }
+.em-1 {
+  font-size: 1em;
+}
 
-  .em-13 {
-    font-size: 1.3em;
-  }
+.em-13 {
+  font-size: 1.3em;
+}
 
-  .em-16 {
-    font-size: 1.6em;
-  }
+.em-16 {
+  font-size: 1.6em;
+}
 </style>

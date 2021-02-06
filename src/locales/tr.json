@@ -242,5 +242,18 @@
       "required": "Lütfen bu alanı doldurun",
       "email": "Lütfen geçerli bir e-posta adresi girin"
     }
+  },
+  "messages_page": {
+    "title": "Son Konuşmalar",
+    "new_chat": "Sohbet Başlat",
+    "no_chat": "Hiç konuşma yok",
+    "dialog": {
+      "title": "Sohbet Başlat",
+      "no_user": "Hiç kullanıcı yok"
+    },
+    "chat": {
+      "no_message": "Hiç mesaj yok",
+      "text_field": "Mesaj yazın"
+    }
   }
 }
