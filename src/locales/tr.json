@@ -341,5 +341,24 @@
         "short": "Şifre 8 karakterden kısa olamaz"
       }
     }
+  },
+  "report": {
+    "title": "Sorun Bildirin",
+    "username": "Kullanıcı Adı",
+    "post_id": "Gönderi",
+    "information_text": "Eklemek istediğiniz bilgi varsa lütfen aşağıya yazınız",
+    "information": "Bilgi",
+    "report": "Bildir",
+    "report_use_help": {
+      "text": "Lütfen bildirmek istediğiniz paylaşımın menüsünden bildir tuşunu kullanınız.",
+      "links": "Yardıma ihtiyacınız varsa, <a href=\"/help\" class=\"deep-orange--text\">Yardım</a> sayfamızı ziyaret edin ya da bizimle <a href=\"/contact\" class=\"deep-orange--text\">iletişim</a> kurun."
+    },
+    "dialog": {
+      "title_ok": "Bildirildi",
+      "title_err": "Bildirim Başarısız Oldu",
+      "text_ok": "Vevericka'yı daha iyi bir yer haline getirmemizde yardımcı olduğunuz için teşekkürler.",
+      "text_err": "Lütfen daha sonra tekrar deneyiniz",
+      "close": "Kapat"
+    }
   }
 }

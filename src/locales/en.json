@@ -341,5 +341,24 @@
         "short": "Password cannot be shorter than 8 characters"
       }
     }
+  },
+  "report": {
+    "title": "Report Content",
+    "username": "Username",
+    "post_id": "Post ID",
+    "information_text": "If you have additional information, you can write below",
+    "information": "Information",
+    "report": "Report",
+    "report_use_help": {
+      "text": "Please use the report button from the context menu of the post you want to report.",
+      "links": "If you need help, visit our <a href=\"/help\" class=\"deep-orange--text\">Help</a> page or <a href=\"/contact\" class=\"deep-orange--text\">contact</a> with us."
+    },
+    "dialog": {
+      "title_ok": "Reported",
+      "title_err": "Report failed",
+      "text_ok": "Thank you for making Vevericka a better place",
+      "text_err": "Please try again later",
+      "close": "Close"
+    }
   }
 }

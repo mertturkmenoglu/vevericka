@@ -2,7 +2,7 @@
   <v-container>
     <h1 class="font-weight-light text-center">
       <v-icon color="deep-orange" x-large>mdi-flag-outline</v-icon>
-      Report Content
+      {{ $t('report.title') }}
     </h1>
     <v-divider></v-divider>
     <div v-if="reportContent">
@@ -17,7 +17,7 @@
               class="font-weight-light mt-3"
               prefix="@"
               color="deep-orange"
-              label="Username"
+              :label="$t('report.username')"
               type="text"
           />
           <v-text-field
@@ -29,7 +29,7 @@
               class="font-weight-light"
               prefix="@"
               color="deep-orange"
-              label="Post ID"
+              :label="$t('report.post_id')"
               type="text"
           />
 
@@ -43,7 +43,7 @@
             ></v-radio>
           </v-radio-group>
 
-          <div class="font-weight-light mb-3">If you have additional information, you can write below</div>
+          <div class="font-weight-light mb-3">{{ $t('report.information_text') }}</div>
 
           <v-text-field
               v-model="reportComment"
@@ -52,41 +52,38 @@
               flat
               class="font-weight-light"
               color="deep-orange"
-              label="Information"
+              :label="$t('report.information')"
               type="text"
           />
 
           <v-btn block color="red" dark @click="report">
             <v-icon color="white" left>mdi-flag-outline</v-icon>
-            Report
+            {{ $t('report.report') }}
           </v-btn>
         </v-col>
       </v-row>
     </div>
     <div v-else class="font-weight-light text-h5 text-center mt-3">
-      Please use the report button from the context menu of the post you want to report. If you need help, visit our
-      <router-link to="/help" class="deep-orange--text">Help</router-link>
-      page or
-      <router-link to="/contact" class="deep-orange--text">contact</router-link>
-      with us.
+      {{ $t('report.report_use_help.text') }}
+      <span v-html="$t('report.report_use_help.links')" />
     </div>
 
     <v-dialog v-model="reportDialog" width="400">
       <v-card>
         <v-card-title class="font-weight-light">
-          {{ reportOk ? 'Reported' : 'Report failed' }}
+          {{ reportOk ? $t('report.dialog.title_ok') : $t('report.dialog.title_err') }}
         </v-card-title>
 
         <v-divider></v-divider>
 
         <v-card-text class="mt-3">
-          {{ reportOk ? 'Thank you for making Vevericka a better place' : 'Please try again later' }}
+          {{ reportOk ? $t('report.dialog.text_ok') : $t('report.dialog.text_err') }}
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="success" text @click="completeReport">
-            Close
+            {{ $t('report.dialog.close') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -95,7 +92,7 @@
 </template>
 
 <script>
-import { router } from '@/router';
+import {router} from '@/router';
 
 export default {
   name: "ReportPage",
