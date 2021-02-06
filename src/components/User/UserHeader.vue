@@ -26,7 +26,7 @@
 
     <v-card-text>
       <v-row justify="center" class="text-center">
-        <div class="font-weight-light em-12">{{user.bio}}</div>
+        <div class="font-weight-light em-12">{{ user.bio }}</div>
       </v-row>
     </v-card-text>
 
@@ -36,10 +36,10 @@
           <v-row justify="space-around">
             <v-spacer></v-spacer>
             <v-btn text color="deep-orange text--darken-2" class="font-weight-light" @click="toggleFollowers">
-              {{ user.followers.length }} followers
+              {{ user.followers.length }} {{ $t('user.header.followers') }}
             </v-btn>
             <v-btn text color="deep-orange text--darken-2" class="font-weight-light" @click="toggleFollowing">
-              {{ user.following.length }} following
+              {{ user.following.length }} {{ $t('user.header.following') }}
             </v-btn>
             <v-spacer></v-spacer>
           </v-row>
@@ -56,6 +56,7 @@
 <script>
 
 import UserActions from "@/components/User/UserActions";
+
 export default {
   name: "UserHeader",
   components: {UserActions},

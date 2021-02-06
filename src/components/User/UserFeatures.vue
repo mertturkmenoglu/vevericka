@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-title class="deep-orange white--text">Features</v-card-title>
+    <v-card-title class="deep-orange white--text">{{ $t('user.features.features') }}</v-card-title>
     <v-simple-table v-if="user.features.length > 0">
       <template v-slot:default>
         <tbody>
@@ -15,19 +15,21 @@
         </tbody>
       </template>
     </v-simple-table>
-    <div v-else class="em-08 text-center font-weight-light mt-3 text--primary">No Features</div>
+    <div v-else class="em-08 text-center font-weight-light mt-3 text--primary">
+      {{ $t('user.features.no_features') }}
+    </div>
   </v-card>
 </template>
 
 <script>
-  export default {
-    name: "UserFeatures",
-    props: ["user"],
-  }
+export default {
+  name: "UserFeatures",
+  props: ["user"],
+}
 </script>
 
 <style scoped>
-  .em-08 {
-    font-size: .8em;
-  }
+.em-08 {
+  font-size: .8em;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-title class="deep-orange white--text">Information</v-card-title>
+    <v-card-title class="deep-orange white--text">{{ $t('user.info.information') }}</v-card-title>
     <v-container>
       <v-row v-if="user.bdate" class="em-08 mx-auto mt-2 pl-2">
         <v-icon class="mr-2" large color="deep-orange">mdi-calendar</v-icon>

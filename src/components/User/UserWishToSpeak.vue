@@ -1,11 +1,11 @@
 <template>
   <v-card flat>
-    <v-card-title class="card-title">Wish to Speak</v-card-title>
+    <v-card-title class="card-title">{{ $t('user.wish_to_speak.title') }}</v-card-title>
     <v-simple-table v-if="user.wish_to_speak.length > 0">
       <template v-slot:default>
         <thead>
         <tr>
-          <th class="text-left">Language</th>
+          <th class="text-left">{{ $t('user.wish_to_speak.language') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -15,7 +15,7 @@
         </tbody>
       </template>
     </v-simple-table>
-    <div v-else class="text-h6 text-center font-weight-light mt-3">No languages</div>
+    <div v-else class="text-h6 text-center font-weight-light mt-3">{{ $t('user.wish_to_speak.no_languages') }}</div>
   </v-card>
 </template>
 

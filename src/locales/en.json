@@ -175,5 +175,42 @@
       }
     },
     "update": "Update"
+  },
+  "user": {
+    "actions": {
+      "unfollow": "Unfollow",
+      "follow": "Follow",
+      "edit_profile": "Edit Your Profile"
+    },
+    "features": {
+      "features": "Features",
+      "no_features": "No Features"
+    },
+    "hobbies": {
+      "hobbies": "Hobbies",
+      "no_hobbies": "No Hobbies"
+    },
+    "header": {
+      "followers": "followers",
+      "following": "following"
+    },
+    "info": {
+      "information": "Information",
+      "no_information": "No Information"
+    },
+    "languages": {
+      "title": "Languages",
+      "language": "Language",
+      "proficiency": "Proficiency",
+      "no_languages": "No Language"
+    },
+    "wish_to_speak": {
+      "title": "Wish to Speak",
+      "language": "Language",
+      "no_languages": "No Language"
+    }
+  },
+  "user_list_dialog": {
+    "no_user": "No user"
   }
 }

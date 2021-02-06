@@ -174,5 +174,42 @@
       }
     },
     "update": "Güncelle"
+  },
+  "user": {
+    "actions": {
+      "unfollow": "Takibi Bırak",
+      "follow": "Takip Et",
+      "edit_profile": "Profilinizi Düzenleyin"
+    },
+    "features": {
+      "features": "Özellikler",
+      "no_features": "Özellik Yok"
+    },
+    "hobbies": {
+      "hobbies": "Hobiler",
+      "no_hobbies": "Hobi Yok"
+    },
+    "header": {
+      "followers": "takipçi",
+      "following": "takip edilen"
+    },
+    "info": {
+      "information": "Bilgi",
+      "no_information": "Bilgi Yok"
+    },
+    "languages": {
+      "title": "Konuşulan Diller",
+      "language": "Dil",
+      "proficiency": "Seviye",
+      "no_languages": "Dil Yok"
+    },
+    "wish_to_speak": {
+      "title": "Konuşmak İstenilen Diller",
+      "language": "Dil",
+      "no_languages": "Dil Yok"
+    }
+  },
+  "user_list_dialog": {
+    "no_user": "Kullanıcı Yok"
   }
 }

@@ -4,7 +4,7 @@
       <v-card-title class="deep-orange text--darken-2 white--text">{{ title }}</v-card-title>
       <v-card-text>
       <div v-if="list.length <= 0" class="em-1 text-center">
-        <span>No user</span>
+        <span>{{ $t('user_list_dialog.no_user')}}</span>
       </div>
       <div v-else>
         <div v-for="(u, idx) in list" :key="idx" class="my-1 mx-5">
