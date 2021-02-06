@@ -11,7 +11,7 @@
         />
       </router-link>
 
-      <router-link to="/" class="text-decoration-none deep-orange--text text--darken-2">
+      <router-link to="/" class="text-decoration-none deep-orange--text">
         <v-toolbar-title class="font-weight-light hidden-xs-only text-h5">Vevericka</v-toolbar-title>
       </router-link>
 

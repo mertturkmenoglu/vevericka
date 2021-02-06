@@ -10,7 +10,7 @@
             aspect-ratio="1"
             alt="Profile"/>
       </v-avatar>
-      <span class="ml-5 font-weight-light text--primary">{{ user.name }}</span>
+      <span class="ml-5 font-weight-light text--primary hidden-sm-and-down">{{ user.name }}</span>
       <span class="ml-2 font-weight-thin text--primary">@{{ user.username }}</span>
     </v-card-title>
     <v-textarea
