@@ -147,7 +147,6 @@
         },
         "subtitle": "What are your passions? Add up to 5 features"
       }
-
     },
     "languages": {
       "title": "Languages",
@@ -212,5 +211,18 @@
   },
   "user_list_dialog": {
     "no_user": "No user"
+  },
+  "bookmarks_page": {
+    "title": "Your Bookmarks",
+    "no_bookmark": "No bookmark here",
+    "snackbar": {
+      "message": "Bookmark Removed",
+      "close": "Close"
+    }
+  },
+  "contact_page": {
+    "title": "Contact Us",
+    "contact_admin": "For any problem, you can contact with the site administrator",
+    "contact_mail": "You can reach us at"
   }
 }

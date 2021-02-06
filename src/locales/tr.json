@@ -211,5 +211,18 @@
   },
   "user_list_dialog": {
     "no_user": "Kullanıcı Yok"
+  },
+  "bookmarks_page": {
+    "title": "Kaydedilenler",
+    "no_bookmark": "Hiç kaydedilmiş gönderi yok",
+    "snackbar": {
+      "message": "Kaldırıldı",
+      "close": "Kapat"
+    }
+  },
+  "contact_page": {
+    "title": "Bize Ulaşın",
+    "contact_admin": "Her türlü probleminiz için, site admini ile iletişim kurabilirsiniz",
+    "contact_mail": "Maille ulaşmak için"
   }
 }

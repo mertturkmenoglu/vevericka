@@ -4,7 +4,7 @@
       <v-col class="mx-auto" cols="12" sm="8">
         <h2 class="font-weight-light">
           <v-icon x-large color="deep-orange">mdi-bookmark</v-icon>
-          Your Bookmarks
+          {{ $t('bookmarks_page.title') }}
         </h2>
         <v-divider></v-divider>
         <div v-for="(post, idx) in posts" :key="idx">
@@ -17,7 +17,7 @@
         </div>
         <div v-if="!loading && posts.length === 0" class="text-center mt-3">
           <h2 class="font-weight-light">
-            No bookmarks here.
+            {{ $t('bookmarks_page.no_bookmark') }}
           </h2>
           <v-icon x-large color="deep-orange">mdi-emoticon-sad-outline</v-icon>
         </div>
@@ -32,7 +32,7 @@
       {{ snackbarMessage }}
       <template v-slot:action="{ attrs }">
         <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-          Close
+          {{ $t('bookmarks_page.snackbar.close') }}
         </v-btn>
       </template>
     </v-snackbar>
@@ -85,7 +85,7 @@ export default {
     },
     async bookmarkRemoved() {
       this.snackbar = true;
-      this.snackbarMessage = "Bookmark removed";
+      this.snackbarMessage = this.$t('bookmarks_page.snackbar.message');
       await this.refresh();
     },
   }
