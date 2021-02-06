@@ -29,7 +29,7 @@
         type="text"
         name="create-post-text-area"
         :rules="postTextAreaRules"
-        label="Say what you must, don't leave it there."
+        :label="$t('home_page.post_create.post_text_field')"
         @click:clear="postContent = ''"
     />
 
@@ -54,7 +54,7 @@
           class="mr-n2"
           :disabled="typingProgress > 100"
           @click="createPost">
-        Post
+        {{ $t('home_page.post_create.post_button') }}
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -66,7 +66,6 @@ export default {
   components: {},
   props: ['user'],
   data: () => ({
-    postTextAreaRules: [v => v.length <= 255 || 'Max 255 characters'],
     postContent: '',
   }),
   methods: {
@@ -98,6 +97,12 @@ export default {
     }
   },
   computed: {
+    postTextAreaRules() {
+      return [v => v.length <= 255 || this.postTextAreaError]
+    },
+    postTextAreaError() {
+      return this.$t('home_page.post_create.post_character_limit_error')
+    },
     typingProgress() {
       const MAX_CHARACTERS = 255;
       return this.postContent.length / MAX_CHARACTERS * 100;

@@ -28,7 +28,7 @@
       {{ snackbarMessage }}
       <template v-slot:action="{ attrs }">
         <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-          Close
+          {{ $t('home_page.snackbar.close') }}
         </v-btn>
       </template>
     </v-snackbar>
@@ -83,23 +83,23 @@ export default {
     },
     shareLinkCopied() {
       this.snackbar = true;
-      this.snackbarMessage = "Post link copied to your clipboard";
+      this.snackbarMessage = this.$t('home_page.snackbar.messages.post_link_copied');
     },
     shareDM() {
       this.snackbar = true;
-      this.snackbarMessage = "Message sent";
+      this.snackbarMessage = this.$t('home_page.snackbar.messages.message_sent');
     },
     postSaved() {
       this.snackbar = true;
-      this.snackbarMessage = "Saved";
+      this.snackbarMessage = this.$t('home_page.snackbar.messages.saved');
     },
     postDeleted() {
       this.snackbar = true;
-      this.snackbarMessage = "Post deleted";
+      this.snackbarMessage = this.$t('home_page.snackbar.messages.post_deleted');
     },
     userUnfollowed() {
       this.snackbar = true;
-      this.snackbarMessage = "Unfollowed";
+      this.snackbarMessage = this.$t('home_page.snackbar.messages.unfollowed');
     },
   },
   created() {

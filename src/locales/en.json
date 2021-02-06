@@ -1,3 +1,74 @@
 {
-  "message": "hello i18n !!"
+  "message": "hello i18n !!",
+  "nav": {
+    "bar": {
+      "search": "Search"
+    },
+    "menu": {
+      "view_your_profile": "View your profile",
+      "explore": "Explore",
+      "bookmarks": "Bookmarks",
+      "settings": "Settings",
+      "dark_theme": "Dark Theme",
+      "logout": "Logout",
+      "display_language": "Display Language",
+      "display_language_dialog": {
+        "title": "Change Display Language",
+        "change": "Change",
+        "cancel": "Cancel"
+      },
+      "help": "Help",
+      "contact": "Contact",
+      "report": "Report",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "status": {
+        "status": "Status",
+        "info": "View service status"
+      }
+    }
+  },
+  "home_page": {
+    "post_create": {
+      "post_text_field": "Say what you must, don't leave it there",
+      "post_button": "Post",
+      "post_character_limit_error": "Max 255 characters"
+    },
+    "snackbar": {
+      "messages": {
+        "post_link_copied": "Post link copied to your clipboard",
+        "message_sent": "Message sent",
+        "saved": "Saved",
+        "post_deleted": "Post deleted",
+        "unfollowed": "Unfollowed"
+      },
+      "close": "Close"
+    }
+  },
+  "post_card": {
+    "menu": {
+      "share": "Share",
+      "send_via_dm": "Send via DM",
+      "save": "Save",
+      "report": "Report",
+      "delete": "Delete",
+      "unfollow": "Unfollow User"
+    },
+    "delete_post_dialog": {
+      "title": "Are you sure you want to do this?",
+      "text": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "unfollow_dialog": {
+      "title": "Are you sure you want to do this?",
+      "text": "You will stop following this user.",
+      "cancel": "Cancel",
+      "unfollow": "Unfollow"
+    },
+    "dm_dialog": {
+      "title": "Send via DM",
+      "no_user": "No user"
+    }
+  }
 }

@@ -1,0 +1,74 @@
+{
+  "message": "Merhaba",
+  "nav": {
+    "bar": {
+      "search": "Ara"
+    },
+    "menu": {
+      "view_your_profile": "Profilinizi görüntüleyin",
+      "explore": "Keşfet",
+      "bookmarks": "Kaydedilenler",
+      "settings": "Ayarlar",
+      "dark_theme": "Gece Modu",
+      "logout": "Çıkış Yap",
+      "display_language": "Uygulama Dili",
+      "display_language_dialog": {
+        "title": "Uygulama Dilini Değiştirin",
+        "change": "Değiştir",
+        "cancel": "İptal"
+      },
+      "help": "Yardım",
+      "contact": "İletişim",
+      "report": "Sorun Bildir",
+      "terms": "Koşullar",
+      "privacy": "Gizlilik",
+      "status": {
+        "status": "Durum",
+        "info": "Servis durumlarını görüntüleyin"
+      }
+    }
+  },
+  "home_page": {
+    "post_create": {
+      "post_text_field": "Ne yazmak istersen",
+      "post_button": "Paylaş",
+      "post_character_limit_error": "En fazla 255 karakter"
+    },
+    "snackbar": {
+      "messages": {
+        "post_link_copied": "Link panoya kopyalandı",
+        "message_sent": "Mesaj gönderildi",
+        "saved": "Kaydedildi",
+        "post_deleted": "Paylaşım silindi",
+        "unfollowed": "Takipten çıkıldı"
+      },
+      "close": "Kapat"
+    }
+  },
+  "post_card": {
+    "menu": {
+      "share": "Paylaş",
+      "send_via_dm": "DM Gönder",
+      "save": "Kaydet",
+      "report": "Bildir",
+      "delete": "Sil",
+      "unfollow": "Takibi Bırak"
+    },
+    "delete_post_dialog": {
+      "title": "Bunu yapmak istediğine emin misin?",
+      "text": "Bu eylem geri alınamaz.",
+      "cancel": "İptal",
+      "delete": "Sil"
+    },
+    "unfollow_dialog": {
+      "title": "Bunu yapmak istediğine emin misin?",
+      "text": "Kullanıcıyı takipten çıkacaksın.",
+      "cancel": "İptal",
+      "unfollow": "Takibi Bırak"
+    },
+    "dm_dialog": {
+      "title": "DM Gönder",
+      "no_user": "Kullanıcı yok"
+    }
+  }
+}

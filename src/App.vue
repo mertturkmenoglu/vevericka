@@ -34,7 +34,7 @@
               @focusout="isAppBarSearchFocused = false"
               single-line
               solo
-              label="Search"
+              :label="$t('nav.bar.search')"
               type="text"
           />
         </v-col>
@@ -92,7 +92,7 @@
                   <span class="deep-orange--text">@{{ this.$store.state.user.username.substr(0, 20) }}</span>
                 </v-list-item-title>
                 <v-list-item-subtitle>
-                  <span class="text-caption font-weight-light">View your profile</span>
+                  <span class="text-caption font-weight-light">{{ $t('nav.menu.view_your_profile') }}</span>
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -106,7 +106,7 @@
                 <v-icon color="deep-orange">mdi-pound</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Explore</v-list-item-title>
+                <v-list-item-title>{{ $t('nav.menu.explore') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -118,7 +118,7 @@
                 <v-icon color="deep-orange">mdi-bookmark-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Bookmarks</v-list-item-title>
+                <v-list-item-title>{{ $t('nav.menu.bookmarks') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -129,7 +129,7 @@
                 <v-icon color="deep-orange">mdi-cog-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Settings</v-list-item-title>
+                <v-list-item-title>{{ $t('nav.menu.settings') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -140,7 +140,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>Dark theme</v-list-item-title>
+              <v-list-item-title>{{ $t('nav.menu.dark_theme') }}</v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-action>
@@ -153,7 +153,7 @@
               <v-icon color="deep-orange">mdi-logout</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Logout</v-list-item-title>
+              <v-list-item-title>{{ $t('nav.menu.logout') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-dialog v-model="displayLanguageDialog" width="500">
@@ -164,14 +164,14 @@
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title>Display Language</v-list-item-title>
+                  <v-list-item-title>{{ $t('nav.menu.display_language') }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </template>
 
             <v-card>
               <v-card-title class="deep-orange white--text">
-                Change Display Language
+                {{ $t('nav.menu.display_language_dialog.title') }}
               </v-card-title>
 
               <v-card-text>
@@ -191,10 +191,10 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="error" text @click="closeDisplayLanguageDialog">
-                  Close
+                  {{ $t('nav.menu.display_language_dialog.cancel') }}
                 </v-btn>
                 <v-btn color="primary" text @click="changeDisplayLanguage">
-                  Change
+                  {{ $t('nav.menu.display_language_dialog.change') }}
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -208,7 +208,7 @@
                 <v-icon disabled color="deep-orange">mdi-help-circle-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Help</v-list-item-title>
+                <v-list-item-title>{{ $t('nav.menu.help') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -219,7 +219,7 @@
                 <v-icon color="deep-orange">mdi-at</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Contact</v-list-item-title>
+                <v-list-item-title>{{ $t('nav.menu.contact') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -230,7 +230,7 @@
                 <v-icon color="deep-orange">mdi-flag-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Report</v-list-item-title>
+                <v-list-item-title>{{ $t('nav.menu.report') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -241,7 +241,7 @@
                 <v-icon color="deep-orange">mdi-book-open-blank-variant</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Terms</v-list-item-title>
+                <v-list-item-title>{{ $t('nav.menu.terms') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -252,7 +252,7 @@
                 <v-icon disabled color="deep-orange">mdi-lock</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Privacy</v-list-item-title>
+                <v-list-item-title>{{ $t('nav.menu.privacy') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -265,8 +265,8 @@
                 <v-icon color="deep-orange">mdi-thermostat</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Status</v-list-item-title>
-                <v-list-item-subtitle>View service status</v-list-item-subtitle>
+                <v-list-item-title>{{ $t('nav.menu.status.status') }}</v-list-item-title>
+                <v-list-item-subtitle>{{ $t('nav.menu.status.info') }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </a>
@@ -275,7 +275,7 @@
 
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-subtitle class="em-08">Vevericka  &copy; 2021</v-list-item-subtitle>
+              <v-list-item-subtitle class="em-08">Vevericka &copy; 2021</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -325,7 +325,6 @@ export default {
       this.displayLanguageDialog = false;
     },
     changeDisplayLanguage() {
-      console.log(this.selectedDisplayLanguage);
       this.$i18n.locale = this.selectedDisplayLanguage;
       localStorage.setItem("veverickaDisplayLanguage", this.selectedDisplayLanguage);
       this.displayLanguageDialog = false;
@@ -337,9 +336,9 @@ export default {
     setDisplayLanguage() {
       const lang = localStorage.getItem('veverickaDisplayLanguage');
       if (typeof lang !== 'string' || lang.length !== 2) {
-        this.$i18n.locale = 'en';
+        this.$root.$i18n.locale = 'en';
       } else {
-        this.$i18n.locale = lang;
+        this.$root.$i18n.locale = lang;
       }
     },
     toggleDarkMode() {

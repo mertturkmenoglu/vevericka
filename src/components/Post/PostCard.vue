@@ -32,7 +32,7 @@
               <v-icon color="deep-orange">mdi-share-variant-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Share</v-list-item-title>
+              <v-list-item-title>{{ $t('post_card.menu.share') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -41,7 +41,7 @@
               <v-icon color="deep-orange">mdi-email-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Send via DM</v-list-item-title>
+              <v-list-item-title>{{ $t('post_card.menu.send_via_dm') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -50,7 +50,7 @@
               <v-icon color="deep-orange">mdi-bookmark-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Save</v-list-item-title>
+              <v-list-item-title>{{ $t('post_card.menu.save') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -59,7 +59,7 @@
               <v-icon color="deep-orange">mdi-flag-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Report</v-list-item-title>
+              <v-list-item-title>{{ $t('post_card.menu.report') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -70,7 +70,7 @@
               <v-icon>mdi-delete-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Delete</v-list-item-title>
+              <v-list-item-title>{{ $t('post_card.menu.delete') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item v-else @click="unfollowDialog = true">
@@ -78,7 +78,7 @@
               <v-icon color="amber">mdi-account-off-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Unfollow user</v-list-item-title>
+              <v-list-item-title>{{ $t('post_card.menu.unfollow') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -111,11 +111,11 @@
     <v-dialog v-model="deletePostDialog" width="400">
       <v-card>
         <v-card-title class="font-weight-light">
-          Are you sure you want to do this?
+          {{ $t('post_card.delete_post_dialog.title') }}
         </v-card-title>
 
         <v-card-text>
-          This action cannot be undone.
+          {{ $t('post_card.delete_post_dialog.text') }}
         </v-card-text>
 
         <v-divider></v-divider>
@@ -123,10 +123,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="deletePostDialog = false">
-            Cancel
+            {{ $t('post_card.delete_post_dialog.cancel') }}
           </v-btn>
           <v-btn color="red" text @click="deletePost">
-            Delete
+            {{ $t('post_card.delete_post_dialog.delete') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -135,11 +135,11 @@
     <v-dialog v-model="unfollowDialog" width="400">
       <v-card>
         <v-card-title class="font-weight-light">
-          Are you sure you want to do this?
+          {{ $t('post_card.unfollow_dialog.title') }}
         </v-card-title>
 
         <v-card-text>
-          You will stop following this user.
+          {{ $t('post_card.unfollow_dialog.text') }}
         </v-card-text>
 
         <v-divider></v-divider>
@@ -147,10 +147,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="unfollowDialog = false">
-            Cancel
+            {{ $t('post_card.unfollow_dialog.cancel') }}
           </v-btn>
           <v-btn color="red" text @click="unfollowUser">
-            Unfollow
+            {{ $t('post_card.unfollow_dialog.unfollow') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -158,10 +158,10 @@
 
     <v-dialog v-model="dmDialog" scrollable width="400">
       <v-card>
-        <v-card-title class="deep-orange white--text">Send via DM</v-card-title>
+        <v-card-title class="deep-orange white--text">{{ $t('post_card.dm_dialog.title') }}</v-card-title>
         <v-card-text>
           <div v-if="user.following.length <= 0" class="em-1 text-center">
-            <span>No user</span>
+            <span>{{ $t('post_card.dm_dialog.no_user') }}</span>
           </div>
           <div v-else>
             <div v-for="(u, idx) in user.following" :key="idx" class="my-1">
