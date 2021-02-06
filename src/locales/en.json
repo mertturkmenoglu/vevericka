@@ -224,5 +224,23 @@
     "title": "Contact Us",
     "contact_admin": "For any problem, you can contact with the site administrator",
     "contact_mail": "You can reach us at"
+  },
+  "login": {
+    "title": "Login",
+    "email": "E-mail",
+    "password": "Password",
+    "login_button": "Login",
+    "to_register": {
+      "text": "New user?",
+      "register": "Register"
+    },
+    "to_password_reset": {
+      "text": "Forgot password?",
+      "reset": "Reset"
+    },
+    "rules": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address"
+    }
   }
 }

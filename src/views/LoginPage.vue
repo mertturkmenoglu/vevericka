@@ -18,28 +18,28 @@
             <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
               <v-card-text>
                 <h1 class="text-center display-1 mb-10 deep-orange--text font-weight-light">
-                  Login
+                  {{ $t('login.title') }}
                 </h1>
                 <v-form class="login-form-form" @submit.prevent="submit">
                   <v-text-field
                       class="pt-5"
-                      label="E-mail"
+                      :label="$t('login.email')"
                       type="email"
                       prepend-inner-icon="mdi-email"
                       v-model="email"
-                      :rules="[rules.required, rules.email]"
+                      :rules="[rulesRequired, rulesEmail]"
                       color="deep-orange"
                       outlined
                       dense
                   />
                   <v-text-field
                       class="pt-5"
-                      :rules="[rules.required]"
+                      :rules="[rulesRequired]"
                       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="showPassword ? 'text' : 'password'"
                       @click:append="showPassword = !showPassword"
                       v-model="password"
-                      label="Password"
+                      :label="$t('login.password')"
                       prepend-inner-icon="mdi-lock"
                       color="deep-orange"
                       outlined
@@ -54,16 +54,20 @@
                       {{ loginError }}
                     </v-alert>
                     <v-btn @click="submit" color="deep-orange" outlined block :disabled="!isLoginButtonEnabled">
-                      Login
+                      {{ $t('login.login_button') }}
                     </v-btn>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1 font-weight-light">New user? </span>
-                    <router-link to="/register" class="link font-weight-light">Register</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">
+                      {{ $t('login.to_register.text') }}
+                    </span>
+                    <router-link to="/register" class="link font-weight-light"> {{ $t('login.to_register.register') }}</router-link>
                   </div>
                   <div class="text-center mt-5 text-body-1">
-                    <span class="grey--text text--darken-1 font-weight-light">Forgot password? </span>
-                    <router-link to="/password" class="link font-weight-light">Reset</router-link>
+                    <span class="grey--text text--darken-1 font-weight-light">
+                      {{ $t('login.to_password_reset.text') }}
+                    </span>
+                    <router-link to="/password" class="link font-weight-light"> {{ $t('login.to_password_reset.reset') }}</router-link>
                   </div>
                 </v-form>
               </v-card-text>
@@ -85,13 +89,6 @@ export default {
     bgColor: 'deep-orange',
     fgColor: 'white',
     isLoginButtonEnabled: false,
-    rules: {
-      required: value => !!value || 'This field is required',
-      email: value => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || 'Please enter a valid email address';
-      },
-    }
   }),
   beforeRouteLeave(to, from, next) {
     this.$store.state.error = null;
@@ -114,8 +111,17 @@ export default {
     },
   },
   computed: {
+    rulesRequired() {
+      return value => !!value || this.$t('login.rules.required');
+    },
+    rulesEmail() {
+      return (value) => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || this.$t('login.rules.email');
+      }
+    },
     computeLoginButton() {
-      return !!(this.rules.email(this.email) === true && this.email !== '' && this.password !== '');
+      return !!(this.rulesEmail(this.email) === true && this.email !== '' && this.password !== '');
     },
     loginLoading() {
       const value = this.$store.state.status.loggingIn;

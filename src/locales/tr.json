@@ -224,5 +224,23 @@
     "title": "Bize Ulaşın",
     "contact_admin": "Her türlü probleminiz için, site admini ile iletişim kurabilirsiniz",
     "contact_mail": "Maille ulaşmak için"
+  },
+  "login": {
+    "title": "Giriş",
+    "email": "E-posta",
+    "password": "Şifre",
+    "login_button": "Giriş Yap",
+    "to_register": {
+      "text": "Hesabınız yok mu?",
+      "register": "Kaydolun"
+    },
+    "to_password_reset": {
+      "text": "Şifrenizi mi unuttunuz?",
+      "reset": "Sıfırlayın"
+    },
+    "rules": {
+      "required": "Lütfen bu alanı doldurun",
+      "email": "Lütfen geçerli bir e-posta adresi girin"
+    }
   }
 }
