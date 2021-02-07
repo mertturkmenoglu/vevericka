@@ -117,13 +117,15 @@ export default {
   },
   methods: {
     async fetchReportTypes() {
-      const URL = "https://vevericka-report-service.herokuapp.com/api/v1/report_types";
+      const lang = this.$i18n.locale || 'en';
+      const URL = `https://vevericka-report-service.herokuapp.com/api/v1/report_types?lang=${lang}`;
       const response = await fetch(URL);
       const {data} = await response.json();
       this.reportTypes = data;
     },
     async report() {
-      const URL = "https://vevericka-report-service.herokuapp.com/api/v1/";
+      const lang = this.$i18n.locale || 'en';
+      const URL = `https://vevericka-report-service.herokuapp.com/api/v1?lang=${lang}`;
       const requestBody = {
         reported_post_id: this.postId,
         reported_user: this.postUsername,
