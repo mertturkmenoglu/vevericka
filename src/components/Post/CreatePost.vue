@@ -82,8 +82,10 @@ export default {
         comments: [],
         username: this.user.username,
         date: (new Date()).toISOString(),
-        countdown: 24
-      }
+        countdown: 24,
+        mentions: [],
+        hashtags: [],
+      };
 
       const requestOptions = {
         method: "POST",
