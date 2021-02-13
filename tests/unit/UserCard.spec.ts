@@ -2,8 +2,8 @@ import { shallowMount } from '@vue/test-utils'
 import UserCard from '@/components/UserCard.vue'
 
 describe('UserCard Unit Tests', () => {
-  let user;
-  let wrapper;
+  let user: any;
+  let wrapper: any;
 
   beforeAll(() => {
     user = {

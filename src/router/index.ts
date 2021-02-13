@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from '@/views/HomePage'
-import LoginPage from '@/views/LoginPage'
-import RegisterPage from '@/views/RegisterPage'
-import UserPage from '@/views/UserPage'
-import SettingsPage from '@/views/SettingsPage'
-import MessagesPage from '@/views/MessagesPage'
-import SearchPage from '@/views/SearchPage'
-import PasswordResetPage from "../views/PasswordResetPage";
-import PostDetailPage from "@/views/PostDetailPage";
-import ExplorePage from "@/views/ExplorePage";
-import TermsPage from "@/views/TermsPage";
-import BookmarksPage from "@/views/BookmarksPage";
-import NotificationsPage from "@/views/NotificationsPage";
-import ContactPage from "@/views/ContactPage";
-import ReportPage from "@/views/ReportPage";
+import HomePage from '@/views/HomePage.vue'
+import LoginPage from '@/views/LoginPage.vue'
+import RegisterPage from '@/views/RegisterPage.vue'
+import UserPage from '@/views/UserPage.vue'
+import SettingsPage from '@/views/SettingsPage.vue'
+import MessagesPage from '@/views/MessagesPage.vue'
+import SearchPage from '@/views/SearchPage.vue'
+import PasswordResetPage from "../views/PasswordResetPage.vue"
+import PostDetailPage from "@/views/PostDetailPage.vue"
+import ExplorePage from "@/views/ExplorePage.vue"
+import TermsPage from "@/views/TermsPage.vue"
+import BookmarksPage from "@/views/BookmarksPage.vue"
+import NotificationsPage from "@/views/NotificationsPage.vue"
+import ContactPage from "@/views/ContactPage.vue"
+import ReportPage from "@/views/ReportPage.vue"
 
 Vue.use(Router);
 

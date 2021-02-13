@@ -288,28 +288,31 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import {router} from "@/router";
+import {Component, Vue} from "vue-property-decorator";
 import {displayLanguages} from "@/data/displayLanguages";
 
-export default {
+@Component({
   name: "App",
-  components: {},
-  data: () => ({
-    searchTerm: "",
-    imgURL: '',
-    isAppBarSearchFocused: false,
-    statusServiceUrl: "https://veverickastatus.surge.sh/",
-    displayLanguages: displayLanguages.data,
-    selectedDisplayLanguage: '',
-    displayLanguageDialog: false,
-  }),
+
+})
+export default class App extends Vue {
+  searchTerm: string = ""
+  imgURL: string = ""
+  isAppBarSearchFocused: boolean = false
+  readonly statusServiceUrl: string = "https://veverickastatus.surge.sh/"
+  displayLanguages = displayLanguages.data
+  selectedDisplayLanguage: string = ""
+  displayLanguageDialog: boolean = false
+
   mounted() {
     this.setTheme();
     this.setDisplayLanguage();
     this.getImageURL();
     this.selectedDisplayLanguage = this.$i18n.locale;
-  },
+  }
+
   updated() {
     if (this.imgURL === '') {
       this.getImageURL();
@@ -318,71 +321,78 @@ export default {
     if (!this.showNavbar) {
       this.imgURL = '';
     }
-  },
-  methods: {
-    closeDisplayLanguageDialog() {
-      this.selectedDisplayLanguage = '';
-      this.displayLanguageDialog = false;
-    },
-    changeDisplayLanguage() {
-      this.$i18n.locale = this.selectedDisplayLanguage;
-      localStorage.setItem("veverickaDisplayLanguage", this.selectedDisplayLanguage);
-      this.displayLanguageDialog = false;
-    },
-    setTheme() {
-      const theme = localStorage.getItem('veverickaTheme');
-      this.$vuetify.theme.dark = theme === '"dark"';
-    },
-    setDisplayLanguage() {
-      const lang = localStorage.getItem('veverickaDisplayLanguage');
-      if (typeof lang !== 'string' || lang.length !== 2) {
-        this.$root.$i18n.locale = 'en';
-      } else {
-        this.$root.$i18n.locale = lang;
-      }
-    },
-    toggleDarkMode() {
-      const isDark = this.$vuetify.theme.dark;
+  }
 
-      if (isDark) {
-        this.$vuetify.theme.dark = false;
-        localStorage.setItem('veverickaTheme', JSON.stringify('light'));
-      } else {
-        this.$vuetify.theme.dark = true;
-        localStorage.setItem('veverickaTheme', JSON.stringify('dark'));
-      }
-    },
-    logout() {
-      localStorage.setItem('veverickaTheme', 'light');
+  closeDisplayLanguageDialog() {
+    this.selectedDisplayLanguage = '';
+    this.displayLanguageDialog = false;
+  }
+
+  changeDisplayLanguage() {
+    this.$i18n.locale = this.selectedDisplayLanguage;
+    localStorage.setItem("veverickaDisplayLanguage", this.selectedDisplayLanguage);
+    this.displayLanguageDialog = false;
+  }
+
+  setTheme() {
+    const theme = localStorage.getItem('veverickaTheme');
+    this.$vuetify.theme.dark = theme === '"dark"';
+  }
+
+  setDisplayLanguage() {
+    const lang = localStorage.getItem('veverickaDisplayLanguage');
+    if (typeof lang !== 'string' || lang.length !== 2) {
+      this.$root.$i18n.locale = 'en';
+    } else {
+      this.$root.$i18n.locale = lang;
+    }
+  }
+
+  toggleDarkMode() {
+    const isDark = this.$vuetify.theme.dark;
+
+    if (isDark) {
       this.$vuetify.theme.dark = false;
-      this.$store.dispatch("logout");
-    },
-    async search() {
-      if (this.searchTerm.length > 0) {
-        this.$store.state.gSearchTerm = this.searchTerm;
-        await router.push('/search');
-      }
-    },
-    async getImageURL() {
-      const username = this.$store.state.user.username;
+      localStorage.setItem('veverickaTheme', JSON.stringify('light'));
+    } else {
+      this.$vuetify.theme.dark = true;
+      localStorage.setItem('veverickaTheme', JSON.stringify('dark'));
+    }
+  }
 
-      if (username === undefined) {
-        return;
-      }
+  logout() {
+    localStorage.setItem('veverickaTheme', 'light');
+    this.$vuetify.theme.dark = false;
+    this.$store.dispatch("logout");
+  }
 
-      const BASE = "https://user-info-service.herokuapp.com";
-      const URL = `${BASE}/user/username/${username}`;
-      const response = await fetch(URL);
-      const data = await response.json();
-      const user = data.user[0];
-      this.imgURL = user.image;
-    },
-  },
-  computed: {
-    isDarkModeEnabled() {
+  async search() {
+    if (this.searchTerm.length > 0) {
+      this.$store.state.gSearchTerm = this.searchTerm;
+      await router.push('/search');
+    }
+  }
+
+  async getImageURL() {
+    const username = this.$store.state.user.username;
+
+    if (username === undefined) {
+      return;
+    }
+
+    const BASE = "https://user-info-service.herokuapp.com";
+    const URL = `${BASE}/user/username/${username}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    const user = data.user[0];
+    this.imgURL = user.image;
+  }
+
+    get isDarkModeEnabled(): boolean {
       return this.$vuetify.theme.dark;
-    },
-    showNavbar() {
+    }
+
+    get showNavbar(): boolean {
       const publicPages = [
         '/login',
         '/register',
@@ -397,23 +407,24 @@ export default {
       }
 
       return true;
-    },
-    appBarColor() {
+    }
+
+    get appBarColor(): string {
       if (this.$vuetify.theme.dark) {
         return '#272727';
       } else {
         return '#fff';
       }
-    },
-    textFieldBackground() {
+    }
+
+    get textFieldBackground(): string {
       if (this.$vuetify.theme.dark) {
         return '#1e1e1e';
       } else {
         return '#f0f2f5';
       }
     }
-  },
-};
+}
 </script>
 
 <style scoped>
