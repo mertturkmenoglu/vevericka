@@ -292,6 +292,8 @@
 import {router} from "@/router";
 import {Component, Vue} from "vue-property-decorator";
 import {displayLanguages} from "@/data/displayLanguages";
+import UserInfoService from "@/api/UserInfoService";
+import {publicPages} from "@/data/ApplicationConstants";
 
 @Component({
   name: "App",
@@ -380,50 +382,28 @@ export default class App extends Vue {
       return;
     }
 
-    const BASE = "https://user-info-service.herokuapp.com";
-    const URL = `${BASE}/user/username/${username}`;
-    const response = await fetch(URL);
-    const data = await response.json();
-    const user = data.user[0];
-    this.imgURL = user.image;
+    const [user, err] = await UserInfoService.getUserByUsername(username);
+
+    if (err === null && user !== null) {
+      this.imgURL = user.image;
+    }
   }
 
-    get isDarkModeEnabled(): boolean {
-      return this.$vuetify.theme.dark;
-    }
+  get isDarkModeEnabled(): boolean {
+    return this.$vuetify.theme.dark;
+  }
 
-    get showNavbar(): boolean {
-      const publicPages = [
-        '/login',
-        '/register',
-        '/password',
-        '/terms'
-      ]
+  get showNavbar(): boolean {
+    return publicPages.every(page => this.$route.path !== page);
+  }
 
-      for (let page of publicPages) {
-        if (this.$route.path === page) {
-          return false;
-        }
-      }
+  get appBarColor(): string {
+    return this.$vuetify.theme.dark ? "#272727" : "#FFF";
+  }
 
-      return true;
-    }
-
-    get appBarColor(): string {
-      if (this.$vuetify.theme.dark) {
-        return '#272727';
-      } else {
-        return '#fff';
-      }
-    }
-
-    get textFieldBackground(): string {
-      if (this.$vuetify.theme.dark) {
-        return '#1e1e1e';
-      } else {
-        return '#f0f2f5';
-      }
-    }
+  get textFieldBackground(): string {
+    return this.$vuetify.theme.dark ? "#1e1e1e" : "#f0f2f5";
+  }
 }
 </script>
 
