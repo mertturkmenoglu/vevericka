@@ -9,34 +9,35 @@
   </v-container>
 </template>
 
-<script>
-import SettingsTabs from "@/components/Settings/SettingsTabs";
-export default {
-  name: "SettingsPage",
-  components: {SettingsTabs},
-  data: () => ({
-    user: {location: {}, gender: "", wish_to_speak: []},
-    loadingCompleted: false,
-  }),
-  methods: {
-    async fetchUser() {
-      const username = this.$store.state.user.username;
-      const BASE = "https://user-info-service.herokuapp.com";
-      const URL = `${BASE}/user/username/${username}`;
+<script lang="ts">
+import Vue from "vue";
+import SettingsTabs from "@/components/Settings/SettingsTabs.vue";
+import {Component} from "vue-property-decorator";
+// eslint-disable-next-line no-unused-vars
+import {IUser} from "@/api/responses/IUser";
+import UserInfoService from "@/api/UserInfoService";
 
-      const response = await fetch(URL);
-      const data = await response.json();
-      this.user = data.user[0];
-      this.user.location = this.user.location
-          ? this.user.location
-          : {city: "", country: ""};
-      this.loadingCompleted = true;
-    },
-  },
+@Component({
+  name: "SettingsPage",
+  components: {SettingsTabs}
+})
+export default class SettingsPage extends Vue {
+  user: IUser = ({} as IUser)
+  loadingCompleted: boolean = false
+
   mounted() {
-    this.fetchUser();
-  },
-};
+    this.fetchUser().then(() => this.loadingCompleted = true)
+  }
+
+  async fetchUser() {
+    const username = this.$store.state.user.username;
+    const [result, err] = await UserInfoService.getUserByUsername(username)
+
+    if (err === null && result !== null) {
+      this.user = result
+    }
+  }
+}
 </script>
 
 <style>
