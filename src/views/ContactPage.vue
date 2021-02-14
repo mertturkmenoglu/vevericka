@@ -17,13 +17,16 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  name: "ContactPage",
-  data: () => ({
-    administratorUsername: "adminmert",
-    contactMail: "contactvevericka@gmail.com"
-  })
+<script lang="ts">
+import Vue from "vue";
+import {Component} from "vue-property-decorator";
+
+@Component({
+  name: "ContactPage"
+})
+export default class ContactPage extends Vue {
+  readonly administratorUsername: string = "adminmert"
+  readonly contactMail: string = "contactvevericka@gmail.com"
 }
 </script>
 
