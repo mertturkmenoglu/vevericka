@@ -39,55 +39,64 @@
   </v-container>
 </template>
 
-<script>
-import BookmarkCard from "@/components/Post/BookmarkCard";
+<script lang="ts">
+import Vue from "vue";
+import BookmarkCard from "@/components/Post/BookmarkCard.vue";
+import {Component} from "vue-property-decorator";
+// eslint-disable-next-line no-unused-vars
+import IBookmark from "@/api/responses/IBookmark";
+import PostService from "@/api/PostService";
+// eslint-disable-next-line no-unused-vars
+import IPost from "@/api/responses/IPost";
 
-export default {
-  name: "SavedPostsPage",
+@Component({
+  name: "BookmarksPage",
   components: {BookmarkCard},
-  data: () => ({
-    loading: true,
-    bookmarks: [],
-    posts: [],
-    snackbar: false,
-    snackbarMessage: "",
-  }),
+})
+export default class BookmarksPage extends Vue {
+  loading: boolean = true
+  bookmarks: Array<IBookmark> = []
+  posts: Array<IPost> = []
+  snackbar: boolean = false
+  snackbarMessage: string = ""
+
   mounted() {
     this.refresh().then(() => {
       this.loading = false;
     });
-  },
-  methods: {
-    async refresh() {
-      this.bookmarks = [];
-      this.posts = [];
-      this.loading = true;
-      await this.fetchBookmarks();
-      await this.fetchPosts();
-      this.loading = false;
-    },
-    async fetchBookmarks() {
-      const BASE = "https://vevericka-post-service.herokuapp.com";
-      const URL = `${BASE}/bookmark/user/${this.$store.state.user.username}`;
-      const response = await fetch(URL);
-      const {data} = await response.json();
+  }
+
+  async refresh() {
+    this.bookmarks = []
+    this.posts = []
+    this.loading = true
+    await this.fetchBookmarks()
+    await this.fetchPosts()
+    this.loading = false
+  }
+
+  async fetchBookmarks() {
+    const username = this.$store.state.user.username
+    const [data, err] = await PostService.getBookmarksByUsername(username)
+
+    if (err === null && data !== null) {
       this.bookmarks = data;
-    },
-    async fetchPosts() {
-      const BASE = "https://vevericka-post-service.herokuapp.com";
-      for (let b of this.bookmarks) {
-        const URL = `${BASE}/post/${b.postId}`;
-        const response = await fetch(URL);
-        const {data} = await response.json();
-        this.posts.push(data);
+    }
+  }
+
+  async fetchPosts() {
+    for (let b of this.bookmarks) {
+      const [result, err] = await PostService.getPostById(b.postId)
+      if (err === null && result !== null) {
+        this.posts.push(result)
       }
-      console.log(this.bookmarks)
-    },
-    async bookmarkRemoved() {
-      this.snackbar = true;
-      this.snackbarMessage = this.$t('bookmarks_page.snackbar.message');
-      await this.refresh();
-    },
+    }
+  }
+
+  async bookmarkRemoved() {
+    this.snackbar = true
+    this.snackbarMessage = this.$t('bookmarks_page.snackbar.message').toString()
+    await this.refresh()
   }
 }
 </script>
