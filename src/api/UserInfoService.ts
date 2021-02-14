@@ -1,4 +1,4 @@
-import IUser from "./responses/IUser"
+import {IUser} from "./responses/IUser"
 import {IResponse} from "@/api/IResponse";
 
 export default class UserInfoService {
