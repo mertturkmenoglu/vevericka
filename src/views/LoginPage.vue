@@ -94,11 +94,11 @@ export default class LoginPage extends Vue {
   isLoginButtonEnabled: boolean = false
 
   get rulesRequired() {
-    return value => !!value || this.$t('login.rules.required');
+    return (value: string) => !!value || this.$t('login.rules.required');
   }
 
   get rulesEmail() {
-    return (value) => {
+    return (value: string) => {
       return EMAIL_REGEX.test(value) || this.$t('login.rules.email');
     }
   }
@@ -113,7 +113,7 @@ export default class LoginPage extends Vue {
   }
 
   get loginError() {
-    const value = this.$store.state.error;
+    const value: Error = this.$store.state.error;
     return value ? value : false
   }
 
@@ -128,7 +128,7 @@ export default class LoginPage extends Vue {
   }
 
   // noinspection JSUnusedGlobalSymbols
-  beforeRouteLeave(to, from, next) {
+  beforeRouteLeave(to: any, from: any, next: any) {
     this.$store.state.error = null;
     next();
   }
