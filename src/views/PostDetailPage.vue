@@ -44,99 +44,76 @@
   </v-container>
 </template>
 
-<script>
-import PostCard from "@/components/Post/PostCard";
-import CommentCard from "@/components/Post/CommentCard";
+<script lang="ts">
+import Vue from "vue";
+import PostCard from "@/components/Post/PostCard.vue";
+import CommentCard from "@/components/Post/CommentCard.vue";
+import {Component} from "vue-property-decorator";
+// eslint-disable-next-line no-unused-vars
+import IPost from "@/api/responses/IPost";
+import PostService from "@/api/PostService";
+// eslint-disable-next-line no-unused-vars
+import IComment from "@/api/responses/IComment";
 
-export default {
+@Component({
   name: "PostDetailPage",
-  components: {PostCard, CommentCard},
-  data: () => ({
-    post: {
-      id: "",
-      content: "",
-      comments: [],
-      username: "",
-      date: "",
-      countdown: 0,
-    },
-    loading: true,
-    snackbar: false,
-    snackbarMessage: "",
-    commentContent: '',
-    comments: []
-  }),
-  methods: {
-    async fetchPost() {
-      const BASE = "https://vevericka-post-service.herokuapp.com/post";
-      const URL = `${BASE}/${this.id}`;
-      const response = await fetch(URL);
-      const {data} = await response.json();
-      this.post = data;
-    },
-    async fetchComments() {
-      for (const commentId of this.post.comments) {
-        const comment = await this.fetchComment(commentId);
-        this.comments.push(comment)
-      }
-      this.comments = this.comments.reverse();
-    },
-    async fetchComment(commentId) {
-      const BASE = "https://vevericka-post-service.herokuapp.com";
-      const URL = `${BASE}/post/comment/${commentId}`;
-      const response = await fetch(URL);
-      const { data } = await response.json();
-      return data;
-    },
-    async createComment() {
-      if (this.commentContent.length > 255 || this.commentContent.length === 0) {
-        return;
-      }
+  components: {PostCard, CommentCard}
+})
+export default class PostDetailPage extends Vue {
+  post: IPost = ({} as IPost)
+  loading: boolean = true
+  snackbar: boolean = false
+  snackbarMessage: string = ""
+  commentContent: string = ""
+  comments: Array<IComment> = []
 
-      const requestBody = {
-        postId: this.id,
-        content: this.commentContent,
-        username: this.$store.state.user.username,
-        date: (new Date()).toISOString()
-      }
+  get commentTextAreaRules() {
+    return [(v: string) => v.length <= 255 || this.$t('post_detail_page.rules.character_limit')]
+  }
 
-      const BASE = "https://vevericka-post-service.herokuapp.com";
-      const URL = `${BASE}/post/comment/`;
+  get id(): string {
+    return this.$route.params.id
+  }
 
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(requestBody),
-      };
+  get textFieldBackground(): string {
+    return (this.$vuetify.theme.dark) ? '#272727' : '#f0f2f5'
+  }
 
-      await fetch(URL, requestOptions);
-      window.location.reload();
-    },
-    linkCopied() {
-      this.snackbarMessage = this.$t('post_detail_page.snackbar.message');
-      this.snackbar = true;
-    }
-  },
   mounted() {
     this.fetchPost().then(async () => {
-      await this.fetchComments();
-      this.loading = false;
+      await this.fetchComments()
+      this.loading = false
     })
-  },
-  computed: {
-    commentTextAreaRules() {
-      return [v => v.length <= 255 || this.$t('post_detail_page.rules.character_limit')];
-    },
-    id() {
-      return this.$route.params.id;
-    },
-    textFieldBackground() {
-      if (this.$vuetify.theme.dark) {
-        return '#272727';
-      } else {
-        return '#f0f2f5';
+  }
+
+  async fetchPost() {
+    const [result, err] = await PostService.getPostById(this.id)
+
+    if (err === null && result !== null) {
+      this.post = result
+    }
+  }
+
+  async fetchComments() {
+    for (const commentId of this.post.comments) {
+      const [result, err] = await PostService.getCommentById(commentId)
+
+      if (err === null && result !== null) {
+        this.comments.push(result)
       }
-    },
+    }
+
+    this.comments = this.comments.reverse()
+  }
+
+  async createComment() {
+    await PostService.createComment(this.id, this.commentContent, this.$store.state.user.username)
+    window.location.reload()
+  }
+
+  linkCopied() {
+    this.snackbarMessage = this.$t('post_detail_page.snackbar.message').toString()
+    this.snackbar = true
   }
 }
 </script>

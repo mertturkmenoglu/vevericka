@@ -1,6 +1,7 @@
 import {IResponse} from "@/api/IResponse";
 import IPost from "@/api/responses/IPost";
 import IBookmark from "@/api/responses/IBookmark";
+import IComment from "@/api/responses/IComment";
 
 export default class PostService {
     static readonly URL = "https://vevericka-post-service.herokuapp.com"
@@ -38,6 +39,46 @@ export default class PostService {
             return [result, null]
         } catch (e) {
             return [null, e.message]
+        }
+    }
+    
+    public static async getCommentById(id: string): Promise<IResponse<IComment>> {
+        try {
+            const url = `${this.URL}/post/comment/${id}`
+            const response = await fetch(url)
+            const {data} = await response.json()
+            const result = data as IComment
+            return [result, null]
+        } catch (e) {
+            return [null, e.message]
+        }
+    }
+
+    public static async createComment(postId: string, content: string, username: string): Promise<boolean> {
+        if (content.length > 255 || content.length === 0) {
+            return false
+        }
+
+        try {
+            const requestBody = {
+                postId,
+                content,
+                username,
+                date: (new Date()).toISOString()
+            }
+
+            const requestOptions = {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(requestBody),
+            }
+
+            const url = `${URL}/post/comment/`
+
+            await fetch(url, requestOptions)
+            return true
+        } catch (e) {
+            return false
         }
     }
 }
