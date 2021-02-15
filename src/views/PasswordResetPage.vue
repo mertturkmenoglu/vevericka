@@ -4,12 +4,12 @@
       <v-col cols="12">
         <v-card class="elevation-12 card">
           <v-row class="fill-height">
-            <v-col cols="12" md="8" class="vcenter" :class="`${bgColor}`">
+            <v-col cols="12" md="8" class="vcenter deep-orange">
               <div>
                 <div class="text-center mb-6">
                   <v-img class="mx-auto" max-height="256" max-width="256" src="../assets/icon_white.svg"/>
                 </div>
-                <v-card-text :class="`${fgColor}--text`">
+                <v-card-text class="white--text">
                   <h1 class="text-center text-h2 headline mb-3">Vevericka</h1>
                   <h5 class="text-center overline mb-3">Wingardium Leviosa</h5>
                 </v-card-text>
@@ -105,95 +105,67 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  name: "PasswordResetPage",
-  data: () => ({
-    email: "",
-    bgColor: 'deep-orange darken-2',
-    fgColor: 'white',
-    snackbar: false,
-    snackbarMessage: "",
-    emailSend: false,
-    resetCode: "",
-    password: "",
-    showPassword: false,
-    isSendResetCodeButtonEnabled: false,
-  }),
-  methods: {
-    async sendPasswordResetEmail() {
-      const BASE = "https://vevericka-auth-service.herokuapp.com";
-      const URL = `${BASE}/auth/send_password_reset_email`;
-      const requestBody = {
-        email: this.email
-      };
+<script lang="ts">
+import Vue from "vue"
+import {Component, Watch} from "vue-property-decorator"
+import {EMAIL_REGEX} from "@/data/ApplicationConstants"
+import AuthService from "@/api/AuthService";
 
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(requestBody)
-      };
+@Component({
+  name: "PasswordResetPage"
+})
+export default class PasswordResetPage extends Vue {
+  email: string = ""
+  snackbar: boolean = false
+  snackbarMessage: string = ""
+  emailSend: boolean = false
+  resetCode: string = ""
+  password: string = ""
+  showPassword: boolean = false
+  isSendResetCodeButtonEnabled: boolean = false
 
-      const response = await fetch(URL, requestOptions);
-      const {data} = await response.json();
+  get rulesRequired() {
+    return (value: string) => !!value || this.$t('password_reset.rules.required').toString()
+  }
 
-      if (data.error) {
-        this.snackbar = true;
-        this.snackbarMessage = data.error.message;
-      } else {
-        this.snackbar = true;
-        this.snackbarMessage = data.message;
-        this.emailSend = true;
-      }
-    },
-    async resetPassword() {
-      const BASE = "https://vevericka-auth-service.herokuapp.com";
-      const URL = `${BASE}/auth/reset_password`;
-
-      const requestBody = {
-        email: this.email,
-        code: this.resetCode,
-        newPassword: this.password
-      };
-
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(requestBody)
-      };
-
-      const response = await fetch(URL, requestOptions);
-      const {data} = await response.json();
-
-      if (data.error) {
-        this.snackbar = true;
-        this.snackbarMessage = data.error.message;
-      } else {
-        this.snackbar = true;
-        this.snackbarMessage = data.message;
-        this.emailSend = true;
-      }
+  get rulesEmail() {
+    return (value: string) => {
+      return EMAIL_REGEX.test(value) || this.$t('password_reset.rules.email').toString();
     }
-  },
-  watch: {
-    email() {
-      this.isSendResetCodeButtonEnabled = this.computeSendResetCodeButton;
-    },
-  },
-  computed: {
-    rulesRequired() {
-      return value => !!value || this.$t('password_reset.rules.required')
-    },
-    rulesEmail() {
-      return (value) => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || this.$t('password_reset.rules.email');
-      }
-    },
-    computeSendResetCodeButton() {
-      return !!(this.rulesEmail(this.email) === true && this.email !== '');
-    },
-  },
+  }
+
+  get computeSendResetCodeButton() {
+    return (this.rulesEmail(this.email) === true && this.email !== '');
+  }
+
+  @Watch("email")
+  emailChanged() {
+    this.isSendResetCodeButtonEnabled = this.computeSendResetCodeButton;
+  }
+
+  async sendPasswordResetEmail() {
+    const [data, err] = await AuthService.sendPasswordResetEmail(this.email)
+    this.snackbar = true
+
+    if (data.error || err !== null) {
+      this.snackbarMessage = data.error.message
+    } else {
+      this.snackbarMessage = data.message
+      this.emailSend = true
+    }
+  }
+
+  async resetPassword() {
+    const [data, err] = await AuthService.resetPassword(this.email, this.resetCode, this.password)
+    this.snackbar = true
+
+    if (data.error || err !== null) {
+      this.snackbarMessage = data.error.message
+    } else {
+      this.snackbarMessage = data.message
+      this.emailSend = true
+    }
+  }
 }
 </script>
 
