@@ -4,12 +4,12 @@
       <v-col cols="12">
         <v-card class="elevation-12 card">
           <v-row class="fill-height">
-            <v-col cols="12" md="8" class="vcenter" :class="`${bgColor}`">
+            <v-col cols="12" md="8" class="vcenter deep-orange">
               <div>
                 <div class="text-center mb-6">
                   <v-img class="mx-auto" max-height="256" max-width="256" src="../assets/icon_white.svg"/>
                 </div>
-                <v-card-text :class="`${fgColor}--text`">
+                <v-card-text class="white--text">
                   <h1 class="text-center text-h2 headline mb-3">Vevericka</h1>
                   <h5 class="text-center overline mb-3">Wingardium Leviosa</h5>
                 </v-card-text>
@@ -114,117 +114,118 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  name: "RegisterPage",
-  data: () => ({
-    showPassword: false,
-    email: "",
-    username: "",
-    name: "",
-    password: "",
-    bgColor: 'deep-orange darken-2',
-    fgColor: 'white',
-    isRegisterButtonEnabled: false,
-  }),
-  beforeRouteLeave(to, from, next) {
+<script lang="ts">
+import Vue from "vue"
+import {Component, Watch} from "vue-property-decorator"
+import {EMAIL_REGEX} from "@/data/ApplicationConstants"
+
+@Component({
+  name: "RegisterPage"
+})
+export default class RegisterPage extends Vue {
+  showPassword: boolean = false
+  email: string = ""
+  username: string = ""
+  name: string = ""
+  password: string = ""
+  isRegisterButtonEnabled: boolean = false
+
+  get rulesRequired() {
+    return (value: string) => !!value || this.$t('register.rules.required').toString()
+  }
+
+  get rulesEmail() {
+    return (value: string) => EMAIL_REGEX.test(value) || this.$t('register.rules.email').toString()
+  }
+
+  get computeRegisterButton() {
+    return (this.rulesEmail(this.email) === true
+        && this.email.length !== 0
+        && this.username.length !== 0
+        && this.name.length !== 0
+        && this.password.length >= 8)
+  }
+
+  get registerLoading() {
+    const value = this.$store.state.status.registering
+    return value ? value : false
+  }
+
+  get registerError() {
+    const value = this.$store.state.error;
+    return value ? value : false
+  }
+
+  @Watch("email")
+  emailChanged() {
+    this.isRegisterButtonEnabled = this.computeRegisterButton
+  }
+
+  @Watch("username")
+  usernameChanged() {
+    this.isRegisterButtonEnabled = this.computeRegisterButton
+  }
+
+  @Watch("name")
+  nameChanged() {
+    this.isRegisterButtonEnabled = this.computeRegisterButton
+  }
+
+  @Watch("password")
+  passwordChanged() {
+    this.isRegisterButtonEnabled = this.computeRegisterButton
+  }
+
+  // noinspection JSUnusedGlobalSymbols
+  beforeRouteLeave(to: any, from: any, next: any) {
     this.$store.state.error = null;
     next();
-  },
-  methods: {
-    submit() {
-      if (this.email.length === 0) {
-        this.$store.state.error = this.$t('register.errors.email.empty');
-        return;
-      } else if (this.email.length < 6) {
-        this.$store.state.error = this.$t('register.errors.email.short');
-        return;
-      } else if (this.email.length > 255) {
-        this.$store.state.error = this.$t('register.errors.email.long');
-        return;
-      }
+  }
 
-      if (this.username.length === 0) {
-        this.$store.state.error = this.$t('register.errors.username.empty');
-        return;
-      } else if (this.username.length > 32) {
-        this.$store.state.error = this.$t('register.errors.username.long');
-        return;
-      }
+  submit() {
+    if (this.email.length === 0) {
+      this.$store.state.error = this.$t('register.errors.email.empty')
+      return
+    } else if (this.email.length < 6) {
+      this.$store.state.error = this.$t('register.errors.email.short')
+      return
+    } else if (this.email.length > 255) {
+      this.$store.state.error = this.$t('register.errors.email.long')
+      return
+    }
 
-      if (this.name.length === 0) {
-        this.$store.state.error = this.$t('register.errors.name.empty');
-        return;
-      } else if (this.name.length > 255) {
-        this.$store.state.error = this.$t('register.errors.name.long');
-        return;
-      }
+    if (this.username.length === 0) {
+      this.$store.state.error = this.$t('register.errors.username.empty')
+      return
+    } else if (this.username.length > 32) {
+      this.$store.state.error = this.$t('register.errors.username.long')
+      return
+    }
 
-      if (this.password.length === 0) {
-        this.$store.state.error = this.$t('register.errors.password.empty');
-        return;
-      } else if (this.password.length < 8) {
-        this.$store.state.error = this.$t('register.errors.password.short');
-        return;
-      }
+    if (this.name.length === 0) {
+      this.$store.state.error = this.$t('register.errors.name.empty')
+      return
+    } else if (this.name.length > 255) {
+      this.$store.state.error = this.$t('register.errors.name.long')
+      return
+    }
 
-      this.$store.dispatch("register", {
-        email: this.email,
-        username: this.username,
-        name: this.name,
-        password: this.password,
-      });
-    },
-  },
-  watch: {
-    email() {
-      this.isRegisterButtonEnabled = this.computeRegisterButton;
-    },
-    username() {
-      this.isRegisterButtonEnabled = this.computeRegisterButton;
-    },
-    name() {
-      this.isRegisterButtonEnabled = this.computeRegisterButton;
-    },
-    password() {
-      this.isRegisterButtonEnabled = this.computeRegisterButton;
-    },
-  },
-  computed: {
-    rulesRequired() {
-      return value => !!value || this.$t('register.rules.required');
-    },
-    rulesEmail() {
-      return (value) => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || this.$t('register.rules.email');
-      }
-    },
-    computeRegisterButton() {
-      return !!(this.rulesEmail(this.email) === true
-          && this.email.length !== 0
-          && this.username.length !== 0
-          && this.name.length !== 0
-          && this.password.length >= 8);
-    },
-    registerLoading() {
-      const value = this.$store.state.status.registering;
-      if (value) {
-        return value;
-      } else {
-        return false;
-      }
-    },
-    registerError() {
-      const value = this.$store.state.error;
-      if (value) {
-        return value;
-      } else {
-        return false;
-      }
-    },
-  },
-};
+    if (this.password.length === 0) {
+      this.$store.state.error = this.$t('register.errors.password.empty')
+      return
+    } else if (this.password.length < 8) {
+      this.$store.state.error = this.$t('register.errors.password.short')
+      return
+    }
+
+    this.$store.dispatch("register", {
+      email: this.email,
+      username: this.username,
+      name: this.name,
+      password: this.password,
+    })
+  }
+}
 </script>
 
 
