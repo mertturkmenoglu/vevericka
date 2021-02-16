@@ -91,72 +91,63 @@
   </v-container>
 </template>
 
-<script>
-import {router} from '@/router';
+<script lang="ts">
+import Vue from "vue"
+import {Component} from "vue-property-decorator"
+import ReportService from "@/api/ReportService"
 
-export default {
-  name: "ReportPage",
-  props: [],
-  data: () => ({
-    loading: true,
-    reportTypes: [],
-    postId: '',
-    postUsername: '',
-    selectedType: '',
-    reportComment: '',
-    reportOk: false,
-    reportDialog: false,
-  }),
+@Component({
+  name: "ReportPage"
+})
+export default class ReportPage extends Vue {
+  loading: boolean = true
+  reportTypes: Array<any> = []
+  postId: string | undefined = ""
+  postUsername: string | undefined = ""
+  selectedType: string = ""
+  reportComment: string = ""
+  reportOk: boolean = false
+  reportDialog: boolean = false
+
+  get reportContent() {
+    return this.postId !== undefined
+        && this.postUsername !== undefined
+        && this.postId !== ""
+        && this.postUsername !== ""
+  }
+
   mounted() {
-    this.postId = this.$route.params.postId;
-    this.postUsername = this.$route.params.postUsername;
+    this.postId = this.$route.params.postId
+    this.postUsername = this.$route.params.postUsername
     this.fetchReportTypes().then(() => {
-      this.selectedType = this.reportTypes[0];
-      this.loading = false;
+      this.selectedType = this.reportTypes[0]
+      this.loading = false
     })
-  },
-  methods: {
-    async fetchReportTypes() {
-      const lang = this.$i18n.locale || 'en';
-      const URL = `https://vevericka-report-service.herokuapp.com/api/v1/report_types?lang=${lang}`;
-      const response = await fetch(URL);
-      const {data} = await response.json();
-      this.reportTypes = data;
-    },
-    async report() {
-      const lang = this.$i18n.locale || 'en';
-      const URL = `https://vevericka-report-service.herokuapp.com/api/v1?lang=${lang}`;
-      const requestBody = {
-        reported_post_id: this.postId,
-        reported_user: this.postUsername,
-        reported_by: this.$store.state.user.username,
-        reported_by_comment: this.reportComment,
-        type: this.selectedType,
-      };
+  }
 
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(requestBody),
-      };
+  async fetchReportTypes() {
+    const locale = this.$i18n.locale || 'en'
+    this.reportTypes = await ReportService.getReportTypes(locale)
+  }
 
-      const response = await fetch(URL, requestOptions);
+  async report() {
+    const locale = this.$i18n.locale || 'en'
+    const responseStatus = await ReportService.createReport(
+        locale,
+        this.postId || "",
+        this.postUsername || "",
+        this.$store.state.user.username,
+        this.reportComment,
+        this.selectedType
+    )
 
-      this.reportOk = response.status === 201;
-      this.reportDialog = true;
-    },
-    completeReport() {
-      this.reportDialog = false;
-      router.push('/');
-    }
-  },
-  computed: {
-    reportContent() {
-      return this.postId !== undefined
-          && this.postUsername !== undefined
-          && this.postId !== ''
-          && this.postUsername !== '';
-    }
+    this.reportOk = responseStatus === 201
+    this.reportDialog = true
+  }
+
+  completeReport() {
+    this.reportDialog = false
+    this.$router.push("/")
   }
 }
 </script>
