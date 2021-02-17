@@ -15,4 +15,20 @@ export default class UserInfoService {
             return [null, e.message]
         }
     }
+
+    public static async searchByQuery(query: string): Promise<IResponse<Array<IUser>>> {
+        try {
+            const URL = `${this.URL}/user/q?searchTerm=${query}`
+            const response = await fetch(URL)
+            const data = await response.json()
+
+            if (!data.users || data.users.length === 0) {
+                return [null, "Not found"]
+            }
+
+            return [data.users, null]
+        } catch (e) {
+            return [null, e.message]
+        }
+    }
 }

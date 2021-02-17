@@ -41,86 +41,81 @@
   </v-container>
 </template>
 
-<script>
-  import UserCard from "@/components/UserCard";
+<script lang="ts">
+import Vue from "vue"
+import UserCard from "@/components/UserCard.vue"
+import {Component} from "vue-property-decorator"
+import UserInfoService from "@/api/UserInfoService";
+// eslint-disable-next-line no-unused-vars
+import {IUser} from "@/api/responses/IUser";
 
-  export default {
-    name: "SearchPage",
-    components: { UserCard },
-    data: () => ({
-      searchStr: "",
-      showLoading: false,
-      error: "",
-      searchResults: [],
-      prefix: '',
-    }),
-    mounted() {
-      this.searchStr = this.$store.state.gSearchTerm || '';
+@Component({
+  name: "SearchPage",
+  components: {UserCard}
+})
+export default class SearchPage extends Vue {
+  searchStr: string = ""
+  showLoading: boolean = false
+  error: string = ""
+  searchResults: Array<IUser> = []
+  prefix: string = ""
 
-      if (this.searchStr.length > 0) {
-        this.search();
-      }
-    },
-    methods: {
-      async search() {
-        if (this.searchStr === "") {
-          return
-        }
+  mounted() {
+    this.searchStr = this.$store.state.gSearchTerm || ''
+    if (this.searchStr.length > 0) {
+      this.search()
+    }
+  }
 
-        this.showLoading = true;
-        const BASE = "https://user-info-service.herokuapp.com/user";
-        const URL = `${BASE}/q?searchTerm=${this.searchStr}`;
-        const response = await fetch(URL);
-        const data = await response.json();
+  beforeRouteUpdate(to: any, from: any, next: any) {
+    next()
+    window.location.reload()
+  }
 
-        this.showLoading = false;
+  async search() {
+    if (this.searchStr === "") {
+      return
+    }
 
-        if (!data.users) {
-          this.error = this.$t('search.user_not_found');
-          return;
-        }
+    this.showLoading = true
+    this.searchResults = []
+    const [result, err] = await UserInfoService.searchByQuery(this.searchStr)
+    this.showLoading = false
 
-        if (data.users.length === 0) {
-          this.searchResults = [];
-          this.error = this.$t('search.user_not_found');
-          return;
-        }
-
-        this.searchResults = data.users;
-        this.error = "";
-      },
-    },
-    beforeRouteUpdate(to, from, next) {
-      next();
-      window.location.reload();
-    },
-  };
+    if (err === null && result !== null) {
+      this.searchResults = result
+      this.error = ""
+    } else {
+      this.error = this.$t('search.user_not_found').toString()
+    }
+  }
+}
 </script>
 
 <style scoped>
-  .card-style {
-    cursor: pointer;
-  }
+.card-style {
+  cursor: pointer;
+}
 
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
+}
 
-  @media screen and (max-width: 600px) {
-    .custom-width {
-      width: 96vw;
-    }
+@media screen and (max-width: 600px) {
+  .custom-width {
+    width: 96vw;
   }
+}
 
-  @media screen and (min-width: 600px) and (max-width: 768px) {
-    .custom-width {
-      width: 90vw;
-    }
+@media screen and (min-width: 600px) and (max-width: 768px) {
+  .custom-width {
+    width: 90vw;
   }
+}
 
-  @media screen and (min-width: 768px) {
-    .custom-width {
-      max-width: 60vw;
-    }
+@media screen and (min-width: 768px) {
+  .custom-width {
+    max-width: 60vw;
   }
+}
 </style>
