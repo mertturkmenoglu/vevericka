@@ -65,10 +65,10 @@
       </router-link>
 
       <v-menu left bottom nudge-left="24" nudge-bottom="48">
-        <template v-slot:activator="{ on, attrs }">
+        <template v-slot:activator="{ on, attrs, value }">
           <v-btn icon v-bind="attrs" v-on="on" color="deep-orange">
             <v-avatar size="40">
-              <v-icon color="deep-orange" size="32">mdi-chevron-down</v-icon>
+              <v-icon color="deep-orange" size="32">{{ value ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
             </v-avatar>
           </v-btn>
         </template>
