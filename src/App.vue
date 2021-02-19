@@ -76,16 +76,18 @@
         <v-list flat class="text-decoration-none font-weight-light" dense>
           <router-link :to="{ name: 'UserPage', params: { username: this.$store.state.user.username } }">
             <v-list-item>
-              <v-list-item-avatar>
-                <v-avatar size="40">
-                  <v-img
-                      class="rounded-circle mx-auto"
-                      :src="imgURL"
-                      contain
-                      width="12"
-                      aspect-ratio="1"
-                      alt="Profile"/>
-                </v-avatar>
+              <v-list-item-avatar tile>
+                <v-badge bordered overlap bottom dot color="green" offset-x="10" offset-y="10">
+                  <v-avatar size="40">
+                    <v-img
+                        class="rounded-circle mx-auto"
+                        :src="imgURL"
+                        contain
+                        width="12"
+                        aspect-ratio="1"
+                        alt="Profile"/>
+                  </v-avatar>
+                </v-badge>
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title>
@@ -144,7 +146,7 @@
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-checkbox color="deep-orange" :input-value="isDarkModeEnabled"/>
+              <v-switch inset dense color="deep-orange" :input-value="isDarkModeEnabled"/>
             </v-list-item-action>
           </v-list-item>
 
