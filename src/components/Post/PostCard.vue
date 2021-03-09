@@ -337,6 +337,7 @@ export default {
 
 <style lang="scss" scoped>
 a {
+  text-decoration: none;
   color: #001000 !important;
 }
 
