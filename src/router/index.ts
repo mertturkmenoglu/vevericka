@@ -42,7 +42,7 @@ export const router = new Router({
         },
         {
             path: '/messages',
-            component: () => import(/* webpackChunkName: "user" */ '../views/PostDetailPage.vue')
+            component: () => import(/* webpackChunkName: "user" */ '../views/MessagesPage.vue')
         },
         {
             path: '/post/:id',
