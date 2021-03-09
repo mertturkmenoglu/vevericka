@@ -5,11 +5,13 @@
     </div>
     <div v-if="userNotFound && !loading">
       <h1 class="font-weight-light text-center">
-        No user found:
+        {{ $t('user_page.invalid_username.no_user_found') }}:
         <span class="deep-orange--text">{{ $route.params.username }}</span>
       </h1>
       <router-link to="/">
-        <h1 class="font-weight-light deep-orange--text text-center">Go to Home</h1>
+        <h1 class="font-weight-light deep-orange--text text-center">
+          {{ $t('user_page.invalid_username.redirect_home') }}
+        </h1>
       </router-link>
     </div>
     <v-card v-if="!userNotFound && !loading" flat>

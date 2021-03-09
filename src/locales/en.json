@@ -375,6 +375,10 @@
     "no_post": "No post",
     "followers": "Followers",
     "following": "Following",
+    "invalid_username": {
+      "no_user_found": "No user found",
+      "redirect_home": "Go to Home"
+    },
     "snackbar": {
       "message": "Post link copied to your clipboard",
       "close": "Close"

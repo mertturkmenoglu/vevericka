@@ -375,6 +375,10 @@
     "no_post": "Paylaşım Yok",
     "followers": "Takipçiler",
     "following": "Takip Edilenler",
+    "invalid_username": {
+      "no_user_found": "Kullanıcı bulunamadı",
+      "redirect_home": "Ana Sayfaya Dönün"
+    },
     "snackbar": {
       "message": "Link kopyalandı",
       "close": "Kapat"
