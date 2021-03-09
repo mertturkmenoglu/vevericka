@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app v-if="showNavbar" flat short elevate-on-scroll :color="appBarColor">
-      <router-link to="/" class="text-decoration-none">
+      <router-link to="/" class="text-decoration-none" aria-label="App Icon">
         <v-img
             class="mx-4"
             src="./assets/icon_primary.svg"
@@ -41,7 +41,7 @@
       </v-row>
 
       <router-link to="/search">
-        <v-btn icon color="deep-orange" class="hidden-md-and-up">
+        <v-btn icon color="deep-orange" class="hidden-md-and-up" aria-label="Search">
           <v-avatar class="ml-1">
             <v-icon color="deep-orange" size="32">mdi-magnify</v-icon>
           </v-avatar>
@@ -49,7 +49,7 @@
       </router-link>
 
       <router-link to="/notifications">
-        <v-btn icon color="deep-orange">
+        <v-btn icon color="deep-orange" aria-label="Notifications">
           <v-avatar class="ml-1" size="40">
             <v-icon color="deep-orange" size="32">mdi-bell-outline</v-icon>
           </v-avatar>
@@ -57,7 +57,7 @@
       </router-link>
 
       <router-link to="/messages">
-        <v-btn icon color="deep-orange">
+        <v-btn icon color="deep-orange" aria-label="Messages">
           <v-avatar class="ml-1" size="40">
             <v-icon color="deep-orange" size="32">mdi-email-outline</v-icon>
           </v-avatar>
@@ -66,7 +66,7 @@
 
       <v-menu left bottom nudge-left="24" nudge-bottom="48">
         <template v-slot:activator="{ on, attrs, value }">
-          <v-btn icon v-bind="attrs" v-on="on" color="deep-orange">
+          <v-btn icon v-bind="attrs" v-on="on" color="deep-orange" aria-label="Menu">
             <v-avatar size="40">
               <v-icon color="deep-orange" size="32">{{ value ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
             </v-avatar>

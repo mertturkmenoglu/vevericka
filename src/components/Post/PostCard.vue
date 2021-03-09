@@ -19,7 +19,7 @@
 
       <v-menu left bottom nudge-left="24" nudge-bottom="48">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
+          <v-btn icon v-bind="attrs" v-on="on" aria-label="Post Menu">
             <v-avatar size="24">
               <v-icon color="deep-orange text--darken-2" size="24">mdi-dots-vertical</v-icon>
             </v-avatar>
@@ -95,7 +95,7 @@
       </router-link>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions aria-label="Post Actions">
       <div class="content-small font-weight-thin ml-n1 text--primary">
         {{ (new Date(post.date)).toLocaleDateString() }}
       </div>

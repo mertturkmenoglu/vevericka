@@ -18,7 +18,7 @@
     </v-container>
 
     <v-fab-transition>
-      <v-btn v-if="showFab" fab bottom small absolute fixed color="deep-orange" dark right class="mb-10" @click="scrollToTop">
+      <v-btn v-if="showFab" fab bottom small absolute fixed color="deep-orange" dark right class="mb-10" @click="scrollToTop" aria-label="Scroll to Top">
         <v-icon>mdi-chevron-up</v-icon>
       </v-btn>
     </v-fab-transition>
