@@ -1,6 +1,18 @@
 <template>
   <v-container>
-    <v-card flat>
+    <div v-if="loading" class="py-3 text-center">
+      <v-progress-circular indeterminate color="deep-orange"/>
+    </div>
+    <div v-if="userNotFound && !loading">
+      <h1 class="font-weight-light text-center">
+        No user found:
+        <span class="deep-orange--text">{{ $route.params.username }}</span>
+      </h1>
+      <router-link to="/">
+        <h1 class="font-weight-light deep-orange--text text-center">Go to Home</h1>
+      </router-link>
+    </div>
+    <v-card v-if="!userNotFound && !loading" flat>
       <UserHeader
           :user="user"
           :toggleFollowers="toggleFollowers"
@@ -129,6 +141,7 @@ export default {
     snackbar: false,
     snackbarMessage: "",
     loading: true,
+    userNotFound: false,
   }),
   methods: {
     async fetchUser() {
@@ -138,8 +151,8 @@ export default {
       const data = await response.json();
 
       // No User
-      if (data.user.length <= 0) {
-        await router.push("/");
+      if (!data.user || data.user.length <= 0) {
+        this.userNotFound = true;
         return;
       }
 
@@ -248,4 +261,7 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
 </style>
