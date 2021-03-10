@@ -2,7 +2,10 @@
   "message": "Merhaba",
   "nav": {
     "bar": {
-      "search": "Ara"
+      "search": "Ara",
+      "notifications": "Bildirimler",
+      "messages": "Mesajlar",
+      "menu": "Menü"
     },
     "menu": {
       "view_your_profile": "Profilinizi görüntüleyin",

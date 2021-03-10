@@ -2,7 +2,10 @@
   "message": "hello i18n !!",
   "nav": {
     "bar": {
-      "search": "Search"
+      "search": "Search",
+      "notifications": "Notifications",
+      "messages": "Messages",
+      "menu": "Menu"
     },
     "menu": {
       "view_your_profile": "View your profile",

@@ -41,27 +41,42 @@
       </v-row>
 
       <router-link to="/search">
-        <v-btn icon color="deep-orange" class="hidden-md-and-up" aria-label="Search">
-          <v-avatar class="ml-1">
-            <v-icon color="deep-orange" size="32">mdi-magnify</v-icon>
-          </v-avatar>
-        </v-btn>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon color="deep-orange" class="hidden-md-and-up" aria-label="Search" v-bind="attrs" v-on="on">
+              <v-avatar class="ml-1">
+                <v-icon color="deep-orange" size="32">mdi-magnify</v-icon>
+              </v-avatar>
+            </v-btn>
+          </template>
+          <span>Search</span>
+        </v-tooltip>
       </router-link>
 
       <router-link to="/notifications">
-        <v-btn icon color="deep-orange" aria-label="Notifications">
-          <v-avatar class="ml-1" size="40">
-            <v-icon color="deep-orange" size="32">mdi-bell-outline</v-icon>
-          </v-avatar>
-        </v-btn>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon color="deep-orange" aria-label="Notifications" v-bind="attrs" v-on="on">
+              <v-avatar class="ml-1" size="40">
+                <v-icon color="deep-orange" size="32">mdi-bell-outline</v-icon>
+              </v-avatar>
+            </v-btn>
+          </template>
+          <span>{{ $t('nav.bar.notifications') }}</span>
+        </v-tooltip>
       </router-link>
 
       <router-link to="/messages">
-        <v-btn icon color="deep-orange" aria-label="Messages">
-          <v-avatar class="ml-1" size="40">
-            <v-icon color="deep-orange" size="32">mdi-email-outline</v-icon>
-          </v-avatar>
-        </v-btn>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon color="deep-orange" aria-label="Messages" v-bind="attrs" v-on="on">
+              <v-avatar class="ml-1" size="40">
+                <v-icon color="deep-orange" size="32">mdi-email-outline</v-icon>
+              </v-avatar>
+            </v-btn>
+          </template>
+          <span>{{ $t('nav.bar.messages') }}</span>
+        </v-tooltip>
       </router-link>
 
       <v-menu left bottom nudge-left="24" nudge-bottom="48">
