@@ -3,6 +3,8 @@ module.exports = {
     "vuetify"
   ],
 
+  productionSourceMap: false,
+
   pluginOptions: {
     i18n: {
       locale: 'en',
