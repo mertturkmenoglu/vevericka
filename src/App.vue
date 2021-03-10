@@ -79,7 +79,7 @@
         </v-tooltip>
       </router-link>
 
-      <v-menu left bottom nudge-left="24" nudge-bottom="48">
+      <v-menu left bottom nudge-left="24" nudge-bottom="48" transition="slide-y-transition">
         <template v-slot:activator="{ on, attrs, value }">
           <v-btn icon v-bind="attrs" v-on="on" color="deep-orange" aria-label="Menu">
             <v-avatar size="40">
