@@ -60,7 +60,7 @@ const actions = {
   },
 
   async register(ctx: ActionContext<any, any>, payload: RegisterPayload) {
-    ctx.commit('registerRequest', payload.email)
+    ctx.commit('registerRequest')
 
     try {
       const id = await AuthService.register(
@@ -70,13 +70,13 @@ const actions = {
           payload.password
       )
       if (!id) {
-        ctx.commit('registerFailure', 'Cannot register')
+        ctx.commit('registerFail', 'Cannot register')
       }
 
-      await ctx.commit('registerSuccess', id)
+      await ctx.commit('registerSuccess')
       await router.push('/')
     } catch (err) {
-      ctx.commit('registerFailure', err.message);
+      ctx.commit('registerFail', err.message);
       return;
     }
   },
@@ -120,6 +120,36 @@ const mutations = {
     state.error = ''
     state.loginStatus = ''
     state.registerStatus = ''
+  },
+  registerRequest(state: MyStateType) {
+    state.user = {
+      userId: '',
+      username: ''
+    }
+    state.token = ''
+    state.error = ''
+    state.loginStatus = ''
+    state.registerStatus = 'loading'
+  },
+  registerSuccess(state: MyStateType) {
+    state.user = {
+      userId: '',
+      username: ''
+    }
+    state.token = ''
+    state.error = ''
+    state.loginStatus = ''
+    state.registerStatus = 'success'
+  },
+  registerFail(state: MyStateType, errorMessage: string) {
+    state.user = {
+      userId: '',
+      username: ''
+    }
+    state.token = ''
+    state.error = errorMessage
+    state.loginStatus = ''
+    state.registerStatus = 'fail'
   }
 }
 
