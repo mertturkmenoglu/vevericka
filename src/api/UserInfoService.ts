@@ -6,7 +6,7 @@ export default class UserInfoService {
 
     public static async getUserByUsername(username: string): Promise<IResponse<IUser>> {
         try {
-            const url = `${this.URL}/user/username/${username}`;
+            const url = `http://localhost:5000/api/v2/user/username/${username}`;
             const response = await fetch(url);
             const data = await response.json();
             const result = data.user[0] as IUser

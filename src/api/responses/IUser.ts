@@ -2,7 +2,6 @@ export interface IUser {
     username: string
     name: string
     email: string
-    isAdmin: boolean
     image: string
     hobbies: Array<string>
     features: Array<string>

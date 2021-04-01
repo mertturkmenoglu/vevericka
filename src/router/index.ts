@@ -83,7 +83,7 @@ export const router = new Router({
 router.beforeEach((to, from, next) => {
     const publicPages = ['/login', '/register', '/password', '/terms'];
     const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.getItem('user');
+    const loggedIn = localStorage.getItem('vev-token');
 
     if (to.path === '/terms') {
         return next();

@@ -2,23 +2,33 @@
   <v-container>
     <v-container>
       <v-col v-if="!isLoading" class="mx-auto" cols="12" sm="8">
-        <CreatePost :user="user" @postCreated="postCreatedHandler" />
+        <CreatePost :user="user" @postCreated="postCreatedHandler"/>
         <v-divider class="my-4"></v-divider>
-        <UserFeed
-            :feed="feed"
-            @shareLinkCopied="shareLinkCopied"
-            @shareDM="shareDM"
-            @postSaved="postSaved"
-            @postDeleted="postDeleted"
-            @userUnfollowed="userUnfollowed"/>
+        <div v-if="feed.length > 0">
+          <UserFeed
+              :feed="feed"
+              @shareLinkCopied="shareLinkCopied"
+              @shareDM="shareDM"
+              @postSaved="postSaved"
+              @postDeleted="postDeleted"
+              @userUnfollowed="userUnfollowed"/>
+        </div>
+        <div v-else>
+          <div class="py-3 text-center">
+            <h3 class="font-weight-light">
+              No posts here <span class="deep-orange--text font-weight-bold">:(</span>
+            </h3>
+          </div>
+        </div>
       </v-col>
       <div v-else class="py-3 text-center">
-        <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
+        <v-progress-circular indeterminate color="deep-orange"/>
       </div>
     </v-container>
 
     <v-fab-transition>
-      <v-btn v-if="showFab" fab bottom small absolute fixed color="deep-orange" dark right class="mb-10" @click="scrollToTop" aria-label="Scroll to Top">
+      <v-btn v-if="showFab" fab bottom small absolute fixed color="deep-orange" dark right class="mb-10"
+             @click="scrollToTop" aria-label="Scroll to Top">
         <v-icon>mdi-chevron-up</v-icon>
       </v-btn>
     </v-fab-transition>
@@ -39,12 +49,12 @@ import CreatePost from "@/components/Post/CreatePost.vue";
 import UserFeed from "@/components/Post/UserFeed.vue";
 import Vue from "vue";
 import Component from "vue-class-component";
-import UserInfoService from "@/api/UserInfoService";
 // eslint-disable-next-line no-unused-vars
 import {IUser} from "@/api/responses/IUser";
-import PostService from "@/api/PostService";
+import PostService from "@/api/post";
 // eslint-disable-next-line no-unused-vars
 import IPost from "@/api/responses/IPost";
+import UserService from "@/api/user";
 
 @Component({
   name: "Home",
@@ -67,7 +77,7 @@ export default class HomePage extends Vue {
   }
 
   mounted() {
-    this.fetchUser().then( async () => {
+    this.fetchUser().then(async () => {
       await this.fetchFeed();
       this.isLoading = false;
     });
@@ -78,18 +88,18 @@ export default class HomePage extends Vue {
   }
 
   async fetchUser() {
-    const [user, err] = await UserInfoService.getUserByUsername(this.username);
-
-    if (err === null && user !== null) {
-      this.user = user;
+    try {
+      this.user = await UserService.getUserByUsername(this.username)
+    } catch (e) {
+      console.error(e);
     }
   }
 
   async fetchFeed() {
-    const [feed, error] = await PostService.getFeedByUsername(this.username);
-
-    if (error === null && feed !== null) {
-      this.feed = feed;
+    try {
+      this.feed = await PostService.getFeedByUsername(this.username);
+    } catch (e) {
+      console.error(e)
     }
   }
 

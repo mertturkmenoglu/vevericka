@@ -309,8 +309,8 @@
 import {router} from "@/router";
 import {Component, Vue} from "vue-property-decorator";
 import {displayLanguages} from "@/data/displayLanguages";
-import UserInfoService from "@/api/UserInfoService";
 import {publicPages} from "@/data/ApplicationConstants";
+import UserService from "@/api/user";
 
 @Component({
   name: "App",
@@ -395,14 +395,15 @@ export default class App extends Vue {
   async getImageURL() {
     const username = this.$store.state.user.username;
 
-    if (username === undefined) {
+    if (username === '') {
       return;
     }
 
-    const [user, err] = await UserInfoService.getUserByUsername(username);
-
-    if (err === null && user !== null) {
+    try {
+      const user = await UserService.getUserByUsername(username);
       this.imgURL = user.image;
+    } catch (e) {
+      console.error(e)
     }
   }
 

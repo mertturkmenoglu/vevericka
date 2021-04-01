@@ -108,12 +108,12 @@ export default class LoginPage extends Vue {
   }
 
   get loginLoading() {
-    const value = this.$store.state.status.loggingIn;
+    const value = this.$store.state.loginStatus;
     return value ? value : false
   }
 
   get loginError() {
-    const value: Error = this.$store.state.error;
+    const value = this.$store.state.error;
     return value ? value : false
   }
 
@@ -129,7 +129,7 @@ export default class LoginPage extends Vue {
 
   // noinspection JSUnusedGlobalSymbols
   beforeRouteLeave(to: any, from: any, next: any) {
-    this.$store.state.error = null;
+    this.$store.state.error = '';
     next();
   }
 
