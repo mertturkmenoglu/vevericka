@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {IUser} from "@/api/responses/IUser";
+import {IResponse} from "@/api/IResponse";
 
 type LoginResponse = {
     userId: string;
@@ -17,6 +18,15 @@ class UserService {
 
     static async getUserByUsername(username: string): Promise<IUser> {
         const res = await UserService.user.get<{ data: IUser }>('/username/' + username)
+        return res.data.data
+    }
+
+    public static async searchByQuery(query: string): Promise<IUser[]> {
+        const res = await UserService.user.get<{ data: IUser[] }>('/q', {
+            params: {
+                searchTerm: query
+            }
+        })
         return res.data.data
     }
 }

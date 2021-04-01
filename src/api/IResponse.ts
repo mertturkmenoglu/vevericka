@@ -1,1 +1,0 @@
-export type IResponse<T> = [T | null, string | null]

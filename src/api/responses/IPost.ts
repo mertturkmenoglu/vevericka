@@ -1,10 +1,14 @@
 export default interface IPost {
-    id: string
-    content: string
-    comments: Array<string>
-    username: string
-    date: Date
-    countdown: number
-    hashtags: Array<string>
-    mentions: Array<string>
+    id: string;
+    createdBy: {
+        userId: string;
+        username: string;
+        image: string;
+    };
+    content: string;
+    comments: string[];
+    hashtags: string[];
+    mentions: string[];
+    createdAt: Date;
+    updatedAt: Date;
 }

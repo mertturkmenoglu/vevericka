@@ -1,9 +1,7 @@
-import {IResponse} from "@/api/IResponse";
-
 export default class AuthService {
     static readonly URL = "https://vevericka-auth-service.herokuapp.com"
 
-    public static async sendPasswordResetEmail(email: string): Promise<IResponse<any>> {
+    public static async sendPasswordResetEmail(email: string): Promise<any> {
         try {
             const url = `${this.URL}/auth/send_password_reset_email`
             const requestBody = { email }
@@ -22,7 +20,7 @@ export default class AuthService {
         }
     }
 
-    public static async resetPassword(email: string, code: string, newPassword: string): Promise<IResponse<any>> {
+    public static async resetPassword(email: string, code: string, newPassword: string): Promise<any> {
         try {
             const url = `${this.URL}/auth/reset_password`
             const requestBody = {email, code, newPassword}

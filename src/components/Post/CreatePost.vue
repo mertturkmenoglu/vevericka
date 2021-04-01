@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import PostService from "@/api/post";
+
 export default {
   name: "CreatePost",
   components: {},
@@ -74,28 +76,16 @@ export default {
         return;
       }
 
-      const BASE = "https://vevericka-post-service.herokuapp.com";
-      const URL = `${BASE}/post/`;
-
-      const requestBody = {
-        content: this.postContent,
-        comments: [],
-        username: this.user.username,
-        date: (new Date()).toISOString(),
-        countdown: 24,
-        mentions: [],
-        hashtags: [],
-      };
-
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(requestBody),
-      };
-
-      await fetch(URL, requestOptions);
-      this.postContent = '';
-      this.$emit("postCreated");
+      try {
+        await PostService.createPost({
+          createdBy: this.$store.state.user.userId,
+          content: this.postContent,
+        });
+        this.postContent = '';
+        this.$emit("postCreated");
+      } catch (e) {
+        console.error(e)
+      }
     }
   },
   computed: {
