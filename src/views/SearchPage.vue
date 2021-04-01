@@ -45,7 +45,7 @@
 import Vue from "vue"
 import UserCard from "@/components/UserCard.vue"
 import {Component} from "vue-property-decorator"
-import UserInfoService from "@/api/UserInfoService";
+import UserService from "@/api/user";
 // eslint-disable-next-line no-unused-vars
 import {IUser} from "@/api/responses/IUser";
 
@@ -79,13 +79,14 @@ export default class SearchPage extends Vue {
 
     this.showLoading = true
     this.searchResults = []
-    const [result, err] = await UserInfoService.searchByQuery(this.searchStr)
-    this.showLoading = false
 
-    if (err === null && result !== null) {
+    try {
+      const result = await UserService.searchByQuery(this.searchStr)
+      this.showLoading = false
       this.searchResults = result
-      this.error = ""
-    } else {
+      this.error = ''
+    } catch (e) {
+      this.showLoading = false
       this.error = this.$t('search.user_not_found').toString()
     }
   }

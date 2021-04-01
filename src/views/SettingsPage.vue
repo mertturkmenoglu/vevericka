@@ -15,7 +15,7 @@ import SettingsTabs from "@/components/Settings/SettingsTabs.vue";
 import {Component} from "vue-property-decorator";
 // eslint-disable-next-line no-unused-vars
 import {IUser} from "@/api/responses/IUser";
-import UserInfoService from "@/api/UserInfoService";
+import UserService from "@/api/user";
 
 @Component({
   name: "SettingsPage",
@@ -31,10 +31,10 @@ export default class SettingsPage extends Vue {
 
   async fetchUser() {
     const username = this.$store.state.user.username;
-    const [result, err] = await UserInfoService.getUserByUsername(username)
-
-    if (err === null && result !== null) {
-      this.user = result
+    try {
+      this.user = await UserService.getUserByUsername(username)
+    } catch (e) {
+      console.error(e)
     }
   }
 }
