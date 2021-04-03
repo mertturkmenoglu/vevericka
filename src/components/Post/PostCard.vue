@@ -263,8 +263,6 @@ export default {
       return this.$store.state.user.username === this.post.createdBy.username;
     }
   },
-  mounted() {
-  }
 }
 </script>
 
