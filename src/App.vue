@@ -328,7 +328,6 @@ export default class App extends Vue {
   mounted() {
     this.setTheme();
     this.setDisplayLanguage();
-    this.getImageURL();
     this.selectedDisplayLanguage = this.$i18n.locale;
   }
 
