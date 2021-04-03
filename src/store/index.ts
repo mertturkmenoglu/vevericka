@@ -6,12 +6,9 @@ import {LoginPayload, LoginSuccess, RegisterPayload} from "@/store/types";
 
 Vue.use(Vuex)
 
-const tokenFromStorageStr = localStorage.getItem('vev-token') || '""'
-const userFromStorageStr = localStorage.getItem('vev-user') || '""'
-
-const tokenObj = JSON.parse(tokenFromStorageStr) as { token: string }
+const token = localStorage.getItem('vev-token') || '';
+const userFromStorageStr = localStorage.getItem('vev-user') || '{"user":{"username":"","userId":""}}'
 const userObj = JSON.parse(userFromStorageStr) as { user: { username: string; userId: string; } }
-const token = tokenObj.token || ''
 
 const state = {
   user: userObj.user || {
@@ -48,9 +45,8 @@ const actions = {
         return
       }
 
-      const tokenStr = JSON.stringify({token: resp.token})
       const userStr = JSON.stringify({ user: { username: resp.username, userId: resp.userId }})
-      window.localStorage.setItem('vev-token', tokenStr)
+      window.localStorage.setItem('vev-token', resp.token)
       window.localStorage.setItem('vev-user', userStr)
       ctx.commit('loginSuccess', resp);
       await router.push('/')

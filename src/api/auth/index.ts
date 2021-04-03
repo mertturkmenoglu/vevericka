@@ -8,7 +8,7 @@ type LoginResponse = {
 
 class AuthService {
     static readonly auth = axios.create({
-        baseURL: 'http://localhost:5000/api/v2/auth',
+        baseURL: 'http://vevericka-backend.herokuapp.com/api/v2/auth',
     })
 
     static async login(email: string, password: string): Promise<LoginResponse> {

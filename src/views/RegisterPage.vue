@@ -147,8 +147,8 @@ export default class RegisterPage extends Vue {
   }
 
   get registerLoading() {
-    const value = this.$store.state.status.registering
-    return value ? value : false
+    const value = this.$store.state.registerStatus;
+    return value === 'loading' ? value : false
   }
 
   get registerError() {
