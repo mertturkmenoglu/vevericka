@@ -31,7 +31,7 @@ type UpdateUserDto = {
 
 class UserService {
     static readonly user = axios.create({
-        baseURL: 'http://vevericka-backend.herokuapp.com/api/v2/user',
+        baseURL: 'https://vevericka-backend.herokuapp.com/api/v2/user',
         headers: {
             'authorization': localStorage.getItem('vev-token') || ''
         }

@@ -21,7 +21,7 @@ type CommentDto = {
 
 class PostService {
     static readonly post = axios.create({
-        baseURL: 'http://vevericka-backend.herokuapp.com/api/v2/post',
+        baseURL: 'https://vevericka-backend.herokuapp.com/api/v2/post',
         headers: {
             'authorization': localStorage.getItem('vev-token') || ''
         }
