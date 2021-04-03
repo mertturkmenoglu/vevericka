@@ -23,7 +23,7 @@
         />
       </v-card>
 
-      <div v-for="comment in comments" :key="comment.id">
+      <div v-for="comment in post.comments" :key="comment.id">
         <CommentCard :comment="comment" class="my-2"/>
       </div>
     </div>
@@ -53,6 +53,7 @@ import {Component} from "vue-property-decorator";
 import IPost from "@/api/responses/IPost";
 // eslint-disable-next-line no-unused-vars
 import IComment from "@/api/responses/IComment";
+import PostService from "@/api/post";
 
 @Component({
   name: "PostDetailPage",
@@ -64,7 +65,6 @@ export default class PostDetailPage extends Vue {
   snackbar: boolean = false
   snackbarMessage: string = ""
   commentContent: string = ""
-  comments: Array<IComment> = []
 
   get commentTextAreaRules() {
     return [(v: string) => v.length <= 255 || this.$t('post_detail_page.rules.character_limit')]
@@ -80,29 +80,16 @@ export default class PostDetailPage extends Vue {
 
   mounted() {
     this.fetchPost().then(async () => {
-      await this.fetchComments()
       this.loading = false
     })
   }
 
   async fetchPost() {
-    // const [result, err] = await PostService.getPostById(this.id)
-    //
-    // if (err === null && result !== null) {
-    //   this.post = result
-    // }
-  }
-
-  async fetchComments() {
-    // for (const commentId of this.post.comments) {
-    //   const [result, err] = await PostService.getCommentById(commentId)
-    //
-    //   if (err === null && result !== null) {
-    //     this.comments.push(result)
-    //   }
-    // }
-    //
-    // this.comments = this.comments.reverse()
+    try {
+      this.post = await PostService.getPostById(this.id);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async createComment() {
