@@ -29,18 +29,34 @@ class AuthService {
     }
 
     static async register(email: string, username: string, name: string, password: string): Promise<string | null> {
-        console.log('sending register request')
         const resp = await AuthService.auth.post('/register', {
             email, username, name, password
         })
 
         const data = resp.data
         if (data['id']) {
-            console.log('login positive. id,', data['id'])
             return data['id']
         }
 
         return null
+    }
+
+    static async sendPasswordResetEmail(email: string): Promise<boolean> {
+        await AuthService.auth.post('/send-password-reset-email', {
+            email,
+        })
+
+        return true
+    }
+
+    static async resetPassword(email: string, code: string, newPassword: string): Promise<boolean> {
+        await AuthService.auth.post('/reset-password', {
+            email,
+            code,
+            password: newPassword,
+        })
+
+        return true
     }
 }
 
