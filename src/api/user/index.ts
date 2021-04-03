@@ -1,10 +1,32 @@
 import axios from 'axios'
 import {IUser} from "@/api/responses/IUser";
 
-type LoginResponse = {
-    userId: string;
+type Language = {
+    language: string;
+    proficiency: string;
+}
+
+type Location = {
+    city?: string
+    country?: string
+}
+
+type UpdateUserDto = {
     username: string;
-    token: string;
+    name?: string;
+    image?: string;
+    hobbies?: string[];
+    features?: string[];
+    bdate?: Date;
+    location?: Location;
+    job?: string;
+    school?: string;
+    website?: string;
+    twitter?: string;
+    bio?: string;
+    gender?: string;
+    languages?: Language[];
+    wishToSpeak: string[];
 }
 
 class UserService {
@@ -14,6 +36,11 @@ class UserService {
             'authorization': JSON.parse(localStorage.getItem('vev-token') || '{token: ""}').token
         }
     })
+
+    static async updateUser(updateUserDto: UpdateUserDto): Promise<boolean> {
+        await UserService.user.put('/', updateUserDto)
+        return true;
+    }
 
     static async getUserByUsername(username: string): Promise<IUser> {
         const res = await UserService.user.get<{ data: IUser }>('/username/' + username)

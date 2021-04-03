@@ -28,45 +28,41 @@
   </v-tabs>
 </template>
 
-<script>
-import SettingsGeneral from "@/components/Settings/SettingsGeneral";
-import SettingsProfile from "@/components/Settings/SettingsProfile";
-import SettingsSocial from "@/components/Settings/SettingsSocial";
-import SettingsHobbies from "@/components/Settings/SettingsHobbies";
-import SettingsLanguages from "@/components/Settings/SettingsLanguages";
+<script lang="ts">
+import Vue from "vue";
+import SettingsGeneral from "@/components/Settings/SettingsGeneral.vue";
+import SettingsProfile from "@/components/Settings/SettingsProfile.vue";
+import SettingsSocial from "@/components/Settings/SettingsSocial.vue";
+import SettingsHobbies from "@/components/Settings/SettingsHobbies.vue";
+import SettingsLanguages from "@/components/Settings/SettingsLanguages.vue";
+import {Component, Prop} from "vue-property-decorator";
+// eslint-disable-next-line no-unused-vars
+import {IUser} from "@/api/responses/IUser";
+import UserService from "@/api/user";
 
-export default {
-  name: "SettingsTabs",
+@Component({
   components: {SettingsLanguages, SettingsHobbies, SettingsSocial, SettingsProfile, SettingsGeneral},
-  props: ["user"],
-  methods: {
-    async updateUser(user) {
-      const BASE = "https://user-info-service.herokuapp.com/user";
-      const URL = `${BASE}/${user._id}`;
+})
+export default class SettingsTabs extends Vue {
+  @Prop({ required: true }) user!: IUser
 
-      const requestOptions = {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(user),
-      };
-
-      const response = await fetch(URL, requestOptions);
-      const data = await response.json();
-
-      if (data['status_code']) return;
+  async updateUser(user: IUser) {
+    try {
+      await UserService.updateUser(user)
       window.location.reload();
-    },
-  },
-  computed: {
-    tabs() {
-      return [
-        {title: this.$t('settings.tabs.general'), icon: "mdi-account-cog-outline"},
-        {title: this.$t('settings.tabs.profile'), icon: "mdi-account-circle-outline"},
-        {title: this.$t('settings.tabs.social'), icon: "mdi-account-group"},
-        {title: this.$t('settings.tabs.hobbies'), icon: "mdi-heart-outline"},
-        {title: this.$t('settings.tabs.languages'), icon: "mdi-account-voice"}
-      ]
+    } catch (e) {
+      console.error(e);
     }
+  }
+
+  get tabs(): { title: string; icon: string }[] {
+    return [
+      {title: this.$t('settings.tabs.general').toString(), icon: "mdi-account-cog-outline"},
+      {title: this.$t('settings.tabs.profile').toString(), icon: "mdi-account-circle-outline"},
+      {title: this.$t('settings.tabs.social').toString(), icon: "mdi-account-group"},
+      {title: this.$t('settings.tabs.hobbies').toString(), icon: "mdi-heart-outline"},
+      {title: this.$t('settings.tabs.languages').toString(), icon: "mdi-account-voice"}
+    ]
   }
 }
 </script>

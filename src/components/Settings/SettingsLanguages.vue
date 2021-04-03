@@ -100,7 +100,7 @@
         </v-card-title>
         <v-card-subtitle>{{ $t('settings.languages.wish_to_speak.subtitle') }}</v-card-subtitle>
         <v-card-text>
-          <v-list-item v-for="(l,idx) in user.wish_to_speak" :key="idx">
+          <v-list-item v-for="(l,idx) in user.wishToSpeak" :key="idx">
             <v-list-item-content>
               <v-list-item-title>
                 <v-icon color="deep-orange">mdi-chevron-right</v-icon>
@@ -165,18 +165,18 @@ export default {
         return;
       }
 
-      for (const l of this.user.wish_to_speak) {
+      for (const l of this.user.wishToSpeak) {
         if (l === this.newWishToSpeak) {
           return;
         }
       }
 
-      this.user.wish_to_speak.push(this.newWishToSpeak);
+      this.user.wishToSpeak.push(this.newWishToSpeak);
       this.newWishToSpeak = '';
       this.wishToSpeakDialog = false;
     },
     deleteWishToSpeak(idx) {
-      this.user.wish_to_speak.splice(idx, 1);
+      this.user.wishToSpeak.splice(idx, 1);
     },
     addLanguage() {
       if (this.newLanguage === '' || this.newProficiency === '') {
