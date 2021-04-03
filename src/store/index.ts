@@ -65,9 +65,25 @@ const actions = {
           payload.name,
           payload.password
       )
+
       if (!id) {
         ctx.commit('registerFail', 'Cannot register')
+        return;
       }
+
+      const loginResponse = await AuthService.login(payload.email, payload.password);
+
+      if (!loginResponse) {
+        ctx.commit('registerFail', 'Registered but cannot login');
+        return;
+      }
+
+      const userStr = JSON.stringify({
+        user: { username: loginResponse.username, userId: loginResponse.userId }
+      });
+
+      window.localStorage.setItem('vev-token', loginResponse.token)
+      window.localStorage.setItem('vev-user', userStr)
 
       await ctx.commit('registerSuccess')
       await router.push('/')
