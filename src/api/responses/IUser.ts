@@ -19,5 +19,5 @@ export interface IUser {
     bio: string
     gender: string
     languages: Array<{ language: string, proficiency: string }>
-    wish_to_speak: Array<string>
+    wishToSpeak: Array<string>
 }
