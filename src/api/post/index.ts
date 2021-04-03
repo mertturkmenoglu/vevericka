@@ -47,6 +47,11 @@ class PostService {
         return res.data.data
     }
 
+    static async deleteBookmark(bookmarkId: string): Promise<boolean> {
+        await PostService.post.delete('/bookmark/' + bookmarkId);
+        return true;
+    }
+
     static async createBookmark(bookmark: BookmarkDto): Promise<IBookmark> {
         const res = await PostService.post.post<{ data: IBookmark }>('/bookmark/', bookmark);
         return res.data.data

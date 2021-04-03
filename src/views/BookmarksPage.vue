@@ -9,7 +9,8 @@
         <v-divider></v-divider>
         <div v-for="(b, idx) in bookmarks" :key="idx">
           <BookmarkCard
-              :bookmark="b"
+              :bookmarkId="b._id"
+              :bookmark="b.postId"
               class="my-2"
               @bookmarkRemoved="bookmarkRemoved"
           />
@@ -73,7 +74,7 @@ export default class BookmarksPage extends Vue {
   async fetchBookmarks() {
     try {
       const username: string = this.$store.state.user.username
-      this.bookmarks = await PostService.getBookmarksByUsername(username)
+      this.bookmarks = await PostService.getBookmarksByUsername(username);
     } catch (e) {
       console.error(e)
     }

@@ -1,18 +1,18 @@
 <template>
   <v-card class="px-5 v-card" flat outlined>
     <v-card-title>
-      <router-link :to="{ name: 'UserPage', params: { username: post.username } }">
+      <router-link :to="{ name: 'UserPage', params: { username: bookmark.createdBy.username } }">
         <v-avatar size="40" class="ml-n3">
           <v-img
               class="rounded-circle"
-              :src="user.image"
+              :src="userImage"
               contain
               width="12"
               aspect-ratio="1"
               alt="Profile"/>
         </v-avatar>
-        <span class="ml-5 font-weight-light text--primary">{{ user.name }}</span>
-        <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">@{{ user.username }}</span>
+        <span class="ml-5 font-weight-light text--primary">{{ bookmark.createdBy.name }}</span>
+        <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">@{{ bookmark.createdBy.username }}</span>
       </router-link>
 
       <v-spacer></v-spacer>
@@ -42,21 +42,21 @@
     <v-divider></v-divider>
 
     <v-card-text>
-      <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
-        <div v-html="makeHTML(post.content)" class="text--darken-2 ml-n3 content font-weight-light text-wrap mt-2 text--primary">
+      <router-link :to="{ name: 'PostDetailPage', params: { id: bookmark._id } }">
+        <div v-html="makeHTML(bookmark.content)" class="text--darken-2 ml-n3 content font-weight-light text-wrap mt-2 text--primary">
         </div>
       </router-link>
     </v-card-text>
 
     <v-card-actions>
       <div class="content-small font-weight-thin ml-n1 text--primary">
-        {{ (new Date(post.date)).toLocaleDateString() }}
+        {{ (new Date(bookmark.createdAt)).toLocaleDateString() }}
       </div>
       <v-spacer></v-spacer>
-      <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
+      <router-link :to="{ name: 'PostDetailPage', params: { id: bookmark._id } }">
           <span class="content-small font-weight-light">
             <v-icon color="deep-orange"> mdi-comment-outline </v-icon>
-            <span class="ml-2 pt-1 text--primary">{{ post.comments.length }}</span>
+            <span class="ml-2 pt-1 text--primary">{{ bookmark.comments.length }}</span>
           </span>
       </router-link>
     </v-card-actions>
@@ -64,12 +64,12 @@
 </template>
 
 <script>
+import PostService from "@/api/post";
+
 export default {
   name: "BookmarkCard",
-  props: ["post", "bookmark"],
+  props: ["bookmark", "bookmarkId"],
   data: () => ({
-    user: {
-    },
     URL_REGEX: /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig,
     USERNAME_REGEX: /@[-A-Z0-9_]+/ig,
     HASHTAG_REGEX: /#[-A-Z0-9_]+/ig,
@@ -88,19 +88,23 @@ export default {
       return text.replace(this.URL_REGEX, (url) => `<a href="${url}" class="deep-orange--text">${url}</a>`);
     },
     async removeBookmark() {
-      const BASE = "https://vevericka-post-service.herokuapp.com";
-      const URL = `${BASE}/bookmark/${this.bookmark.id}`;
-
-      const requestOptions = {
-        method: "DELETE",
+      try {
+        await PostService.deleteBookmark(this.bookmarkId)
+        this.$emit("bookmarkRemoved");
+      } catch (e) {
+        console.error(e);
       }
-
-      await fetch(URL, requestOptions);
-      this.$emit("bookmarkRemoved");
     },
   },
-  mounted() {
-    this.fetchUser();
+  computed: {
+    userImage() {
+      const img = this.bookmark.createdBy.image;
+      if (img === 'profile.png') {
+        return '/profile.png'
+      } else {
+        return img;
+      }
+    }
   }
 }
 </script>
@@ -108,6 +112,7 @@ export default {
 <style lang="scss" scoped>
 a {
   color: #001000 !important;
+  text-decoration: none;
 }
 
 .post-share {
