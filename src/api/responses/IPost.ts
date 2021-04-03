@@ -1,5 +1,5 @@
 export default interface IPost {
-    id: string;
+    _id: string;
     createdBy: {
         userId: string;
         username: string;

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import IPost from "@/api/responses/IPost";
 import IBookmark from "@/api/responses/IBookmark";
+import IComment from "@/api/responses/IComment";
 
 type PostDto = {
     createdBy: string;
@@ -10,6 +11,12 @@ type PostDto = {
 type BookmarkDto = {
     postId: string;
     belongsTo: string;
+}
+
+type CommentDto = {
+    postId: string;
+    createdBy: string;
+    content: string;
 }
 
 class PostService {
@@ -48,6 +55,11 @@ class PostService {
     static async deletePost(postId: string): Promise<boolean> {
         await PostService.post.delete('/' + postId);
         return true;
+    }
+
+    static async createComment(comment: CommentDto): Promise<boolean> {
+        await PostService.post.post<{ data: IComment }>('/comment/', comment);
+        return true
     }
 }
 

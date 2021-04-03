@@ -52,7 +52,6 @@ import {Component} from "vue-property-decorator";
 // eslint-disable-next-line no-unused-vars
 import IPost from "@/api/responses/IPost";
 // eslint-disable-next-line no-unused-vars
-import IComment from "@/api/responses/IComment";
 import PostService from "@/api/post";
 
 @Component({
@@ -93,8 +92,16 @@ export default class PostDetailPage extends Vue {
   }
 
   async createComment() {
-    //await PostService.createComment(this.id, this.commentContent, this.$store.state.user.username)
-    window.location.reload()
+    try {
+      await PostService.createComment({
+        content: this.commentContent,
+        createdBy: this.$store.state.user.userId,
+        postId: this.id
+      })
+      window.location.reload()
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   linkCopied() {

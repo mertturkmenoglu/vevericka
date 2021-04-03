@@ -1,7 +1,12 @@
 export default interface IComment {
-    id: string
+    _id: string
     postId: string
+    createdBy: {
+        userId: string;
+        username: string;
+        image: string;
+    };
     content: string
-    username: string
-    date: Date | string
+    createdAt: Date;
+    updatedAt: Date;
 }
