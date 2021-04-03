@@ -89,7 +89,7 @@
     <v-divider></v-divider>
 
     <v-card-text>
-      <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
+      <router-link :to="{ name: 'PostDetailPage', params: { id: post._id } }">
         <div v-html="makeHTML(post.content)" class="text--darken-2 ml-n3 content font-weight-light text-wrap mt-2 text--primary">
         </div>
       </router-link>
