@@ -7,15 +7,14 @@
           {{ $t('bookmarks_page.title') }}
         </h2>
         <v-divider></v-divider>
-        <div v-for="(post, idx) in posts" :key="idx">
+        <div v-for="(b, idx) in bookmarks" :key="idx">
           <BookmarkCard
-              :post="post"
-              :bookmark="bookmarks[idx]"
+              :bookmark="b"
               class="my-2"
               @bookmarkRemoved="bookmarkRemoved"
           />
         </div>
-        <div v-if="!loading && posts.length === 0" class="text-center mt-3">
+        <div v-if="!loading && bookmarks.length === 0" class="text-center mt-3">
           <h2 class="font-weight-light">
             {{ $t('bookmarks_page.no_bookmark') }}
           </h2>
@@ -44,8 +43,7 @@ import Vue from "vue";
 import BookmarkCard from "@/components/Post/BookmarkCard.vue";
 import {Component} from "vue-property-decorator";
 // eslint-disable-next-line no-unused-vars
-import IBookmark from "@/api/responses/IBookmark";
-import PostService from "@/api/PostService";
+import PostService from "@/api/post";
 // eslint-disable-next-line no-unused-vars
 import IPost from "@/api/responses/IPost";
 
@@ -55,8 +53,7 @@ import IPost from "@/api/responses/IPost";
 })
 export default class BookmarksPage extends Vue {
   loading: boolean = true
-  bookmarks: Array<IBookmark> = []
-  posts: Array<IPost> = []
+  bookmarks: IPost[] = []
   snackbar: boolean = false
   snackbarMessage: string = ""
 
@@ -68,28 +65,17 @@ export default class BookmarksPage extends Vue {
 
   async refresh() {
     this.bookmarks = []
-    this.posts = []
     this.loading = true
     await this.fetchBookmarks()
-    await this.fetchPosts()
     this.loading = false
   }
 
   async fetchBookmarks() {
-    const username = this.$store.state.user.username
-    const [data, err] = await PostService.getBookmarksByUsername(username)
-
-    if (err === null && data !== null) {
-      this.bookmarks = data;
-    }
-  }
-
-  async fetchPosts() {
-    for (let b of this.bookmarks) {
-      const [result, err] = await PostService.getPostById(b.postId)
-      if (err === null && result !== null) {
-        this.posts.push(result)
-      }
+    try {
+      const username: string = this.$store.state.user.username
+      this.bookmarks = await PostService.getBookmarksByUsername(username)
+    } catch (e) {
+      console.error(e)
     }
   }
 

@@ -1,18 +1,18 @@
 <template>
   <v-card class="px-5 v-card" flat outlined>
     <v-card-title>
-      <router-link :to="{ name: 'UserPage', params: { username: post.username } }">
+      <router-link :to="{ name: 'UserPage', params: { username: post.createdBy.username } }">
         <v-avatar size="40" class="ml-n3">
           <v-img
               class="rounded-circle"
-              :src="user.image"
+              :src="post.createdBy.image"
               contain
               width="12"
               aspect-ratio="1"
               alt="Profile"/>
         </v-avatar>
-        <span class="ml-5 font-weight-light hidden-sm-and-down text--primary">{{ user.name }}</span>
-        <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">@{{ user.username }}</span>
+        <span class="ml-5 font-weight-light hidden-sm-and-down text--primary">{{ post.createdBy.name }}</span>
+        <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">@{{ post.createdBy.username }}</span>
       </router-link>
 
       <v-spacer></v-spacer>
@@ -97,7 +97,7 @@
 
     <v-card-actions aria-label="Post Actions">
       <div class="content-small font-weight-thin ml-n1 text--primary">
-        {{ (new Date(post.date)).toLocaleDateString() }}
+        {{ (new Date(post.createdAt)).toLocaleDateString() }}
       </div>
       <v-spacer></v-spacer>
       <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
@@ -178,6 +178,7 @@
 
 <script>
 import {router} from '@/router'
+import PostService from "@/api/post";
 
 export default {
   name: "PostCard",
@@ -206,65 +207,23 @@ export default {
     linkify(text) {
       return text.replace(this.URL_REGEX, (url) => `<a href="${url}" class="deep-orange--text">${url}</a>`);
     },
-    async fetchUser() {
-      const BASE = "https://user-info-service.herokuapp.com";
-      const URL = `${BASE}/user/username/${this.post.username}`;
-      const response = await fetch(URL);
-      const data = await response.json();
-      this.user = data.user[0];
-    },
     copyShareLink() {
       const tmpInput = document.createElement("input");
-      tmpInput.value = `https://vevericka.herokuapp.com/post/${this.post.id}`;
+      tmpInput.value = `https://vevericka.herokuapp.com/post/${this.post._id}`;
       document.body.appendChild(tmpInput);
       tmpInput.select();
       document.execCommand("copy");
       document.body.removeChild(tmpInput);
       this.$emit("shareLinkCopied");
     },
-    async sendMessage(msg, otherUsername) {
-      if (msg === "") return false;
-      let chatId = await this.getChatId(otherUsername);
-
-      if (!chatId) {
-        chatId = await this.createNewChat();
-      }
-
-      const BASE = "https://vevericka-message-service.herokuapp.com";
-      const URL = `${BASE}/message/new_message/${chatId}`;
-
-      const requestBody = {
-        content: msg,
-        sent_by: this.post.username,
-      };
-
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(requestBody),
-      };
-
-      const response = await fetch(URL, requestOptions);
-      const data = await response.json();
-
-      return !data.status_code;
-    },
-    async getChatId(otherUsername) {
-      const BASE = "https://vevericka-message-service.herokuapp.com";
-      const URL = `${BASE}/message/get_chat/${this.post.username}/${otherUsername}`;
-
-      const response = await fetch(URL);
-      const data = await response.json();
-
-      if (data['chat']) {
-        return data['chat']['_id'];
-      }
-
-      return undefined;
+    async sendMessage(_msg, _otherUsername) {
+      // TODO: Implement
+      console.log(_msg, _otherUsername);
+      return false;
     },
     async shareDM(u) {
       this.dmDialog = false;
-      const msg = `https://vevericka.herokuapp.com/post/${this.post.id}`;
+      const msg = ''
       const result = await this.sendMessage(msg, u)
 
       if (result) {
@@ -272,65 +231,39 @@ export default {
       }
     },
     async savePost() {
-      const BASE = "https://vevericka-post-service.herokuapp.com/";
-      const URL = `${BASE}/bookmark/`;
-      const requestBody = {
-        username: this.$store.state.user.username,
-        postId: this.post.id,
-      };
-
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(requestBody),
+      try {
+        await PostService.createBookmark({
+          belongsTo: this.$store.state.user.userId,
+          postId: this.post._id,
+        });
+        this.$emit("postSaved");
+      } catch (e) {
+       console.error(e);
       }
-
-      await fetch(URL, requestOptions);
-      this.$emit("postSaved");
     },
     reportPost() {
-      router.push({name: 'ReportPage', params: {postId: this.post.id, postUsername: this.post.username}})
+      router.push({name: 'ReportPage', params: {postId: this.post._id, postUsername: this.post.createdBy.username}})
     },
     async deletePost() {
-      const BASE = "https://vevericka-post-service.herokuapp.com";
-      const POST_URL = `${BASE}/post/${this.post.id}`;
-      const requestOptions = {
-        method: 'DELETE',
-      };
-
-      await fetch(POST_URL, requestOptions);
-      this.$emit("postDeleted");
+      try {
+        await PostService.deletePost(this.post._id)
+        this.$emit("postDeleted");
+        this.deletePostDialog = false;
+      } catch (e) {
+        console.error(e);
+      }
     },
     async unfollowUser() {
-      const BASE = "https://user-info-service.herokuapp.com/user";
-      const thisUsername = this.$store.state.user.username;
-      const otherUsername = this.post.username;
-      const requestBody = {
-        thisUsername,
-        otherUsername,
-      };
-
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(requestBody),
-      };
-
-      const URL = `${BASE}/unfollow/`;
-      const response = await fetch(URL, requestOptions);
-      const data = await response.json();
-
-      if (data['status_code']) return;
-      this.$emit("userUnfollowed");
+      return false;
+      //this.$emit("userUnfollowed");
     },
   },
   computed: {
     isThisUserPost() {
-      return this.$store.state.user.username === this.post.username;
+      return this.$store.state.user.username === this.post.createdBy.username;
     }
   },
   mounted() {
-    this.fetchUser();
   }
 }
 </script>

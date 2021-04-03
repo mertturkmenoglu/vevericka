@@ -109,7 +109,7 @@
 import Vue from "vue"
 import {Component, Watch} from "vue-property-decorator"
 import {EMAIL_REGEX} from "@/data/ApplicationConstants"
-import AuthService from "@/api/AuthService";
+import AuthService from "@/api/auth";
 
 @Component({
   name: "PasswordResetPage"
@@ -144,26 +144,27 @@ export default class PasswordResetPage extends Vue {
   }
 
   async sendPasswordResetEmail() {
-    const [data, err] = await AuthService.sendPasswordResetEmail(this.email)
-    this.snackbar = true
+    try {
+      const resp = await AuthService.sendPasswordResetEmail(this.email)
 
-    if (data.error || err !== null) {
-      this.snackbarMessage = data.error.message
-    } else {
-      this.snackbarMessage = data.message
-      this.emailSend = true
+
+      if (resp) {
+        this.emailSend = true
+      }
+    } catch (e) {
+      this.snackbar = true
+      this.snackbarMessage = e.message
     }
   }
 
   async resetPassword() {
-    const [data, err] = await AuthService.resetPassword(this.email, this.resetCode, this.password)
-    this.snackbar = true
-
-    if (data.error || err !== null) {
-      this.snackbarMessage = data.error.message
-    } else {
-      this.snackbarMessage = data.message
-      this.emailSend = true
+    try {
+      await AuthService.resetPassword(this.email, this.resetCode, this.password)
+      this.snackbar = true;
+      this.snackbarMessage = 'Sent';
+    } catch (e) {
+      this.snackbar = true
+      this.snackbarMessage = e.message;
     }
   }
 }

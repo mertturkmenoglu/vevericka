@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {IUser} from "@/api/responses/IUser";
-import {IResponse} from "@/api/IResponse";
 
 type LoginResponse = {
     userId: string;

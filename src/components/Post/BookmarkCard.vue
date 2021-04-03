@@ -87,13 +87,6 @@ export default {
     linkify(text) {
       return text.replace(this.URL_REGEX, (url) => `<a href="${url}" class="deep-orange--text">${url}</a>`);
     },
-    async fetchUser() {
-      const BASE = "https://user-info-service.herokuapp.com";
-      const URL = `${BASE}/user/username/${this.post.username}`;
-      const response = await fetch(URL);
-      const data = await response.json();
-      this.user = data.user[0];
-    },
     async removeBookmark() {
       const BASE = "https://vevericka-post-service.herokuapp.com";
       const URL = `${BASE}/bookmark/${this.bookmark.id}`;

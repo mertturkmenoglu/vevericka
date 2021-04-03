@@ -51,7 +51,6 @@ import CommentCard from "@/components/Post/CommentCard.vue";
 import {Component} from "vue-property-decorator";
 // eslint-disable-next-line no-unused-vars
 import IPost from "@/api/responses/IPost";
-import PostService from "@/api/PostService";
 // eslint-disable-next-line no-unused-vars
 import IComment from "@/api/responses/IComment";
 
@@ -87,27 +86,27 @@ export default class PostDetailPage extends Vue {
   }
 
   async fetchPost() {
-    const [result, err] = await PostService.getPostById(this.id)
-
-    if (err === null && result !== null) {
-      this.post = result
-    }
+    // const [result, err] = await PostService.getPostById(this.id)
+    //
+    // if (err === null && result !== null) {
+    //   this.post = result
+    // }
   }
 
   async fetchComments() {
-    for (const commentId of this.post.comments) {
-      const [result, err] = await PostService.getCommentById(commentId)
-
-      if (err === null && result !== null) {
-        this.comments.push(result)
-      }
-    }
-
-    this.comments = this.comments.reverse()
+    // for (const commentId of this.post.comments) {
+    //   const [result, err] = await PostService.getCommentById(commentId)
+    //
+    //   if (err === null && result !== null) {
+    //     this.comments.push(result)
+    //   }
+    // }
+    //
+    // this.comments = this.comments.reverse()
   }
 
   async createComment() {
-    await PostService.createComment(this.id, this.commentContent, this.$store.state.user.username)
+    //await PostService.createComment(this.id, this.commentContent, this.$store.state.user.username)
     window.location.reload()
   }
 

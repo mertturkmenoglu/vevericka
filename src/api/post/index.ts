@@ -1,9 +1,15 @@
 import axios from 'axios'
 import IPost from "@/api/responses/IPost";
+import IBookmark from "@/api/responses/IBookmark";
 
 type PostDto = {
     createdBy: string;
     content: string;
+}
+
+type BookmarkDto = {
+    postId: string;
+    belongsTo: string;
 }
 
 class PostService {
@@ -15,13 +21,28 @@ class PostService {
     })
 
     static async getFeedByUsername(username: string): Promise<IPost[]> {
-        const res = await PostService.post.get<IPost[]>('/feed/' + username)
-        return res.data
+        const res = await PostService.post.get<{ data: IPost[] }>('/feed/' + username)
+        return res.data.data
     }
 
     static async createPost(post: PostDto): Promise<IPost> {
-        const res = await PostService.post.post<IPost>('/', post)
-        return res.data
+        const res = await PostService.post.post<{ data: IPost }>('/', post)
+        return res.data.data
+    }
+
+    static async getBookmarksByUsername(username: string): Promise<IPost[]> {
+        const res = await PostService.post.get<{ data: IPost[] }>('/bookmark/user/' + username)
+        return res.data.data
+    }
+
+    static async createBookmark(bookmark: BookmarkDto): Promise<IBookmark> {
+        const res = await PostService.post.post<{ data: IBookmark }>('/bookmark/', bookmark);
+        return res.data.data
+    }
+
+    static async deletePost(postId: string): Promise<boolean> {
+        await PostService.post.delete('/' + postId);
+        return true;
     }
 }
 
