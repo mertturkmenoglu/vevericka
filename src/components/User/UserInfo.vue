@@ -4,9 +4,9 @@
     <v-container>
       <v-row v-if="user.bdate" class="em-08 mx-auto mt-2 pl-2">
         <v-icon class="mr-2" large color="deep-orange">mdi-calendar</v-icon>
-        <span class="my-1 pt-1 text--primary">{{(new Date(user.bdate)).toLocaleDateString() }}</span>
+        <span class="my-1 pt-1 text--primary">{{ bdate }}</span>
       </v-row>
-      <v-row v-if="locationExists" :class="userInfo">
+      <v-row v-if="user.location.city" :class="userInfo">
         <v-icon class="mr-2" large color="deep-orange">mdi-map-marker</v-icon>
         <span class="my-1 pt-1 em-08 text--primary">{{ user.location.city }}</span>
       </v-row>
@@ -33,50 +33,40 @@
   </v-card>
 </template>
 
-<script>
-  export default {
-    name: "UserInfo",
-    props: {
-      user: {
-        twitter: "",
-        job: "",
-        school: "",
-        website: "",
-        location: {
-          city: "",
-          country: "",
-        }
-      }
-    },
-    data: () => ({
-      userInfo: "text-body-1 mx-auto mt-2 pl-2",
-    }),
-    beforeMount() {
-      if (!this.user.location) {
-        this.user.location = {
-          city: "",
-          country: "",
-        }
-      }
-    },
-    computed: {
-      twitterLink() {
-        return this.user.twitter
-            ? `https://twitter.com/${this.user.twitter}`
-            : "/";
-      },
-      locationExists() {
-        if (!this.user) return false;
-        if (!this.user.location) {
-          return false;
-        }
-        return (this.user?.location?.city?.length > 0)
-      },
-      noInfo() {
-        return (!this.user.bdate && this.user.location.city.length <= 0 && !this.user.job && !this.user.school && !this.user.website && !this.user.twitter)
-      }
-    },
-  };
+<script lang="ts">
+import Vue from "vue";
+import {Component, Prop} from "vue-property-decorator";
+// eslint-disable-next-line no-unused-vars
+import {IUser} from "@/api/responses/IUser";
+
+@Component({})
+export default class UserInfo extends Vue {
+  @Prop({ required: true }) readonly user!: IUser;
+  readonly userInfo: string = "text-body-1 mx-auto mt-2 pl-2";
+
+  get twitterLink(): string {
+    return this.user.twitter
+        ? `https://twitter.com/${this.user.twitter}`
+        : "/";
+  }
+
+  get bdate(): string {
+    if (this.user.bdate) {
+      return (new Date(this.user.bdate)).toLocaleDateString()
+    } else {
+      return '';
+    }
+  }
+
+  get noInfo(): boolean {
+    return (!this.user.bdate
+        && !this.user.location.city
+        && !this.user.job
+        && !this.user.school
+        && !this.user.website
+        && !this.user.twitter);
+  }
+}
 </script>
 
 <style scoped>

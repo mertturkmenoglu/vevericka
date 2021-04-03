@@ -184,9 +184,7 @@ export default class UserPage extends Vue {
 
   async fetchPosts() {
     try {
-      const r = await PostService.getUserPosts(this.username);
-      console.log('fetchPosts:', r);
-      this.posts = r;
+      this.posts = await PostService.getUserPosts(this.username);
     } catch (e) {
       console.error(e);
     }
