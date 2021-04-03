@@ -5,7 +5,7 @@
         <v-avatar size="40" class="ml-n3">
           <v-img
               class="rounded-circle"
-              :src="post.createdBy.image"
+              :src="userImage"
               contain
               width="12"
               aspect-ratio="1"
@@ -261,6 +261,14 @@ export default {
   computed: {
     isThisUserPost() {
       return this.$store.state.user.username === this.post.createdBy.username;
+    },
+    userImage() {
+      const img = this.post.createdBy.image;
+      if (img === 'profile.png') {
+        return '/profile.png'
+      } else {
+        return img;
+      }
     }
   },
 }

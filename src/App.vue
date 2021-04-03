@@ -400,7 +400,11 @@ export default class App extends Vue {
 
     try {
       const user = await UserService.getUserByUsername(username);
-      this.imgURL = user.image;
+      if (user.image === 'profile.png') {
+        this.imgURL = '/profile.png';
+      } else {
+        this.imgURL = user.image
+      }
     } catch (e) {
       console.error(e)
     }
