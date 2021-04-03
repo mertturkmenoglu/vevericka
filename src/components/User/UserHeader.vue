@@ -7,7 +7,7 @@
             <v-avatar size="96">
               <v-img
                   class="rounded-circle"
-                  :src="user.image"
+                  :src="userImage"
                   contain
                   width="12"
                   aspect-ratio="1"
@@ -35,17 +35,24 @@
         <v-col>
           <v-row justify="space-around">
             <v-spacer></v-spacer>
-            <v-btn text color="deep-orange text--darken-2" class="font-weight-light" @click="toggleFollowers">
+            <v-btn
+                text
+                color="deep-orange text--darken-2"
+                class="font-weight-light"
+                @click="$emit('toggle-followers')">
               {{ user.followers.length }} {{ $t('user.header.followers') }}
             </v-btn>
-            <v-btn text color="deep-orange text--darken-2" class="font-weight-light" @click="toggleFollowing">
+            <v-btn
+                text
+                color="deep-orange text--darken-2"
+                class="font-weight-light"
+                @click="$emit('toggle-following')">
               {{ user.following.length }} {{ $t('user.header.following') }}
             </v-btn>
             <v-spacer></v-spacer>
           </v-row>
           <v-row justify="space-around" class="mt-5">
-            <UserActions :user="user" :edit="edit" :follow="follow" :unfollow="unfollow"
-                         :sendMessage="sendMessage"/>
+            <UserActions :user="user" v-on="$listeners"/>
           </v-row>
         </v-col>
       </v-row>
@@ -53,31 +60,31 @@
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import UserActions from "@/components/User/UserActions.vue";
+import {Component, Prop} from "vue-property-decorator";
+// eslint-disable-next-line no-unused-vars
+import {IUser} from "@/api/responses/IUser";
 
-import UserActions from "@/components/User/UserActions";
-
-export default {
+@Component({
   name: "UserHeader",
-  components: {UserActions},
-  props: [
-    "user",
-    "toggleFollowers",
-    "toggleFollowing",
-    "edit",
-    "follow",
-    "unfollow",
-    "sendMessage",
-  ],
-  computed: {
-    isProfile() {
-      return this.user.username === this.$store.state.user.username;
-    },
-    isFriend() {
-      return this.user.followers.indexOf(this.$store.state.user.username) !== -1;
-    },
-  },
-};
+  components: {
+    UserActions
+  }
+})
+export default class UserHeader extends Vue {
+  @Prop({ required: true }) readonly user?: IUser
+
+  get userImage(): string {
+    const img = this.user?.image;
+    if (img === 'profile.png' || !img) {
+      return '/profile.png'
+    } else {
+      return img;
+    }
+  }
+}
 </script>
 
 <style scoped>

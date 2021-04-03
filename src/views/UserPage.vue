@@ -17,12 +17,12 @@
     <v-card v-if="!userNotFound && !loading" flat>
       <UserHeader
           :user="user"
-          :toggleFollowers="toggleFollowers"
-          :toggleFollowing="toggleFollowing"
-          :edit="edit"
-          :follow="follow"
-          :unfollow="unfollow"
-          :sendMessage="sendMessage"/>
+          @toggle-followers="toggleFollowers"
+          @toggle-following="toggleFollowing"
+          @edit-user="edit"
+          @follow-user="follow"
+          @unfollow-user="unfollow"
+          @send-message="sendMessage" />
 
       <v-tabs color="deep-orange text--darken-2" class="mt-3" fixed-tabs>
         <v-tab>
@@ -92,10 +92,16 @@
       </v-tabs>
     </v-card>
 
-    <UserListDialog v-if="showFollowers" :title="$t('user_page.followers')" :list="followers"
-                    :onItemClick="toggleFollowers"/>
-    <UserListDialog v-if="showFollowing" :title="$t('user_page.following')" :list="following"
-                    :onItemClick="toggleFollowing"/>
+    <UserListDialog
+        v-if="showFollowers"
+        :title="$t('user_page.followers')"
+        :list="user.followers"
+        :onItemClick="toggleFollowers" />
+    <UserListDialog
+        v-if="showFollowing"
+        :title="$t('user_page.following')"
+        :list="user.following"
+        :onItemClick="toggleFollowing" />
 
     <v-snackbar v-model="snackbar" bottom right>
       {{ snackbarMessage }}
@@ -108,18 +114,26 @@
   </v-container>
 </template>
 
-<script>
-import UserHeader from "@/components/User/UserHeader";
-import UserInfo from "@/components/User/UserInfo";
-import UserListDialog from "@/components/User/UserListDialog";
+<script lang="ts">
+import Vue from "vue";
+import UserHeader from "@/components/User/UserHeader.vue";
+import UserInfo from "@/components/User/UserInfo.vue";
+import UserListDialog from "@/components/User/UserListDialog.vue";
 import {router} from "@/router";
-import UserFeatures from "../components/User/UserFeatures";
-import UserLanguages from "../components/User/UserLanguages";
-import UserWishToSpeak from "../components/User/UserWishToSpeak";
-import UserHobbies from "@/components/User/UserHobbies"
-import UserFeed from "@/components/Post/UserFeed";
+import UserFeatures from "../components/User/UserFeatures.vue";
+import UserLanguages from "../components/User/UserLanguages.vue";
+import UserWishToSpeak from "../components/User/UserWishToSpeak.vue";
+import UserHobbies from "@/components/User/UserHobbies.vue";
+import UserFeed from "@/components/Post/UserFeed.vue";
+import {Component} from "vue-property-decorator";
+import UserService from "@/api/user";
+import PostService from "@/api/post";
+// eslint-disable-next-line no-unused-vars
+import {IUser} from "@/api/responses/IUser";
+// eslint-disable-next-line no-unused-vars
+import IPost from "@/api/responses/IPost";
 
-export default {
+@Component({
   name: "UserPage",
   components: {
     UserHobbies,
@@ -131,135 +145,108 @@ export default {
     UserListDialog,
     UserFeed,
   },
-  props: ["username"],
-  data: () => ({
-    user: {followers: [], following: [], bio: ""},
-    followers: [],
-    following: [],
-    showFollowers: false,
-    showFollowing: false,
-    posts: [],
-    BASE_URL: "https://user-info-service.herokuapp.com/user",
-    snackbar: false,
-    snackbarMessage: "",
-    loading: true,
-    userNotFound: false,
-  }),
-  methods: {
-    async fetchUser() {
-      const username = this.$route.params.username;
-      const URL = `${this.BASE_URL}/username/${username}`;
-      const response = await fetch(URL);
-      const data = await response.json();
+})
+export default class UserPage extends Vue {
+  user!: IUser
+  showFollowers: boolean = false
+  showFollowing: boolean = false
+  posts: IPost[] = []
+  snackbar: boolean = false
+  snackbarMessage: string = ''
+  loading: boolean = true
+  userNotFound: boolean = false
 
-      // No User
-      if (!data.user || data.user.length <= 0) {
-        this.userNotFound = true;
-        return;
-      }
+  mounted() {
+    this.fetchUser();
+  }
 
-      this.user = data.user[0];
-
-      if (this.user.followers.length > 0) {
-        this.followers = await this.getUsersFromUsernames(this.user.followers);
-      }
-
-      if (this.user.following.length > 0) {
-        this.following = await this.getUsersFromUsernames(this.user.following);
-      }
-    },
-    async fetchPosts() {
-      const BASE = "https://vevericka-post-service.herokuapp.com";
-      const URL = `${BASE}/post/user/${this.user.username}`;
-      const response = await fetch(URL);
-      const {data} = await response.json();
-      this.posts = data;
-    },
-    async getUsersFromUsernames(list) {
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({list}),
-      };
-
-      const URL = `${this.BASE_URL}/get_all_by_username/`;
-      const response = await fetch(URL, requestOptions);
-      const {users} = await response.json();
-
-      return users;
-    },
-    linkCopied() {
-      this.snackbarMessage = this.$t('user_page.snackbar.message');
-      this.snackbar = true;
-    },
-    sendMessage() {
-      router.push("/messages");
-    },
-    edit() {
-      router.push("/settings");
-    },
-    async follow() {
-      const thisUsername = this.$store.state.user.username;
-      const otherUsername = this.user.username;
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({thisUsername, otherUsername}),
-      };
-
-      const URL = `${this.BASE_URL}/follow/`;
-      const response = await fetch(URL, requestOptions);
-      const data = await response.json();
-
-      if (data['status_code']) return;
-
-      this.user.followers.push(this.$store.state.user.username);
-      window.location.reload();
-    },
-    async unfollow() {
-      const thisUsername = this.$store.state.user.username;
-      const otherUsername = this.user.username;
-      const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({thisUsername, otherUsername}),
-      };
-
-      const URL = `${this.BASE_URL}/unfollow/`;
-      const response = await fetch(URL, requestOptions);
-      const data = await response.json();
-
-      if (data['status_code']) return;
-
-      this.user.followers = this.user.followers.filter(
-          (u) => u === this.$store.state.user.username
-      );
-
-      window.location.reload();
-    },
-    toggleFollowers() {
-      this.showFollowers = !this.showFollowers;
-    },
-    toggleFollowing() {
-      this.showFollowing = !this.showFollowing;
-    },
-    routeFollowers(e) {
-      this.toggleFollowers();
-      router.push(`/user/${e.target.innerText}`);
-    },
-  },
-  beforeMount() {
-    this.fetchUser().then(() => {
-      this.fetchPosts().then(() => {
-        this.loading = false;
-      });
-    });
-  },
-  beforeRouteUpdate(to, from, next) {
+  beforeRouteUpdate(to: any, from: any, next: any) {
     next();
     window.location.reload();
-  },
-};
+  }
+
+  get username(): string {
+    return this.$route.params.username;
+  }
+
+  async fetchUser() {
+    try {
+      this.user = await UserService.getUserByUsername(this.username);
+      await this.fetchPosts();
+      this.loading = false;
+      this.userNotFound = false;
+    } catch (e) {
+      console.error(e)
+      this.loading = false;
+      this.userNotFound = true;
+    }
+  }
+
+  async fetchPosts() {
+    try {
+      const r = await PostService.getUserPosts(this.username);
+      console.log('fetchPosts:', r);
+      this.posts = r;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  linkCopied() {
+    this.snackbarMessage = this.$t('user_page.snackbar.message').toString();
+    this.snackbar = true;
+  }
+
+  sendMessage() {
+    router.push("/messages");
+  }
+
+  edit() {
+    router.push("/settings");
+  }
+
+  async follow() {
+    const thisUsername = this.$store.state.user.username;
+    const otherUsername = this.user?.username;
+
+    if (!otherUsername)  {
+      return;
+    }
+
+    try {
+      console.log(thisUsername, otherUsername);
+    } catch (e) {
+      console.error(e);
+    }
+
+    window.location.reload();
+  }
+
+  async unfollow() {
+    const thisUsername = this.$store.state.user.username;
+    const otherUsername = this.user?.username;
+
+    if (!otherUsername) {
+      return;
+    }
+
+    try {
+      console.log(thisUsername, otherUsername)
+    } catch (e) {
+      console.error(e);
+    }
+
+    window.location.reload();
+  }
+
+  toggleFollowers() {
+    this.showFollowers = !this.showFollowers;
+  }
+
+  toggleFollowing() {
+    this.showFollowing = !this.showFollowing;
+  }
+}
 </script>
 
 <style scoped>

@@ -27,6 +27,11 @@ class PostService {
         }
     })
 
+    static async getUserPosts(username: string): Promise<IPost[]> {
+        const res = await PostService.post.get<{ data: IPost[] }>('/user/' + username);
+        return res.data.data;
+    }
+
     static async getPostById(id: string): Promise<IPost> {
         const res = await PostService.post.get<{ data: IPost }>('/' + id);
         return res.data.data;
