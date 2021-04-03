@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card-title class="card-title">{{ $t('user.wish_to_speak.title') }}</v-card-title>
-    <v-simple-table v-if="user.wish_to_speak.length > 0">
+    <v-simple-table v-if="user.wishToSpeak.length > 0">
       <template v-slot:default>
         <thead>
         <tr>
@@ -9,7 +9,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(l, idx) in user.wish_to_speak" :key="idx">
+        <tr v-for="(l, idx) in user.wishToSpeak" :key="idx">
           <td>{{ l }}</td>
         </tr>
         </tbody>
@@ -19,11 +19,16 @@
   </v-card>
 </template>
 
-<script>
-  export default {
-    name: "UserWishToSpeak",
-    props: ["user"],
-  }
+<script lang="ts">
+import Vue from 'vue';
+import {Component, Prop} from "vue-property-decorator";
+// eslint-disable-next-line no-unused-vars
+import {IUser} from "@/api/responses/IUser";
+
+@Component({})
+export default class UserWishToSpeak extends Vue {
+  @Prop({ required: true }) readonly user!: IUser
+}
 </script>
 
 <style scoped>

@@ -21,11 +21,16 @@
   </v-card>
 </template>
 
-<script>
-  export default {
-    name: "UserLanguages",
-    props: ["user"],
-  }
+<script lang="ts">
+import Vue from 'vue';
+import {Component, Prop} from "vue-property-decorator";
+// eslint-disable-next-line no-unused-vars
+import {IUser} from "@/api/responses/IUser";
+
+@Component({})
+export default class UserLanguages extends Vue {
+  @Prop({ required: true }) readonly user!: IUser
+}
 </script>
 
 <style scoped>
