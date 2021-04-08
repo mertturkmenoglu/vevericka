@@ -33,11 +33,15 @@
       </v-col>
     </v-container>
 
-    <v-card v-for="(result, idx) in searchResults" :key="idx" outlined class="mx-auto my-5 custom-width">
+    <v-card v-for="result in searchResults" :key="result._id" outlined class="mx-auto my-5 custom-width">
       <router-link :to="`/user/${result.username}`">
         <UserCard :user="result" class="card-style"/>
       </router-link>
     </v-card>
+
+    <div v-if="searchResults.length === 0">
+      <h1>No users found :(</h1>
+    </div>
   </v-container>
 </template>
 
@@ -47,17 +51,16 @@ import UserCard from "@/components/UserCard.vue"
 import {Component} from "vue-property-decorator"
 import UserService from "@/api/user";
 // eslint-disable-next-line no-unused-vars
-import {IUser} from "@/api/responses/IUser";
+import {IUserSearchResult} from "@/api/responses/IUserSearchResult";
 
 @Component({
-  name: "SearchPage",
   components: {UserCard}
 })
 export default class SearchPage extends Vue {
   searchStr: string = ""
   showLoading: boolean = false
   error: string = ""
-  searchResults: Array<IUser> = []
+  searchResults: Array<IUserSearchResult> = []
   prefix: string = ""
 
   mounted() {

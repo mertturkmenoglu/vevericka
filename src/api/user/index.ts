@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {IUser} from "@/api/responses/IUser";
+import {IUserSearchResult} from "@/api/responses/IUserSearchResult";
 
 type Language = {
     language: string;
@@ -29,6 +30,8 @@ type UpdateUserDto = {
     wishToSpeak: string[];
 }
 
+
+
 class UserService {
     static readonly user = axios.create({
         baseURL: 'https://vevericka-backend.herokuapp.com/api/v2/user',
@@ -47,8 +50,8 @@ class UserService {
         return res.data.data
     }
 
-    public static async searchByQuery(query: string): Promise<IUser[]> {
-        const res = await UserService.user.get<{ data: IUser[] }>('/q', {
+    public static async searchByQuery(query: string): Promise<IUserSearchResult[]> {
+        const res = await UserService.user.get<{ data: IUserSearchResult[] }>('/q', {
             params: {
                 searchTerm: query
             }
