@@ -9,8 +9,7 @@ type CreateChatDto = {
 
 class MessageService {
     static readonly service = axios.create({
-        // baseURL: 'https://vevericka-backend.herokuapp.com/api/v2/message',
-        baseURL: 'http://localhost:5000/api/v2/message',
+        baseURL: 'https://vevericka-backend.herokuapp.com/api/v2/message',
         headers: {
             'authorization': localStorage.getItem('vev-token') || ''
         }
