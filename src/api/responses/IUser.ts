@@ -1,14 +1,21 @@
+export type UserPopulated = {
+    _id: string;
+    name: string;
+    username: string;
+    image: string;
+}
+
 export interface IUser {
     _id: string;
     username: string
     name: string
     email: string
     image: string
-    hobbies: Array<string>
-    features: Array<string>
+    hobbies: string[]
+    features: string[]
     bdate?: Date
-    followers: Array<string>
-    following: Array<string>
+    followers: UserPopulated[]
+    following: UserPopulated[]
     location: {
         city?: string
         country?: string

@@ -5,7 +5,8 @@
         <v-col>
           <h1 class="em-13 font-weight-light deep-orange--text">{{ $t('messages_page.title') }}</h1>
         </v-col>
-        <v-btn outlined color="deep-orange" class="font-weight-light mr-n3" @click="showNewChatDialog = !showNewChatDialog">
+        <v-btn outlined color="deep-orange" class="font-weight-light mr-n3"
+               @click="showNewChatDialog = !showNewChatDialog">
           {{ $t('messages_page.new_chat') }}
         </v-btn>
       </v-row>
@@ -13,28 +14,34 @@
 
     <v-divider></v-divider>
 
-    <div v-if="users.length > 0" class="mt-3">
-      <div v-for="(u, idx) in users" :key="idx" @click="onCardClick(u)">
-        <UserCard :user="u" class="card-style mb-3"/>
+    <div v-if="chats.length > 0" class="mt-3">
+      <div v-for="(c, idx) in chats" :key="idx">
+        <v-card @click="selectChat(c)">
+          <v-card-title>
+          {{ c.chatName }}
+          </v-card-title>
+          <v-card-subtitle>{{ c.users.map(it => it.name).join(', ') }}</v-card-subtitle>
+        <pre></pre>
+        </v-card>
       </div>
     </div>
     <div v-else-if="!isLoading" class="mt-5 em-13 font-weight-light text-center">
       {{ $t('messages_page.no_chat') }}
     </div>
-    <v-dialog v-model="showNewChatDialog" scrollable max-width="600">
+    <v-dialog v-model="showNewChatDialog" v-if="!isLoading" scrollable max-width="600">
       <v-card>
         <v-card-title class="deep-orange text--darken-2 white--text">
           {{ $t('messages_page.dialog.title') }}
         </v-card-title>
         <v-card-text>
-          <div v-if="following.length <= 0" class="em-1 text-center">
+          <div v-if="user.following.length <= 0" class="em-1 text-center">
             <span>{{ $t('messages_page.dialog.no_user') }}</span>
           </div>
           <div v-else>
-            <div v-for="(u, idx) in following" :key="idx" class="my-1 mx-5">
-              <router-link :to="`/user/${u.username}`" @click="onCardClick(u)">
-                <UserCard :user="u" class="card-style"/>
-              </router-link>
+            <div v-for="(u, idx) in user.following" :key="idx" class="my-1 mx-5">
+              <div @click="onCardClick(u)">
+                <UserCard :user="u" class="card-style" />
+              </div>
             </div>
           </div>
         </v-card-text>
@@ -70,9 +77,9 @@
           class="ml-n3 mr-n3 font-weight-thin"
           color="deep-orange"
           :label="$t('messages_page.chat.text_field')"
-          type="text" />
-<!--          @keyup.enter.native="sendMessage"-->
-<!--          @click:append="sendMessage"/>-->
+          type="text"/>
+      <!--          @keyup.enter.native="sendMessage"-->
+      <!--          @click:append="sendMessage"/>-->
     </v-col>
   </v-container>
 </template>
@@ -83,7 +90,7 @@ import UserCard from "../components/UserCard.vue";
 import MessageCard from "../components/Message/MessageCard.vue";
 import {Component, Watch} from "vue-property-decorator";
 // eslint-disable-next-line no-unused-vars
-import {IUser} from "@/api/responses/IUser";
+import {IUser, UserPopulated} from "@/api/responses/IUser";
 import UserService from "@/api/user";
 import MessageService from "@/api/message";
 // eslint-disable-next-line no-unused-vars
@@ -98,7 +105,6 @@ export default class MessagesPage extends Vue {
   chats: IChat[] = []
   users = []
   messages = []
-  following = []
   showNewChatDialog: boolean = false
   newMessage: string = ''
   isLoading: boolean = true
@@ -142,9 +148,34 @@ export default class MessagesPage extends Vue {
     }
   }
 
-  onCardClick(u: IUser) {
-    this.showNewChatDialog = false;
-    this.otherUsername = u.username;
+  selectChat(c: IChat) {
+    console.log(c)
+  }
+
+  async onCardClick(u: UserPopulated) {
+    const uid = this.$store.state.user.userId
+
+    const dto = {
+      createdBy: uid,
+      users: [u._id, uid],
+      isGroupChat: false,
+    };
+
+    try {
+      await MessageService.createChat(dto)
+      this.showNewChatDialog = false;
+      this.otherUsername = u.username;
+    } catch (e) {
+     console.error(e);
+    }
+  }
+
+  getImage(src: string): string {
+    if (src === 'chat.png') {
+      return '/chat.png';
+    } else {
+      return src;
+    }
   }
 }
 </script>
