@@ -58,6 +58,26 @@ class UserService {
         })
         return res.data.data
     }
+
+    public static async followUser(thisUsername: string, otherUsername: string): Promise<boolean> {
+        const data = {
+            thisUsername,
+            otherUsername,
+        }
+
+        await UserService.user.post('/follow', data)
+        return true
+    }
+
+    public static async unfollowUser(thisUsername: string, otherUsername: string): Promise<boolean> {
+        const data = {
+            thisUsername,
+            otherUsername,
+        }
+
+        await UserService.user.post('/unfollow', data)
+        return true
+    }
 }
 
 export default UserService

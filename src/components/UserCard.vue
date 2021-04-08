@@ -5,7 +5,7 @@
         <v-img
             id="user-image"
             class="rounded-circle mx-auto ml-3"
-            :src="user.image"
+            :src="userImage"
             :aspect-ratio="1"
             elevation="12"
             alt="User image"
@@ -30,6 +30,16 @@
 export default {
   name: "UserCard",
   props: ["user"],
+  computed: {
+    userImage() {
+      const img = this.user.image;
+      if (img === 'profile.png') {
+        return '/profile.png'
+      } else {
+        return img;
+      }
+    }
+  }
 };
 </script>
 

@@ -207,34 +207,32 @@ export default class UserPage extends Vue {
     const thisUsername = this.$store.state.user.username;
     const otherUsername = this.user?.username;
 
-    if (!otherUsername)  {
+    if (!otherUsername || !thisUsername)  {
       return;
     }
 
     try {
-      console.log(thisUsername, otherUsername);
+      await UserService.followUser(thisUsername, otherUsername)
+      window.location.reload();
     } catch (e) {
       console.error(e);
     }
-
-    window.location.reload();
   }
 
   async unfollow() {
     const thisUsername = this.$store.state.user.username;
     const otherUsername = this.user?.username;
 
-    if (!otherUsername) {
+    if (!otherUsername || !thisUsername) {
       return;
     }
 
     try {
-      console.log(thisUsername, otherUsername)
+      await UserService.unfollowUser(thisUsername, otherUsername)
+      window.location.reload()
     } catch (e) {
       console.error(e);
     }
-
-    window.location.reload();
   }
 
   toggleFollowers() {
