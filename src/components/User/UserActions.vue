@@ -34,7 +34,7 @@ export default {
       return this.user.username === this.$store.state.user.username;
     },
     isFriend() {
-      return this.user.followers.indexOf(this.$store.state.user.username) !== -1;
+      return this.user.followers.indexOf(this.$store.state.user.userId) !== -1;
     },
   },
 }
