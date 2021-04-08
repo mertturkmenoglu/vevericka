@@ -86,6 +86,8 @@ import {Component, Watch} from "vue-property-decorator";
 import {IUser} from "@/api/responses/IUser";
 import UserService from "@/api/user";
 import MessageService from "@/api/message";
+// eslint-disable-next-line no-unused-vars
+import IChat from "@/api/responses/IChat";
 
 @Component({
   components: {MessageCard, UserCard},
@@ -93,7 +95,7 @@ import MessageService from "@/api/message";
 export default class MessagesPage extends Vue {
   user?: IUser
   otherUsername: string = ''
-  chats = []
+  chats: IChat[] = []
   users = []
   messages = []
   following = []
@@ -121,8 +123,6 @@ export default class MessagesPage extends Vue {
     if (this.otherUsername === '') {
       return
     }
-
-    await this.fetchMessages()
   }
 
   async fetchUser() {
