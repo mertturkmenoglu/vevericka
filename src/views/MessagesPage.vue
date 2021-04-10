@@ -18,10 +18,10 @@
       <div v-for="(c, idx) in chats" :key="idx">
         <v-card @click="selectChat(c)">
           <v-card-title>
-          {{ c.chatName }}
+            {{ c.chatName }}
           </v-card-title>
           <v-card-subtitle>{{ c.users.map(it => it.name).join(', ') }}</v-card-subtitle>
-        <pre></pre>
+          <pre></pre>
         </v-card>
       </div>
     </div>
@@ -42,7 +42,7 @@
           <div v-else>
             <div v-for="(u, idx) in user.following" :key="idx" class="my-1 mx-5">
               <div @click="onCardClick(u)">
-                <UserCard :user="u" class="card-style" />
+                <UserCard :user="u" class="card-style"/>
               </div>
             </div>
           </div>
@@ -56,19 +56,21 @@
   </v-container>
 
   <v-container v-else-if="chat" class="mx-auto mt-5 message-container">
-    <v-row align="center">
+    <div class="chat-top">
       <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
-    </v-row>
-    <v-divider></v-divider>
-    <div v-if="messages.length <= 0" class="em-14 font-weight-light text-center">
-      <span>No messages</span>
     </div>
-    <div v-else class="scrollable-content">
-      <div v-for="(m, idx) in messages" :key="idx" class="my-1">
-        <MessageCard :message="m" class="my-2"/>
+    <v-divider></v-divider>
+    <div class="main-content">
+      <div v-if="messages.length <= 0" class="em-14 font-weight-light text-center">
+        <span>No messages</span>
+      </div>
+      <div v-else class="">
+        <div v-for="(m, idx) in messages" :key="idx" class="my-1">
+          <MessageCard :message="m" class="my-2"/>
+        </div>
       </div>
     </div>
-    <v-col>
+    <div class="message-text-area">
       <v-text-field
           v-model="newMessage"
           append-icon="mdi-send"
@@ -77,13 +79,13 @@
           flat
           solo
           dense
-          class="ml-n3 mr-n3 font-weight-thin"
+          class="font-weight-thin"
           color="deep-orange"
           :label="$t('messages_page.chat.text_field')"
           type="text"/>
       <!--          @keyup.enter.native="sendMessage"-->
       <!--          @click:append="sendMessage"/>-->
-    </v-col>
+    </div>
   </v-container>
 </template>
 
@@ -183,7 +185,7 @@ export default class MessagesPage extends Vue {
       this.showNewChatDialog = false;
       this.chatId = '';
     } catch (e) {
-     console.error(e);
+      console.error(e);
     }
   }
 
@@ -202,17 +204,25 @@ export default class MessagesPage extends Vue {
   cursor: pointer;
 }
 
-.scrollable-content {
-  height: 65vh;
-  overflow: auto;
-}
-
 a {
   text-decoration: none;
 }
 
 .message-container {
   width: min(1000px, calc(70% + 100px));
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.main-content {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 2rem 0;
+  overflow-y: auto;
 }
 
 .em-1 {
