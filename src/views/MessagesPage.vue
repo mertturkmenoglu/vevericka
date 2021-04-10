@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mx-auto mt-3 message-container" v-if="!otherUsername">
+  <v-container class="mx-auto mt-3 message-container" v-if="!chatId">
     <v-card flat>
       <v-row align="center" class="py-2 pr-3" no-gutters>
         <v-col>
@@ -25,9 +25,11 @@
         </v-card>
       </div>
     </div>
+
     <div v-else-if="!isLoading" class="mt-5 em-13 font-weight-light text-center">
       {{ $t('messages_page.no_chat') }}
     </div>
+
     <v-dialog v-model="showNewChatDialog" v-if="!isLoading" scrollable max-width="600">
       <v-card>
         <v-card-title class="deep-orange text--darken-2 white--text">
@@ -47,14 +49,15 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
     <div v-show="isLoading" class="py-3 text-center">
       <v-progress-circular indeterminate color="deep-orange"/>
     </div>
   </v-container>
 
-  <v-container class="mx-auto mt-5 message-container" v-else>
+  <v-container v-else-if="chat" class="mx-auto mt-5 message-container">
     <v-row align="center">
-      <div class="font-weight-thin em-16 ml-3">{{ otherUsername }}</div>
+      <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
     </v-row>
     <v-divider></v-divider>
     <div v-if="messages.length <= 0" class="em-14 font-weight-light text-center">
@@ -95,16 +98,18 @@ import UserService from "@/api/user";
 import MessageService from "@/api/message";
 // eslint-disable-next-line no-unused-vars
 import IChat from "@/api/responses/IChat";
+// eslint-disable-next-line no-unused-vars
+import IMessage from "@/api/responses/IMessage";
 
 @Component({
   components: {MessageCard, UserCard},
 })
 export default class MessagesPage extends Vue {
   user?: IUser
-  otherUsername: string = ''
+  chatId: string = ''
+  chat?: IChat = undefined
   chats: IChat[] = []
-  users = []
-  messages = []
+  messages: IMessage[] = []
   showNewChatDialog: boolean = false
   newMessage: string = ''
   isLoading: boolean = true
@@ -124,11 +129,13 @@ export default class MessagesPage extends Vue {
     return this.$store.state.user.username;
   }
 
-  @Watch('otherUsername')
-  async otherUsernameChanged() {
-    if (this.otherUsername === '') {
+  @Watch('chatId')
+  async chatIdChanged() {
+    if (this.chatId === '') {
       return
     }
+
+    await this.fetchChatMessages();
   }
 
   async fetchUser() {
@@ -148,8 +155,18 @@ export default class MessagesPage extends Vue {
     }
   }
 
+  async fetchChatMessages() {
+    try {
+      this.messages = await MessageService.getChatMessages(this.$store.state.user.username, this.chatId)
+    } catch (e) {
+      console.error(e)
+      this.messages = []
+    }
+  }
+
   selectChat(c: IChat) {
-    console.log(c)
+    this.chatId = c._id
+    this.chat = c
   }
 
   async onCardClick(u: UserPopulated) {
@@ -164,7 +181,7 @@ export default class MessagesPage extends Vue {
     try {
       await MessageService.createChat(dto)
       this.showNewChatDialog = false;
-      this.otherUsername = u.username;
+      this.chatId = '';
     } catch (e) {
      console.error(e);
     }

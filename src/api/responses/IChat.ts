@@ -7,6 +7,7 @@ type ChatUser = {
 }
 
 export default interface IChat {
+    _id: string;
     users: ChatUser[];
     chatName: string;
     lastMessage: IMessage | null;

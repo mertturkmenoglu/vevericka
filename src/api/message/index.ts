@@ -1,5 +1,6 @@
 import axios from 'axios'
 import IChat from "@/api/responses/IChat";
+import IMessage from "@/api/responses/IMessage";
 
 type CreateChatDto = {
     createdBy: string;
@@ -22,6 +23,12 @@ class MessageService {
 
     static async createChat(dto: CreateChatDto): Promise<IChat> {
         const res = await MessageService.service.post<{ data: IChat }>('/chat/', dto)
+        return res.data.data
+    }
+
+    static async getChatMessages(username: string, chatId: string): Promise<IMessage[]> {
+        const dto = { username }
+        const res = await MessageService.service.post<{ data: IMessage[] }>('/chat/messages/' + chatId, dto)
         return res.data.data
     }
 }
