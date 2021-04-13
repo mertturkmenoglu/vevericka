@@ -82,9 +82,9 @@
           class="font-weight-thin"
           color="deep-orange"
           :label="$t('messages_page.chat.text_field')"
-          type="text"/>
-      <!--          @keyup.enter.native="sendMessage"-->
-      <!--          @click:append="sendMessage"/>-->
+          type="text"
+          @keyup.enter.native="sendMessage"
+          @click:append="sendMessage"/>
     </div>
   </v-container>
 </template>
@@ -169,6 +169,10 @@ export default class MessagesPage extends Vue {
   selectChat(c: IChat) {
     this.chatId = c._id
     this.chat = c
+  }
+
+  sendMessage() {
+    console.log(this.newMessage)
   }
 
   async onCardClick(u: UserPopulated) {
