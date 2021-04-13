@@ -70,7 +70,7 @@ export default class SearchPage extends Vue {
     }
   }
 
-  beforeRouteUpdate(to: any, from: any, next: any) {
+  beforeRouteUpdate(_to: any, _from: any, next: any) {
     next()
     window.location.reload()
   }

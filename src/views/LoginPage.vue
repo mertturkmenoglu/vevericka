@@ -128,7 +128,7 @@ export default class LoginPage extends Vue {
   }
 
   // noinspection JSUnusedGlobalSymbols
-  beforeRouteLeave(to: any, from: any, next: any) {
+  beforeRouteLeave(_to: any, _from: any, next: any) {
     this.$store.state.error = '';
     next();
   }

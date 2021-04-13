@@ -160,7 +160,7 @@ export default class UserPage extends Vue {
     this.fetchUser();
   }
 
-  beforeRouteUpdate(to: any, from: any, next: any) {
+  beforeRouteUpdate(_to: any, _from: any, next: any) {
     next();
     window.location.reload();
   }

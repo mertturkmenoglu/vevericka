@@ -2,9 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
 import LoginPage from '@/views/LoginPage.vue'
-import UserPage from '@/views/UserPage.vue'
-import PostDetailPage from "@/views/PostDetailPage.vue"
-import ReportPage from "@/views/ReportPage.vue"
 
 Vue.use(Router);
 
@@ -80,7 +77,7 @@ export const router = new Router({
     ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
     const publicPages = ['/login', '/register', '/password', '/terms'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('vev-token');
