@@ -8,7 +8,9 @@ type LoginResponse = {
 
 class AuthService {
     static readonly auth = axios.create({
-        baseURL: 'https://vevericka-backend.herokuapp.com/api/v2/auth',
+        baseURL: process.env.NODE_ENV === 'production'
+            ? 'https://vevericka-backend.herokuapp.com/api/v2/auth'
+            : 'http://localhost:5000/api/v2/auth'
     })
 
     static async login(email: string, password: string): Promise<LoginResponse> {
@@ -17,7 +19,7 @@ class AuthService {
             password
         })
 
-        const data = resp.data.data
+        const data = resp.data
         const { userId, username } = data
         const token = resp.headers['authorization']
 

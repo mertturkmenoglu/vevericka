@@ -10,26 +10,28 @@ type CreateChatDto = {
 
 class MessageService {
     static readonly service = axios.create({
-        baseURL: 'https://vevericka-backend.herokuapp.com/api/v2/message',
+        baseURL: process.env.NODE_ENV === 'production'
+            ? 'https://vevericka-backend.herokuapp.com/api/v2/message'
+            : 'http://localhost:5000/api/v2/message',
         headers: {
             'authorization': localStorage.getItem('vev-token') || ''
         }
     })
 
     static async getUserChats(username: string): Promise<IChat[]> {
-        const res = await MessageService.service.post<{ data: IChat[] }>('/chat/user-chats/' + username)
-        return res.data.data
+        const res = await MessageService.service.post<IChat[]>('/chat/user-chats/' + username)
+        return res.data
     }
 
     static async createChat(dto: CreateChatDto): Promise<IChat> {
-        const res = await MessageService.service.post<{ data: IChat }>('/chat/', dto)
-        return res.data.data
+        const res = await MessageService.service.post<IChat>('/chat/', dto)
+        return res.data
     }
 
     static async getChatMessages(username: string, chatId: string): Promise<IMessage[]> {
         const dto = { username }
-        const res = await MessageService.service.post<{ data: IMessage[] }>('/chat/messages/' + chatId, dto)
-        return res.data.data
+        const res = await MessageService.service.post<IMessage[]>('/chat/messages/' + chatId, dto)
+        return res.data
     }
 }
 

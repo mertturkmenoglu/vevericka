@@ -34,7 +34,9 @@ type UpdateUserDto = {
 
 class UserService {
     static readonly user = axios.create({
-        baseURL: 'https://vevericka-backend.herokuapp.com/api/v2/user',
+        baseURL: process.env.NODE_ENV === 'production'
+            ? 'https://vevericka-backend.herokuapp.com/api/v2/user'
+            : 'http://localhost:5000/api/v2/user',
         headers: {
             'authorization': localStorage.getItem('vev-token') || ''
         }
@@ -46,17 +48,17 @@ class UserService {
     }
 
     static async getUserByUsername(username: string): Promise<IUser> {
-        const res = await UserService.user.get<{ data: IUser }>('/username/' + username)
-        return res.data.data
+        const res = await UserService.user.get('/username/' + username)
+        return res.data
     }
 
     public static async searchByQuery(query: string): Promise<IUserSearchResult[]> {
-        const res = await UserService.user.get<{ data: IUserSearchResult[] }>('/q', {
+        const res = await UserService.user.get<IUserSearchResult[]>('/q', {
             params: {
                 searchTerm: query
             }
         })
-        return res.data.data
+        return res.data
     }
 
     public static async followUser(thisUsername: string, otherUsername: string): Promise<boolean> {
