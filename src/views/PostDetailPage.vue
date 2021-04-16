@@ -53,6 +53,7 @@ import {Component} from "vue-property-decorator";
 import IPost from "@/api/responses/IPost";
 // eslint-disable-next-line no-unused-vars
 import PostService from "@/api/post";
+import CommentService from "@/api/comment";
 
 @Component({
   name: "PostDetailPage",
@@ -93,7 +94,7 @@ export default class PostDetailPage extends Vue {
 
   async createComment() {
     try {
-      await PostService.createComment({
+      await CommentService.createComment({
         content: this.commentContent,
         createdBy: this.$store.state.user.userId,
         postId: this.id
