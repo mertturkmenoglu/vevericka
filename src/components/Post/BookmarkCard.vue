@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import PostService from "@/api/post";
+import BookmarkService from "@/api/bookmark";
 
 export default {
   name: "BookmarkCard",
@@ -89,7 +89,7 @@ export default {
     },
     async removeBookmark() {
       try {
-        await PostService.deleteBookmark(this.bookmarkId)
+        await BookmarkService.deleteBookmark(this.bookmarkId)
         this.$emit("bookmarkRemoved");
       } catch (e) {
         console.error(e);

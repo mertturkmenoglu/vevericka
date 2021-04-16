@@ -179,6 +179,7 @@
 <script>
 import {router} from '@/router'
 import PostService from "@/api/post";
+import BookmarkService from "@/api/bookmark";
 
 export default {
   name: "PostCard",
@@ -232,7 +233,7 @@ export default {
     },
     async savePost() {
       try {
-        await PostService.createBookmark({
+        await BookmarkService.createBookmark({
           belongsTo: this.$store.state.user.userId,
           postId: this.post._id,
         });

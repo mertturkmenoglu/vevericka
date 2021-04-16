@@ -44,9 +44,8 @@ import Vue from "vue";
 import BookmarkCard from "@/components/Post/BookmarkCard.vue";
 import {Component} from "vue-property-decorator";
 // eslint-disable-next-line no-unused-vars
-import PostService from "@/api/post";
-// eslint-disable-next-line no-unused-vars
 import IPost from "@/api/responses/IPost";
+import BookmarkService from "@/api/bookmark";
 
 @Component({
   name: "BookmarksPage",
@@ -74,7 +73,7 @@ export default class BookmarksPage extends Vue {
   async fetchBookmarks() {
     try {
       const username: string = this.$store.state.user.username
-      this.bookmarks = await PostService.getBookmarksByUsername(username);
+      this.bookmarks = await BookmarkService.getBookmarksByUsername(username);
     } catch (e) {
       console.error(e)
     }
