@@ -51,7 +51,7 @@ const actions = {
       ctx.commit('loginSuccess', resp);
       await router.push('/')
     } catch (err) {
-      ctx.commit('loginFail', err.message);
+      ctx.commit('loginFail', err.response.data.message);
     }
   },
 

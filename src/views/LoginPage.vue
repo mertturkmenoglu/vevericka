@@ -50,7 +50,7 @@
                       <v-progress-circular indeterminate color="deep-orange"/>
                     </div>
 
-                    <v-alert v-model="loginError" dense close-icon="mdi-close" type="error" dismissible>
+                    <v-alert v-model="showLoginError" dense close-icon="mdi-close" type="error" dismissible>
                       {{ loginError }}
                     </v-alert>
                     <v-btn @click="submit" color="deep-orange" outlined block :disabled="!isLoginButtonEnabled">
@@ -108,13 +108,15 @@ export default class LoginPage extends Vue {
   }
 
   get loginLoading() {
-    const value = this.$store.state.loginStatus;
-    return value ? value : false
+    return this.$store.state.loginStatus === 'loading';
   }
 
   get loginError() {
-    const value = this.$store.state.error;
-    return value ? value : false
+    return this.$store.state.error
+  }
+
+  get showLoginError() {
+    return this.$store.state.error !== '';
   }
 
   @Watch("email")
