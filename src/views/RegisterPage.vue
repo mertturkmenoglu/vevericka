@@ -72,7 +72,7 @@
                       <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
                     </div>
 
-                    <v-alert v-model="registerError" dense close-icon="mdi-close" type="error" dismissible>
+                    <v-alert v-model="showRegisterError" dense close-icon="mdi-close" type="error" dismissible>
                       {{ registerError }}
                     </v-alert>
 
@@ -147,13 +147,15 @@ export default class RegisterPage extends Vue {
   }
 
   get registerLoading() {
-    const value = this.$store.state.registerStatus;
-    return value === 'loading' ? value : false
+    return this.$store.state.registerStatus === 'loading';
   }
 
   get registerError() {
-    const value = this.$store.state.error;
-    return value ? value : false
+    return this.$store.state.error
+  }
+
+  get showRegisterError() {
+    return this.$store.state.error !== '';
   }
 
   @Watch("email")

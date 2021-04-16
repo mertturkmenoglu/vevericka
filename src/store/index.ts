@@ -88,7 +88,7 @@ const actions = {
       await ctx.commit('registerSuccess')
       await router.push('/')
     } catch (err) {
-      ctx.commit('registerFail', err.message);
+      ctx.commit('registerFail', err.response.data.message);
       return;
     }
   },
