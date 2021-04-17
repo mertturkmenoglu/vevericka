@@ -70,10 +70,16 @@
   </v-container>
 
   <v-container v-else-if="chat" class="mx-auto mt-5 message-container">
-    <div class="chat-top">
-      <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
-    <v-divider></v-divider>
-    </div>
+    <v-card flat class="chat-top">
+      <v-card-title>
+        <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
+        <v-spacer></v-spacer>
+        <v-btn text @click="showEditChatDialog = true">
+          <v-icon color="deep-orange">mdi-pencil</v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-divider></v-divider>
+    </v-card>
     <div class="main-content">
       <div v-if="messages.length <= 0" class="em-14 font-weight-light mx-auto">
         <span>No messages</span>
@@ -100,6 +106,27 @@
           @keyup.enter.native="sendMessage"
           @click:append="sendMessage"/>
     </div>
+
+    <v-dialog v-model="showEditChatDialog" scrollable max-width="600">
+      <v-card>
+        <v-card-title class="deep-orange white--text">
+          Edit Chat
+        </v-card-title>
+        <v-card-text>
+
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+              text
+              class="deep-orange--text"
+              block
+              @click="editChat"
+          >
+            Update Chat
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -130,6 +157,7 @@ export default class MessagesPage extends Vue {
   newMessage: string = ''
   isLoading: boolean = true
   newChatUsers: string[] = []
+  showEditChatDialog: boolean = false
 
   mounted() {
     this.fetchUser().then(async () => {
@@ -199,6 +227,10 @@ export default class MessagesPage extends Vue {
     } catch (e) {
       console.error(e)
     }
+  }
+
+  async editChat() {
+
   }
 
   async startNewChat() {
