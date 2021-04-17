@@ -19,7 +19,7 @@ class MessageService {
     })
 
     static async getUserChats(username: string): Promise<IChat[]> {
-        const res = await MessageService.service.post<IChat[]>('/chat/user-chats/' + username)
+        const res = await MessageService.service.get<IChat[]>('/chat/user-chats/' + username)
         return res.data
     }
 
@@ -28,9 +28,8 @@ class MessageService {
         return res.data
     }
 
-    static async getChatMessages(username: string, chatId: string): Promise<IMessage[]> {
-        const dto = { username }
-        const res = await MessageService.service.post<IMessage[]>('/chat/messages/' + chatId, dto)
+    static async getChatMessages(chatId: string): Promise<IMessage[]> {
+        const res = await MessageService.service.get<IMessage[]>('/chat/messages/' + chatId)
         return res.data
     }
 }

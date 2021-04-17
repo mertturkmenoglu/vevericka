@@ -14,9 +14,9 @@
 
     <v-divider></v-divider>
 
-    <div v-if="chats.length > 0" class="mt-3">
+    <div v-if="chats.length > 0" class="mt-2">
       <div v-for="(c, idx) in chats" :key="idx">
-        <v-card @click="selectChat(c)">
+        <v-card @click="selectChat(c)" class="mt-2">
           <v-card-title>
             {{ c.chatName }}
           </v-card-title>
@@ -159,7 +159,7 @@ export default class MessagesPage extends Vue {
 
   async fetchChatMessages() {
     try {
-      this.messages = await MessageService.getChatMessages(this.$store.state.user.username, this.chatId)
+      this.messages = await MessageService.getChatMessages(this.chatId)
     } catch (e) {
       console.error(e)
       this.messages = []
