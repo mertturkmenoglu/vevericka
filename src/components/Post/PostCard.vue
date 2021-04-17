@@ -180,6 +180,7 @@
 import {router} from '@/router'
 import PostService from "@/api/post";
 import BookmarkService from "@/api/bookmark";
+import UserService from "@/api/user";
 
 export default {
   name: "PostCard",
@@ -255,8 +256,13 @@ export default {
       }
     },
     async unfollowUser() {
-      return false;
-      //this.$emit("userUnfollowed");
+      try {
+        await UserService.unfollowUser(this.$store.state.user.username, this.post.createdBy.username);
+        this.$emit("userUnfollowed");
+        this.unfollowDialog = false;
+      } catch (e) {
+        console.error(e);
+      }
     },
   },
   computed: {
