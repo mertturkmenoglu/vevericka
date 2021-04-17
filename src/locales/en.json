@@ -252,7 +252,8 @@
     "no_chat": "No chat",
     "dialog": {
       "title": "New Chat",
-      "no_user": "No User"
+      "no_user": "No User",
+      "action": "Start new chat"
     },
     "chat": {
       "no_message": "No message",

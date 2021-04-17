@@ -252,7 +252,8 @@
     "no_chat": "Hiç konuşma yok",
     "dialog": {
       "title": "Sohbet Başlat",
-      "no_user": "Hiç kullanıcı yok"
+      "no_user": "Hiç kullanıcı yok",
+      "action": "Yeni Sohbet"
     },
     "chat": {
       "no_message": "Hiç mesaj yok",

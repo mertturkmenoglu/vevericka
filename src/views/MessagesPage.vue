@@ -58,7 +58,7 @@
               @click="startNewChat"
               :disabled="newChatUsers.length < 1"
           >
-            {{ $t('messages_page.dialog.title') }}
+            {{ $t('messages_page.dialog.action') }}
           </v-btn>
         </v-card-actions>
       </v-card>
