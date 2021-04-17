@@ -58,15 +58,15 @@
   <v-container v-else-if="chat" class="mx-auto mt-5 message-container">
     <div class="chat-top">
       <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
-    </div>
     <v-divider></v-divider>
+    </div>
     <div class="main-content">
-      <div v-if="messages.length <= 0" class="em-14 font-weight-light text-center">
+      <div v-if="messages.length <= 0" class="em-14 font-weight-light mx-auto">
         <span>No messages</span>
       </div>
-      <div v-else class="">
+      <div v-else class="messages" id="messages">
         <div v-for="(m, idx) in messages" :key="idx" class="my-1">
-          <MessageCard :message="m" class="my-2"/>
+          <MessageCard :message="m" class="my-2 mx-8"/>
         </div>
       </div>
     </div>
@@ -160,6 +160,7 @@ export default class MessagesPage extends Vue {
   async fetchChatMessages() {
     try {
       this.messages = await MessageService.getChatMessages(this.chatId)
+      this.messages = this.messages.reverse()
     } catch (e) {
       console.error(e)
       this.messages = []
@@ -171,8 +172,18 @@ export default class MessagesPage extends Vue {
     this.chat = c
   }
 
-  sendMessage() {
-    console.log(this.newMessage)
+  async sendMessage() {
+    try {
+      await MessageService.createMessage({
+        chat: this.chatId,
+        content: this.newMessage,
+        sender: this.$store.state.user.userId,
+      })
+      await this.fetchChatMessages()
+      this.newMessage = ''
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   async onCardClick(u: UserPopulated) {
@@ -217,16 +228,20 @@ a {
   height: 85vh;
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
 }
 
 .main-content {
   flex: 1 1 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
   padding: 2rem 0;
-  overflow-y: auto;
+  overflow-y: hidden;
+}
+
+.messages {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .em-1 {

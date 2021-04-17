@@ -2,7 +2,7 @@
   <v-card class="px-4" flat outlined>
     <v-card-title class="mt-n3">
       <span class="font-weight-light em-08"  :class="[ isThisUser ? 'this-user' : 'other-user']">
-        {{ isThisUser ? 'You' : message.sent_by}}
+        {{ isThisUser ? 'You' : message.sender.name}}
       </span>
     </v-card-title>
     <v-card-subtitle class="font-weight-regular em-06 mt-n6">
@@ -24,7 +24,7 @@
     props: ["message"],
     computed: {
       isThisUser() {
-        return this.$store.state.user.username === this.message.sent_by;
+        return this.$store.state.user.userId === this.message.sender._id;
       },
       formattedMessageTime() {
         return (new Date(this.message.createdAt)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'})

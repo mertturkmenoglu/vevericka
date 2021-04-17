@@ -8,6 +8,12 @@ type CreateChatDto = {
     isGroupChat: boolean;
 }
 
+type CreateMessageDto = {
+    sender: string;
+    content: string;
+    chat: string;
+}
+
 class MessageService {
     static readonly service = axios.create({
         baseURL: process.env.NODE_ENV === 'production'
@@ -30,6 +36,11 @@ class MessageService {
 
     static async getChatMessages(chatId: string): Promise<IMessage[]> {
         const res = await MessageService.service.get<IMessage[]>('/chat/messages/' + chatId)
+        return res.data
+    }
+
+    static async createMessage(dto: CreateMessageDto): Promise<IMessage> {
+        const res = await MessageService.service.post<IMessage>('/', dto)
         return res.data
     }
 }
