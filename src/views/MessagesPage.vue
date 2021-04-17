@@ -113,7 +113,13 @@
           Edit Chat
         </v-card-title>
         <v-card-text>
-
+          <v-text-field
+              class="pt-5"
+              v-model="chat.chatName"
+              label="Chat Name"
+              color="deep-orange"
+              dense
+          />
         </v-card-text>
         <v-card-actions>
           <v-btn
@@ -230,7 +236,17 @@ export default class MessagesPage extends Vue {
   }
 
   async editChat() {
-
+    try {
+      if (this.chat) {
+        await MessageService.updateChatName({
+          chat: this.chatId,
+          chatName: this.chat.chatName,
+        })
+        window.location.reload()
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   async startNewChat() {

@@ -14,6 +14,11 @@ type CreateMessageDto = {
     chat: string;
 }
 
+type UpdateChatNameDto = {
+    chat: string;
+    chatName: string;
+}
+
 class MessageService {
     static readonly service = axios.create({
         baseURL: process.env.NODE_ENV === 'production'
@@ -42,6 +47,11 @@ class MessageService {
     static async createMessage(dto: CreateMessageDto): Promise<IMessage> {
         const res = await MessageService.service.post<IMessage>('/', dto)
         return res.data
+    }
+
+    static async updateChatName(dto: UpdateChatNameDto): Promise<IChat> {
+        const res = await MessageService.service.put<IChat>('/update-chat-name', dto);
+        return res.data;
     }
 }
 
