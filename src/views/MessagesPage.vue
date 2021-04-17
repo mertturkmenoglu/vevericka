@@ -40,13 +40,27 @@
             <span>{{ $t('messages_page.dialog.no_user') }}</span>
           </div>
           <div v-else>
-            <div v-for="(u, idx) in user.following" :key="idx" class="my-1 mx-5">
-              <div @click="onCardClick(u)">
-                <UserCard :user="u" class="card-style"/>
-              </div>
+            <div v-for="(u, idx) in user.following" :key="idx" class="mx-5">
+              <v-checkbox
+                v-model="newChatUsers"
+                color="deep-orange"
+                :label="u.name"
+                :value="u._id"
+              />
             </div>
           </div>
         </v-card-text>
+        <v-card-actions v-if="user.following.length > 0">
+          <v-btn
+              text
+              class="deep-orange--text"
+              block
+              @click="startNewChat"
+              :disabled="newChatUsers.length < 1"
+          >
+            {{ $t('messages_page.dialog.title') }}
+          </v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
 
@@ -95,7 +109,7 @@ import UserCard from "../components/UserCard.vue";
 import MessageCard from "../components/Message/MessageCard.vue";
 import {Component, Watch} from "vue-property-decorator";
 // eslint-disable-next-line no-unused-vars
-import {IUser, UserPopulated} from "@/api/responses/IUser";
+import {IUser} from "@/api/responses/IUser";
 import UserService from "@/api/user";
 import MessageService from "@/api/message";
 // eslint-disable-next-line no-unused-vars
@@ -115,6 +129,7 @@ export default class MessagesPage extends Vue {
   showNewChatDialog: boolean = false
   newMessage: string = ''
   isLoading: boolean = true
+  newChatUsers: string[] = []
 
   mounted() {
     this.fetchUser().then(async () => {
@@ -186,19 +201,21 @@ export default class MessagesPage extends Vue {
     }
   }
 
-  async onCardClick(u: UserPopulated) {
-    const uid = this.$store.state.user.userId
-
+  async startNewChat() {
+    const userId = this.$store.state.user.userId;
+    const users = [userId, ...this.newChatUsers];
+    const isGroupChat = users.length > 2;
     const dto = {
-      createdBy: uid,
-      users: [u._id, uid],
-      isGroupChat: false,
-    };
+      createdBy: userId,
+      users,
+      isGroupChat,
+    }
 
     try {
       await MessageService.createChat(dto)
       this.showNewChatDialog = false;
       this.chatId = '';
+      window.location.reload()
     } catch (e) {
       console.error(e);
     }
@@ -215,10 +232,6 @@ export default class MessagesPage extends Vue {
 </script>
 
 <style>
-.card-style {
-  cursor: pointer;
-}
-
 a {
   text-decoration: none;
 }
