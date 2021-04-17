@@ -36,15 +36,6 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item @click="dmDialog = true">
-            <v-list-item-icon>
-              <v-icon color="deep-orange">mdi-email-outline</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>{{ $t('post_card.menu.send_via_dm') }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
           <v-list-item @click="savePost">
             <v-list-item-icon>
               <v-icon color="deep-orange">mdi-bookmark-outline</v-icon>
@@ -155,24 +146,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <v-dialog v-model="dmDialog" scrollable width="400">
-      <v-card>
-        <v-card-title class="deep-orange white--text">{{ $t('post_card.dm_dialog.title') }}</v-card-title>
-        <v-card-text>
-          <div v-if="user.following.length <= 0" class="em-1 text-center">
-            <span>{{ $t('post_card.dm_dialog.no_user') }}</span>
-          </div>
-          <div v-else>
-            <div v-for="(u, idx) in user.following" :key="idx" class="my-1">
-              <v-list-item @click="shareDM(u)">
-                <v-list-item-title>{{ u }}</v-list-item-title>
-              </v-list-item>
-            </div>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </v-card>
 </template>
 
@@ -194,7 +167,6 @@ export default {
     HASHTAG_REGEX: /#[-A-Z0-9_]+/ig,
     deletePostDialog: false,
     unfollowDialog: false,
-    dmDialog: false,
   }),
   methods: {
     makeHTML(text) {
@@ -217,20 +189,6 @@ export default {
       document.execCommand("copy");
       document.body.removeChild(tmpInput);
       this.$emit("shareLinkCopied");
-    },
-    async sendMessage(_msg, _otherUsername) {
-      // TODO: Implement
-      console.log(_msg, _otherUsername);
-      return false;
-    },
-    async shareDM(u) {
-      this.dmDialog = false;
-      const msg = ''
-      const result = await this.sendMessage(msg, u)
-
-      if (result) {
-        this.$emit("shareDM");
-      }
     },
     async savePost() {
       try {
