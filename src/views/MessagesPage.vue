@@ -28,7 +28,7 @@
               {{ c.lastMessage.content }}
             </div>
             <div class="text-caption text--disabled">
-            {{ getFormattedChatUpdatedAtDate(c) }}
+              {{ getFormattedChatUpdatedAtDate(c) }}
             </div>
           </v-card-text>
           <pre></pre>
@@ -52,10 +52,10 @@
           <div v-else>
             <div v-for="(u, idx) in user.following" :key="idx" class="mx-5">
               <v-checkbox
-                v-model="newChatUsers"
-                color="deep-orange"
-                :label="u.name"
-                :value="u._id"
+                  v-model="newChatUsers"
+                  color="deep-orange"
+                  :label="u.name"
+                  :value="u._id"
               />
             </div>
           </div>
@@ -88,8 +88,11 @@
         </v-btn>
         <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
         <v-spacer></v-spacer>
-        <v-btn text @click="showEditChatDialog = true">
+        <v-btn icon @click="showEditChatDialog = true" class="mr-5">
           <v-icon color="deep-orange">mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn icon @click="showEditChatUsersDialog = true">
+          <v-icon color="deep-orange">mdi-account-group</v-icon>
         </v-btn>
       </v-card-title>
       <v-divider></v-divider>
@@ -121,6 +124,7 @@
           @click:append="sendMessage"/>
     </div>
 
+    <!-- Edit chat name dialog -->
     <v-dialog v-model="showEditChatDialog" scrollable max-width="600">
       <v-card>
         <v-card-title class="deep-orange white--text">
@@ -147,21 +151,56 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Edit chat users dialog -->
+    <v-dialog v-model="showEditChatUsersDialog" scrollable max-width="600">
+      <v-card flat>
+        <v-card-title class="deep-orange white--text">
+          {{ showChatUsersFlag ? 'Users' : 'Add User' }}
+        </v-card-title>
+        <v-card-text>
+          <div v-if="showChatUsersFlag">
+            <v-btn text block color="deep-orange" class="mt-2" @click="showChatUsersFlag = false">Add new user</v-btn>
+            <!-- Current Users -->
+            <div v-for="user in chat.users" :key="user._id" class="mt-4">
+              <v-chip close close-icon="mdi-close" label outlined @click:close="removeUserFromChat(user)">
+                {{ user.name }}
+              </v-chip>
+            </div>
+          </div>
+          <div v-else>
+            <v-btn text block color="deep-orange" class="mt-2" @click="showChatUsersFlag = true">View users</v-btn>
+            <!-- Add user -->
+              <div v-if="userFollowingFilterNotInChat().length <= 0" class="em-1 text-center">
+                <span>{{ $t('messages_page.dialog.no_user') }}</span>
+              </div>
+              <div v-else>
+                <div v-for="(u, idx) in userFollowingFilterNotInChat()" :key="idx" class="mx-5">
+                  <v-btn outlined text class="p-2 mt-2" @click="addUserToChat(u)">
+                    {{ u.name }}
+                  </v-btn>
+                </div>
+              </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
   </v-container>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import UserCard from "../components/UserCard.vue";
 import MessageCard from "../components/Message/MessageCard.vue";
 import {Component, Watch} from "vue-property-decorator";
 // eslint-disable-next-line no-unused-vars
-import {IUser} from "@/api/responses/IUser";
+import {IUser, UserPopulated} from "@/api/responses/IUser";
 import UserService from "@/api/user";
 import MessageService from "@/api/message";
 // eslint-disable-next-line no-unused-vars
-import IChat from "@/api/responses/IChat";
+import IChat, {ChatUser} from "@/api/responses/IChat";
 // eslint-disable-next-line no-unused-vars
 import IMessage from "@/api/responses/IMessage";
 
@@ -179,6 +218,8 @@ export default class MessagesPage extends Vue {
   isLoading: boolean = true
   newChatUsers: string[] = []
   showEditChatDialog: boolean = false
+  showEditChatUsersDialog: boolean = false
+  showChatUsersFlag: boolean = true
 
   mounted() {
     this.fetchUser().then(async () => {
@@ -193,6 +234,10 @@ export default class MessagesPage extends Vue {
 
   get username() {
     return this.$store.state.user.username;
+  }
+
+  userFollowingFilterNotInChat() {
+    return this.user?.following.filter(u => !this.chat?.users.some(it => it._id === u._id));
   }
 
   @Watch('chatId')
@@ -314,7 +359,26 @@ export default class MessagesPage extends Vue {
     this.messages = [];
     this.newMessage = '';
     this.chats = [];
+    this.showEditChatDialog = false
+    this.showEditChatUsersDialog = false
+    this.showChatUsersFlag = true
     await this.fetchUserChats();
+  }
+
+  async removeUserFromChat(user: ChatUser) {
+    console.log(user)
+  }
+
+  async addUserToChat(user: UserPopulated) {
+    try {
+      await MessageService.addUserToChat({
+        userId: user._id,
+        chatId: this.chatId,
+      })
+      await this.goBackToChatList()
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
 </script>

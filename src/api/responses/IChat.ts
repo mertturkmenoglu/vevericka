@@ -1,9 +1,10 @@
 import IMessage from "@/api/responses/IMessage";
 
-type ChatUser = {
+export type ChatUser = {
     username: string;
     name: string;
     image: string;
+    _id: string;
 }
 
 export default interface IChat {
