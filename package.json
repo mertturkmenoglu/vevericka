@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "date-fns": "^2.21.1",
     "socket.io": "^2.3.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
