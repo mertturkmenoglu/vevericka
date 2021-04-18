@@ -13,6 +13,6 @@ export default interface IChat {
     lastMessage: IMessage | null;
     chatImage: string;
     isGroupChat: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
 }

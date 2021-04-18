@@ -21,7 +21,9 @@
           <v-card-title>
             {{ c.chatName }}
           </v-card-title>
-          <v-card-subtitle>{{ c.users.map(it => it.name).join(', ') }}</v-card-subtitle>
+          <v-card-subtitle>{{ getChatUsersNamesConcatenated(c) }}</v-card-subtitle>
+          <v-divider></v-divider>
+          <v-card-text class="text-caption">{{ getFormattedChatUpdatedAtDate(c) }}</v-card-text>
           <pre></pre>
         </v-card>
       </div>
@@ -140,6 +142,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { format } from 'date-fns';
 import UserCard from "../components/UserCard.vue";
 import MessageCard from "../components/Message/MessageCard.vue";
 import {Component, Watch} from "vue-property-decorator";
@@ -202,6 +205,7 @@ export default class MessagesPage extends Vue {
   async fetchUserChats() {
     try {
       this.chats = await MessageService.getUserChats(this.username)
+      console.log(this.chats)
     } catch (e) {
       console.error(e)
       this.chats = []
@@ -277,6 +281,22 @@ export default class MessagesPage extends Vue {
     } else {
       return src;
     }
+  }
+
+  getFormattedChatUpdatedAtDate(c: IChat): string {
+    return format(new Date(c.updatedAt), 'dd/MM/yyy HH:mm');
+  }
+
+  getChatUsersNamesConcatenated(c: IChat): string {
+    const limit = Math.min(3, c.users.length);
+    const firstUsers = c.users.slice(0, limit);
+    const concatenated = firstUsers.map(user => user.name).join(', ');
+
+    if (c.users.length <= 3) {
+      return concatenated;
+    }
+
+    return `${concatenated} ...`
   }
 }
 </script>
