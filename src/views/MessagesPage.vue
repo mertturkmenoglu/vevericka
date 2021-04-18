@@ -21,9 +21,16 @@
           <v-card-title>
             {{ c.chatName }}
           </v-card-title>
-          <v-card-subtitle>{{ getChatUsersNamesConcatenated(c) }}</v-card-subtitle>
+          <v-card-subtitle class="chat-users-names">{{ getChatUsersNamesConcatenated(c) }}</v-card-subtitle>
           <v-divider></v-divider>
-          <v-card-text class="text-caption">{{ getFormattedChatUpdatedAtDate(c) }}</v-card-text>
+          <v-card-text>
+            <div v-if="c.lastMessage !== null" class="font-weight-medium text-body-1 text--primary">
+              {{ c.lastMessage.content }}
+            </div>
+            <div class="text-caption text--disabled">
+            {{ getFormattedChatUpdatedAtDate(c) }}
+            </div>
+          </v-card-text>
           <pre></pre>
         </v-card>
       </div>
@@ -348,5 +355,10 @@ a {
 
 .em-16 {
   font-size: 1.6em;
+}
+
+.chat-users-names {
+  font-size: 0.7em;
+  font-weight: bold;
 }
 </style>
