@@ -1,4 +1,5 @@
 <template>
+  <!-- List of Chats-->
   <v-container class="mx-auto mt-3 message-container" v-if="!chatId">
     <v-card flat>
       <v-row align="center" class="py-2 pr-3" no-gutters>
@@ -16,7 +17,7 @@
 
     <div v-if="chats.length > 0" class="mt-2">
       <div v-for="(c, idx) in chats" :key="idx">
-        <v-card @click="selectChat(c)" class="mt-2">
+        <v-card @click="selectChat(c)" class="mt-2" flat outlined>
           <v-card-title>
             {{ c.chatName }}
           </v-card-title>
@@ -69,6 +70,7 @@
     </div>
   </v-container>
 
+  <!-- Chat page -->
   <v-container v-else-if="chat" class="mx-auto mt-5 message-container">
     <v-card flat class="chat-top">
       <v-card-title>
