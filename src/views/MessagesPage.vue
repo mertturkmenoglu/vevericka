@@ -76,6 +76,9 @@
   <v-container v-else-if="chat" class="mx-auto mt-5 message-container">
     <v-card flat class="chat-top">
       <v-card-title>
+        <v-btn icon @click="goBackToChatList">
+          <v-icon color="deep-orange">mdi-arrow-left</v-icon>
+        </v-btn>
         <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
         <v-spacer></v-spacer>
         <v-btn text @click="showEditChatDialog = true">
@@ -297,6 +300,13 @@ export default class MessagesPage extends Vue {
     }
 
     return `${concatenated} ...`
+  }
+
+  goBackToChatList() {
+    this.chatId = ''
+    this.chat = undefined;
+    this.messages = [];
+    this.newMessage = '';
   }
 }
 </script>
