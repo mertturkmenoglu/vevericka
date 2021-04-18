@@ -301,11 +301,13 @@ export default class MessagesPage extends Vue {
     return `${concatenated} ...`
   }
 
-  goBackToChatList() {
+  async goBackToChatList() {
     this.chatId = ''
     this.chat = undefined;
     this.messages = [];
     this.newMessage = '';
+    this.chats = [];
+    await this.fetchUserChats();
   }
 }
 </script>
