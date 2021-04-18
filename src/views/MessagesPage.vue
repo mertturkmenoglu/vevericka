@@ -366,7 +366,15 @@ export default class MessagesPage extends Vue {
   }
 
   async removeUserFromChat(user: ChatUser) {
-    console.log(user)
+    try {
+      await MessageService.removeUserFromChat({
+        userId: user._id,
+        chatId: this.chatId,
+      })
+      await this.goBackToChatList()
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   async addUserToChat(user: UserPopulated) {

@@ -24,6 +24,11 @@ type AddUserToChatDto = {
     userId: string;
 }
 
+type RemoveUserFromChatDto = {
+    chatId: string;
+    userId: string;
+}
+
 class MessageService {
     static readonly service = axios.create({
         baseURL: process.env.NODE_ENV === 'production'
@@ -61,6 +66,11 @@ class MessageService {
 
     static async addUserToChat(dto: AddUserToChatDto): Promise<string> {
         const res = await MessageService.service.put<{ message: string }>('/chat/add-user', dto);
+        return res.data.message
+    }
+
+    static async removeUserFromChat(dto: RemoveUserFromChatDto): Promise<string> {
+        const res = await MessageService.service.put<{ message: string }>('/chat/remove-user', dto);
         return res.data.message
     }
 }
