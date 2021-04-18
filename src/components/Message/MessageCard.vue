@@ -1,15 +1,24 @@
 <template>
   <v-card class="px-4" flat outlined>
-    <v-card-title class="mt-n3">
-      <span class="font-weight-light em-08"  :class="[ isThisUser ? 'this-user' : 'other-user']">
-        {{ isThisUser ? 'You' : message.sender.name}}
-      </span>
+    <v-card-title class="my-n3">
+      <v-avatar size="24" class="ml-n3">
+        <v-img
+            class="rounded-circle"
+            :src="message.sender.image"
+            contain
+            width="6"
+            aspect-ratio="1"
+            alt="Profile"/>
+      </v-avatar>
+      <div class="font-weight-light em-08 ml-2" :class="[ isThisUser ? 'this-user' : 'other-user']">
+        {{ isThisUser ? 'You' : message.sender.name }}
+      </div>
+      <v-spacer></v-spacer>
+      <div class="font-weight-light text-caption em-08">
+        {{ getFormattedMessageTime }}
+      </div>
     </v-card-title>
-    <v-card-subtitle class="font-weight-regular em-06 mt-n6">
-     {{formattedMessageTime}} {{ formattedMessageDate }}
-    </v-card-subtitle>
-
-    <v-divider class="mt-n5"></v-divider>
+    <v-divider></v-divider>
 
     <v-card-text class="font-weight-light mt-n3 mb-n3">
       {{ message.content }}
@@ -19,37 +28,37 @@
 </template>
 
 <script>
-  export default {
-    name: "MessageCard",
-    props: ["message"],
-    computed: {
-      isThisUser() {
-        return this.$store.state.user.userId === this.message.sender._id;
-      },
-      formattedMessageTime() {
-        return (new Date(this.message.createdAt)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'})
-      },
-      formattedMessageDate() {
-        return (new Date(this.message.createdAt)).toLocaleDateString([], { month: 'numeric', day: 'numeric', year: 'numeric'})
-      }
+import {format} from 'date-fns';
+
+export default {
+  name: "MessageCard",
+  props: ["message"],
+  computed: {
+    isThisUser() {
+      return this.$store.state.user.userId === this.message.sender._id;
+    },
+    getFormattedMessageTime() {
+      // noinspection JSCheckFunctionSignatures
+      return format(new Date(this.message.createdAt), 'HH:mm, dd/MM/yyyy');
     }
-  }
+  },
+}
 </script>
 
 <style scoped>
-  .this-user {
-    color: #f45d22;
-  }
+.this-user {
+  color: #f45d22;
+}
 
-  .other-user {
-    color: #555;
-  }
+.other-user {
+  color: #555;
+}
 
-  .em-08 {
-    font-size: 0.8em;
-  }
+.em-08 {
+  font-size: 0.8em;
+}
 
-  .em-06 {
-    font-size: 0.6em;
-  }
+.em-06 {
+  font-size: 0.6em;
+}
 </style>

@@ -208,7 +208,6 @@ export default class MessagesPage extends Vue {
   async fetchUserChats() {
     try {
       this.chats = await MessageService.getUserChats(this.username)
-      console.log(this.chats)
     } catch (e) {
       console.error(e)
       this.chats = []

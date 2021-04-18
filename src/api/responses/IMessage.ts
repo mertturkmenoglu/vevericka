@@ -3,4 +3,6 @@ export default interface IMessage {
     content: string;
     chat: string;
     readBy: string[];
+    createdAt: string;
+    updatedAt: string;
 }
