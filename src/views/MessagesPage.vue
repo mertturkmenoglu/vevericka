@@ -107,7 +107,9 @@
                 <v-icon color="deep-orange">mdi-pencil</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Edit Chat Name</v-list-item-title>
+                <v-list-item-title>
+                  {{ $t('messages_page.chat_options.edit_chat_name') }}
+                </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
 
@@ -117,7 +119,9 @@
                 <v-icon color="deep-orange">mdi-account-group</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Users</v-list-item-title>
+                <v-list-item-title>
+                  {{ $t('messages_page.chat_options.users') }}
+                </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
 
@@ -127,7 +131,9 @@
                 <v-icon color="red">mdi-delete-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Delete Chat</v-list-item-title>
+                <v-list-item-title>
+                  {{ $t('messages_page.chat_options.delete_chat') }}
+                </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -168,13 +174,13 @@
     <v-dialog v-model="showEditChatDialog" scrollable max-width="600">
       <v-card>
         <v-card-title class="deep-orange white--text">
-          Edit Chat
+          {{ $t('messages_page.edit_chat_name_dialog.title') }}
         </v-card-title>
         <v-card-text>
           <v-text-field
               class="pt-5"
               v-model="chat.chatName"
-              label="Chat Name"
+              :label="$t('messages_page.edit_chat_name_dialog.text_field_label')"
               color="deep-orange"
               dense
           />
@@ -186,7 +192,7 @@
               block
               @click="editChat"
           >
-            Update Chat
+            {{ $t('messages_page.edit_chat_name_dialog.action') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -196,11 +202,17 @@
     <v-dialog v-model="showEditChatUsersDialog" scrollable max-width="600">
       <v-card flat>
         <v-card-title class="deep-orange white--text">
-          {{ showChatUsersFlag ? 'Users' : 'Add User' }}
+          {{
+            showChatUsersFlag
+                ? $t('messages_page.edit_chat_users_dialog.title.current_users')
+                : $t('messages_page.edit_chat_users_dialog.title.add_user')
+          }}
         </v-card-title>
         <v-card-text>
           <div v-if="showChatUsersFlag">
-            <v-btn text block color="deep-orange" class="mt-2" @click="showChatUsersFlag = false">Add new user</v-btn>
+            <v-btn text block color="deep-orange" class="mt-2" @click="showChatUsersFlag = false">
+              {{ $t('messages_page.edit_chat_users_dialog.actions.add_new_user') }}
+            </v-btn>
             <!-- Current Users -->
             <div v-for="user in chat.users" :key="user._id" class="mt-4">
               <v-chip close close-icon="mdi-close" label outlined @click:close="removeUserFromChat(user)">
@@ -209,7 +221,9 @@
             </div>
           </div>
           <div v-else>
-            <v-btn text block color="deep-orange" class="mt-2" @click="showChatUsersFlag = true">View users</v-btn>
+            <v-btn text block color="deep-orange" class="mt-2" @click="showChatUsersFlag = true">
+              {{ $t('messages_page.edit_chat_users_dialog.actions.view_users') }}
+            </v-btn>
             <!-- Add user -->
               <div v-if="userFollowingFilterNotInChat().length <= 0" class="em-1 text-center">
                 <span>{{ $t('messages_page.dialog.no_user') }}</span>
@@ -229,11 +243,11 @@
     <v-dialog v-model="showDeleteChatDialog" width="400">
       <v-card>
         <v-card-title class="font-weight-light">
-          Delete Chat
+          {{ $t('messages_page.delete_chat_dialog.title') }}
         </v-card-title>
 
         <v-card-text>
-          Are you sure you want to delete this chat? This action cannot be undone.
+          {{ $t('messages_page.delete_chat_dialog.content') }}
         </v-card-text>
 
         <v-divider></v-divider>
@@ -241,10 +255,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="showDeleteChatDialog = false">
-            Cancel
+            {{ $t('messages_page.delete_chat_dialog.actions.cancel') }}
           </v-btn>
           <v-btn color="red" text @click="deleteChat">
-            Delete
+            {{ $t('messages_page.delete_chat_dialog.actions.delete') }}
           </v-btn>
         </v-card-actions>
       </v-card>

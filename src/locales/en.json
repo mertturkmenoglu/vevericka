@@ -258,6 +258,34 @@
     "chat": {
       "no_message": "No message",
       "text_field": "Type a message"
+    },
+    "chat_options": {
+      "edit_chat_name": "Edit chat name",
+      "users": "Users",
+      "delete_chat": "Delete chat"
+    },
+    "edit_chat_name_dialog": {
+      "title": "Edit Chat",
+      "text_field_label": "Chat Name",
+      "action": "Update Chat"
+    },
+    "edit_chat_users_dialog": {
+      "title": {
+        "current_users": "Users",
+        "add_user": "Add User"
+      },
+      "actions": {
+        "add_new_user": "Add new user",
+        "view_users": "View users"
+      }
+    },
+    "delete_chat_dialog": {
+      "title": "Delete Chat",
+      "content": "Are you sure you want to delete this chat? This action cannot be undone.",
+      "actions": {
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
     }
   },
   "password_reset": {

@@ -258,6 +258,34 @@
     "chat": {
       "no_message": "Hiç mesaj yok",
       "text_field": "Mesaj yazın"
+    },
+    "chat_options": {
+      "edit_chat_name": "Sohbet adını değiştir",
+      "users": "Kullanıcılar",
+      "delete_chat": "Sohbeti sil"
+    },
+    "edit_chat_name_dialog": {
+      "title": "Sohbeti Düzenle",
+      "text_field_label": "Sohbet Adı",
+      "action": "Güncelle"
+    },
+    "edit_chat_users_dialog": {
+      "title": {
+        "current_users": "Kullanıcılar",
+        "add_user": "Kullanıcı Ekle"
+      },
+      "actions": {
+        "add_new_user": "Yeni kullanıcı ekle",
+        "view_users": "Kullanıcıları görüntüle"
+      }
+    },
+    "delete_chat_dialog": {
+      "title": "Sohbeti Sil",
+      "content": "Bu işlemi yapmak istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+      "actions": {
+        "cancel": "İptal",
+        "delete": "Sil"
+      }
     }
   },
   "password_reset": {
