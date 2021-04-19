@@ -1,0 +1,419 @@
+{
+  "message": "¡Hola i18n!",
+  "nav": {
+    "bar": {
+      "search": "Buscar",
+      "notifications": "Notificaciones",
+      "messages": "Mensajes",
+      "menu": "Menú"
+    },
+    "menu": {
+      "view_your_profile": "Ver tu perfil",
+      "explore": "Explorar",
+      "bookmarks": "Guardados",
+      "settings": "Configuraciónes",
+      "dark_theme": "Tema Oscuro",
+      "logout": "Cerrar Sesión",
+      "display_language": "Idioma de visualización",
+      "display_language_dialog": {
+        "title": "Editar",
+        "change": "Guardr cambios",
+        "cancel": "Cancelar"
+      },
+      "help": "Centro de ayuda",
+      "contact": "Contacto",
+      "report": "Reportar un problema",
+      "terms": "Condiciones",
+      "privacy": "Privacidad",
+      "status": {
+        "status": "Estado",
+        "info": "Ver el estado del servicio"
+      }
+    }
+  },
+  "home_page": {
+    "post_create": {
+      "post_text_field": "Di lo que quieras",
+      "post_button": "Publicar",
+      "post_character_limit_error": "Máximo 255 caracteres"
+    },
+    "snackbar": {
+      "messages": {
+        "post_link_copied": "Enlace de publicación copiado en su portapapeles",
+        "message_sent": "Mensaje enviado",
+        "saved": "Salvado",
+        "post_deleted": "Publicación eliminada",
+        "unfollowed": "No seguido"
+      },
+      "close": "Cerrar"
+    }
+  },
+  "post_card": {
+    "menu": {
+      "share": "Compartir",
+      "send_via_dm": "Enviar por Mesaje Directo",
+      "save": "Agregar a elementos guardados",
+      "report": "Reportar un problema",
+      "delete": "Eliminar",
+      "unfollow": "Dejar de seguir"
+    },
+    "delete_post_dialog": {
+      "title": "¿Estás seguro de que quieres hacer esto?",
+      "text": "Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "delete": "Eliminar"
+    },
+    "unfollow_dialog": {
+      "title": "¿Estás seguro de que quieres hacer esto?",
+      "text": "Dejarás de seguir a este usuario.",
+      "cancel": "Cancelar",
+      "unfollow": "Dejar de seguir"
+    },
+    "dm_dialog": {
+      "title": "Enviar por Mesaje Directo",
+      "no_user": "Sin usuarios"
+    }
+  },
+  "bookmark_card": {
+    "remove": "Eliminar de Elementos guardados"
+  },
+  "settings": {
+    "card_title": "Configuraciónes",
+    "tabs": {
+      "general": "General",
+      "profile": "Tu cuenta",
+      "social": "Social",
+      "hobbies": "Aficiones",
+      "languages": "Idiomas"
+    },
+    "general": {
+      "title": "General",
+      "subtitle": "General y cuenta configuraciones",
+      "username": "Nombre de usuario",
+      "email": "E-mail",
+      "name": "Nombre"
+    },
+    "social": {
+      "title": "Social",
+      "subtitle": "Edita tu información social",
+      "website": {
+        "label": "Sitio web",
+        "hint": "Ingrese la URL de su sitio web personal"
+      },
+      "twitter": {
+        "label": "Twitter",
+        "hint": "Ingrese su nombre de usuario de Twitter"
+      },
+      "job": "Trabajo",
+      "school": "Educación"
+    },
+    "profile": {
+      "title": "Tu cuenta",
+      "subtitle": "Edite su perfil",
+      "gender": {
+        "label": "Género",
+        "hint": "Todo lo que quieras"
+      },
+      "location": {
+        "city": "Ciudad",
+        "country": "País"
+      },
+      "image": {
+        "label": "Imagen de perfil",
+        "hint": "Ingrese una URL de imagen. Asegúrate de tener los derechos para usar la imagen."
+      },
+      "bio": {
+        "label": "Bio",
+        "hint": "Exprésate"
+      }
+    },
+    "hobbies": {
+      "title": "Pasatiempos y características",
+      "subtitle": "Edita tus pasatiempos y caracteristicas",
+      "hobbies": {
+        "title": "Pasatiempos",
+        "dialog": {
+          "title": "Agregar pasatiempo",
+          "question": "¿Qué te gusta?",
+          "close": "Cerrar",
+          "add_button": "Agregar"
+        },
+        "subtitle": "¿Cuales son tus intereses?"
+      },
+      "features": {
+        "title": "Caracteristicas",
+        "dialog": {
+          "title": "Agregar caracteristicas",
+          "question": "¿Qué te gusta?",
+          "close": "Cerrar",
+          "add_button": "Agregar"
+        },
+        "subtitle": "¿Cuáles son tus pasiones?"
+      }
+    },
+    "languages": {
+      "title": "Idiomas",
+      "subtitle": "Ajusta tu configuración de idioma",
+      "speaking": {
+        "title": "Puedo hablar",
+        "dialog": {
+          "title": "Agregar idioma",
+          "language": "Idioma",
+          "proficiency": "Competencia",
+          "close": "Cerrar",
+          "add": "Agregar"
+        },
+        "subtitle": "Idiomas que puedes hablar"
+      },
+      "wish_to_speak": {
+        "title": "Quiero hablar:",
+        "dialog": {
+          "title": "Agregar idioma",
+          "language": "Idioma",
+          "close": "Cerrar",
+          "add": "Agregar"
+        },
+        "subtitle": "¿Qué idiomas quieres hablar?"
+      }
+    },
+    "update": "Actualizar"
+  },
+  "user": {
+    "actions": {
+      "unfollow": "Dejar de seguir",
+      "follow": "Seguir",
+      "edit_profile": "Edite su perfil"
+    },
+    "features": {
+      "features": "Caracteristicas",
+      "no_features": "Sin caracteristicas"
+    },
+    "hobbies": {
+      "hobbies": "Pasatiempos",
+      "no_hobbies": "Sin pasatiempos"
+    },
+    "header": {
+      "followers": "seguidores",
+      "following": "siguiente"
+    },
+    "info": {
+      "information": "Información",
+      "no_information": "sin información"
+    },
+    "languages": {
+      "title": "Idiomas",
+      "language": "Idioma",
+      "proficiency": "Competencia",
+      "no_languages": "Sin idioma"
+    },
+    "wish_to_speak": {
+      "title": "Querer hablar",
+      "language": "Idioma",
+      "no_languages": "Sin idiomas"
+    }
+  },
+  "user_list_dialog": {
+    "no_user": "Sin usuario"
+  },
+  "bookmarks_page": {
+    "title": "Guardados",
+    "no_bookmark": "Sin guardados",
+    "snackbar": {
+      "message": "Se eliminó el Publicación de tus Elementos guardados",
+      "close": "Cerrar"
+    }
+  },
+  "contact_page": {
+    "title": "Contactar",
+    "contact_admin": "Para cualquier problema, puede contactar con el administrador del sitio.",
+    "contact_mail": "Puede comunicarse con nosotros en"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "E-mail",
+    "password": "Contraseña",
+    "login_button": "Iniciar sesion",
+    "to_register": {
+      "text": "¿Nuevo usuario?",
+      "register": "Crear cuenta nueva"
+    },
+    "to_password_reset": {
+      "text": "¿Olvidaste tu contraseña?",
+      "reset": "Reiniciar"
+    },
+    "rules": {
+      "required": "Este valor es obligatorio",
+      "email": "Introduzca un correo electrónico válido"
+    }
+  },
+  "messages_page": {
+    "title": "Chats recientes",
+    "new_chat": "Crear",
+    "no_chat": "Sin conversacions",
+    "dialog": {
+      "title": "Crear",
+      "no_user": "Sin usuario",
+      "action": "Crear nuevo chat"
+    },
+    "chat": {
+      "no_message": "Sin mensaje",
+      "text_field": "Escribe un mensaje"
+    },
+    "chat_options": {
+      "edit_chat_name": "Editar el nombre del chat",
+      "users": "Usuarios",
+      "delete_chat": "Eliminar chat"
+    },
+    "edit_chat_name_dialog": {
+      "title": "Editar chat",
+      "text_field_label": "Nombre de chat",
+      "action": "Actualizar chat"
+    },
+    "edit_chat_users_dialog": {
+      "title": {
+        "current_users": "Usuarios",
+        "add_user": "Agregar usuario"
+      },
+      "actions": {
+        "add_new_user": "Agregar nuevo usuario",
+        "view_users": "Ver usuarios"
+      }
+    },
+    "delete_chat_dialog": {
+      "title": "Eliminar chat",
+      "content": "¿Estás seguro de que deseas eliminar este chat? Esta acción no se puede deshacer.",
+      "actions": {
+        "cancel": "Cancelar",
+        "delete": "Eliminar"
+      }
+    }
+  },
+  "password_reset": {
+    "title": "Olvidaste Contraseña",
+    "info": {
+      "first_sentence": "Ingrese la dirección de correo electrónico que utilizó para registrarse.",
+      "second_sentence": "Le enviaremos un correo electrónico para restablecer la contraseña."
+    },
+    "email": "E-mail",
+    "reset_code": "Restablecer Código",
+    "new_password": "Nueva contraseña",
+    "send_reset_code_button": "Enviar código de reinicio",
+    "reset_password_button": "Restablecer la contraseña",
+    "to_login": {
+      "text": "¿Tener una cuenta?",
+      "login": "Iniciar sesión"
+    },
+    "to_register": {
+      "text": "¿Nuevo usuario?",
+      "register": "Crear cuenta nueva"
+    },
+    "snackbar": {
+      "close": "Cerrar"
+    },
+    "rules": {
+      "required": "Este valor es obligatorio",
+      "email": "Introduzca un correo electrónico válido"
+    }
+  },
+  "post_detail_page": {
+    "add_comment": "Agregar comentario",
+    "snackbar": {
+      "message": "Enlace de publicación copiado en su portapapeles",
+      "close": "Cerrar"
+    },
+    "rules": {
+      "character_limit": "Máximo 255 caracteres"
+    }
+  },
+  "register": {
+    "title": "Crear cuenta nueva",
+    "email": "E-mail",
+    "username": "Nombre de usuario",
+    "name": "Nombre",
+    "password": {
+      "label": "Contraseña",
+      "hint": "Tu contraseña debe tener al menos 8 caracteres"
+    },
+    "info": {
+      "first_sentence": " Estás de acuerdo con el",
+      "tos": "Términos de servicio",
+      "and": "y",
+      "privacy": "Política de privacidad",
+      "last_sentence": ", incluido el uso de cookies."
+    },
+    "register_button": "Crear cuenta nueva",
+    "to_login": {
+      "text": "¿Tener una cuenta?",
+      "login": "Iniciar sesión"
+    },
+    "to_password_reset": {
+      "text": "¿Olvidaste tu contraseña?",
+      "reset": "Reiniciar"
+    },
+    "rules": {
+      "required": "Este valor es obligatorio",
+      "email": "Introduzca un correo electrónico válido"
+    },
+    "errors": {
+      "email": {
+        "empty": "Este valor es obligatorio",
+        "short": "El correo electrónico no puede tener menos de 6 caracteres",
+        "long": "El correo electrónico no puede tener más de 255 caracteres"
+      },
+      "username": {
+        "empty": "Este valor es obligatorio",
+        "long": "No puede tener más de 32 caracteres"
+      },
+      "name": {
+        "empty": "Este valor es obligatorio",
+        "long": "No puede tener más de 255 caracteres"
+      },
+      "password": {
+        "empty": "Este valor es obligatorio",
+        "short": "La contraseña no puede tener menos de 8 caracteres"
+      }
+    }
+  },
+  "report": {
+    "title": "Reportar contenido",
+    "username": "Nombre de usuario",
+    "post_id": "ID de publicación",
+    "information_text": "Puedes escribir información adicional",
+    "information": "Información",
+    "report": "Informar",
+    "report_use_help": {
+      "text": "Use el botón de informe del menú contextual",
+      "links": "Si necesita ayuda, visite nuestra página de <a href=\"/help\" class=\"deep-orange--text\">Ayuda</a> o <a href=\"/contact\" class=\"deep-orange--text\">contacte</a> con nosotros."
+    },
+    "dialog": {
+      "title_ok": "Reportado",
+      "title_err": "Fallido",
+      "text_ok": "Gracias por hacer de Vevericka un lugar mejor",
+      "text_err": "Inténtalo de nuevo más tarde.",
+      "close": "Cerrar"
+    }
+  },
+  "search": {
+    "search": "Buscar",
+    "user_not_found": "Usuario no encontrado"
+  },
+  "user_page": {
+    "tabs": {
+      "posts": "Publicaciones",
+      "info": "Info",
+      "social": "Social",
+      "languages": "Idiomas"
+    },
+    "no_post": "Sin publicación",
+    "followers": "Seguidores",
+    "following": "Siguiente",
+    "invalid_username": {
+      "no_user_found": "Ningún usuario encontrado",
+      "redirect_home": "Ir a la página de inicio"
+    },
+    "snackbar": {
+      "message": "Enlace de publicación copiado en su portapapeles",
+      "close": "Cerrar"
+    }
+  }
+}
