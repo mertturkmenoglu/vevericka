@@ -73,6 +73,11 @@ class MessageService {
         const res = await MessageService.service.put<{ message: string }>('/chat/remove-user', dto);
         return res.data.message
     }
+
+    static async deleteChat(chatId: string): Promise<string> {
+        const res = await MessageService.service.delete<{ message: string}>('/chat/' + chatId)
+        return res.data.message
+    }
 }
 
 export default MessageService

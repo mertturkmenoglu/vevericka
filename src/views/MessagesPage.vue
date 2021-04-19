@@ -87,16 +87,56 @@
           <v-icon color="deep-orange">mdi-arrow-left</v-icon>
         </v-btn>
         <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
+
         <v-spacer></v-spacer>
-        <v-btn icon @click="showEditChatDialog = true" class="mr-5">
-          <v-icon color="deep-orange">mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn icon @click="showEditChatUsersDialog = true">
-          <v-icon color="deep-orange">mdi-account-group</v-icon>
-        </v-btn>
+
+        <!-- Chat options menu -->
+        <v-menu left bottom nudge-left="24" nudge-bottom="48" transition="slide-y-transition">
+          <template v-slot:activator="{ on, attrs, value }">
+            <v-btn icon v-bind="attrs" v-on="on" color="deep-orange" aria-label="Menu">
+              <v-avatar size="40">
+                <v-icon color="deep-orange" size="32">{{ value ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+              </v-avatar>
+            </v-btn>
+          </template>
+
+          <!-- Edit Chat Name -->
+          <v-list flat class="text-decoration-none font-weight-light" dense>
+            <v-list-item @click="showEditChatDialog = true">
+              <v-list-item-icon>
+                <v-icon color="deep-orange">mdi-pencil</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Edit Chat Name</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <!-- Edit Users -->
+            <v-list-item @click="showEditChatUsersDialog = true">
+              <v-list-item-icon>
+                <v-icon color="deep-orange">mdi-account-group</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Users</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <!-- Delete Chat -->
+            <v-list-item @click="showDeleteChatDialog = true">
+              <v-list-item-icon>
+                <v-icon color="red">mdi-delete-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Delete Chat</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-card-title>
       <v-divider></v-divider>
     </v-card>
+
+    <!-- Messages container -->
     <div class="main-content">
       <div v-if="messages.length <= 0" class="em-14 font-weight-light mx-auto">
         <span>No messages</span>
@@ -186,6 +226,29 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="showDeleteChatDialog" width="400">
+      <v-card>
+        <v-card-title class="font-weight-light">
+          Delete Chat
+        </v-card-title>
+
+        <v-card-text>
+          Are you sure you want to delete this chat? This action cannot be undone.
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="showDeleteChatDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn color="red" text @click="deleteChat">
+            Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -220,6 +283,7 @@ export default class MessagesPage extends Vue {
   showEditChatDialog: boolean = false
   showEditChatUsersDialog: boolean = false
   showChatUsersFlag: boolean = true
+  showDeleteChatDialog: boolean = false
 
   mounted() {
     this.fetchUser().then(async () => {
@@ -383,6 +447,16 @@ export default class MessagesPage extends Vue {
         userId: user._id,
         chatId: this.chatId,
       })
+      await this.goBackToChatList()
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async deleteChat() {
+    try {
+      await MessageService.deleteChat(this.chatId)
+      this.showDeleteChatDialog = false
       await this.goBackToChatList()
     } catch (e) {
       console.error(e)
