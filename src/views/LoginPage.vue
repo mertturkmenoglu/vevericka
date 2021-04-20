@@ -11,7 +11,7 @@
                 </div>
                 <v-card-text class="white--text">
                   <h1 class="text-center text-h2 headline mb-3">Vevericka</h1>
-                  <h5 class="text-center overline mb-3">Wingardium Leviosa</h5>
+                  <h5 class="text-center overline mb-3">We are the squirrels who says Vik!</h5>
                 </v-card-text>
               </div>
             </v-col>
