@@ -7,14 +7,16 @@ type PostDto = {
 }
 
 class PostService {
-    static readonly post = axios.create({
-        baseURL: process.env.NODE_ENV === 'production'
-            ? 'https://vevericka-backend.herokuapp.com/api/v2/post'
-            : 'http://localhost:5000/api/v2/post',
-        headers: {
-            'authorization': localStorage.getItem('vev-token') || ''
-        }
-    })
+    static get post() {
+        return axios.create({
+            baseURL: process.env.NODE_ENV === 'production'
+                ? 'https://vevericka-backend.herokuapp.com/api/v2/post'
+                : 'http://localhost:5000/api/v2/post',
+            headers: {
+                'authorization': localStorage.getItem('vev-token') || ''
+            }
+        })
+    }
 
     static async getUserPosts(username: string): Promise<IPost[]> {
         const res = await PostService.post.get<IPost[]>('/user/' + username);

@@ -30,14 +30,16 @@ type RemoveUserFromChatDto = {
 }
 
 class MessageService {
-    static readonly service = axios.create({
-        baseURL: process.env.NODE_ENV === 'production'
-            ? 'https://vevericka-backend.herokuapp.com/api/v2/message'
-            : 'http://localhost:5000/api/v2/message',
-        headers: {
-            'authorization': localStorage.getItem('vev-token') || ''
-        }
-    })
+    static get service() {
+        return axios.create({
+            baseURL: process.env.NODE_ENV === 'production'
+                ? 'https://vevericka-backend.herokuapp.com/api/v2/message'
+                : 'http://localhost:5000/api/v2/message',
+            headers: {
+                'authorization': localStorage.getItem('vev-token') || ''
+            }
+        })
+    }
 
     static async getUserChats(username: string): Promise<IChat[]> {
         const res = await MessageService.service.get<IChat[]>('/chat/user-chats/' + username)
@@ -75,7 +77,7 @@ class MessageService {
     }
 
     static async deleteChat(chatId: string): Promise<string> {
-        const res = await MessageService.service.delete<{ message: string}>('/chat/' + chatId)
+        const res = await MessageService.service.delete<{ message: string }>('/chat/' + chatId)
         return res.data.message
     }
 }

@@ -8,14 +8,16 @@ type BookmarkDto = {
 }
 
 class BookmarkService {
-    static readonly post = axios.create({
-        baseURL: process.env.NODE_ENV === 'production'
-            ? 'https://vevericka-backend.herokuapp.com/api/v2/bookmark'
-            : 'http://localhost:5000/api/v2/bookmark',
-        headers: {
-            'authorization': localStorage.getItem('vev-token') || ''
-        }
-    })
+    static get post() {
+        return axios.create({
+            baseURL: process.env.NODE_ENV === 'production'
+                ? 'https://vevericka-backend.herokuapp.com/api/v2/bookmark'
+                : 'http://localhost:5000/api/v2/bookmark',
+            headers: {
+                'authorization': localStorage.getItem('vev-token') || ''
+            }
+        })
+    }
 
     static async getBookmarksByUsername(username: string): Promise<IPost[]> {
         const res = await BookmarkService.post.get<IPost[]>('/user/' + username)
