@@ -3,7 +3,7 @@
     <div v-for="(post, idx) in feed" :key="idx">
       <PostCard
           :post="post"
-          class="my-8"
+          class="my-2"
           @shareLinkCopied="() => $emit('shareLinkCopied')"
           @shareDM="() => $emit('shareDM')"
           @postSaved="() => $emit('postSaved')"
@@ -11,6 +11,7 @@
           @postDeleted="() => $emit('postDeleted')"
           @userUnfollowed="() => $emit('userUnfollowed')"
       />
+      <v-divider v-if="idx !== feed.length - 1"/>
     </div>
   </div>
 </template>

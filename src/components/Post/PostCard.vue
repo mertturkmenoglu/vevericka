@@ -1,5 +1,5 @@
 <template>
-  <v-card class="px-5 v-card" flat outlined>
+  <v-card class="px-5" flat>
     <v-card-title>
       <router-link :to="{ name: 'UserPage', params: { username: post.createdBy.username } }">
         <v-avatar size="40" class="ml-n3">
@@ -11,8 +11,13 @@
               aspect-ratio="1"
               alt="Profile"/>
         </v-avatar>
-        <span class="ml-5 font-weight-light hidden-sm-and-down text--primary">{{ post.createdBy.name }}</span>
-        <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">@{{ post.createdBy.username }}</span>
+        <span class="hidden-sm-and-down">
+          <span class="ml-5 font-weight-regular text--primary">{{ post.createdBy.name }}</span>
+          <span class="ml-2 font-weight-light deep-orange--text text-subtitle-1">@{{ post.createdBy.username }}</span>
+        </span>
+        <span class="hidden-md-and-up">
+          <span class="ml-5 font-weight-light deep-orange--text text-subtitle-1">@{{ post.createdBy.username }}</span>
+        </span>
       </router-link>
 
       <v-spacer></v-spacer>
@@ -77,24 +82,22 @@
       </v-menu>
     </v-card-title>
 
-    <v-divider></v-divider>
-
     <v-card-text>
       <router-link :to="{ name: 'PostDetailPage', params: { id: post._id } }">
-        <div v-html="makeHTML(post.content)" class="text--darken-2 ml-n3 content font-weight-light text-wrap mt-2 text--primary">
+        <div v-html="makeHTML(post.content)" class="text--darken-2 content text-wrap text--primary px-12">
         </div>
       </router-link>
     </v-card-text>
 
-    <v-card-actions aria-label="Post Actions">
-      <div class="content-small font-weight-thin ml-n1 text--primary">
+    <v-card-actions aria-label="Post Actions" class="mr-6">
+      <v-spacer></v-spacer>
+      <div class="content-small text--disabled text--primary mr-3">
         {{ (new Date(post.createdAt)).toLocaleDateString() }}
       </div>
-      <v-spacer></v-spacer>
       <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
           <span class="content-small font-weight-light">
             <v-icon color="deep-orange"> mdi-comment-outline </v-icon>
-            <span class="ml-2 pt-1 text--primary">{{ post.comments.length }}</span>
+            <span class="ml-1 pt-1 text--primary">{{ post.comments.length }}</span>
           </span>
       </router-link>
     </v-card-actions>

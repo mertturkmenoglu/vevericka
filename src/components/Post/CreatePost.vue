@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pt-5 px-5" outlined>
+  <v-card class="px-5" flat>
     <v-card-title>
       <v-avatar size="40" class="ml-n3">
         <v-img
@@ -17,12 +17,11 @@
         v-model="postContent"
         flat
         rows="2"
+        row-height="12"
         clearable
         auto-grow
         no-resize
-        solo
         class="text--primary"
-        :background-color="textFieldBackground"
         clear-icon="mdi-close-circle"
         counter
         color="deep-orange"
@@ -46,9 +45,9 @@
         />
       </transition>
       <v-btn
-          outlined
+          text
           small
-          tile
+          rounded
           plain
           color="deep-orange"
           class="mr-n2"

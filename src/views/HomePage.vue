@@ -3,7 +3,6 @@
     <v-container>
       <v-col v-if="!isLoading" class="mx-auto" cols="12" sm="8">
         <CreatePost :user="user" @postCreated="postCreatedHandler"/>
-        <v-divider class="my-4"></v-divider>
         <div v-if="feed.length > 0">
           <UserFeed
               :feed="feed"
@@ -27,8 +26,19 @@
     </v-container>
 
     <v-fab-transition>
-      <v-btn v-if="showFab" fab bottom small absolute fixed color="deep-orange" dark right class="mb-10"
-             @click="scrollToTop" aria-label="Scroll to Top">
+      <v-btn
+          v-if="showFab"
+          fab
+          bottom
+          small
+          absolute
+          fixed
+          color="deep-orange"
+          dark
+          right
+          class="mb-10"
+          @click="scrollToTop" aria-label="Scroll to Top"
+      >
         <v-icon>mdi-chevron-up</v-icon>
       </v-btn>
     </v-fab-transition>
