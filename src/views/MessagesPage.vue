@@ -19,19 +19,28 @@
       <div v-for="(c, idx) in chats" :key="idx">
         <v-card @click="selectChat(c)" class="mt-2" flat outlined>
           <v-card-title>
-            {{ c.chatName }}
-          </v-card-title>
-          <v-card-subtitle class="chat-users-names">{{ getChatUsersNamesConcatenated(c) }}</v-card-subtitle>
-          <v-divider></v-divider>
-          <v-card-text>
-            <div v-if="c.lastMessage !== null" class="font-weight-medium text-body-1 text--primary">
-              {{ c.lastMessage.content }}
+            <div v-for="(u, idx) in c.users.slice(0, 2)" :key="u._id">
+              <v-avatar size="32" :class="idx !== 0 && 'ml-n3'"  color="white">
+                <v-img
+                    :src="u.image"
+                    :alt="u.name"
+                    contain
+                    aspect-ratio="1"
+                />
+              </v-avatar>
             </div>
-            <div class="text-caption text--disabled">
+            <div class="ml-3">
+              {{ c.chatName }}
+            </div>
+            <v-spacer></v-spacer>
+            <div class="text-caption text--disabled hidden-xs-only">
               {{ getFormattedChatUpdatedAtDate(c) }}
             </div>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            {{ c.lastMessage !== null ? c.lastMessage.content : $t('messages_page.chat.text_field') }}
           </v-card-text>
-          <pre></pre>
         </v-card>
       </div>
     </div>
@@ -225,16 +234,16 @@
               {{ $t('messages_page.edit_chat_users_dialog.actions.view_users') }}
             </v-btn>
             <!-- Add user -->
-              <div v-if="userFollowingFilterNotInChat().length <= 0" class="em-1 text-center">
-                <span>{{ $t('messages_page.dialog.no_user') }}</span>
+            <div v-if="userFollowingFilterNotInChat().length <= 0" class="em-1 text-center">
+              <span>{{ $t('messages_page.dialog.no_user') }}</span>
+            </div>
+            <div v-else>
+              <div v-for="(u, idx) in userFollowingFilterNotInChat()" :key="idx" class="mx-5">
+                <v-btn outlined text class="p-2 mt-2" @click="addUserToChat(u)">
+                  {{ u.name }}
+                </v-btn>
               </div>
-              <div v-else>
-                <div v-for="(u, idx) in userFollowingFilterNotInChat()" :key="idx" class="mx-5">
-                  <v-btn outlined text class="p-2 mt-2" @click="addUserToChat(u)">
-                    {{ u.name }}
-                  </v-btn>
-                </div>
-              </div>
+            </div>
           </div>
         </v-card-text>
       </v-card>
@@ -515,10 +524,5 @@ a {
 
 .em-16 {
   font-size: 1.6em;
-}
-
-.chat-users-names {
-  font-size: 0.7em;
-  font-weight: bold;
 }
 </style>
