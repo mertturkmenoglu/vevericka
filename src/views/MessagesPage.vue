@@ -1,23 +1,24 @@
 <template>
   <!-- List of Chats-->
-  <v-container class="mx-auto mt-3 message-container" v-if="!chatId">
+  <v-container class="mt-3 message-container" v-if="!chatId">
     <v-card flat>
-      <v-row align="center" class="py-2 pr-3" no-gutters>
-        <v-col>
-          <h1 class="em-13 font-weight-light deep-orange--text">{{ $t('messages_page.title') }}</h1>
-        </v-col>
-        <v-btn outlined color="deep-orange" class="font-weight-light mr-n3"
-               @click="showNewChatDialog = !showNewChatDialog">
+      <v-card-title>
+        <h2 class="font-weight-light deep-orange--text">{{ $t('messages_page.title') }}</h2>
+        <v-spacer />
+        <v-btn
+            class="font-weight-light"
+            text
+            color="deep-orange"
+            @click="showNewChatDialog = !showNewChatDialog"
+        >
           {{ $t('messages_page.new_chat') }}
         </v-btn>
-      </v-row>
+      </v-card-title>
     </v-card>
-
-    <v-divider></v-divider>
 
     <div v-if="chats.length > 0" class="mt-2">
       <div v-for="(c, idx) in chats" :key="idx">
-        <v-card @click="selectChat(c)" class="mt-2" flat outlined>
+        <v-card @click="selectChat(c)" class="mt-2" flat>
           <v-card-title>
             <div v-for="(u, idx) in c.users.slice(0, 2)" :key="u._id">
               <v-avatar size="32" :class="idx !== 0 && 'ml-n3'"  color="white">
@@ -37,10 +38,10 @@
               {{ getFormattedChatUpdatedAtDate(c) }}
             </div>
           </v-card-title>
-          <v-divider></v-divider>
           <v-card-text>
             {{ c.lastMessage !== null ? c.lastMessage.content : $t('messages_page.chat.text_field') }}
           </v-card-text>
+          <v-divider v-if="idx !== chats.length -1"></v-divider>
         </v-card>
       </div>
     </div>
