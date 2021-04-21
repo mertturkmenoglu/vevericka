@@ -93,7 +93,7 @@
   <v-container v-else-if="chat" class="mx-auto mt-5 message-container">
     <v-card flat class="chat-top">
       <v-card-title>
-        <v-btn icon @click="goBackToChatList">
+        <v-btn icon @click="goBackToChatList" color="deep-orange">
           <v-icon color="deep-orange">mdi-arrow-left</v-icon>
         </v-btn>
         <div class="font-weight-thin em-16 ml-3">{{ chat.chatName }}</div>
@@ -158,8 +158,9 @@
         <span>No messages</span>
       </div>
       <div v-else class="messages" id="messages">
-        <div v-for="(m, idx) in messages" :key="idx" class="my-1">
-          <MessageCard :message="m" class="my-2 mx-8"/>
+        <div v-for="(m, idx) in messages" :key="idx" class="my-2 mx-8">
+          <MessageCard :message="m" class="my-2"/>
+          <v-divider v-if="idx !== 0" class="mx-8"></v-divider>
         </div>
       </div>
     </div>

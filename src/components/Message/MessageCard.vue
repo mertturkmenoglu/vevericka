@@ -1,7 +1,7 @@
 <template>
-  <v-card class="px-4" flat outlined>
+  <v-card class="px-4" flat>
     <v-card-title class="my-n3">
-      <v-avatar size="24" class="ml-n3">
+      <v-avatar size="24" class="">
         <v-img
             class="rounded-circle"
             :src="message.sender.image"
@@ -18,9 +18,8 @@
         {{ getFormattedMessageTime }}
       </div>
     </v-card-title>
-    <v-divider></v-divider>
 
-    <v-card-text class="font-weight-light mt-n3 mb-n3">
+    <v-card-text class="font-weight-light ml-8">
       {{ message.content }}
     </v-card-text>
 
