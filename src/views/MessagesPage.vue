@@ -449,7 +449,9 @@ export default class MessagesPage extends Vue {
     this.showEditChatDialog = false
     this.showEditChatUsersDialog = false
     this.showChatUsersFlag = true
+    this.isLoading = true;
     await this.fetchUserChats();
+    this.isLoading = false;
   }
 
   async removeUserFromChat(user: ChatUser) {
