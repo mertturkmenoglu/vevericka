@@ -1,5 +1,5 @@
 <template>
-  <v-card flat outlined>
+  <v-card flat>
     <v-card-title>
       <v-row>
         <v-col>
