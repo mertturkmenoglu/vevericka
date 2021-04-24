@@ -35,7 +35,7 @@ import NotificationService, {Notification, NotificationType} from '@/api/notific
 
 @Component({})
 export default class NotificationCard extends Vue{
-  @Prop({ required: true }) notification: Notification
+  @Prop({ required: true }) notification!: Notification
 
   get userImage(): string {
     const img = this.notification.origin.image
