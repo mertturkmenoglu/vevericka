@@ -97,7 +97,29 @@
       <v-spacer></v-spacer>
     </v-row>
     <v-row v-else>
-      Stay tuned #Vevericka
+      <v-col cols="12" md="6" class="mx-auto">
+        <v-card flat>
+          <v-card-title class="deep-orange--text font-weight-regular">
+            #{{ tag }}
+          </v-card-title>
+          <v-divider />
+          <v-card-text>
+            <div v-if="isPostsRelatedToTagLoading" class="text-center">
+              <v-progress-circular indeterminate color="deep-orange"/>
+            </div>
+            <div v-else>
+              <div v-for="(post, idx) in postsRelatedToTag" :key="post._id">
+                <v-card class="my-1" flat>
+                  <v-card-text>
+                    <ExplorePost :post="post"/>
+                  </v-card-text>
+                </v-card>
+                <v-divider v-if="idx !== postsRelatedToTag.length - 1"/>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -118,10 +140,12 @@ export default class ExplorePage extends Vue {
   trendingPosts: IPost[] = []
   trendingUsers: TrendingPerson[] = []
   trendingTags: Tag[] = []
+  postsRelatedToTag: IPost[] = []
 
   isTrendingPostsLoading: boolean = true
   isTrendingUsersLoading: boolean = true
   isTrendingTagsLoading: boolean = true
+  isPostsRelatedToTagLoading: boolean = true
 
   mounted() {
     if (!this.isTagPage) {
@@ -134,13 +158,16 @@ export default class ExplorePage extends Vue {
       this.fetchTrendingTags().then(async () => {
         this.isTrendingTagsLoading = false;
       });
+    } else {
+      this.fetchPostsByTag(this.tag).then(async () => {
+        this.isPostsRelatedToTagLoading = false;
+      });
     }
   }
 
   async fetchTrendingPosts() {
     try {
       this.trendingPosts = await ExploreService.getTrendingPosts()
-      console.log(this.trendingPosts)
     } catch (e) {
       console.error(e)
     }
@@ -157,6 +184,14 @@ export default class ExplorePage extends Vue {
   async fetchTrendingTags() {
     try {
       this.trendingTags = await ExploreService.getTags()
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async fetchPostsByTag(tag: string) {
+    try {
+      this.postsRelatedToTag = await ExploreService.getPostsByTag(tag)
     } catch (e) {
       console.error(e)
     }
