@@ -51,6 +51,10 @@ export const router = new Router({
             component: () => import(/* webpackChunkName: "explore" */ '../views/ExplorePage.vue')
         },
         {
+            path: '/explore/:tag',
+            component: () => import(/* webpackChunkName: "exploreTagPage" */ '../views/ExplorePage.vue')
+        },
+        {
             path: '/bookmarks',
             component: () => import(/* webpackChunkName: "bookmarks" */ '../views/BookmarksPage.vue')
         },
