@@ -49,7 +49,8 @@
     },
     "explore_box": {
       "title": "Explore Vevericka",
-      "more": "More"
+      "more": "More",
+      "posts": "Posts"
     }
   },
   "post_card": {
@@ -421,8 +422,18 @@
     }
   },
   "explore_page": {
-    "topics": "Topics",
-    "posts": "Posts",
-    "people": "People"
+    "topics": {
+      "title": "Topics",
+      "subtitle": "Trending topics",
+      "posts": "Posts"
+    },
+    "posts": {
+      "title": "Posts",
+      "subtitle": "Posts around the world"
+    },
+    "people": {
+      "title": "People",
+      "subtitle": "Trending users"
+    }
   }
 }

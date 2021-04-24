@@ -49,7 +49,8 @@
     },
     "explore_box": {
       "title": "Explorar Vevericka",
-      "more": "Más"
+      "more": "Más",
+      "posts": "Publicaciónes"
     }
   },
   "post_card": {
@@ -418,6 +419,21 @@
     "snackbar": {
       "message": "Enlace de publicación copiado en su portapapeles",
       "close": "Cerrar"
+    }
+  },
+  "explore_page": {
+    "topics": {
+      "title": "Temas",
+      "subtitle": "Tendencia de los temas",
+      "posts": "Publicaciónes"
+    },
+    "posts": {
+      "title": "Publicaciónes",
+      "subtitle": "Publicaciones en todo el mundo"
+    },
+    "people": {
+      "title": "Personas",
+      "subtitle": "Usuarios de tendencia"
     }
   }
 }

@@ -49,7 +49,8 @@
     },
     "explore_box": {
       "title": "Vevericka'yı Keşfet",
-      "more": "Daha Fazlası"
+      "more": "Daha Fazlası",
+      "posts": "Gönderi"
     }
   },
   "post_card": {
@@ -418,6 +419,21 @@
     "snackbar": {
       "message": "Link kopyalandı",
       "close": "Kapat"
+    }
+  },
+  "explore_page": {
+    "topics": {
+      "title": "Etiketler",
+      "subtitle": "Sık paylaşılan etiketler",
+      "posts": "Gönderi"
+    },
+    "posts": {
+      "title": "Paylaşımlar",
+      "subtitle": "Dünya genelinden paylaşımlar"
+    },
+    "people": {
+      "title": "Kişiler",
+      "subtitle": "Popüler Kullanıcılar"
     }
   }
 }
