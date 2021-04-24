@@ -46,6 +46,10 @@
         "unfollowed": "No seguido"
       },
       "close": "Cerrar"
+    },
+    "explore_box": {
+      "title": "Explorar Vevericka",
+      "more": "Más"
     }
   },
   "post_card": {

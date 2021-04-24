@@ -46,6 +46,10 @@
         "unfollowed": "Unfollowed"
       },
       "close": "Close"
+    },
+    "explore_box": {
+      "title": "Explore Vevericka",
+      "more": "More"
     }
   },
   "post_card": {
@@ -415,5 +419,10 @@
       "message": "Post link copied to your clipboard",
       "close": "Close"
     }
+  },
+  "explore_page": {
+    "topics": "Topics",
+    "posts": "Posts",
+    "people": "People"
   }
 }
