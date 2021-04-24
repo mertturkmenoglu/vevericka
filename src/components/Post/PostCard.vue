@@ -94,7 +94,7 @@
       <div class="content-small text--disabled text--primary mr-3">
         {{ (new Date(post.createdAt)).toLocaleDateString() }}
       </div>
-      <router-link :to="{ name: 'PostDetailPage', params: { id: post.id } }">
+      <router-link :to="{ name: 'PostDetailPage', params: { id: post._id } }">
           <span class="content-small font-weight-light">
             <v-icon color="deep-orange"> mdi-comment-outline </v-icon>
             <span class="ml-1 pt-1 text--primary">{{ post.comments.length }}</span>
