@@ -1,17 +1,64 @@
 <template>
   <v-container>
-    <h1 class="font-weight-light">
-      We are happy to announce our newest feature:
-      <span class="deep-orange--text">Notifications</span>
-    </h1>
-    <h1 class="font-weight-light">Please stay tuned for more information</h1>
-    <h1 class="font-weight-light deep-orange--text">#vevericka</h1>
+    <v-btn text color="deep-orange" depressed tile>
+      <h2 class="font-weight-light deep-orange--text">Notifications</h2>
+      <v-icon color="deep-orange" right>mdi-bell-outline</v-icon>
+    </v-btn>
+
+    <div v-if="isLoading" class="text-center mt-2">
+      <v-progress-circular indeterminate color="deep-orange"/>
+    </div>
+    <div v-else class="mt-2">
+      <div v-if="notifications.length > 0">
+        <div v-for="(notification, idx) in notifications" :key="notification._id">
+          <NotificationCard
+              :notification="notification"
+              class="mt-2"
+              @delete-notification="notificationDeleted"
+          />
+          <v-divider v-if="idx !== notifications.length - 1"/>
+        </div>
+      </div>
+      <div v-else class="text-center">
+        <h2 class="font-weight-light deep-orange--text">No notifications</h2>
+      </div>
+    </div>
   </v-container>
 </template>
 
-<script>
-export default {
-  name: "Notifications"
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+// eslint-disable-next-line no-unused-vars
+import NotificationService, {Notification} from "@/api/notification";
+import NotificationCard from "@/components/Notification/NotificationCard.vue";
+
+@Component({
+  components: {NotificationCard}
+})
+export default class NotificationsPage extends Vue {
+  notifications: Notification[] = []
+  isLoading: boolean = true
+
+  mounted() {
+    this.fetchNotifications().then(async () => {
+      this.isLoading = false
+    })
+  }
+
+  async fetchNotifications() {
+    try {
+      this.notifications = await NotificationService.getNotifications(this.$store.state.user.username)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async notificationDeleted() {
+    this.isLoading = true
+    await this.fetchNotifications()
+    this.isLoading = false
+  }
 }
 </script>
 
