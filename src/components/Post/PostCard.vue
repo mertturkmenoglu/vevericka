@@ -24,9 +24,9 @@
 
       <v-menu left bottom nudge-left="24" nudge-bottom="48">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" aria-label="Post Menu">
+          <v-btn icon v-bind="attrs" v-on="on" aria-label="Post Menu" color="deep-orange">
             <v-avatar size="24">
-              <v-icon color="deep-orange text--darken-2" size="24">mdi-dots-vertical</v-icon>
+              <v-icon color="deep-orange" size="24">mdi-dots-vertical</v-icon>
             </v-avatar>
           </v-btn>
         </template>
