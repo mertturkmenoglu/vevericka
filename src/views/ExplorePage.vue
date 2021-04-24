@@ -4,9 +4,9 @@
       <v-col cols="12" md="8">
         <v-card flat>
           <v-card-title>
-            {{ $t('explore_page.posts') }}
+            {{ $t('explore_page.posts.title') }}
           </v-card-title>
-          <v-card-subtitle>Posts around the world</v-card-subtitle>
+          <v-card-subtitle>{{ $t('explore_page.posts.subtitle') }}</v-card-subtitle>
           <v-card-text>
             <div v-if="isTrendingPostsLoading" class="text-center">
               <v-progress-circular indeterminate color="deep-orange"/>
@@ -25,14 +25,16 @@
         </v-card>
       </v-col>
 
+      <v-spacer></v-spacer>
       <v-divider vertical/>
 
-      <v-col>
-        <v-card flat rounded>
-          <v-card-title>
-            {{ $t('explore_page.topics') }}
+      <v-spacer></v-spacer>
+      <v-col cols="" md="3">
+        <v-card flat rounded :color="boxBackground">
+          <v-card-title class="deep-orange--text font-weight-regular">
+            {{ $t('explore_page.topics.title') }}
           </v-card-title>
-          <v-card-subtitle>Some topics you might find interesting</v-card-subtitle>
+          <v-card-subtitle>{{ $t('explore_page.topics.subtitle') }}</v-card-subtitle>
           <v-card-text>
             <div v-if="isTrendingTagsLoading" class="text-center">
               <v-progress-circular indeterminate color="deep-orange"/>
@@ -40,9 +42,9 @@
             <div v-else>
               <div v-for="(tag, idx) in trendingTags" :key="idx">
                 <router-link :to="`/explore/${tag.tag}`">
-                  <v-card flat tile>
-                    <v-card-title class="font-weight-medium text-body-1"># {{ tag.tag }}</v-card-title>
-                    <v-card-subtitle class="text-caption">{{ tag.count }} Posts</v-card-subtitle>
+                  <v-card flat tile :color="boxBackground">
+                    <v-card-title class="font-weight-regular text-body-1 deep-orange--text"># {{ tag.tag }}</v-card-title>
+                    <v-card-subtitle class="text-caption">{{ tag.count }} {{ $t('explore_page.topics.posts') }}</v-card-subtitle>
                   </v-card>
                 </router-link>
                 <v-divider v-if="idx !== trendingTags.length - 1"/>
@@ -55,10 +57,10 @@
 
         <v-card flat>
           <v-card-title>
-            {{ $t('explore_page.people') }}
+            {{ $t('explore_page.people.title') }}
           </v-card-title>
           <v-card-subtitle>
-            Popular Users
+            {{ $t('explore_page.people.subtitle') }}
           </v-card-subtitle>
           <v-card-text>
             <div v-if="isTrendingUsersLoading">
@@ -92,6 +94,7 @@
         </v-card>
 
       </v-col>
+      <v-spacer></v-spacer>
     </v-row>
     <v-row v-else>
       Stay tuned #Vevericka
@@ -174,6 +177,10 @@ export default class ExplorePage extends Vue {
 
   get tag() {
     return this.$route.params.tag;
+  }
+
+  get boxBackground() {
+    return this.$vuetify.theme.dark ? '#1e1e1e' : '#f7f9fa'
   }
 }
 </script>

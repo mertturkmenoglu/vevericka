@@ -71,17 +71,17 @@ export default class ExplorePost extends Vue {
   readonly USERNAME_REGEX = /@[-A-Z0-9_]+/ig
   readonly HASHTAG_REGEX = /#[-A-Z0-9_]+/ig
 
-  makeHTML(text) {
+  makeHTML(text: string) {
     return this.linkify(this.detectHashtags(this.detectUsernames(text)))
   }
-  detectHashtags(text) {
-    return text.replace(this.HASHTAG_REGEX, (h) => `<a href="/explore/${h.substr(1)}" class="deep-orange--text">${h}</a>`);
+  detectHashtags(text: string) {
+    return text.replace(this.HASHTAG_REGEX, (h: string) => `<a href="/explore/${h.substr(1)}" class="deep-orange--text">${h}</a>`);
   }
-  detectUsernames(text) {
-    return text.replace(this.USERNAME_REGEX, (u) => `<a href="/user/${u.substr(1)}" class="deep-orange--text">${u}</a>`);
+  detectUsernames(text: string) {
+    return text.replace(this.USERNAME_REGEX, (u: string) => `<a href="/user/${u.substr(1)}" class="deep-orange--text">${u}</a>`);
   }
-  linkify(text) {
-    return text.replace(this.URL_REGEX, (url) => `<a href="${url}" class="deep-orange--text">${url}</a>`);
+  linkify(text: string) {
+    return text.replace(this.URL_REGEX, (url: string) => `<a href="${url}" class="deep-orange--text">${url}</a>`);
   }
 
   get userImage() {

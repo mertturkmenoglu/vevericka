@@ -41,7 +41,7 @@
                 <router-link :to="`/explore/${tag.tag}`">
                   <v-card flat tile :color="exploreBoxBackground">
                     <v-card-title class="font-weight-medium text-body-1" :class="exploreHashtagColor"># {{ tag.tag }}</v-card-title>
-                    <v-card-subtitle class="text-caption">{{ tag.count }} Posts</v-card-subtitle>
+                    <v-card-subtitle class="text-caption">{{ tag.count }} {{ $t('home_page.explore_box.posts') }}</v-card-subtitle>
                   </v-card>
                 </router-link>
                 <v-divider v-if="idx !== exploreTags.length - 1" />
