@@ -1,4 +1,4 @@
-export default interface IMessage {
+interface IMessage {
     sender: string;
     content: string;
     chat: string;
@@ -6,3 +6,5 @@ export default interface IMessage {
     createdAt: string;
     updatedAt: string;
 }
+
+export default IMessage;

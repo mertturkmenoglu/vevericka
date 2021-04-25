@@ -1,4 +1,4 @@
-import IMessage from "@/api/responses/IMessage";
+import IMessage from '@/api/responses/IMessage';
 
 export type ChatUser = {
     username: string;
@@ -7,7 +7,7 @@ export type ChatUser = {
     _id: string;
 }
 
-export default interface IChat {
+interface IChat {
     _id: string;
     users: ChatUser[];
     chatName: string;
@@ -17,3 +17,5 @@ export default interface IChat {
     createdAt: string;
     updatedAt: string;
 }
+
+export default IChat;
