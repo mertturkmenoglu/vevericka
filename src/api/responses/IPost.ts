@@ -1,4 +1,4 @@
-export default interface IPost {
+interface IPost {
     _id: string;
     createdBy: {
         userId: string;
@@ -9,6 +9,8 @@ export default interface IPost {
     comments: string[];
     hashtags: string[];
     mentions: string[];
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
 }
+
+export default IPost;

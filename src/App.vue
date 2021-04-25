@@ -1,41 +1,60 @@
 <template>
   <v-app>
-    <v-app-bar app v-if="showNavbar" flat short elevate-on-scroll :color="appBarColor">
-      <router-link to="/" class="text-decoration-none" aria-label="App Icon">
+    <v-app-bar
+      v-if="showNavbar"
+      app
+      flat
+      short
+      elevate-on-scroll
+      :color="appBarColor"
+    >
+      <router-link
+        to="/"
+        class="text-decoration-none"
+        aria-label="App Icon"
+      >
         <v-img
-            class="mx-4"
-            src="./assets/icon_primary.svg"
-            max-height="32"
-            max-width="32"
-            contain
+          class="mx-4"
+          src="./assets/icon_primary.svg"
+          max-height="32"
+          max-width="32"
+          contain
         />
       </router-link>
 
-      <router-link to="/" class="text-decoration-none deep-orange--text">
-        <v-toolbar-title class="font-weight-light hidden-xs-only text-h5">Vevericka</v-toolbar-title>
+      <router-link
+        to="/"
+        class="text-decoration-none deep-orange--text"
+      >
+        <v-toolbar-title class="font-weight-light hidden-xs-only text-h5">
+          Vevericka
+        </v-toolbar-title>
       </router-link>
 
       <v-row justify="end">
-        <v-col cols="12" sm="3">
+        <v-col
+          cols="12"
+          sm="3"
+        >
           <v-text-field
-              v-model="searchTerm"
-              :background-color="textFieldBackground"
-              append-icon="mdi-magnify"
-              color="deep-orange"
-              @click:append="search"
-              @keyup.enter.native="search"
-              class="mt-6 hidden-sm-and-down"
-              flat
-              rounded
-              dense
-              clearable
-              :prefix="isAppBarSearchFocused ? '@' : ''"
-              @focusin="isAppBarSearchFocused = true"
-              @focusout="isAppBarSearchFocused = false"
-              single-line
-              solo
-              :label="$t('nav.bar.search')"
-              type="text"
+            v-model="searchTerm"
+            :background-color="textFieldBackground"
+            append-icon="mdi-magnify"
+            color="deep-orange"
+            class="mt-6 hidden-sm-and-down"
+            flat
+            rounded
+            dense
+            clearable
+            :prefix="isAppBarSearchFocused ? '@' : ''"
+            single-line
+            solo
+            :label="$t('nav.bar.search')"
+            type="text"
+            @click:append="search"
+            @keyup.enter.native="search"
+            @focusin="isAppBarSearchFocused = true"
+            @focusout="isAppBarSearchFocused = false"
           />
         </v-col>
       </v-row>
@@ -43,9 +62,21 @@
       <router-link to="/search">
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn icon color="deep-orange" class="hidden-md-and-up" aria-label="Search" v-bind="attrs" v-on="on">
+            <v-btn
+              icon
+              color="deep-orange"
+              class="hidden-md-and-up"
+              aria-label="Search"
+              v-bind="attrs"
+              v-on="on"
+            >
               <v-avatar class="ml-1">
-                <v-icon color="deep-orange" size="32">mdi-magnify</v-icon>
+                <v-icon
+                  color="deep-orange"
+                  size="32"
+                >
+                  mdi-magnify
+                </v-icon>
               </v-avatar>
             </v-btn>
           </template>
@@ -56,9 +87,23 @@
       <router-link to="/notifications">
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn icon color="deep-orange" aria-label="Notifications" v-bind="attrs" v-on="on">
-              <v-avatar class="ml-1" size="40">
-                <v-icon color="deep-orange" size="32">mdi-bell-outline</v-icon>
+            <v-btn
+              icon
+              color="deep-orange"
+              aria-label="Notifications"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-avatar
+                class="ml-1"
+                size="40"
+              >
+                <v-icon
+                  color="deep-orange"
+                  size="32"
+                >
+                  mdi-bell-outline
+                </v-icon>
               </v-avatar>
             </v-btn>
           </template>
@@ -69,9 +114,23 @@
       <router-link to="/messages">
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn icon color="deep-orange" aria-label="Messages" v-bind="attrs" v-on="on">
-              <v-avatar class="ml-1" size="40">
-                <v-icon color="deep-orange" size="32">mdi-email-outline</v-icon>
+            <v-btn
+              icon
+              color="deep-orange"
+              aria-label="Messages"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-avatar
+                class="ml-1"
+                size="40"
+              >
+                <v-icon
+                  color="deep-orange"
+                  size="32"
+                >
+                  mdi-email-outline
+                </v-icon>
               </v-avatar>
             </v-btn>
           </template>
@@ -79,28 +138,58 @@
         </v-tooltip>
       </router-link>
 
-      <v-menu left bottom nudge-left="24" nudge-bottom="48" transition="slide-y-transition">
+      <v-menu
+        left
+        bottom
+        nudge-left="24"
+        nudge-bottom="48"
+        transition="slide-y-transition"
+      >
         <template v-slot:activator="{ on, attrs, value }">
-          <v-btn icon v-bind="attrs" v-on="on" color="deep-orange" aria-label="Menu">
+          <v-btn
+            icon
+            v-bind="attrs"
+            color="deep-orange"
+            aria-label="Menu"
+            v-on="on"
+          >
             <v-avatar size="40">
-              <v-icon color="deep-orange" size="32">{{ value ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+              <v-icon
+                color="deep-orange"
+                size="32"
+              >
+                {{ value ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+              </v-icon>
             </v-avatar>
           </v-btn>
         </template>
 
-        <v-list flat class="text-decoration-none font-weight-light" dense>
+        <v-list
+          flat
+          class="text-decoration-none font-weight-light"
+          dense
+        >
           <router-link :to="{ name: 'UserPage', params: { username: this.$store.state.user.username } }">
             <v-list-item>
               <v-list-item-avatar tile>
-                <v-badge bordered overlap bottom dot color="green" offset-x="10" offset-y="10">
+                <v-badge
+                  bordered
+                  overlap
+                  bottom
+                  dot
+                  color="green"
+                  offset-x="10"
+                  offset-y="10"
+                >
                   <v-avatar size="40">
                     <v-img
-                        class="rounded-circle mx-auto"
-                        :src="imgURL"
-                        contain
-                        width="12"
-                        aspect-ratio="1"
-                        alt="Profile"/>
+                      class="rounded-circle mx-auto"
+                      :src="imgURL"
+                      contain
+                      width="12"
+                      aspect-ratio="1"
+                      alt="Profile"
+                    />
                   </v-avatar>
                 </v-badge>
               </v-list-item-avatar>
@@ -115,12 +204,14 @@
             </v-list-item>
           </router-link>
 
-          <v-divider></v-divider>
+          <v-divider />
 
           <router-link to="/explore">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon color="deep-orange">mdi-pound</v-icon>
+                <v-icon color="deep-orange">
+                  mdi-pound
+                </v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ $t('nav.menu.explore') }}</v-list-item-title>
@@ -132,7 +223,9 @@
           <router-link to="/bookmarks">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon color="deep-orange">mdi-bookmark-outline</v-icon>
+                <v-icon color="deep-orange">
+                  mdi-bookmark-outline
+                </v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ $t('nav.menu.bookmarks') }}</v-list-item-title>
@@ -143,7 +236,9 @@
           <router-link to="/settings">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon color="deep-orange">mdi-cog-outline</v-icon>
+                <v-icon color="deep-orange">
+                  mdi-cog-outline
+                </v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ $t('nav.menu.settings') }}</v-list-item-title>
@@ -153,7 +248,9 @@
 
           <v-list-item @click="toggleDarkMode">
             <v-list-item-icon>
-              <v-icon color="deep-orange">mdi-brightness-6</v-icon>
+              <v-icon color="deep-orange">
+                mdi-brightness-6
+              </v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -161,23 +258,39 @@
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-switch inset dense color="deep-orange" :input-value="isDarkModeEnabled"/>
+              <v-switch
+                inset
+                dense
+                color="deep-orange"
+                :input-value="isDarkModeEnabled"
+              />
             </v-list-item-action>
           </v-list-item>
 
           <v-list-item @click="logout">
             <v-list-item-icon>
-              <v-icon color="deep-orange">mdi-logout</v-icon>
+              <v-icon color="deep-orange">
+                mdi-logout
+              </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ $t('nav.menu.logout') }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-dialog v-model="displayLanguageDialog" width="500">
+          <v-dialog
+            v-model="displayLanguageDialog"
+            width="500"
+          >
             <template v-slot:activator="{ on, attrs }">
-              <v-list-item @click="displayLanguageDialog = true" v-bind="attrs" v-on="on">
+              <v-list-item
+                v-bind="attrs"
+                @click="displayLanguageDialog = true"
+                v-on="on"
+              >
                 <v-list-item-icon>
-                  <v-icon color="deep-orange">mdi-translate</v-icon>
+                  <v-icon color="deep-orange">
+                    mdi-translate
+                  </v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -192,37 +305,54 @@
               </v-card-title>
 
               <v-card-text>
-                <v-radio-group v-model="selectedDisplayLanguage" dense mandatory>
+                <v-radio-group
+                  v-model="selectedDisplayLanguage"
+                  dense
+                  mandatory
+                >
                   <v-radio
-                      v-for="l in Object.keys(displayLanguages)"
-                      color="deep-orange"
-                      :key="l"
-                      :label="displayLanguages[l]"
-                      :value="l"
-                  ></v-radio>
+                    v-for="l in Object.keys(displayLanguages)"
+                    :key="l"
+                    color="deep-orange"
+                    :label="displayLanguages[l]"
+                    :value="l"
+                  />
                 </v-radio-group>
               </v-card-text>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="error" text @click="closeDisplayLanguageDialog">
+                <v-spacer />
+                <v-btn
+                  color="error"
+                  text
+                  @click="closeDisplayLanguageDialog"
+                >
                   {{ $t('nav.menu.display_language_dialog.cancel') }}
                 </v-btn>
-                <v-btn color="primary" text @click="changeDisplayLanguage">
+                <v-btn
+                  color="primary"
+                  text
+                  @click="changeDisplayLanguage"
+                >
                   {{ $t('nav.menu.display_language_dialog.change') }}
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
 
-          <v-divider></v-divider>
+          <v-divider />
 
           <router-link to="/help">
             <v-list-item disabled>
               <v-list-item-icon>
-                <v-icon disabled color="deep-orange">mdi-help-circle-outline</v-icon>
+                <v-icon
+                  disabled
+                  color="deep-orange"
+                >
+                  mdi-help-circle-outline
+                </v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ $t('nav.menu.help') }}</v-list-item-title>
@@ -233,7 +363,9 @@
           <router-link to="/contact">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon color="deep-orange">mdi-at</v-icon>
+                <v-icon color="deep-orange">
+                  mdi-at
+                </v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ $t('nav.menu.contact') }}</v-list-item-title>
@@ -244,7 +376,9 @@
           <router-link to="/report">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon color="deep-orange">mdi-flag-outline</v-icon>
+                <v-icon color="deep-orange">
+                  mdi-flag-outline
+                </v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ $t('nav.menu.report') }}</v-list-item-title>
@@ -255,7 +389,9 @@
           <router-link to="/terms">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon color="deep-orange">mdi-book-open-blank-variant</v-icon>
+                <v-icon color="deep-orange">
+                  mdi-book-open-blank-variant
+                </v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ $t('nav.menu.terms') }}</v-list-item-title>
@@ -266,7 +402,12 @@
           <router-link to="/privacy">
             <v-list-item disabled>
               <v-list-item-icon>
-                <v-icon disabled color="deep-orange">mdi-lock</v-icon>
+                <v-icon
+                  disabled
+                  color="deep-orange"
+                >
+                  mdi-lock
+                </v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ $t('nav.menu.privacy') }}</v-list-item-title>
@@ -274,7 +415,7 @@
             </v-list-item>
           </router-link>
 
-          <v-divider></v-divider>
+          <v-divider />
 
           <a :href="statusServiceUrl">
             <v-list-item>
@@ -288,11 +429,13 @@
             </v-list-item>
           </a>
 
-          <v-divider></v-divider>
+          <v-divider />
 
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-subtitle class="em-08">Vevericka &copy; 2021</v-list-item-subtitle>
+              <v-list-item-subtitle class="em-08">
+                Vevericka &copy; 2021
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -300,38 +443,38 @@
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import {router} from "@/router";
-import {Component, Vue} from "vue-property-decorator";
-import {displayLanguages} from "@/data/displayLanguages";
-import {publicPages} from "@/data/ApplicationConstants";
-import UserService from "@/api/user";
+import {router} from '@/router';
+import {Component, Vue} from 'vue-property-decorator';
+import {displayLanguages} from '@/data/displayLanguages';
+import {publicPages} from '@/data/ApplicationConstants';
+import UserService from '@/api/user';
 
 @Component({
-  name: "App",
+  name: 'App',
 
 })
 export default class App extends Vue {
-  searchTerm: string = ""
-  imgURL: string = ""
-  isAppBarSearchFocused: boolean = false
-  readonly statusServiceUrl: string = "https://veverickastatus.surge.sh/"
+  searchTerm = ''
+  imgURL = ''
+  isAppBarSearchFocused = false
+  readonly statusServiceUrl: string = 'https://veverickastatus.surge.sh/'
   displayLanguages = displayLanguages.data
-  selectedDisplayLanguage: string = ""
-  displayLanguageDialog: boolean = false
+  selectedDisplayLanguage = ''
+  displayLanguageDialog = false
 
-  mounted() {
+  mounted(): void {
     this.setTheme();
     this.setDisplayLanguage();
     this.selectedDisplayLanguage = this.$i18n.locale;
   }
 
-  updated() {
+  updated(): void {
     if (this.imgURL === '') {
       this.getImageURL();
     }
@@ -341,23 +484,23 @@ export default class App extends Vue {
     }
   }
 
-  closeDisplayLanguageDialog() {
+  closeDisplayLanguageDialog(): void {
     this.selectedDisplayLanguage = '';
     this.displayLanguageDialog = false;
   }
 
-  changeDisplayLanguage() {
+  changeDisplayLanguage(): void {
     this.$i18n.locale = this.selectedDisplayLanguage;
-    localStorage.setItem("veverickaDisplayLanguage", this.selectedDisplayLanguage);
+    localStorage.setItem('veverickaDisplayLanguage', this.selectedDisplayLanguage);
     this.displayLanguageDialog = false;
   }
 
-  setTheme() {
+  setTheme(): void {
     const theme = localStorage.getItem('veverickaTheme');
     this.$vuetify.theme.dark = theme === '"dark"';
   }
 
-  setDisplayLanguage() {
+  setDisplayLanguage(): void {
     const lang = localStorage.getItem('veverickaDisplayLanguage');
     if (typeof lang !== 'string' || lang.length !== 2) {
       this.$root.$i18n.locale = 'en';
@@ -366,7 +509,7 @@ export default class App extends Vue {
     }
   }
 
-  toggleDarkMode() {
+  toggleDarkMode(): void {
     const isDark = this.$vuetify.theme.dark;
 
     if (isDark) {
@@ -378,20 +521,20 @@ export default class App extends Vue {
     }
   }
 
-  logout() {
+  logout(): void {
     localStorage.setItem('veverickaTheme', 'light');
     this.$vuetify.theme.dark = false;
-    this.$store.dispatch("logout");
+    this.$store.dispatch('logout');
   }
 
-  async search() {
+  async search(): Promise<void> {
     if (this.searchTerm.length > 0) {
       this.$store.state.gSearchTerm = this.searchTerm;
       await router.push('/search');
     }
   }
 
-  async getImageURL() {
+  async getImageURL(): Promise<void> {
     const username = this.$store.state.user.username;
 
     if (username === '') {
@@ -403,10 +546,10 @@ export default class App extends Vue {
       if (user.image === 'profile.png') {
         this.imgURL = '/profile.png';
       } else {
-        this.imgURL = user.image
+        this.imgURL = user.image;
       }
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
   }
 
@@ -419,11 +562,11 @@ export default class App extends Vue {
   }
 
   get appBarColor(): string {
-    return this.$vuetify.theme.dark ? "#272727" : "#FFF";
+    return this.$vuetify.theme.dark ? '#272727' : '#FFF';
   }
 
   get textFieldBackground(): string {
-    return this.$vuetify.theme.dark ? "#1e1e1e" : "#f0f2f5";
+    return this.$vuetify.theme.dark ? '#1e1e1e' : '#f0f2f5';
   }
 }
 </script>

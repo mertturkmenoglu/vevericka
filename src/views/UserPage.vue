@@ -1,7 +1,13 @@
 <template>
   <v-container>
-    <div v-if="loading" class="py-3 text-center">
-      <v-progress-circular indeterminate color="deep-orange"/>
+    <div
+      v-if="loading"
+      class="py-3 text-center"
+    >
+      <v-progress-circular
+        indeterminate
+        color="deep-orange"
+      />
     </div>
     <div v-if="userNotFound && !loading">
       <h1 class="font-weight-light text-center">
@@ -14,17 +20,25 @@
         </h1>
       </router-link>
     </div>
-    <v-card v-if="!userNotFound && !loading" flat>
+    <v-card
+      v-if="!userNotFound && !loading"
+      flat
+    >
       <UserHeader
-          :user="user"
-          @toggle-followers="toggleFollowers"
-          @toggle-following="toggleFollowing"
-          @edit-user="edit"
-          @follow-user="follow"
-          @unfollow-user="unfollow"
-          @send-message="sendMessage" />
+        :user="user"
+        @toggle-followers="toggleFollowers"
+        @toggle-following="toggleFollowing"
+        @edit-user="edit"
+        @follow-user="follow"
+        @unfollow-user="unfollow"
+        @send-message="sendMessage"
+      />
 
-      <v-tabs color="deep-orange text--darken-2" class="mt-3" fixed-tabs>
+      <v-tabs
+        color="deep-orange text--darken-2"
+        class="mt-3"
+        fixed-tabs
+      >
         <v-tab>
           {{ $t('user_page.tabs.posts') }}
         </v-tab>
@@ -40,15 +54,32 @@
 
         <v-tab-item>
           <v-container>
-            <v-col cols="12" sm="8" class="mx-auto">
-              <UserFeed :feed="posts" class="mt-8" @shareLinkCopied="linkCopied"/>
+            <v-col
+              cols="12"
+              sm="8"
+              class="mx-auto"
+            >
+              <UserFeed
+                :feed="posts"
+                class="mt-8"
+                @shareLinkCopied="linkCopied"
+              />
             </v-col>
 
-            <div v-show="loading" class="py-3 text-center">
-              <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
+            <div
+              v-show="loading"
+              class="py-3 text-center"
+            >
+              <v-progress-circular
+                indeterminate
+                color="deep-orange text--darken-2"
+              />
             </div>
 
-            <div v-if="!loading && posts.length === 0" class="text-center font-weight-light">
+            <div
+              v-if="!loading && posts.length === 0"
+              class="text-center font-weight-light"
+            >
               {{ $t('user_page.no_post') }}
             </div>
           </v-container>
@@ -58,7 +89,7 @@
           <v-container>
             <v-row>
               <v-col>
-                <UserInfo :user="user"/>
+                <UserInfo :user="user" />
               </v-col>
             </v-row>
           </v-container>
@@ -67,11 +98,17 @@
         <v-tab-item>
           <v-container>
             <v-row>
-              <v-col cols="12" md="6">
-                <UserFeatures :user="user"/>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <UserFeatures :user="user" />
               </v-col>
-              <v-col cols="12" md="6">
-                <UserHobbies :user="user"/>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <UserHobbies :user="user" />
               </v-col>
             </v-row>
           </v-container>
@@ -80,11 +117,17 @@
         <v-tab-item>
           <v-container>
             <v-row>
-              <v-col cols="12" md="6">
-                <UserLanguages :user="user"/>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <UserLanguages :user="user" />
               </v-col>
-              <v-col cols="12" md="6">
-                <UserWishToSpeak :user="user"/>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <UserWishToSpeak :user="user" />
               </v-col>
             </v-row>
           </v-container>
@@ -93,20 +136,31 @@
     </v-card>
 
     <UserListDialog
-        v-if="showFollowers"
-        :title="$t('user_page.followers')"
-        :list="user.followers"
-        :onItemClick="toggleFollowers" />
+      v-if="showFollowers"
+      :title="$t('user_page.followers')"
+      :list="user.followers"
+      :on-item-click="toggleFollowers"
+    />
     <UserListDialog
-        v-if="showFollowing"
-        :title="$t('user_page.following')"
-        :list="user.following"
-        :onItemClick="toggleFollowing" />
+      v-if="showFollowing"
+      :title="$t('user_page.following')"
+      :list="user.following"
+      :on-item-click="toggleFollowing"
+    />
 
-    <v-snackbar v-model="snackbar" bottom right>
+    <v-snackbar
+      v-model="snackbar"
+      bottom
+      right
+    >
       {{ snackbarMessage }}
       <template v-slot:action="{ attrs }">
-        <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
+        <v-btn
+          color="pink"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
           {{ $t('user_page.snackbar.close') }}
         </v-btn>
       </template>
@@ -115,26 +169,26 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import UserHeader from "@/components/User/UserHeader.vue";
-import UserInfo from "@/components/User/UserInfo.vue";
-import UserListDialog from "@/components/User/UserListDialog.vue";
-import {router} from "@/router";
-import UserFeatures from "../components/User/UserFeatures.vue";
-import UserLanguages from "../components/User/UserLanguages.vue";
-import UserWishToSpeak from "../components/User/UserWishToSpeak.vue";
-import UserHobbies from "@/components/User/UserHobbies.vue";
-import UserFeed from "@/components/Post/UserFeed.vue";
-import {Component} from "vue-property-decorator";
-import UserService from "@/api/user";
-import PostService from "@/api/post";
+import Vue from 'vue';
+import UserHeader from '@/components/User/UserHeader.vue';
+import UserInfo from '@/components/User/UserInfo.vue';
+import UserListDialog from '@/components/User/UserListDialog.vue';
+import {router} from '@/router';
+import UserFeatures from '../components/User/UserFeatures.vue';
+import UserLanguages from '../components/User/UserLanguages.vue';
+import UserWishToSpeak from '../components/User/UserWishToSpeak.vue';
+import UserHobbies from '@/components/User/UserHobbies.vue';
+import UserFeed from '@/components/Post/UserFeed.vue';
+import {Component} from 'vue-property-decorator';
+import UserService from '@/api/user';
+import PostService from '@/api/post';
 // eslint-disable-next-line no-unused-vars
-import {IUser} from "@/api/responses/IUser";
+import {IUser} from '@/api/responses/IUser';
 // eslint-disable-next-line no-unused-vars
-import IPost from "@/api/responses/IPost";
+import IPost from '@/api/responses/IPost';
 
 @Component({
-  name: "UserPage",
+  name: 'UserPage',
   components: {
     UserHobbies,
     UserWishToSpeak,
@@ -148,41 +202,36 @@ import IPost from "@/api/responses/IPost";
 })
 export default class UserPage extends Vue {
   user!: IUser
-  showFollowers: boolean = false
-  showFollowing: boolean = false
+  showFollowers = false
+  showFollowing = false
   posts: IPost[] = []
-  snackbar: boolean = false
-  snackbarMessage: string = ''
-  loading: boolean = true
-  userNotFound: boolean = false
+  snackbar = false
+  snackbarMessage = ''
+  loading = true
+  userNotFound = false
 
-  mounted() {
+  mounted(): void {
     this.fetchUser();
-  }
-
-  beforeRouteUpdate(_to: any, _from: any, next: any) {
-    next();
-    window.location.reload();
   }
 
   get username(): string {
     return this.$route.params.username;
   }
 
-  async fetchUser() {
+  async fetchUser(): Promise<void> {
     try {
       this.user = await UserService.getUserByUsername(this.username);
       await this.fetchPosts();
       this.loading = false;
       this.userNotFound = false;
     } catch (e) {
-      console.error(e)
+      console.error(e);
       this.loading = false;
       this.userNotFound = true;
     }
   }
 
-  async fetchPosts() {
+  async fetchPosts(): Promise<void> {
     try {
       this.posts = await PostService.getUserPosts(this.username);
     } catch (e) {
@@ -190,20 +239,20 @@ export default class UserPage extends Vue {
     }
   }
 
-  linkCopied() {
+  linkCopied(): Promise<void> {
     this.snackbarMessage = this.$t('user_page.snackbar.message').toString();
     this.snackbar = true;
   }
 
-  sendMessage() {
-    router.push("/messages");
+  async sendMessage(): Promise<void> {
+    await router.push('/messages');
   }
 
-  edit() {
-    router.push("/settings");
+  async edit(): Promise<void> {
+    await router.push('/settings');
   }
 
-  async follow() {
+  async follow(): Promise<void> {
     const thisUsername = this.$store.state.user.username;
     const otherUsername = this.user?.username;
 
@@ -212,14 +261,14 @@ export default class UserPage extends Vue {
     }
 
     try {
-      await UserService.followUser(thisUsername, otherUsername)
+      await UserService.followUser(thisUsername, otherUsername);
       window.location.reload();
     } catch (e) {
       console.error(e);
     }
   }
 
-  async unfollow() {
+  async unfollow(): Promise<void> {
     const thisUsername = this.$store.state.user.username;
     const otherUsername = this.user?.username;
 
@@ -228,18 +277,18 @@ export default class UserPage extends Vue {
     }
 
     try {
-      await UserService.unfollowUser(thisUsername, otherUsername)
-      window.location.reload()
+      await UserService.unfollowUser(thisUsername, otherUsername);
+      window.location.reload();
     } catch (e) {
       console.error(e);
     }
   }
 
-  toggleFollowers() {
+  toggleFollowers(): void {
     this.showFollowers = !this.showFollowers;
   }
 
-  toggleFollowing() {
+  toggleFollowing(): void {
     this.showFollowing = !this.showFollowing;
   }
 }

@@ -24,8 +24,7 @@ module.exports = {
     'semi': ['error', 'always'],
     'comma-dangle': ['error', 'always-multiline'],
     '@typescript-eslint/interface-name-prefix': 'off',
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
+    'vue/no-v-html': 'off',
   },
   overrides: [
     {
