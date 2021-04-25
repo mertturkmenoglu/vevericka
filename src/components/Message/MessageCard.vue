@@ -1,19 +1,29 @@
 <template>
-  <v-card class="px-4" flat>
+  <v-card
+    class="px-4"
+    flat
+  >
     <v-card-title class="my-n3">
-      <v-avatar size="24" class="">
+      <v-avatar
+        size="24"
+        class=""
+      >
         <v-img
-            class="rounded-circle"
-            :src="message.sender.image"
-            contain
-            width="6"
-            aspect-ratio="1"
-            alt="Profile"/>
+          class="rounded-circle"
+          :src="message.sender.image"
+          contain
+          width="6"
+          aspect-ratio="1"
+          alt="Profile"
+        />
       </v-avatar>
-      <div class="font-weight-light em-08 ml-2" :class="[ isThisUser ? 'this-user' : 'other-user']">
+      <div
+        class="font-weight-light em-08 ml-2"
+        :class="[ isThisUser ? 'this-user' : 'other-user']"
+      >
         {{ isThisUser ? 'You' : message.sender.name }}
       </div>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <div class="font-weight-light text-caption em-08">
         {{ getFormattedMessageTime }}
       </div>
@@ -22,28 +32,31 @@
     <v-card-text class="font-weight-light ml-8">
       {{ message.content }}
     </v-card-text>
-
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
 import {format} from 'date-fns';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import {Prop} from 'vue-property-decorator';
+import IMessage from '@/api/responses/IMessage';
 
-export default {
-  name: "MessageCard",
-  props: ["message"],
-  computed: {
-    isThisUser() {
-      return this.$store.state.user.userId === this.message.sender._id;
-    },
-    getFormattedMessageTime() {
-      // noinspection JSCheckFunctionSignatures
-      return format(new Date(this.message.createdAt), 'HH:mm, dd/MM/yyyy');
-    }
-  },
+@Component({})
+export default class MessageCard extends Vue {
+  @Prop({ required: true }) message!: IMessage
+
+  get isThisUser(): boolean {
+    return this.$store.state.user.userId === this.message.sender._id;
+  }
+
+  get getFormattedMessageTime(): string {
+    return format(new Date(this.message.createdAt), 'HH:mm, dd/MM/yyyy');
+  }
 }
 </script>
 
+<!--suppress CssUnusedSymbol -->
 <style scoped>
 .this-user {
   color: #f45d22;
