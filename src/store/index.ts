@@ -1,32 +1,32 @@
-import Vue from 'vue'
-import Vuex, {ActionContext} from 'vuex'
-import { router } from '@/router'
-import AuthService from "@/api/auth";
-import {LoginPayload, LoginSuccess, RegisterPayload} from "@/store/types";
+import Vue from 'vue';
+import Vuex, {ActionContext} from 'vuex';
+import { router } from '@/router';
+import AuthService from '@/api/auth';
+import {LoginPayload, LoginSuccess, RegisterPayload} from '@/store/types';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const token = localStorage.getItem('vev-token') || '';
-const userFromStorageStr = localStorage.getItem('vev-user') || '{"user":{"username":"","userId":""}}'
-const userObj = JSON.parse(userFromStorageStr) as { user: { username: string; userId: string; } }
+const userFromStorageStr = localStorage.getItem('vev-user') || '{"user":{"username":"","userId":""}}';
+const userObj = JSON.parse(userFromStorageStr) as { user: { username: string; userId: string } };
 
 const state = {
   user: userObj.user || {
     username: '',
-    userId: ''
+    userId: '',
   },
   token: token,
   error: '',
   gSearchTerm: '',
   loginStatus: '',
   registerStatus: '',
-}
+};
 
 type MyStateType = {
   user: {
     username: string;
     userId: string;
-  }
+  };
   token: string;
   error: string;
   gSearchTerm: string;
@@ -35,39 +35,39 @@ type MyStateType = {
 }
 
 const actions = {
-  async login(ctx: ActionContext<any, any>, payload: LoginPayload) {
-    ctx.commit('loginRequest')
+  async login(ctx: ActionContext<MyStateType, MyStateType>, payload: LoginPayload): Promise<void> {
+    ctx.commit('loginRequest');
 
     try {
-      const resp = await AuthService.login(payload.email, payload.password)
+      const resp = await AuthService.login(payload.email, payload.password);
       if (!resp) {
-        ctx.commit('loginFail', 'Cannot login')
-        return
+        ctx.commit('loginFail', 'Cannot login');
+        return;
       }
 
-      const userStr = JSON.stringify({ user: { username: resp.username, userId: resp.userId }})
-      window.localStorage.setItem('vev-token', resp.token)
-      window.localStorage.setItem('vev-user', userStr)
+      const userStr = JSON.stringify({ user: { username: resp.username, userId: resp.userId }});
+      window.localStorage.setItem('vev-token', resp.token);
+      window.localStorage.setItem('vev-user', userStr);
       ctx.commit('loginSuccess', resp);
-      await router.push('/')
+      await router.push('/');
     } catch (err) {
       ctx.commit('loginFail', err.response.data.message);
     }
   },
 
-  async register(ctx: ActionContext<any, any>, payload: RegisterPayload) {
-    ctx.commit('registerRequest')
+  async register(ctx: ActionContext<MyStateType, MyStateType>, payload: RegisterPayload): Promise<void> {
+    ctx.commit('registerRequest');
 
     try {
       const id = await AuthService.register(
-          payload.email,
-          payload.username,
-          payload.name,
-          payload.password
-      )
+        payload.email,
+        payload.username,
+        payload.name,
+        payload.password,
+      );
 
       if (!id) {
-        ctx.commit('registerFail', 'Cannot register')
+        ctx.commit('registerFail', 'Cannot register');
         return;
       }
 
@@ -79,92 +79,92 @@ const actions = {
       }
 
       const userStr = JSON.stringify({
-        user: { username: loginResponse.username, userId: loginResponse.userId }
+        user: { username: loginResponse.username, userId: loginResponse.userId },
       });
 
-      window.localStorage.setItem('vev-token', loginResponse.token)
-      window.localStorage.setItem('vev-user', userStr)
+      window.localStorage.setItem('vev-token', loginResponse.token);
+      window.localStorage.setItem('vev-user', userStr);
 
-      await ctx.commit('registerSuccess')
-      await router.push('/')
+      await ctx.commit('registerSuccess');
+      await router.push('/');
     } catch (err) {
       ctx.commit('registerFail', err.response.data.message);
       return;
     }
   },
 
-  async logout(ctx: ActionContext<any, any>) {
+  async logout(ctx: ActionContext<MyStateType, MyStateType>): Promise<void> {
     localStorage.removeItem('vev-token');
     localStorage.removeItem('vev-user');
     ctx.commit('logout');
-    await router.push('/login')
-  }
-}
+    await router.push('/login');
+  },
+};
 
 const mutations = {
-  loginRequest(state: MyStateType) {
+  loginRequest(state: MyStateType): void {
     state.user = {
       userId: '',
-      username: ''
-    }
-    state.token = ''
-    state.error = ''
-    state.loginStatus = 'loading'
-    state.registerStatus = ''
+      username: '',
+    };
+    state.token = '';
+    state.error = '';
+    state.loginStatus = 'loading';
+    state.registerStatus = '';
   },
-  loginSuccess(state: MyStateType, payload: LoginSuccess) {
-    state.loginStatus = 'success'
-    state.error = ''
-    state.user.username = payload.username
-    state.user.userId = payload.userId
-    state.token = payload.token
+  loginSuccess(state: MyStateType, payload: LoginSuccess): void {
+    state.loginStatus = 'success';
+    state.error = '';
+    state.user.username = payload.username;
+    state.user.userId = payload.userId;
+    state.token = payload.token;
   },
-  loginFail(state: MyStateType, errorMessage: string) {
-    state.loginStatus = 'fail'
-    state.error = errorMessage
+  loginFail(state: MyStateType, errorMessage: string): void {
+    state.loginStatus = 'fail';
+    state.error = errorMessage;
   },
-  logout(state: MyStateType) {
+  logout(state: MyStateType): void {
     state.user = {
       username: '',
       userId: '',
-    }
-    state.token = ''
-    state.error = ''
-    state.loginStatus = ''
-    state.registerStatus = ''
+    };
+    state.token = '';
+    state.error = '';
+    state.loginStatus = '';
+    state.registerStatus = '';
   },
-  registerRequest(state: MyStateType) {
+  registerRequest(state: MyStateType): void {
     state.user = {
       userId: '',
-      username: ''
-    }
-    state.token = ''
-    state.error = ''
-    state.loginStatus = ''
-    state.registerStatus = 'loading'
+      username: '',
+    };
+    state.token = '';
+    state.error = '';
+    state.loginStatus = '';
+    state.registerStatus = 'loading';
   },
-  registerSuccess(state: MyStateType) {
+  registerSuccess(state: MyStateType): void {
     state.user = {
       userId: '',
-      username: ''
-    }
-    state.token = ''
-    state.error = ''
-    state.loginStatus = ''
-    state.registerStatus = 'success'
+      username: '',
+    };
+    state.token = '';
+    state.error = '';
+    state.loginStatus = '';
+    state.registerStatus = 'success';
   },
-  registerFail(state: MyStateType, errorMessage: string) {
+  registerFail(state: MyStateType, errorMessage: string): void {
     state.user = {
       userId: '',
-      username: ''
-    }
-    state.token = ''
-    state.error = errorMessage
-    state.loginStatus = ''
-    state.registerStatus = 'fail'
-  }
-}
+      username: '',
+    };
+    state.token = '';
+    state.error = errorMessage;
+    state.loginStatus = '';
+    state.registerStatus = 'fail';
+  },
+};
 
 export default new Vuex.Store({
   state, actions, mutations,
-})
+});
