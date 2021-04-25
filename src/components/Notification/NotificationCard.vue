@@ -1,22 +1,33 @@
 <template>
   <v-card flat>
     <v-card-title>
-      <v-avatar size="40" class="ml-n3">
+      <v-avatar
+        size="40"
+        class="ml-n3"
+      >
         <v-img
-            class="rounded-circle"
-            :src="userImage"
-            contain
-            width="12"
-            aspect-ratio="1"
-            alt="Profile"/>
+          class="rounded-circle"
+          :src="userImage"
+          contain
+          width="12"
+          aspect-ratio="1"
+          alt="Profile"
+        />
       </v-avatar>
-      <div class="ml-3">{{notification.origin.name}}</div>
+      <div class="ml-3">
+        {{ notification.origin.name }}
+      </div>
 
-      <v-spacer></v-spacer>
-      <v-btn icon @click="deleteNotification" color="deep-orange">
-        <v-icon color="deep-orange">mdi-close</v-icon>
+      <v-spacer />
+      <v-btn
+        icon
+        color="deep-orange"
+        @click="deleteNotification"
+      >
+        <v-icon color="deep-orange">
+          mdi-close
+        </v-icon>
       </v-btn>
-
     </v-card-title>
     <router-link :to="notificationDirection">
       <v-card-text class="ml-10">
@@ -27,26 +38,26 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import {Emit, Prop} from "vue-property-decorator";
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import {Emit, Prop} from 'vue-property-decorator';
 // eslint-disable-next-line no-unused-vars
-import NotificationService, {Notification, NotificationType} from '@/api/notification'
+import NotificationService, {Notification, NotificationType} from '@/api/notification';
 
 @Component({})
 export default class NotificationCard extends Vue{
   @Prop({ required: true }) notification!: Notification
 
   get userImage(): string {
-    const img = this.notification.origin.image
+    const img = this.notification.origin.image;
     if (img === 'profile.png') {
-      return '/profile.png'
+      return '/profile.png';
     } else {
-      return img
+      return img;
     }
   }
 
-  get notificationText() {
+  get notificationText(): string {
     if (this.notification.type === NotificationType.ON_MENTION) {
       return this.notification.origin.username + ' mentioned you in a post';
     } else if (this.notification.type === NotificationType.ON_USER_FOLLOW) {
@@ -55,21 +66,21 @@ export default class NotificationCard extends Vue{
     return '';
   }
 
-  get notificationDirection() {
+  get notificationDirection(): string {
     if (this.notification.type === NotificationType.ON_MENTION) {
-      return `/post/${this.notification.metadata}`
+      return `/post/${this.notification.metadata}`;
     } else if (this.notification.type === NotificationType.ON_USER_FOLLOW) {
-      return `/user/${this.notification.metadata}`
+      return `/user/${this.notification.metadata}`;
     }
-    return '/'
+    return '/';
   }
 
   @Emit()
-  async deleteNotification() {
+  async deleteNotification(): Promise<void> {
     try {
-      await NotificationService.deleteNotification(this.notification._id)
+      await NotificationService.deleteNotification(this.notification._id);
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
   }
 }
