@@ -1,31 +1,10 @@
 import axios, {AxiosInstance} from 'axios';
+import INotification from '@/api/responses/INotification';
 
 export enum NotificationType {
     ON_USER_FOLLOW = 'ON_USER_FOLLOW',
     ON_MENTION = 'ON_MENTION',
     ON_COMMENT = 'ON_COMMENT',
-}
-
-export type Notification = {
-    _id: string;
-    origin: {
-        _id: string;
-        name: string;
-        username: string;
-        image: string;
-    };
-    target: {
-        _id: string;
-        name: string;
-        username: string;
-        image: string;
-    };
-    type: NotificationType;
-    delivered: boolean;
-    metadata: string;
-    createdAt: Date;
-    updatedAt: Date;
-    deliveredAt: Date;
 }
 
 class NotificationService {
@@ -40,8 +19,8 @@ class NotificationService {
     });
   }
 
-  static async getNotifications(username: string): Promise<Notification[]> {
-    const res = await NotificationService.service.get<Notification[]>('/user/' + username);
+  static async getNotifications(username: string): Promise<INotification[]> {
+    const res = await NotificationService.service.get<INotification[]>('/user/' + username);
     return res.data;
   }
 

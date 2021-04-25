@@ -47,7 +47,7 @@ export default class MessageCard extends Vue {
   @Prop({ required: true }) message!: IMessage
 
   get isThisUser(): boolean {
-    return this.$store.state.user.userId === this.message.sender._id;
+    return this.$store.state.user.userId === (this.message.sender as unknown as { _id: string })._id;
   }
 
   get getFormattedMessageTime(): string {

@@ -1,97 +1,135 @@
 <template>
   <v-container>
-    <v-card class="mx-auto custom-width" flat>
+    <v-card
+      class="mx-auto custom-width"
+      flat
+    >
       <v-text-field
-          v-model="searchStr"
-          append-icon="mdi-magnify"
-          outlined
-          color="deep-orange text--darken-2"
-          :label="$t('search.search')"
-          type="text"
-          flat
-          solo
-          dense
-          clearable
-          single-line
-          :prefix="prefix"
-          @focusin="prefix = '@'"
-          @focusout="prefix = ''"
-          @keyup.enter.native="search"
-          @click:append="search"/>
+        v-model="searchStr"
+        append-icon="mdi-magnify"
+        outlined
+        color="deep-orange text--darken-2"
+        :label="$t('search.search')"
+        type="text"
+        flat
+        solo
+        dense
+        clearable
+        single-line
+        :prefix="prefix"
+        @focusin="prefix = '@'"
+        @focusout="prefix = ''"
+        @keyup.enter.native="search"
+        @click:append="search"
+      />
     </v-card>
 
-    <div v-show="showLoading" class="py-3 text-center">
-      <v-progress-circular indeterminate color="red"></v-progress-circular>
+    <div
+      v-show="showLoading"
+      class="py-3 text-center"
+    >
+      <v-progress-circular
+        indeterminate
+        color="red"
+      />
     </div>
 
-    <v-container v-show="!showLoading && error" class="py-3 text-center">
-      <v-col cols="12" sm="8" class="mx-auto">
-        <v-alert color="red" dense outlined type="error"> {{ error }}</v-alert>
+    <v-container
+      v-show="!showLoading && error"
+      class="py-3 text-center"
+    >
+      <v-col
+        cols="12"
+        sm="8"
+        class="mx-auto"
+      >
+        <v-alert
+          color="red"
+          dense
+          outlined
+          type="error"
+        >
+          {{ error }}
+        </v-alert>
       </v-col>
     </v-container>
 
-    <div v-for="(result, idx) in searchResults" :key="result._id" class="mx-auto my-5 custom-width">
+    <div
+      v-for="(result, idx) in searchResults"
+      :key="result._id"
+      class="mx-auto my-5 custom-width"
+    >
       <router-link :to="`/user/${result.username}`">
-        <UserCard :user="result" class="card-style"/>
+        <UserCard
+          :user="result"
+          class="card-style"
+        />
       </router-link>
-      <v-divider v-if="idx !== searchResults.length - 1"/>
+      <v-divider v-if="idx !== searchResults.length - 1" />
     </div>
 
-    <div v-if="searchResults.length === 0" class="my-5">
+    <div
+      v-if="searchResults.length === 0"
+      class="my-5"
+    >
       <h2 class="text-center font-weight-regular">
-        {{ $t('search.user_not_found')}}
-        <v-icon x-large color="deep-orange">mdi-emoticon-sad-outline</v-icon>
+        {{ $t('search.user_not_found') }}
+        <v-icon
+          x-large
+          color="deep-orange"
+        >
+          mdi-emoticon-sad-outline
+        </v-icon>
       </h2>
     </div>
   </v-container>
 </template>
 
 <script lang="ts">
-import Vue from "vue"
-import UserCard from "@/components/UserCard.vue"
-import {Component} from "vue-property-decorator"
-import UserService from "@/api/user";
-// eslint-disable-next-line no-unused-vars
-import {IUserSearchResult} from "@/api/responses/IUserSearchResult";
+import Vue from 'vue';
+import UserCard from '@/components/UserCard.vue';
+import {Component} from 'vue-property-decorator';
+import UserService from '@/api/user';
+import {IUserSearchResult} from '@/api/responses/IUserSearchResult';
 
 @Component({
-  components: {UserCard}
+  components: {UserCard},
 })
 export default class SearchPage extends Vue {
-  searchStr: string = ""
-  showLoading: boolean = false
-  error: string = ""
+  searchStr = ''
+  showLoading = false
+  error = ''
   searchResults: Array<IUserSearchResult> = []
-  prefix: string = ""
+  prefix = ''
 
-  mounted() {
-    this.searchStr = this.$store.state.gSearchTerm || ''
+  mounted(): void {
+    this.searchStr = this.$store.state.gSearchTerm || '';
     if (this.searchStr.length > 0) {
-      this.search()
+      this.search();
     }
   }
 
-  beforeRouteUpdate(_to: any, _from: any, next: any) {
-    next()
-    window.location.reload()
+  beforeRouteUpdate(_to: never, _from: never, next: () => void): void {
+    next();
+    window.location.reload();
   }
 
-  async search() {
-    if (this.searchStr === "") {
-      return
+  async search(): Promise<void> {
+    if (this.searchStr === '') {
+      return;
     }
 
-    this.showLoading = true
-    this.searchResults = []
+    this.showLoading = true;
+    this.searchResults = [];
 
     try {
-      const result = await UserService.searchByQuery(this.searchStr)
-      this.showLoading = false
-      this.searchResults = result
-      this.error = ''
+      const result = await UserService.searchByQuery(this.searchStr);
+      this.showLoading = false;
+      this.searchResults = result;
+      this.error = '';
     } catch (e) {
-      this.showLoading = false
-      this.error = this.$t('search.user_not_found').toString()
+      this.showLoading = false;
+      this.error = this.$t('search.user_not_found').toString();
     }
   }
 }

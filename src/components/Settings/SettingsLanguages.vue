@@ -204,7 +204,7 @@ export default class SettingsLanguages extends Vue {
   newLanguage = ''
   newProficiency = ''
   newWishToSpeak = ''
-  readonly availableLanguages: [
+  readonly availableLanguages = [
     'Chinese',
     'Spanish',
     'English',
@@ -227,7 +227,7 @@ export default class SettingsLanguages extends Vue {
     'Czech',
   ]
 
-  readonly availableProficiencies: [
+  readonly availableProficiencies = [
     'Elementary',
     'Intermediate',
     'Professional',
@@ -250,7 +250,7 @@ export default class SettingsLanguages extends Vue {
     this.wishToSpeakDialog = false;
   }
 
-  deleteWishToSpeak(idx): void {
+  deleteWishToSpeak(idx: number): void {
     this.user.wishToSpeak.splice(idx, 1);
   }
 
@@ -271,7 +271,7 @@ export default class SettingsLanguages extends Vue {
     this.languageDialog = false;
   }
 
-  deleteLanguage(idx): void {
+  deleteLanguage(idx: number): void {
     this.user.languages.splice(idx, 1);
   }
 

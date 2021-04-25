@@ -1,90 +1,145 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <v-row align="center" justify="center" no-gutters>
+  <v-container
+    class="fill-height"
+    fluid
+  >
+    <v-row
+      align="center"
+      justify="center"
+      no-gutters
+    >
       <v-col cols="12">
         <v-card class="elevation-12 card">
           <v-row class="fill-height">
-            <v-col cols="12" md="8" class="vcenter deep-orange">
+            <v-col
+              cols="12"
+              md="8"
+              class="vcenter deep-orange"
+            >
               <div>
                 <div class="text-center mb-6">
-                  <v-img class="mx-auto" max-height="256" max-width="256" src="../assets/icon_white.svg"/>
+                  <v-img
+                    class="mx-auto"
+                    max-height="256"
+                    max-width="256"
+                    src="../assets/icon_white.svg"
+                  />
                 </div>
                 <v-card-text class="white--text">
-                  <h1 class="text-center text-h2 headline mb-3">Vevericka</h1>
-                  <h5 class="text-center overline mb-3">We are the squirrels who say Vik!</h5>
+                  <h1 class="text-center text-h2 headline mb-3">
+                    Vevericka
+                  </h1>
+                  <h5 class="text-center overline mb-3">
+                    We are the squirrels who say Vik!
+                  </h5>
                 </v-card-text>
               </div>
             </v-col>
-            <v-col cols="12" md="4" class="pt-6 pb-6 vcenter">
+            <v-col
+              cols="12"
+              md="4"
+              class="pt-6 pb-6 vcenter"
+            >
               <v-card-text>
                 <h1 class="text-center display-1 mb-10 deep-orange--text font-weight-light">
-                  {{  $t('register.title') }}
+                  {{ $t('register.title') }}
                 </h1>
-                <v-form class="reset-form-form" @submit.prevent="submit">
+                <v-form
+                  class="reset-form-form"
+                  @submit.prevent="submit"
+                >
                   <v-text-field
-                      class="pt-5"
-                      :label="$t('register.email')"
-                      type="email"
-                      v-model="email"
-                      prepend-inner-icon="mdi-email"
-                      :rules="[rulesRequired, rulesEmail]"
-                      color="deep-orange"
-                      outlined
-                      dense
+                    v-model="email"
+                    class="pt-5"
+                    :label="$t('register.email')"
+                    type="email"
+                    prepend-inner-icon="mdi-email"
+                    :rules="[rulesRequired, rulesEmail]"
+                    color="deep-orange"
+                    outlined
+                    dense
                   />
                   <v-text-field
-                      class="pt-5"
-                      :label="$t('register.username')"
-                      prepend-inner-icon="mdi-at"
-                      type="text"
-                      :rules="[rulesRequired]"
-                      v-model="username"
-                      color="deep-orange"
-                      outlined
-                      dense
+                    v-model="username"
+                    class="pt-5"
+                    :label="$t('register.username')"
+                    prepend-inner-icon="mdi-at"
+                    type="text"
+                    :rules="[rulesRequired]"
+                    color="deep-orange"
+                    outlined
+                    dense
                   />
                   <v-text-field
-                      class="pt-5"
-                      :label="$t('register.name')"
-                      prepend-inner-icon="mdi-account-outline"
-                      :rules="[rulesRequired]"
-                      v-model="name"
-                      color="deep-orange"
-                      outlined
-                      dense
+                    v-model="name"
+                    class="pt-5"
+                    :label="$t('register.name')"
+                    prepend-inner-icon="mdi-account-outline"
+                    :rules="[rulesRequired]"
+                    color="deep-orange"
+                    outlined
+                    dense
                   />
                   <v-text-field
-                      class="pt-5"
-                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="showPassword ? 'text' : 'password'"
-                      :rules="[rulesRequired]"
-                      prepend-inner-icon="mdi-lock"
-                      @click:append="showPassword = !showPassword"
-                      v-model="password"
-                      :hint="$t('register.password.hint')"
-                      :label="$t('register.password.label')"
-                      color="deep-orange"
-                      outlined
-                      dense
+                    v-model="password"
+                    class="pt-5"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="showPassword ? 'text' : 'password'"
+                    :rules="[rulesRequired]"
+                    prepend-inner-icon="mdi-lock"
+                    :hint="$t('register.password.hint')"
+                    :label="$t('register.password.label')"
+                    color="deep-orange"
+                    outlined
+                    dense
+                    @click:append="showPassword = !showPassword"
                   />
                   <div class="text-center mt-6">
-                    <div v-show="registerLoading" class="py-3 text-center">
-                      <v-progress-circular indeterminate color="deep-orange text--darken-2"/>
+                    <div
+                      v-show="registerLoading"
+                      class="py-3 text-center"
+                    >
+                      <v-progress-circular
+                        indeterminate
+                        color="deep-orange text--darken-2"
+                      />
                     </div>
 
-                    <v-alert v-model="showRegisterError" dense close-icon="mdi-close" type="error" dismissible>
+                    <v-alert
+                      v-model="showRegisterError"
+                      dense
+                      close-icon="mdi-close"
+                      type="error"
+                      dismissible
+                    >
                       {{ registerError }}
                     </v-alert>
 
                     <p>
                       {{ $t('register.info.first_sentence') }}
-                      <router-link to="/terms" class="link">{{ $t('register.info.tos') }}</router-link>
+                      <router-link
+                        to="/terms"
+                        class="link"
+                      >
+                        {{ $t('register.info.tos') }}
+                      </router-link>
                       {{ $t('register.info.and') }}
-                      <router-link to="/privacy" class="link">{{ $t('register.info.privacy') }}</router-link>
+                      <router-link
+                        to="/privacy"
+                        class="link"
+                      >
+                        {{ $t('register.info.privacy') }}
+                      </router-link>
                       {{ $t('register.info.last_sentence') }}
                     </p>
 
-                    <v-btn @click="submit" color="deep-orange text--darken-2" outlined block :disabled="!isRegisterButtonEnabled">
+                    <v-btn
+                      color="deep-orange text--darken-2"
+                      outlined
+                      block
+                      :disabled="!isRegisterButtonEnabled"
+                      @click="submit"
+                    >
                       {{ $t('register.register_button') }}
                     </v-btn>
                   </div>
@@ -92,7 +147,10 @@
                     <span class="grey--text text--darken-1 font-weight-light">
                       {{ $t('register.to_login.text') }}
                     </span>
-                    <router-link to="/login" class="link font-weight-light">
+                    <router-link
+                      to="/login"
+                      class="link font-weight-light"
+                    >
                       {{ $t('register.to_login.login') }}
                     </router-link>
                   </div>
@@ -100,7 +158,10 @@
                     <span class="grey--text text--darken-1 font-weight-light">
                       {{ $t('register.to_password_reset.text') }}
                     </span>
-                    <router-link to="/password" class="link font-weight-light">
+                    <router-link
+                      to="/password"
+                      class="link font-weight-light"
+                    >
                       {{ $t('register.to_password_reset.reset') }}
                     </router-link>
                   </div>
@@ -115,117 +176,115 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue"
-import {Component, Watch} from "vue-property-decorator"
-import {EMAIL_REGEX} from "@/data/ApplicationConstants"
+import Vue from 'vue';
+import {Component, Watch} from 'vue-property-decorator';
+import {EMAIL_REGEX} from '@/data/ApplicationConstants';
 
-@Component({
-  name: "RegisterPage"
-})
+@Component({})
 export default class RegisterPage extends Vue {
-  showPassword: boolean = false
-  email: string = ""
-  username: string = ""
-  name: string = ""
-  password: string = ""
-  isRegisterButtonEnabled: boolean = false
+  showPassword = false
+  email = ''
+  username = ''
+  name = ''
+  password = ''
+  isRegisterButtonEnabled = false
 
-  get rulesRequired() {
-    return (value: string) => !!value || this.$t('register.rules.required').toString()
+  get rulesRequired(): (value: string) => (string | true) {
+    return (value: string): string | true => !!value || this.$t('register.rules.required').toString();
   }
 
-  get rulesEmail() {
-    return (value: string) => EMAIL_REGEX.test(value) || this.$t('register.rules.email').toString()
+  get rulesEmail(): (value: string) => (string | true) {
+    return (value: string): string | true => EMAIL_REGEX.test(value) || this.$t('register.rules.email').toString();
   }
 
-  get computeRegisterButton() {
+  get computeRegisterButton(): boolean {
     return (this.rulesEmail(this.email) === true
         && this.email.length !== 0
         && this.username.length !== 0
         && this.name.length !== 0
-        && this.password.length >= 8)
+        && this.password.length >= 8);
   }
 
-  get registerLoading() {
+  get registerLoading(): boolean {
     return this.$store.state.registerStatus === 'loading';
   }
 
-  get registerError() {
-    return this.$store.state.error
+  get registerError(): string {
+    return this.$store.state.error;
   }
 
-  get showRegisterError() {
+  get showRegisterError(): boolean {
     return this.$store.state.error !== '';
   }
 
-  @Watch("email")
-  emailChanged() {
-    this.isRegisterButtonEnabled = this.computeRegisterButton
+  @Watch('email')
+  emailChanged(): void {
+    this.isRegisterButtonEnabled = this.computeRegisterButton;
   }
 
-  @Watch("username")
-  usernameChanged() {
-    this.isRegisterButtonEnabled = this.computeRegisterButton
+  @Watch('username')
+  usernameChanged(): void {
+    this.isRegisterButtonEnabled = this.computeRegisterButton;
   }
 
-  @Watch("name")
-  nameChanged() {
-    this.isRegisterButtonEnabled = this.computeRegisterButton
+  @Watch('name')
+  nameChanged(): void {
+    this.isRegisterButtonEnabled = this.computeRegisterButton;
   }
 
-  @Watch("password")
-  passwordChanged() {
-    this.isRegisterButtonEnabled = this.computeRegisterButton
+  @Watch('password')
+  passwordChanged(): void {
+    this.isRegisterButtonEnabled = this.computeRegisterButton;
   }
 
   // noinspection JSUnusedGlobalSymbols
-  beforeRouteLeave(_to: any, _from: any, next: any) {
+  beforeRouteLeave(_to: never, _from: never, next: () => void): void {
     this.$store.state.error = null;
     next();
   }
 
-  submit() {
+  submit(): void {
     if (this.email.length === 0) {
-      this.$store.state.error = this.$t('register.errors.email.empty')
-      return
+      this.$store.state.error = this.$t('register.errors.email.empty');
+      return;
     } else if (this.email.length < 6) {
-      this.$store.state.error = this.$t('register.errors.email.short')
-      return
+      this.$store.state.error = this.$t('register.errors.email.short');
+      return;
     } else if (this.email.length > 255) {
-      this.$store.state.error = this.$t('register.errors.email.long')
-      return
+      this.$store.state.error = this.$t('register.errors.email.long');
+      return;
     }
 
     if (this.username.length === 0) {
-      this.$store.state.error = this.$t('register.errors.username.empty')
-      return
+      this.$store.state.error = this.$t('register.errors.username.empty');
+      return;
     } else if (this.username.length > 32) {
-      this.$store.state.error = this.$t('register.errors.username.long')
-      return
+      this.$store.state.error = this.$t('register.errors.username.long');
+      return;
     }
 
     if (this.name.length === 0) {
-      this.$store.state.error = this.$t('register.errors.name.empty')
-      return
+      this.$store.state.error = this.$t('register.errors.name.empty');
+      return;
     } else if (this.name.length > 255) {
-      this.$store.state.error = this.$t('register.errors.name.long')
-      return
+      this.$store.state.error = this.$t('register.errors.name.long');
+      return;
     }
 
     if (this.password.length === 0) {
-      this.$store.state.error = this.$t('register.errors.password.empty')
-      return
+      this.$store.state.error = this.$t('register.errors.password.empty');
+      return;
     } else if (this.password.length < 8) {
-      this.$store.state.error = this.$t('register.errors.password.short')
-      return
+      this.$store.state.error = this.$t('register.errors.password.short');
+      return;
     }
 
-    this.$store.dispatch("register", {
+    this.$store.dispatch('register', {
       email: this.email,
       username: this.username,
       name: this.name,
       password: this.password,
-    })
+    });
   }
 }
 </script>

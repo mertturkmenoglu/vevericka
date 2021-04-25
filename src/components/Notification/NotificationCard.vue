@@ -41,12 +41,12 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import {Emit, Prop} from 'vue-property-decorator';
-// eslint-disable-next-line no-unused-vars
-import NotificationService, {Notification, NotificationType} from '@/api/notification';
+import NotificationService, {NotificationType} from '@/api/notification';
+import INotification from '@/api/responses/INotification';
 
 @Component({})
 export default class NotificationCard extends Vue{
-  @Prop({ required: true }) notification!: Notification
+  @Prop({ required: true }) notification!: INotification
 
   get userImage(): string {
     const img = this.notification.origin.image;

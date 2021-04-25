@@ -221,11 +221,11 @@ export default class SettingsHobbies extends Vue {
     this.newHobby = '';
   }
 
-  deleteFeature(idx): void {
+  deleteFeature(idx: number): void {
     this.user.features.splice(idx, 1);
   }
 
-  deleteHobby(idx): void {
+  deleteHobby(idx: number): void {
     this.user.hobbies.splice(idx, 1);
   }
 

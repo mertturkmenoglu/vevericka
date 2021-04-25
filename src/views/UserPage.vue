@@ -182,9 +182,7 @@ import UserFeed from '@/components/Post/UserFeed.vue';
 import {Component} from 'vue-property-decorator';
 import UserService from '@/api/user';
 import PostService from '@/api/post';
-// eslint-disable-next-line no-unused-vars
-import {IUser} from '@/api/responses/IUser';
-// eslint-disable-next-line no-unused-vars
+import IUser from '@/api/responses/IUser';
 import IPost from '@/api/responses/IPost';
 
 @Component({
@@ -239,7 +237,7 @@ export default class UserPage extends Vue {
     }
   }
 
-  linkCopied(): Promise<void> {
+  linkCopied(): void {
     this.snackbarMessage = this.$t('user_page.snackbar.message').toString();
     this.snackbar = true;
   }
