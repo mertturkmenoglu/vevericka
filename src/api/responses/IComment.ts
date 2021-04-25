@@ -4,6 +4,7 @@ interface IComment {
     createdBy: {
         userId: string;
         username: string;
+        name: string;
         image: string;
     };
     content: string;

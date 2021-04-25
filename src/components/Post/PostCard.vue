@@ -228,7 +228,9 @@ import Vue from 'vue';
 import {Prop} from 'vue-property-decorator';
 import IPost from '@/api/responses/IPost';
 import {preparePostText} from '@/utils/postUtils';
+import Component from 'vue-class-component';
 
+@Component({})
 export default class PostCard extends Vue {
   @Prop({ required: true }) post!: IPost
   deletePostDialog = false

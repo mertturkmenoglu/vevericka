@@ -1,28 +1,36 @@
 <template>
   <div>
-    <div v-for="(post, idx) in feed" :key="idx">
+    <div
+      v-for="(post, idx) in feed"
+      :key="idx"
+    >
       <PostCard
-          :post="post"
-          class="my-2"
-          @shareLinkCopied="() => $emit('shareLinkCopied')"
-          @shareDM="() => $emit('shareDM')"
-          @postSaved="() => $emit('postSaved')"
-          @postReported="() => $emit('postReported')"
-          @postDeleted="() => $emit('postDeleted')"
-          @userUnfollowed="() => $emit('userUnfollowed')"
+        :post="post"
+        class="my-2"
+        @shareLinkCopied="() => $emit('shareLinkCopied')"
+        @shareDM="() => $emit('shareDM')"
+        @postSaved="() => $emit('postSaved')"
+        @postReported="() => $emit('postReported')"
+        @postDeleted="() => $emit('postDeleted')"
+        @userUnfollowed="() => $emit('userUnfollowed')"
       />
-      <v-divider v-if="idx !== feed.length - 1"/>
+      <v-divider v-if="idx !== feed.length - 1" />
     </div>
   </div>
 </template>
 
-<script>
-import PostCard from "@/components/Post/PostCard";
+<script lang="ts">
+import PostCard from '@/components/Post/PostCard';
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import {Prop} from 'vue-property-decorator';
+import IPost from '@/api/responses/IPost';
 
-export default {
-  name: "UserFeed",
-  props: ["feed"],
-  components: {PostCard},
+@Component({
+  components: { PostCard },
+})
+export default class UserFeed extends Vue {
+  @Prop({ required: true }) feed!: IPost[]
 }
 </script>
 
