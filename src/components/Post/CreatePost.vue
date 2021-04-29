@@ -34,7 +34,7 @@
       color="deep-orange"
       type="text"
       name="create-post-text-area"
-      :rules="postTextAreaRules"
+      :rules="postTextAreaRules()"
       :label="$t('home_page.post_create.post_text_field')"
       @click:clear="postContent = ''"
     />
