@@ -18,11 +18,11 @@
         <div v-if="feed.length > 0">
           <UserFeed
             :feed="feed"
-            @shareLinkCopied="shareLinkCopied"
-            @shareDM="shareDM"
-            @postSaved="postSaved"
-            @postDeleted="postDeleted"
-            @userUnfollowed="userUnfollowed"
+            @shareLinkCopied="userFeedHandler(actions.SHARE_LINK_COPIED)"
+            @shareDM="userFeedHandler(actions.SHARE_DM)"
+            @postSaved="userFeedHandler(actions.POST_SAVED)"
+            @postDeleted="userFeedHandler(actions.POST_DELETED)"
+            @userUnfollowed="userFeedHandler(actions.USER_UNFOLLOWED)"
           />
         </div>
         <div v-else>
@@ -54,23 +54,11 @@
 
     <HomeScrollTopFab />
 
-    <v-snackbar
-      v-model="snackbar"
-      bottom
-      right
-    >
-      {{ snackbarMessage }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="pink"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          {{ $t('home_page.snackbar.close') }}
-        </v-btn>
-      </template>
-    </v-snackbar>
+    <HomeSnackbar
+      :show="snackbar"
+      :message="snackbarMessage"
+      @close-snackbar="snackbar = false"
+    />
   </v-container>
 </template>
 
@@ -85,9 +73,11 @@ import IPost from '@/api/responses/IPost';
 import UserService from '@/api/user';
 import ExploreCard from '@/components/Home/ExploreCard.vue';
 import HomeScrollTopFab from '@/components/Home/HomeScrollTopFab.vue';
+import HomeSnackbar from '@/components/Home/HomeSnackbar.vue';
+import {UserFeedAction, UserFeedActionMessageKey} from '@/types';
 
 @Component({
-  components: {HomeScrollTopFab, ExploreCard, CreatePost, UserFeed},
+  components: {HomeSnackbar, HomeScrollTopFab, ExploreCard, CreatePost, UserFeed},
 })
 export default class HomePage extends Vue {
   user: IUser = ({} as IUser)
@@ -95,6 +85,10 @@ export default class HomePage extends Vue {
   isLoading = true
   snackbar = false
   snackbarMessage = ''
+
+  get actions(): typeof UserFeedAction {
+    return UserFeedAction;
+  }
 
   get username(): string {
     return this.$store.state.user.username;
@@ -130,29 +124,9 @@ export default class HomePage extends Vue {
     this.isLoading = false;
   }
 
-  shareLinkCopied(): void {
+  userFeedHandler(type: string): void {
     this.snackbar = true;
-    this.snackbarMessage = this.$t('home_page.snackbar.messages.post_link_copied').toString();
-  }
-
-  shareDM(): void {
-    this.snackbar = true;
-    this.snackbarMessage = this.$t('home_page.snackbar.messages.message_sent').toString();
-  }
-
-  postSaved(): void {
-    this.snackbar = true;
-    this.snackbarMessage = this.$t('home_page.snackbar.messages.saved').toString();
-  }
-
-  postDeleted(): void {
-    this.snackbar = true;
-    this.snackbarMessage = this.$t('home_page.snackbar.messages.post_deleted').toString();
-  }
-
-  userUnfollowed(): void {
-    this.snackbar = true;
-    this.snackbarMessage = this.$t('home_page.snackbar.messages.unfollowed').toString();
+    this.snackbarMessage = this.$t(UserFeedActionMessageKey[type]).toString();
   }
 }
 </script>
