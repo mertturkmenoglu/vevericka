@@ -91,7 +91,9 @@
 import Vue from 'vue';
 import {Emit, Prop} from 'vue-property-decorator';
 import IUser from '@/api/responses/IUser';
+import Component from 'vue-class-component';
 
+@Component({})
 export default class SettingsProfile extends Vue {
   @Prop({ required: true }) user!: IUser
 
