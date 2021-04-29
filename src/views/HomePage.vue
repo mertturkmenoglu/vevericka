@@ -51,24 +51,8 @@
         <ExploreCard />
       </v-col>
     </v-row>
-    <v-fab-transition>
-      <v-btn
-        v-if="showFab"
-        fab
-        bottom
-        small
-        absolute
-        fixed
-        color="deep-orange"
-        dark
-        right
-        class="mb-10"
-        aria-label="Scroll to Top"
-        @click="scrollToTop"
-      >
-        <v-icon>mdi-chevron-up</v-icon>
-      </v-btn>
-    </v-fab-transition>
+
+    <HomeScrollTopFab />
 
     <v-snackbar
       v-model="snackbar"
@@ -100,24 +84,20 @@ import PostService from '@/api/post';
 import IPost from '@/api/responses/IPost';
 import UserService from '@/api/user';
 import ExploreCard from '@/components/Home/ExploreCard.vue';
+import HomeScrollTopFab from '@/components/Home/HomeScrollTopFab.vue';
 
 @Component({
-  components: {ExploreCard, CreatePost, UserFeed},
+  components: {HomeScrollTopFab, ExploreCard, CreatePost, UserFeed},
 })
 export default class HomePage extends Vue {
   user: IUser = ({} as IUser)
   feed: Array<IPost> = []
   isLoading = true
   snackbar = false
-  showFab = false
   snackbarMessage = ''
 
   get username(): string {
     return this.$store.state.user.username;
-  }
-
-  created(): void {
-    window.addEventListener('scroll', this.handleScroll);
   }
 
   mounted(): void {
@@ -125,10 +105,6 @@ export default class HomePage extends Vue {
       await this.fetchFeed();
       this.isLoading = false;
     });
-  }
-
-  destroyed(): void {
-    window.removeEventListener('scroll', this.handleScroll);
   }
 
   async fetchUser(): Promise<void> {
@@ -152,18 +128,6 @@ export default class HomePage extends Vue {
     this.isLoading = true;
     await this.fetchFeed();
     this.isLoading = false;
-  }
-
-  handleScroll(): void {
-    this.showFab = window.scrollY > 0;
-  }
-
-  scrollToTop(): void {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
   }
 
   shareLinkCopied(): void {
