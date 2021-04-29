@@ -11,27 +11,12 @@
         cols="12"
         md="6"
       >
-        <CreatePost
+        <MainColumn
           :user="user"
-          @postCreated="postCreatedHandler"
+          :feed="feed"
+          @post-created="postCreatedHandler"
+          @show-snackbar="showSnackbar"
         />
-        <div v-if="feed.length > 0">
-          <UserFeed
-            :feed="feed"
-            @shareLinkCopied="userFeedHandler(actions.SHARE_LINK_COPIED)"
-            @shareDM="userFeedHandler(actions.SHARE_DM)"
-            @postSaved="userFeedHandler(actions.POST_SAVED)"
-            @postDeleted="userFeedHandler(actions.POST_DELETED)"
-            @userUnfollowed="userFeedHandler(actions.USER_UNFOLLOWED)"
-          />
-        </div>
-        <div v-else>
-          <div class="py-3 text-center">
-            <h3 class="font-weight-light">
-              No posts here <span class="deep-orange--text font-weight-bold">:(</span>
-            </h3>
-          </div>
-        </div>
       </v-col>
       <v-col
         v-else
@@ -74,21 +59,18 @@ import UserService from '@/api/user';
 import ExploreCard from '@/components/Home/ExploreCard.vue';
 import HomeScrollTopFab from '@/components/Home/HomeScrollTopFab.vue';
 import HomeSnackbar from '@/components/Home/HomeSnackbar.vue';
-import {UserFeedAction, UserFeedActionMessageKey} from '@/types';
+
+import MainColumn from '@/components/Home/MainColumn.vue';
 
 @Component({
-  components: {HomeSnackbar, HomeScrollTopFab, ExploreCard, CreatePost, UserFeed},
+  components: {MainColumn, HomeSnackbar, HomeScrollTopFab, ExploreCard, CreatePost, UserFeed},
 })
 export default class HomePage extends Vue {
-  user: IUser = ({} as IUser)
-  feed: Array<IPost> = []
+  user?: IUser = undefined
+  feed: IPost[] = []
   isLoading = true
   snackbar = false
   snackbarMessage = ''
-
-  get actions(): typeof UserFeedAction {
-    return UserFeedAction;
-  }
 
   get username(): string {
     return this.$store.state.user.username;
@@ -124,9 +106,9 @@ export default class HomePage extends Vue {
     this.isLoading = false;
   }
 
-  userFeedHandler(type: string): void {
+  showSnackbar(message: string): void {
     this.snackbar = true;
-    this.snackbarMessage = this.$t(UserFeedActionMessageKey[type]).toString();
+    this.snackbarMessage = message;
   }
 }
 </script>
