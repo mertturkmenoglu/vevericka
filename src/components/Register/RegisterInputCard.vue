@@ -5,22 +5,19 @@
     class="py-6 vertical-center"
   >
     <h1 class="text-center display-1 deep-orange--text font-weight-light">
-      {{ $t('login.title') }}
+      {{ $t('register.title') }}
     </h1>
-    <LoginForm class="mt-8" />
+    <RegisterForm class="mt-8" />
   </v-col>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import LoginForm from '@/components/Login/LoginForm.vue';
+<script>
+import RegisterForm from '@/components/Register/RegisterForm';
+import {Component, Vue} from 'vue-property-decorator';
 
 @Component({
-  components: {LoginForm},
+  components: {RegisterForm},
 })
-export default class LoginInputCard extends Vue {
-
+export default class RegisterInputCard extends Vue {
 }
 </script>
 
