@@ -1,10 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 import IPost from '@/api/responses/IPost';
-
-export type Tag = {
-    tag: string;
-    count: number;
-}
+import ITag from '@/api/responses/ITag';
 
 export type TrendingPerson = {
     user: {
@@ -26,8 +22,8 @@ class ExploreService {
     });
   }
 
-  static async getTags(): Promise<Tag[]> {
-    const res = await ExploreService.service.get<Tag[]>('/tags');
+  static async getTags(): Promise<ITag[]> {
+    const res = await ExploreService.service.get<ITag[]>('/tags');
     return res.data;
   }
 

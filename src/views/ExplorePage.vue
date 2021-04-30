@@ -199,8 +199,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import IPost from '@/api/responses/IPost';
-import ExploreService, {Tag, TrendingPerson} from '@/api/explore';
+import ExploreService, {TrendingPerson} from '@/api/explore';
 import ExplorePost from '@/components/Explore/ExplorePost.vue';
+import ITag from '@/api/responses/ITag';
 
 @Component({
   components: {ExplorePost},
@@ -208,7 +209,7 @@ import ExplorePost from '@/components/Explore/ExplorePost.vue';
 export default class ExplorePage extends Vue {
   trendingPosts: IPost[] = []
   trendingUsers: TrendingPerson[] = []
-  trendingTags: Tag[] = []
+  trendingTags: ITag[] = []
   postsRelatedToTag: IPost[] = []
 
   isTrendingPostsLoading = true

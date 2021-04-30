@@ -19,11 +19,11 @@
 <script lang="ts">
 import {Prop, Vue} from 'vue-property-decorator';
 import Component from 'vue-class-component';
-import {Tag} from '@/api/explore';
+import ITag from '@/api/responses/ITag';
 
 @Component({})
 export default class ExploreCardItem extends Vue {
-  @Prop({ required: true }) tag!: Tag
+  @Prop({ required: true }) tag!: ITag
 
   get exploreBoxBackground(): string {
     return this.$vuetify.theme.dark ? '#1e1e1e' : '#f7f9fa';

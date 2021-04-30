@@ -38,17 +38,18 @@
 
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator';
-import ExploreService, {Tag} from '@/api/explore';
+import ExploreService from '@/api/explore';
 import ExploreCardItem from '@/components/Home/ExploreCardItem.vue';
 import ExploreCardSub from '@/components/Home/ExploreCardSub.vue';
 import ExploreCardActions from '@/components/Home/ExploreCardActions.vue';
+import ITag from '@/api/responses/ITag';
 
 @Component({
   components: {ExploreCardActions, ExploreCardSub, ExploreCardItem},
 })
 export default class ExploreCard extends Vue {
   exploreLoading = true
-  exploreTags: Tag[] = []
+  exploreTags: ITag[] = []
 
   get exploreBoxBackground(): string {
     return this.$vuetify.theme.dark ? '#1e1e1e' : '#f7f9fa';
