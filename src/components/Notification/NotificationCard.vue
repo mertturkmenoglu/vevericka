@@ -38,11 +38,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Emit, Prop} from 'vue-property-decorator';
-import NotificationService, {NotificationType} from '@/api/notification';
+import {Vue, Emit, Prop} from 'vue-property-decorator';
+import NotificationService from '@/api/notification';
 import INotification from '@/api/responses/INotification';
+import NotificationType from '@/api/responses/NotificationType';
 
 @Component({})
 export default class NotificationCard extends Vue{

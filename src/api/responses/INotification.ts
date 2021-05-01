@@ -1,6 +1,6 @@
-import {NotificationType} from '@/api/notification';
+import NotificationType from '@/api/responses/NotificationType.ts';
 
-interface INotification {
+type INotification = {
     _id: string;
     origin: {
         _id: string;

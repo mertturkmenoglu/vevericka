@@ -1,12 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 import INotification from '@/api/responses/INotification';
 
-export enum NotificationType {
-    ON_USER_FOLLOW = 'ON_USER_FOLLOW',
-    ON_MENTION = 'ON_MENTION',
-    ON_COMMENT = 'ON_COMMENT',
-}
-
 class NotificationService {
   static get service(): AxiosInstance {
     return axios.create({
