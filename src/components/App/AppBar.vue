@@ -37,84 +37,27 @@
       </v-col>
     </v-row>
 
-    <router-link to="/search">
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            color="deep-orange"
-            class="hidden-md-and-up"
-            aria-label="Search"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-avatar class="ml-1">
-              <v-icon
-                color="deep-orange"
-                size="32"
-              >
-                mdi-magnify
-              </v-icon>
-            </v-avatar>
-          </v-btn>
-        </template>
-        <span>{{ $t('nav.bar.search') }}</span>
-      </v-tooltip>
-    </router-link>
+    <AppBarIcon
+      class="hidden-md-and-up"
+      to="/search"
+      label="Search"
+      icon-name="mdi-magnify"
+      :tooltip="$t('nav.bar.search')"
+    />
 
-    <router-link to="/notifications">
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            color="deep-orange"
-            aria-label="Notifications"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-avatar
-              class="ml-1"
-              size="40"
-            >
-              <v-icon
-                color="deep-orange"
-                size="32"
-              >
-                mdi-bell-outline
-              </v-icon>
-            </v-avatar>
-          </v-btn>
-        </template>
-        <span>{{ $t('nav.bar.notifications') }}</span>
-      </v-tooltip>
-    </router-link>
+    <AppBarIcon
+      to="/notifications"
+      label="Notifications"
+      icon-name="mdi-bell-outline"
+      :tooltip="$t('nav.bar.notifications')"
+    />
 
-    <router-link to="/messages">
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            color="deep-orange"
-            aria-label="Messages"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-avatar
-              class="ml-1"
-              size="40"
-            >
-              <v-icon
-                color="deep-orange"
-                size="32"
-              >
-                mdi-email-outline
-              </v-icon>
-            </v-avatar>
-          </v-btn>
-        </template>
-        <span>{{ $t('nav.bar.messages') }}</span>
-      </v-tooltip>
-    </router-link>
+    <AppBarIcon
+      to="/messages"
+      label="Messages"
+      icon-name="mdi-email-outline"
+      :tooltip="$t('nav.bar.messages')"
+    />
 
     <AppBarMenu />
   </v-app-bar>
@@ -126,9 +69,10 @@ import {router} from '@/router';
 import {publicPages} from '@/data/ApplicationConstants';
 import AppBarTitle from '@/components/App/AppBarTitle.vue';
 import AppBarMenu from '@/components/App/AppBarMenu.vue';
+import AppBarIcon from '@/components/App/AppBarIcon.vue';
 
 @Component({
-  components: {AppBarMenu, AppBarTitle},
+  components: {AppBarIcon, AppBarMenu, AppBarTitle},
 })
 export default class AppBar extends Vue {
   isAppBarSearchFocused = false
