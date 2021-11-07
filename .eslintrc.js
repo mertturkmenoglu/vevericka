@@ -25,8 +25,8 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'import/prefer-default-export': 'off',
     'no-restricted-syntax': 'off',
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
   },
   overrides: [
     {

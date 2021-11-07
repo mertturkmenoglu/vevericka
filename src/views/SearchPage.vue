@@ -50,28 +50,28 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import UserCard from "@/components/UserCard.vue";
-import UserService from "@/api/user";
-import { IUserSearchResult } from "@/api/responses/IUserSearchResult";
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import UserCard from '@/components/UserCard.vue';
+import UserService from '@/api/user';
+import { IUserSearchResult } from '@/api/responses/IUserSearchResult';
 
 @Component({
   components: { UserCard },
 })
 export default class SearchPage extends Vue {
-  searchStr = "";
+  searchStr = '';
 
   showLoading = false;
 
-  error = "";
+  error = '';
 
   searchResults: Array<IUserSearchResult> = [];
 
-  prefix = "";
+  prefix = '';
 
   mounted(): void {
-    this.searchStr = this.$store.state.gSearchTerm || "";
+    this.searchStr = this.$store.state.gSearchTerm || '';
     if (this.searchStr.length > 0) {
       this.search();
     }
@@ -83,7 +83,7 @@ export default class SearchPage extends Vue {
   }
 
   async search(): Promise<void> {
-    if (this.searchStr === "") {
+    if (this.searchStr === '') {
       return;
     }
 
@@ -94,10 +94,10 @@ export default class SearchPage extends Vue {
       const result = await UserService.searchByQuery(this.searchStr);
       this.showLoading = false;
       this.searchResults = result;
-      this.error = "";
+      this.error = '';
     } catch (e) {
       this.showLoading = false;
-      this.error = this.$t("search.user_not_found").toString();
+      this.error = this.$t('search.user_not_found').toString();
     }
   }
 }

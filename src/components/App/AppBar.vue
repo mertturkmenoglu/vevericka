@@ -54,12 +54,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { router } from "@/router";
-import { publicPages } from "@/data/ApplicationConstants";
-import AppBarTitle from "@/components/App/AppBarTitle.vue";
-import AppBarMenu from "@/components/App/AppBarMenu.vue";
-import AppBarIcon from "@/components/App/AppBarIcon.vue";
+import { Component, Vue } from 'vue-property-decorator';
+import { router } from '@/router';
+import { publicPages } from '@/data/ApplicationConstants';
+import AppBarTitle from '@/components/App/AppBarTitle.vue';
+import AppBarMenu from '@/components/App/AppBarMenu.vue';
+import AppBarIcon from '@/components/App/AppBarIcon.vue';
 
 @Component({
   components: { AppBarIcon, AppBarMenu, AppBarTitle },
@@ -67,10 +67,10 @@ import AppBarIcon from "@/components/App/AppBarIcon.vue";
 export default class AppBar extends Vue {
   isAppBarSearchFocused = false;
 
-  searchTerm = "";
+  searchTerm = '';
 
   get textFieldBackground(): string {
-    return this.$vuetify.theme.dark ? "#1e1e1e" : "#f0f2f5";
+    return this.$vuetify.theme.dark ? '#1e1e1e' : '#f0f2f5';
   }
 
   get showNavbar(): boolean {
@@ -78,7 +78,7 @@ export default class AppBar extends Vue {
   }
 
   get appBarColor(): string {
-    return this.$vuetify.theme.dark ? "#272727" : "#FFF";
+    return this.$vuetify.theme.dark ? '#272727' : '#FFF';
   }
 
   mounted(): void {
@@ -88,12 +88,12 @@ export default class AppBar extends Vue {
   async search(): Promise<void> {
     if (this.searchTerm.length > 0) {
       this.$store.state.gSearchTerm = this.searchTerm;
-      await router.push("/search");
+      await router.push('/search');
     }
   }
 
   setTheme(): void {
-    const theme = localStorage.getItem("veverickaTheme");
+    const theme = localStorage.getItem('veverickaTheme');
     this.$vuetify.theme.dark = theme === '"dark"';
   }
 }

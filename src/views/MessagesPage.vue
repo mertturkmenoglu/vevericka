@@ -283,16 +283,16 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { format } from "date-fns";
-import { Component, Watch } from "vue-property-decorator";
-import UserCard from "../components/UserCard.vue";
-import MessageCard from "../components/Message/MessageCard.vue";
-import IUser, { UserPopulated } from "@/api/responses/IUser";
-import UserService from "@/api/user";
-import MessageService from "@/api/message";
-import IChat, { ChatUser } from "@/api/responses/IChat";
-import IMessage from "@/api/responses/IMessage";
+import Vue from 'vue';
+import { format } from 'date-fns';
+import { Component, Watch } from 'vue-property-decorator';
+import UserCard from '../components/UserCard.vue';
+import MessageCard from '../components/Message/MessageCard.vue';
+import IUser, { UserPopulated } from '@/api/responses/IUser';
+import UserService from '@/api/user';
+import MessageService from '@/api/message';
+import IChat, { ChatUser } from '@/api/responses/IChat';
+import IMessage from '@/api/responses/IMessage';
 
 @Component({
   components: { MessageCard, UserCard },
@@ -300,7 +300,7 @@ import IMessage from "@/api/responses/IMessage";
 export default class MessagesPage extends Vue {
   user?: IUser;
 
-  chatId = "";
+  chatId = '';
 
   chat?: IChat = undefined;
 
@@ -310,7 +310,7 @@ export default class MessagesPage extends Vue {
 
   showNewChatDialog = false;
 
-  newMessage = "";
+  newMessage = '';
 
   isLoading = true;
 
@@ -343,9 +343,9 @@ export default class MessagesPage extends Vue {
     return this.user?.following.filter((u) => !this.chat?.users.some((it) => it._id === u._id));
   }
 
-  @Watch("chatId")
+  @Watch('chatId')
   async chatIdChanged(): Promise<void> {
-    if (this.chatId === "") {
+    if (this.chatId === '') {
       return;
     }
 
@@ -392,7 +392,7 @@ export default class MessagesPage extends Vue {
         sender: this.$store.state.user.userId,
       });
       await this.fetchChatMessages();
-      this.newMessage = "";
+      this.newMessage = '';
     } catch (e) {
       console.error(e);
     }
@@ -425,7 +425,7 @@ export default class MessagesPage extends Vue {
     try {
       await MessageService.createChat(dto);
       this.showNewChatDialog = false;
-      this.chatId = "";
+      this.chatId = '';
       window.location.reload();
     } catch (e) {
       console.error(e);
@@ -433,20 +433,20 @@ export default class MessagesPage extends Vue {
   }
 
   getImage(src: string): string {
-    if (src === "chat.png") {
-      return "/chat.png";
+    if (src === 'chat.png') {
+      return '/chat.png';
     }
     return src;
   }
 
   getFormattedChatUpdatedAtDate(c: IChat): string {
-    return format(new Date(c.updatedAt), "dd/MM/yyy HH:mm");
+    return format(new Date(c.updatedAt), 'dd/MM/yyy HH:mm');
   }
 
   getChatUsersNamesConcatenated(c: IChat): string {
     const limit = Math.min(3, c.users.length);
     const firstUsers = c.users.slice(0, limit);
-    const concatenated = firstUsers.map((user) => user.name).join(", ");
+    const concatenated = firstUsers.map((user) => user.name).join(', ');
 
     if (c.users.length <= 3) {
       return concatenated;
@@ -456,10 +456,10 @@ export default class MessagesPage extends Vue {
   }
 
   async goBackToChatList(): Promise<void> {
-    this.chatId = "";
+    this.chatId = '';
     this.chat = undefined;
     this.messages = [];
-    this.newMessage = "";
+    this.newMessage = '';
     this.chats = [];
     this.showEditChatDialog = false;
     this.showEditChatUsersDialog = false;
