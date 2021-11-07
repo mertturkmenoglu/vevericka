@@ -1,10 +1,7 @@
 <template>
   <v-card flat>
     <v-card-title>
-      <v-avatar
-        size="40"
-        class="ml-n3"
-      >
+      <v-avatar size="40" class="ml-n3">
         <v-img
           class="rounded-circle"
           :src="userImage"
@@ -19,14 +16,8 @@
       </div>
 
       <v-spacer />
-      <v-btn
-        icon
-        color="deep-orange"
-        @click="deleteNotification"
-      >
-        <v-icon color="deep-orange">
-          mdi-close
-        </v-icon>
+      <v-btn icon color="deep-orange" @click="deleteNotification">
+        <v-icon color="deep-orange"> mdi-close </v-icon>
       </v-btn>
     </v-card-title>
     <router-link :to="notificationDirection">
@@ -39,29 +30,29 @@
 
 <script lang="ts">
 import Component from 'vue-class-component';
-import {Vue, Emit, Prop} from 'vue-property-decorator';
+import { Vue, Emit, Prop } from 'vue-property-decorator';
 import NotificationService from '@/api/notification';
 import INotification from '@/api/responses/INotification';
-import NotificationType from '@/api/responses/NotificationType';
+import { NotificationType } from '@/api/responses/NotificationType';
 
 @Component({})
-export default class NotificationCard extends Vue{
-  @Prop({ required: true }) notification!: INotification
+export default class NotificationCard extends Vue {
+  @Prop({ required: true }) notification!: INotification;
 
   get userImage(): string {
     const img = this.notification.origin.image;
     if (img === 'profile.png') {
       return '/profile.png';
-    } else {
-      return img;
     }
+    return img;
   }
 
   get notificationText(): string {
     if (this.notification.type === NotificationType.ON_MENTION) {
-      return this.notification.origin.username + ' mentioned you in a post';
-    } else if (this.notification.type === NotificationType.ON_USER_FOLLOW) {
-      return this.notification.origin.username + ' started following you';
+      return `${this.notification.origin.username} mentioned you in a post`;
+    }
+    if (this.notification.type === NotificationType.ON_USER_FOLLOW) {
+      return `${this.notification.origin.username} started following you`;
     }
     return '';
   }
@@ -69,7 +60,8 @@ export default class NotificationCard extends Vue{
   get notificationDirection(): string {
     if (this.notification.type === NotificationType.ON_MENTION) {
       return `/post/${this.notification.metadata}`;
-    } else if (this.notification.type === NotificationType.ON_USER_FOLLOW) {
+    }
+    if (this.notification.type === NotificationType.ON_USER_FOLLOW) {
       return `/user/${this.notification.metadata}`;
     }
     return '/';

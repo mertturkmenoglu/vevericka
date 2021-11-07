@@ -62,11 +62,11 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Emit, Prop} from 'vue-property-decorator';
+import { Emit, Prop } from 'vue-property-decorator';
 import IUser from '@/api/responses/IUser';
 
 @Component({})
-export default class SettingsGeneral extends Vue{
+export default class SettingsGeneral extends Vue {
   @Prop({ required: true }) user!: IUser
 
   @Emit('update')

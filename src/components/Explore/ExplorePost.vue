@@ -1,14 +1,8 @@
 <template>
-  <v-card
-    class="px-5"
-    flat
-  >
+  <v-card class="px-5" flat>
     <v-card-title>
       <router-link :to="{ name: 'UserPage', params: { username: post.createdBy.username } }">
-        <v-avatar
-          size="40"
-          class="ml-n3"
-        >
+        <v-avatar size="40" class="ml-n3">
           <v-img
             class="rounded-circle"
             :src="userImage"
@@ -20,10 +14,14 @@
         </v-avatar>
         <span class="hidden-sm-and-down">
           <span class="ml-5 font-weight-regular text--primary">{{ post.createdBy.name }}</span>
-          <span class="ml-2 font-weight-light deep-orange--text text-subtitle-1">@{{ post.createdBy.username }}</span>
+          <span class="ml-2 font-weight-light deep-orange--text text-subtitle-1">
+            @{{ post.createdBy.username }}
+          </span>
         </span>
         <span class="hidden-md-and-up">
-          <span class="ml-5 font-weight-light deep-orange--text text-subtitle-1">@{{ post.createdBy.username }}</span>
+          <span class="ml-5 font-weight-light deep-orange--text text-subtitle-1">
+            @{{ post.createdBy.username }}
+          </span>
         </span>
       </router-link>
     </v-card-title>
@@ -37,13 +35,10 @@
       </router-link>
     </v-card-text>
 
-    <v-card-actions
-      aria-label="Post Actions"
-      class="mr-6"
-    >
+    <v-card-actions aria-label="Post Actions" class="mr-6">
       <v-spacer />
       <div class="content-small text--disabled text--primary mr-3">
-        {{ (new Date(post.createdAt)).toLocaleDateString() }}
+        {{ new Date(post.createdAt).toLocaleDateString() }}
       </div>
       <router-link :to="{ name: 'PostDetailPage', params: { id: post._id } }">
         <span class="content-small font-weight-light">
@@ -58,8 +53,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Prop} from 'vue-property-decorator';
-import {preparePostText} from '@/utils/postUtils';
+import { Prop } from 'vue-property-decorator';
+import { preparePostText } from '@/utils/postUtils';
 
 type ExplorePostType = {
   _id: string;
@@ -75,11 +70,11 @@ type ExplorePostType = {
   content: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
 @Component({})
 export default class ExplorePost extends Vue {
-  @Prop({ required: true }) post!: ExplorePostType
+  @Prop({ required: true }) post!: ExplorePostType;
 
   makeHTML(text: string): string {
     return preparePostText(text);
@@ -89,9 +84,8 @@ export default class ExplorePost extends Vue {
     const img = this.post.createdBy.image;
     if (img === 'profile.png') {
       return '/profile.png';
-    } else {
-      return img;
     }
+    return img;
   }
 }
 </script>

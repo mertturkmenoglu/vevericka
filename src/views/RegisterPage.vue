@@ -10,12 +10,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import RegisterMotto from '@/components/Register/RegisterMotto.vue';
 import RegisterInputCard from '@/components/Register/RegisterInputCard.vue';
 
 @Component({
-  components: {RegisterInputCard, RegisterMotto},
+  components: { RegisterInputCard, RegisterMotto },
 })
 export default class RegisterPage extends Vue {
 

@@ -82,14 +82,17 @@
   </v-form>
 </template>
 <script lang="ts">
-import {Component, Vue, Watch} from 'vue-property-decorator';
-import {EMAIL_REGEX} from '@/data/ApplicationConstants';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { EMAIL_REGEX } from '@/data/ApplicationConstants';
 
 @Component({})
 export default class LoginForm extends Vue {
   showPassword = false
+
   email = ''
+
   password = ''
+
   isLoginButtonEnabled = false
 
   get rulesRequired() {
@@ -97,9 +100,7 @@ export default class LoginForm extends Vue {
   }
 
   get rulesEmail() {
-    return (value: string): string | true => {
-      return EMAIL_REGEX.test(value) || this.$t('login.rules.email').toString();
-    };
+    return (value: string): string | true => EMAIL_REGEX.test(value) || this.$t('login.rules.email').toString();
   }
 
   get computeLoginButton(): boolean {

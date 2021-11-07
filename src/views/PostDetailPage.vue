@@ -75,22 +75,26 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 import PostCard from '@/components/Post/PostCard.vue';
 import CommentCard from '@/components/Post/CommentCard.vue';
-import {Component} from 'vue-property-decorator';
 import IPost from '@/api/responses/IPost';
 import PostService from '@/api/post';
 import CommentService from '@/api/comment';
 
 @Component({
   name: 'PostDetailPage',
-  components: {PostCard, CommentCard},
+  components: { PostCard, CommentCard },
 })
 export default class PostDetailPage extends Vue {
   post: IPost = ({} as IPost)
+
   loading = true
+
   snackbar = false
+
   snackbarMessage = ''
+
   commentContent = ''
 
   get commentTextAreaRules(): ((v: string) => (string | true))[] {

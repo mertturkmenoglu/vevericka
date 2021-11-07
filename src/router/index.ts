@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
+import VueRouter, { NavigationGuardNext, Route, RouteConfig } from 'vue-router';
 import HomePage from '@/views/HomePage.vue';
 import LoginPage from '@/views/LoginPage.vue';
 
@@ -76,15 +76,15 @@ const routes: RouteConfig[] = [
 
   // Otherwise redirect to HomePage
   { path: '*', redirect: '/' },
-]
+];
 
 export const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach((to: Route, _from: Route, next: NavigationGuardNext<Vue>) => {
   const publicPages = ['/login', '/register', '/password', '/terms'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('vev-token');
@@ -101,5 +101,5 @@ router.beforeEach((to, _from, next) => {
     return next('/login');
   }
 
-  next();
+  return next();
 });

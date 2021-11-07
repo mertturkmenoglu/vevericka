@@ -1,13 +1,7 @@
 <template>
-  <v-card
-    class="px-5"
-    flat
-  >
+  <v-card class="px-5" flat>
     <v-card-title>
-      <v-avatar
-        size="40"
-        class="ml-n3"
-      >
+      <v-avatar size="40" class="ml-n3">
         <v-img
           class="rounded-circle"
           :src="user.image"
@@ -61,28 +55,31 @@
         :disabled="typingProgress > 100"
         @click="createPost"
       >
-        {{ $t('home_page.post_create.post_button') }}
+        {{ $t("home_page.post_create.post_button") }}
       </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script lang="ts">
-import PostService from '@/api/post';
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Prop} from 'vue-property-decorator';
-import IUser from '@/api/responses/IUser';
+import { Prop } from 'vue-property-decorator';
 import VueI18n from 'vue-i18n';
+import IUser from '@/api/responses/IUser';
+import PostService from '@/api/post';
 import LocaleMessages = VueI18n.LocaleMessages;
+
+type RuleReturn = boolean | (() => string | LocaleMessages);
 
 @Component({})
 export default class CreatePost extends Vue {
   @Prop({ required: true }) user!: IUser;
+
   postContent = '';
 
-  postTextAreaRules(): [(v: string) => boolean | (() => string | LocaleMessages)] {
-    return [(v: string): boolean | (() => string | LocaleMessages) => v.length <= 255 || this.postTextAreaError];
+  postTextAreaRules(): [(v: string) => RuleReturn] {
+    return [(v: string): RuleReturn => v.length <= 255 || this.postTextAreaError];
   }
 
   postTextAreaError(): string {
@@ -91,7 +88,7 @@ export default class CreatePost extends Vue {
 
   get typingProgress(): number {
     const MAX_CHARACTERS = 255;
-    return this.postContent.length / MAX_CHARACTERS * 100;
+    return (this.postContent.length / MAX_CHARACTERS) * 100;
   }
 
   async createPost(): Promise<void> {
@@ -115,11 +112,13 @@ export default class CreatePost extends Vue {
 
 <!--suppress CssUnusedSymbol -->
 <style scoped>
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 1s;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

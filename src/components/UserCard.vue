@@ -40,7 +40,7 @@
 
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Prop} from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
 import IUser from '@/api/responses/IUser';
 
 @Component({})
@@ -51,9 +51,8 @@ export default class UserCard extends Vue {
     const img = this.user.image;
     if (img === 'profile.png') {
       return '/profile.png';
-    } else {
-      return img;
     }
+    return img;
   }
 }
 </script>

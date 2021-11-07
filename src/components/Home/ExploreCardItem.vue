@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import {Prop, Vue} from 'vue-property-decorator';
+import { Prop, Vue } from 'vue-property-decorator';
 import Component from 'vue-class-component';
 import ITag from '@/api/responses/ITag';
 

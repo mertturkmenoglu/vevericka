@@ -162,19 +162,26 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
-import {EMAIL_REGEX} from '@/data/ApplicationConstants';
+import { Component, Watch } from 'vue-property-decorator';
+import { EMAIL_REGEX } from '@/data/ApplicationConstants';
 import AuthService from '@/api/auth';
 
 @Component({})
 export default class PasswordResetPage extends Vue {
   email = ''
+
   snackbar = false
+
   snackbarMessage = ''
+
   emailSend = false
+
   resetCode = ''
+
   password = ''
+
   showPassword = false
+
   isSendResetCodeButtonEnabled = false
 
   get rulesRequired() {
@@ -182,9 +189,7 @@ export default class PasswordResetPage extends Vue {
   }
 
   get rulesEmail() {
-    return (value: string): string | true => {
-      return EMAIL_REGEX.test(value) || this.$t('password_reset.rules.email').toString();
-    };
+    return (value: string): string | true => EMAIL_REGEX.test(value) || this.$t('password_reset.rules.email').toString();
   }
 
   get computeSendResetCodeButton(): boolean {
@@ -199,7 +204,6 @@ export default class PasswordResetPage extends Vue {
   async sendPasswordResetEmail(): Promise<void> {
     try {
       const resp = await AuthService.sendPasswordResetEmail(this.email);
-
 
       if (resp) {
         this.emailSend = true;
@@ -249,4 +253,3 @@ a.no-text-decoration {
   color: #E64A19;
 }
 </style>
-

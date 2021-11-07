@@ -26,4 +26,3 @@
   align-items: center;
 }
 </style>
-

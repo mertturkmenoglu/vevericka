@@ -124,16 +124,21 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Watch} from 'vue-property-decorator';
-import {EMAIL_REGEX} from '@/data/ApplicationConstants';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { EMAIL_REGEX } from '@/data/ApplicationConstants';
 
 @Component({})
 export default class RegisterForm extends Vue {
   showPassword = false
+
   email = ''
+
   username = ''
+
   name = ''
+
   password = ''
+
   isRegisterButtonEnabled = false
 
   get rulesRequired(): (value: string) => (string | true) {
@@ -194,10 +199,10 @@ export default class RegisterForm extends Vue {
     if (this.email.length === 0) {
       this.$store.state.error = this.$t('register.errors.email.empty');
       return;
-    } else if (this.email.length < 6) {
+    } if (this.email.length < 6) {
       this.$store.state.error = this.$t('register.errors.email.short');
       return;
-    } else if (this.email.length > 255) {
+    } if (this.email.length > 255) {
       this.$store.state.error = this.$t('register.errors.email.long');
       return;
     }
@@ -205,7 +210,7 @@ export default class RegisterForm extends Vue {
     if (this.username.length === 0) {
       this.$store.state.error = this.$t('register.errors.username.empty');
       return;
-    } else if (this.username.length > 32) {
+    } if (this.username.length > 32) {
       this.$store.state.error = this.$t('register.errors.username.long');
       return;
     }
@@ -213,7 +218,7 @@ export default class RegisterForm extends Vue {
     if (this.name.length === 0) {
       this.$store.state.error = this.$t('register.errors.name.empty');
       return;
-    } else if (this.name.length > 255) {
+    } if (this.name.length > 255) {
       this.$store.state.error = this.$t('register.errors.name.long');
       return;
     }
@@ -221,7 +226,7 @@ export default class RegisterForm extends Vue {
     if (this.password.length === 0) {
       this.$store.state.error = this.$t('register.errors.password.empty');
       return;
-    } else if (this.password.length < 8) {
+    } if (this.password.length < 8) {
       this.$store.state.error = this.$t('register.errors.password.short');
       return;
     }
@@ -251,4 +256,3 @@ a.no-text-decoration {
   color: #ff5722;
 }
 </style>
-

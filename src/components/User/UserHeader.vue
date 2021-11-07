@@ -83,8 +83,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
 import UserActions from '@/components/User/UserActions.vue';
-import {Component, Prop} from 'vue-property-decorator';
 import IUser from '@/api/responses/IUser';
 
 @Component({
@@ -99,9 +99,8 @@ export default class UserHeader extends Vue {
     const img = this.user?.image;
     if (img === 'profile.png' || !img) {
       return '/profile.png';
-    } else {
-      return img;
     }
+    return img;
   }
 }
 </script>

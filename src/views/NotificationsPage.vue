@@ -1,40 +1,16 @@
 <template>
   <v-container>
-    <v-btn
-      text
-      color="deep-orange"
-      depressed
-      tile
-    >
-      <h2 class="font-weight-light deep-orange--text">
-        Notifications
-      </h2>
-      <v-icon
-        color="deep-orange"
-        right
-      >
-        mdi-bell-outline
-      </v-icon>
+    <v-btn text color="deep-orange" depressed tile>
+      <h2 class="font-weight-light deep-orange--text">Notifications</h2>
+      <v-icon color="deep-orange" right> mdi-bell-outline </v-icon>
     </v-btn>
 
-    <div
-      v-if="isLoading"
-      class="text-center mt-2"
-    >
-      <v-progress-circular
-        indeterminate
-        color="deep-orange"
-      />
+    <div v-if="isLoading" class="text-center mt-2">
+      <v-progress-circular indeterminate color="deep-orange" />
     </div>
-    <div
-      v-else
-      class="mt-2"
-    >
+    <div v-else class="mt-2">
       <div v-if="notifications.length > 0">
-        <div
-          v-for="(notification, idx) in notifications"
-          :key="notification._id"
-        >
+        <div v-for="(notification, idx) in notifications" :key="notification._id">
           <NotificationCard
             :notification="notification"
             class="mt-2"
@@ -43,13 +19,8 @@
           <v-divider v-if="idx !== notifications.length - 1" />
         </div>
       </div>
-      <div
-        v-else
-        class="text-center"
-      >
-        <h2 class="font-weight-light deep-orange--text">
-          No notifications
-        </h2>
+      <div v-else class="text-center">
+        <h2 class="font-weight-light deep-orange--text">No notifications</h2>
       </div>
     </div>
   </v-container>
@@ -63,11 +34,12 @@ import NotificationCard from '@/components/Notification/NotificationCard.vue';
 import INotification from '@/api/responses/INotification';
 
 @Component({
-  components: {NotificationCard},
+  components: { NotificationCard },
 })
 export default class NotificationsPage extends Vue {
-  notifications: INotification[] = []
-  isLoading = true
+  notifications: INotification[] = [];
+
+  isLoading = true;
 
   mounted(): void {
     this.fetchNotifications().then(async () => {
@@ -77,7 +49,9 @@ export default class NotificationsPage extends Vue {
 
   async fetchNotifications(): Promise<void> {
     try {
-      this.notifications = await NotificationService.getNotifications(this.$store.state.user.username);
+      this.notifications = await NotificationService.getNotifications(
+        this.$store.state.user.username,
+      );
     } catch (e) {
       console.error(e);
     }
@@ -91,6 +65,4 @@ export default class NotificationsPage extends Vue {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

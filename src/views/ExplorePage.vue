@@ -199,22 +199,28 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import IPost from '@/api/responses/IPost';
-import ExploreService, {TrendingPerson} from '@/api/explore';
+import ExploreService, { TrendingPerson } from '@/api/explore';
 import ExplorePost from '@/components/Explore/ExplorePost.vue';
 import ITag from '@/api/responses/ITag';
 
 @Component({
-  components: {ExplorePost},
+  components: { ExplorePost },
 })
 export default class ExplorePage extends Vue {
   trendingPosts: IPost[] = []
+
   trendingUsers: TrendingPerson[] = []
+
   trendingTags: ITag[] = []
+
   postsRelatedToTag: IPost[] = []
 
   isTrendingPostsLoading = true
+
   isTrendingUsersLoading = true
+
   isTrendingTagsLoading = true
+
   isPostsRelatedToTagLoading = true
 
   mounted(): void {
@@ -271,9 +277,8 @@ export default class ExplorePage extends Vue {
     const img = user.image;
     if (img === 'profile.png') {
       return '/profile.png';
-    } else {
-      return img;
     }
+    return img;
   }
 
   get isTagPage(): boolean {

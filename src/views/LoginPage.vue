@@ -9,12 +9,12 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import LoginMotto from '@/components/Login/LoginMotto.vue';
 import LoginInputCard from '@/components/Login/LoginInputCard.vue';
-import {Component, Vue} from 'vue-property-decorator';
 
 @Component({
-  components: {LoginInputCard, LoginMotto},
+  components: { LoginInputCard, LoginMotto },
 })
 export default class LoginPage extends Vue {
 

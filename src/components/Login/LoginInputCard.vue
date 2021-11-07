@@ -13,11 +13,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import LoginForm from '@/components/Login/LoginForm.vue';
 
 @Component({
-  components: {LoginForm},
+  components: { LoginForm },
 })
 export default class LoginInputCard extends Vue {
 
