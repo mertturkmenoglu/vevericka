@@ -1,15 +1,8 @@
 <template>
-  <v-card
-    class="px-5 v-card"
-    flat
-    outlined
-  >
+  <v-card class="px-5 v-card" flat outlined>
     <v-card-title>
       <router-link :to="{ name: 'UserPage', params: { username: bookmark.createdBy.username } }">
-        <v-avatar
-          size="40"
-          class="ml-n3"
-        >
+        <v-avatar size="40" class="ml-n3">
           <v-img
             class="rounded-circle"
             :src="userImage"
@@ -20,47 +13,29 @@
           />
         </v-avatar>
         <span class="ml-5 font-weight-light text--primary">{{ bookmark.createdBy.name }}</span>
-        <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">@{{ bookmark.createdBy.username }}</span>
+        <span class="ml-2 font-weight-thin deep-orange--text text-subtitle-1">
+          @{{ bookmark.createdBy.username }}
+        </span>
       </router-link>
 
       <v-spacer />
 
-      <v-menu
-        left
-        bottom
-        nudge-left="24"
-        nudge-bottom="48"
-      >
+      <v-menu left bottom nudge-left="24" nudge-bottom="48">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
+          <v-btn icon v-bind="attrs" v-on="on">
             <v-avatar size="24">
-              <v-icon
-                color="deep-orange text--darken-2"
-                size="24"
-              >
-                mdi-dots-vertical
-              </v-icon>
+              <v-icon color="deep-orange text--darken-2" size="24"> mdi-dots-vertical </v-icon>
             </v-avatar>
           </v-btn>
         </template>
 
-        <v-list
-          flat
-          class="text-decoration-none font-weight-light"
-          dense
-        >
+        <v-list flat class="text-decoration-none font-weight-light" dense>
           <v-list-item @click="removeBookmark">
             <v-list-item-icon>
-              <v-icon color="deep-orange">
-                mdi-bookmark
-              </v-icon>
+              <v-icon color="deep-orange"> mdi-bookmark </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('bookmark_card.remove') }}</v-list-item-title>
+              <v-list-item-title>{{ $t("bookmark_card.remove") }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -80,7 +55,7 @@
 
     <v-card-actions>
       <div class="content-small font-weight-thin ml-n1 text--primary">
-        {{ (new Date(bookmark.createdAt)).toLocaleDateString() }}
+        {{ new Date(bookmark.createdAt).toLocaleDateString() }}
       </div>
       <v-spacer />
       <router-link :to="{ name: 'PostDetailPage', params: { id: bookmark._id } }">
@@ -94,25 +69,25 @@
 </template>
 
 <script lang="ts">
-import BookmarkService from '@/api/bookmark';
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Prop} from 'vue-property-decorator';
-import {preparePostText} from '@/utils/postUtils';
+import { Prop } from 'vue-property-decorator';
+import BookmarkService from '@/api/bookmark';
+import { preparePostText } from '@/utils/postUtils';
 import IPost from '@/api/responses/IPost';
 
 @Component({})
-export default class BookmarkCard extends Vue{
+export default class BookmarkCard extends Vue {
   @Prop({ required: true }) bookmark!: IPost;
+
   @Prop({ required: true }) bookmarkId!: string;
 
   get userImage(): string {
     const img = this.bookmark.createdBy.image;
     if (img === 'profile.png') {
       return '/profile.png';
-    } else {
-      return img;
     }
+    return img;
   }
 
   makeHTML(text: string): string {

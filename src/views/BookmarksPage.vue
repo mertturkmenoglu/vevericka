@@ -76,18 +76,21 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 import BookmarkCard from '@/components/Post/BookmarkCard.vue';
-import {Component} from 'vue-property-decorator';
 import IPost from '@/api/responses/IPost';
 import BookmarkService from '@/api/bookmark';
 
 @Component({
-  components: {BookmarkCard},
+  components: { BookmarkCard },
 })
 export default class BookmarksPage extends Vue {
   loading = true
+
   bookmarks: IPost[] = []
+
   snackbar = false
+
   snackbarMessage = ''
 
   mounted(): void {
@@ -105,7 +108,7 @@ export default class BookmarksPage extends Vue {
 
   async fetchBookmarks(): Promise<void> {
     try {
-      const username: string = this.$store.state.user.username;
+      const { username } = this.$store.state.user;
       this.bookmarks = await BookmarkService.getBookmarksByUsername(username);
     } catch (e) {
       console.error(e);

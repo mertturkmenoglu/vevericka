@@ -1,13 +1,7 @@
 <template>
-  <v-card
-    class="px-4"
-    flat
-  >
+  <v-card class="px-4" flat>
     <v-card-title class="my-n3">
-      <v-avatar
-        size="24"
-        class=""
-      >
+      <v-avatar size="24" class="">
         <v-img
           class="rounded-circle"
           :src="message.sender.image"
@@ -17,11 +11,8 @@
           alt="Profile"
         />
       </v-avatar>
-      <div
-        class="font-weight-light em-08 ml-2"
-        :class="[ isThisUser ? 'this-user' : 'other-user']"
-      >
-        {{ isThisUser ? 'You' : message.sender.name }}
+      <div class="font-weight-light em-08 ml-2" :class="[isThisUser ? 'this-user' : 'other-user']">
+        {{ isThisUser ? "You" : message.sender.name }}
       </div>
       <v-spacer />
       <div class="font-weight-light text-caption em-08">
@@ -36,18 +27,19 @@
 </template>
 
 <script lang="ts">
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Prop} from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
 import IMessage from '@/api/responses/IMessage';
 
 @Component({})
 export default class MessageCard extends Vue {
-  @Prop({ required: true }) message!: IMessage
+  @Prop({ required: true }) message!: IMessage;
 
   get isThisUser(): boolean {
-    return this.$store.state.user.userId === (this.message.sender as unknown as { _id: string })._id;
+    const senderId = (this.message.sender as unknown as { _id: string })._id;
+    return this.$store.state.user.userId === senderId;
   }
 
   get getFormattedMessageTime(): string {

@@ -1,48 +1,47 @@
-import axios, {AxiosInstance} from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import IChat from '@/api/responses/IChat';
 import IMessage from '@/api/responses/IMessage';
+import { BASE_URL } from '../constants';
 
 type CreateChatDto = {
-    createdBy: string;
-    users: string[];
-    isGroupChat: boolean;
+  createdBy: string;
+  users: string[];
+  isGroupChat: boolean;
 }
 
 type CreateMessageDto = {
-    sender: string;
-    content: string;
-    chat: string;
+  sender: string;
+  content: string;
+  chat: string;
 }
 
 type UpdateChatNameDto = {
-    chat: string;
-    chatName: string;
+  chat: string;
+  chatName: string;
 }
 
 type AddUserToChatDto = {
-    chatId: string;
-    userId: string;
+  chatId: string;
+  userId: string;
 }
 
 type RemoveUserFromChatDto = {
-    chatId: string;
-    userId: string;
+  chatId: string;
+  userId: string;
 }
 
 class MessageService {
   static get service(): AxiosInstance {
     return axios.create({
-      baseURL: process.env.NODE_ENV === 'production'
-        ? 'https://vevericka-backend.herokuapp.com/api/v2/message'
-        : 'http://localhost:5000/api/v2/message',
+      baseURL: `${BASE_URL}/api/v2/message`,
       headers: {
-        'authorization': localStorage.getItem('vev-token') || '',
+        authorization: localStorage.getItem('vev-token') || '',
       },
     });
   }
 
   static async getUserChats(username: string): Promise<IChat[]> {
-    const res = await MessageService.service.get<IChat[]>('/chat/user-chats/' + username);
+    const res = await MessageService.service.get<IChat[]>(`/chat/user-chats/${username}`);
     return res.data;
   }
 
@@ -52,7 +51,7 @@ class MessageService {
   }
 
   static async getChatMessages(chatId: string): Promise<IMessage[]> {
-    const res = await MessageService.service.get<IMessage[]>('/chat/messages/' + chatId);
+    const res = await MessageService.service.get<IMessage[]>(`/chat/messages/${chatId}`);
     return res.data;
   }
 
@@ -77,7 +76,7 @@ class MessageService {
   }
 
   static async deleteChat(chatId: string): Promise<string> {
-    const res = await MessageService.service.delete<{ message: string }>('/chat/' + chatId);
+    const res = await MessageService.service.delete<{ message: string }>(`/chat/${chatId}`);
     return res.data.message;
   }
 }

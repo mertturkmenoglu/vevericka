@@ -99,12 +99,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import IUser from '@/api/responses/IUser';
 
 @Component({})
 export default class UserInfo extends Vue {
   @Prop({ required: true }) readonly user!: IUser;
+
   readonly userInfo: string = 'text-body-1 mx-auto mt-2 pl-2';
 
   get twitterLink(): string {
@@ -116,9 +117,8 @@ export default class UserInfo extends Vue {
   get bdate(): string {
     if (this.user.bdate) {
       return (new Date(this.user.bdate)).toLocaleDateString();
-    } else {
-      return '';
     }
+    return '';
   }
 
   get noInfo(): boolean {

@@ -58,7 +58,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Prop} from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
 import IUser from '@/api/responses/IUser';
 
 @Component({})
@@ -70,7 +70,7 @@ export default class UserActions extends Vue {
   }
 
   get isFriend(): boolean {
-    return this.user.followers.map(it => it._id).indexOf(this.$store.state.user.userId) !== -1;
+    return this.user.followers.map((it) => it._id).indexOf(this.$store.state.user.userId) !== -1;
   }
 }
 </script>

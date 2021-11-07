@@ -1,4 +1,4 @@
-import Vue, {CreateElement, VNode} from 'vue';
+import Vue from 'vue';
 import App from './App.vue';
 import { router } from './router';
 import store from './store';
@@ -12,5 +12,5 @@ new Vue({
   store,
   vuetify,
   i18n,
-  render: (h: CreateElement): VNode => h(App),
+  render: (h) => h(App),
 }).$mount('#app');

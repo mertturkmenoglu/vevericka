@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
     "importHelpers": true,
@@ -24,8 +24,7 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest",
-      "vuetify"
+      "jest"
     ],
     "paths": {
       "@/*": [

@@ -38,10 +38,10 @@
 </template>
 
 <script lang="ts">
-import UserCard from '@/components/UserCard.vue';
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Prop, Watch} from 'vue-property-decorator';
+import { Prop, Watch } from 'vue-property-decorator';
+import UserCard from '@/components/UserCard.vue';
 import IUser from '@/api/responses/IUser';
 
 @Component({
@@ -49,9 +49,11 @@ import IUser from '@/api/responses/IUser';
     UserCard,
   },
 })
-export default class  UserListDialog extends Vue {
+export default class UserListDialog extends Vue {
   @Prop({ required: true }) title!: string;
+
   @Prop({ required: true }) list!: IUser[];
+
   @Prop({ required: true }) onItemClick!: () => never
 
   showList = true
@@ -60,7 +62,6 @@ export default class  UserListDialog extends Vue {
   showListWatch(): void {
     this.onItemClick();
   }
-
 }
 </script>
 

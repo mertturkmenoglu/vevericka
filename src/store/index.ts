@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Vue from 'vue';
-import Vuex, {ActionContext} from 'vuex';
+import Vuex, { ActionContext } from 'vuex';
 import { router } from '@/router';
 import AuthService from '@/api/auth';
-import {LoginPayload, LoginSuccess, RegisterPayload} from '@/store/types';
+import { LoginPayload, LoginSuccess, RegisterPayload } from '@/store/types';
 
 Vue.use(Vuex);
 
@@ -10,12 +11,12 @@ const token = localStorage.getItem('vev-token') || '';
 const userFromStorageStr = localStorage.getItem('vev-user') || '{"user":{"username":"","userId":""}}';
 const userObj = JSON.parse(userFromStorageStr) as { user: { username: string; userId: string } };
 
-const state = {
+const gstate = {
   user: userObj.user || {
     username: '',
     userId: '',
   },
-  token: token,
+  token,
   error: '',
   gSearchTerm: '',
   loginStatus: '',
@@ -45,17 +46,20 @@ const actions = {
         return;
       }
 
-      const userStr = JSON.stringify({ user: { username: resp.username, userId: resp.userId }});
+      const userStr = JSON.stringify({ user: { username: resp.username, userId: resp.userId } });
       window.localStorage.setItem('vev-token', resp.token);
       window.localStorage.setItem('vev-user', userStr);
       ctx.commit('loginSuccess', resp);
       await router.push('/');
-    } catch (err) {
+    } catch (err: any) {
       ctx.commit('loginFail', err.response.data.message);
     }
   },
 
-  async register(ctx: ActionContext<MyStateType, MyStateType>, payload: RegisterPayload): Promise<void> {
+  async register(
+    ctx: ActionContext<MyStateType, MyStateType>,
+    payload: RegisterPayload,
+  ): Promise<void> {
     ctx.commit('registerRequest');
 
     try {
@@ -87,9 +91,8 @@ const actions = {
 
       await ctx.commit('registerSuccess');
       await router.push('/');
-    } catch (err) {
+    } catch (err: any) {
       ctx.commit('registerFail', err.response.data.message);
-      return;
     }
   },
 
@@ -166,5 +169,5 @@ const mutations = {
 };
 
 export default new Vuex.Store({
-  state, actions, mutations,
+  state: gstate, actions, mutations,
 });

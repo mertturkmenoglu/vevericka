@@ -1,14 +1,8 @@
 <template>
-  <v-card
-    class="px-5"
-    flat
-  >
+  <v-card class="px-5" flat>
     <v-card-title>
       <router-link :to="{ name: 'UserPage', params: { username: post.createdBy.username } }">
-        <v-avatar
-          size="40"
-          class="ml-n3"
-        >
+        <v-avatar size="40" class="ml-n3">
           <v-img
             class="rounded-circle"
             :src="userImage"
@@ -20,102 +14,72 @@
         </v-avatar>
         <span class="hidden-sm-and-down">
           <span class="ml-5 font-weight-regular text--primary">{{ post.createdBy.name }}</span>
-          <span class="ml-2 font-weight-light deep-orange--text text-subtitle-1">@{{ post.createdBy.username }}</span>
+          <span class="ml-2 font-weight-light deep-orange--text text-subtitle-1"
+            >@{{ post.createdBy.username }}</span
+          >
         </span>
         <span class="hidden-md-and-up">
-          <span class="ml-5 font-weight-light deep-orange--text text-subtitle-1">@{{ post.createdBy.username }}</span>
+          <span class="ml-5 font-weight-light deep-orange--text text-subtitle-1">
+            @{{ post.createdBy.username }}
+          </span>
         </span>
       </router-link>
 
       <v-spacer />
 
-      <v-menu
-        left
-        bottom
-        nudge-left="24"
-        nudge-bottom="48"
-      >
+      <v-menu left bottom nudge-left="24" nudge-bottom="48">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            aria-label="Post Menu"
-            color="deep-orange"
-            v-on="on"
-          >
+          <v-btn icon v-bind="attrs" aria-label="Post Menu" color="deep-orange" v-on="on">
             <v-avatar size="24">
-              <v-icon
-                color="deep-orange"
-                size="24"
-              >
-                mdi-dots-vertical
-              </v-icon>
+              <v-icon color="deep-orange" size="24"> mdi-dots-vertical </v-icon>
             </v-avatar>
           </v-btn>
         </template>
 
-        <v-list
-          flat
-          class="text-decoration-none font-weight-light"
-          dense
-        >
+        <v-list flat class="text-decoration-none font-weight-light" dense>
           <v-list-item @click="copyShareLink">
             <v-list-item-icon>
-              <v-icon color="deep-orange">
-                mdi-share-variant-outline
-              </v-icon>
+              <v-icon color="deep-orange"> mdi-share-variant-outline </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('post_card.menu.share') }}</v-list-item-title>
+              <v-list-item-title>{{ $t("post_card.menu.share") }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
           <v-list-item @click="savePost">
             <v-list-item-icon>
-              <v-icon color="deep-orange">
-                mdi-bookmark-outline
-              </v-icon>
+              <v-icon color="deep-orange"> mdi-bookmark-outline </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('post_card.menu.save') }}</v-list-item-title>
+              <v-list-item-title>{{ $t("post_card.menu.save") }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
           <v-list-item @click="reportPost">
             <v-list-item-icon>
-              <v-icon color="deep-orange">
-                mdi-flag-outline
-              </v-icon>
+              <v-icon color="deep-orange"> mdi-flag-outline </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('post_card.menu.report') }}</v-list-item-title>
+              <v-list-item-title>{{ $t("post_card.menu.report") }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
           <v-divider />
 
-          <v-list-item
-            v-if="isThisUserPost"
-            @click="deletePostDialog = true"
-          >
+          <v-list-item v-if="isThisUserPost" @click="deletePostDialog = true">
             <v-list-item-icon>
               <v-icon>mdi-delete-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('post_card.menu.delete') }}</v-list-item-title>
+              <v-list-item-title>{{ $t("post_card.menu.delete") }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item
-            v-else
-            @click="unfollowDialog = true"
-          >
+          <v-list-item v-else @click="unfollowDialog = true">
             <v-list-item-icon>
-              <v-icon color="amber">
-                mdi-account-off-outline
-              </v-icon>
+              <v-icon color="amber"> mdi-account-off-outline </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('post_card.menu.unfollow') }}</v-list-item-title>
+              <v-list-item-title>{{ $t("post_card.menu.unfollow") }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -131,13 +95,10 @@
       </router-link>
     </v-card-text>
 
-    <v-card-actions
-      aria-label="Post Actions"
-      class="mr-6"
-    >
+    <v-card-actions aria-label="Post Actions" class="mr-6">
       <v-spacer />
       <div class="content-small text--disabled text--primary mr-3">
-        {{ (new Date(post.createdAt)).toLocaleDateString() }}
+        {{ new Date(post.createdAt).toLocaleDateString() }}
       </div>
       <router-link :to="{ name: 'PostDetailPage', params: { id: post._id } }">
         <span class="content-small font-weight-light">
@@ -147,71 +108,49 @@
       </router-link>
     </v-card-actions>
 
-    <v-dialog
-      v-model="deletePostDialog"
-      width="400"
-    >
+    <v-dialog v-model="deletePostDialog" width="400">
       <v-card>
         <v-card-title class="font-weight-light">
-          {{ $t('post_card.delete_post_dialog.title') }}
+          {{ $t("post_card.delete_post_dialog.title") }}
         </v-card-title>
 
         <v-card-text>
-          {{ $t('post_card.delete_post_dialog.text') }}
+          {{ $t("post_card.delete_post_dialog.text") }}
         </v-card-text>
 
         <v-divider />
 
         <v-card-actions>
           <v-spacer />
-          <v-btn
-            color="primary"
-            text
-            @click="deletePostDialog = false"
-          >
-            {{ $t('post_card.delete_post_dialog.cancel') }}
+          <v-btn color="primary" text @click="deletePostDialog = false">
+            {{ $t("post_card.delete_post_dialog.cancel") }}
           </v-btn>
-          <v-btn
-            color="red"
-            text
-            @click="deletePost"
-          >
-            {{ $t('post_card.delete_post_dialog.delete') }}
+          <v-btn color="red" text @click="deletePost">
+            {{ $t("post_card.delete_post_dialog.delete") }}
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-dialog
-      v-model="unfollowDialog"
-      width="400"
-    >
+    <v-dialog v-model="unfollowDialog" width="400">
       <v-card>
         <v-card-title class="font-weight-light">
-          {{ $t('post_card.unfollow_dialog.title') }}
+          {{ $t("post_card.unfollow_dialog.title") }}
         </v-card-title>
 
         <v-card-text>
-          {{ $t('post_card.unfollow_dialog.text') }}
+          {{ $t("post_card.unfollow_dialog.text") }}
         </v-card-text>
 
         <v-divider />
 
         <v-card-actions>
           <v-spacer />
-          <v-btn
-            color="primary"
-            text
-            @click="unfollowDialog = false"
-          >
-            {{ $t('post_card.unfollow_dialog.cancel') }}
+          <v-btn color="primary" text @click="unfollowDialog = false">
+            {{ $t("post_card.unfollow_dialog.cancel") }}
           </v-btn>
-          <v-btn
-            color="red"
-            text
-            @click="unfollowUser"
-          >
-            {{ $t('post_card.unfollow_dialog.unfollow') }}
+          <v-btn color="red" text @click="unfollowUser">
+            {{ $t("post_card.unfollow_dialog.unfollow") }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -220,21 +159,23 @@
 </template>
 
 <script lang="ts">
-import {router} from '@/router';
+import Vue from 'vue';
+import { Prop } from 'vue-property-decorator';
+import Component from 'vue-class-component';
+import { router } from '@/router';
 import PostService from '@/api/post';
 import BookmarkService from '@/api/bookmark';
 import UserService from '@/api/user';
-import Vue from 'vue';
-import {Prop} from 'vue-property-decorator';
 import IPost from '@/api/responses/IPost';
-import {preparePostText} from '@/utils/postUtils';
-import Component from 'vue-class-component';
+import { preparePostText } from '@/utils/postUtils';
 
 @Component({})
 export default class PostCard extends Vue {
-  @Prop({ required: true }) post!: IPost
-  deletePostDialog = false
-  unfollowDialog = false
+  @Prop({ required: true }) post!: IPost;
+
+  deletePostDialog = false;
+
+  unfollowDialog = false;
 
   get isThisUserPost(): boolean {
     return this.$store.state.user.username === this.post.createdBy.username;
@@ -244,9 +185,8 @@ export default class PostCard extends Vue {
     const img = this.post.createdBy.image;
     if (img === 'profile.png') {
       return '/profile.png';
-    } else {
-      return img;
     }
+    return img;
   }
 
   makeHTML(str: string): string {
@@ -276,7 +216,10 @@ export default class PostCard extends Vue {
   }
 
   async reportPost(): Promise<void> {
-    await router.push({name: 'ReportPage', params: {postId: this.post._id, postUsername: this.post.createdBy.username}});
+    await router.push({
+      name: 'ReportPage',
+      params: { postId: this.post._id, postUsername: this.post.createdBy.username },
+    });
   }
 
   async deletePost(): Promise<void> {

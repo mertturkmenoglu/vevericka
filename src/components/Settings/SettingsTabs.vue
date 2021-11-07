@@ -51,17 +51,19 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
 import SettingsGeneral from '@/components/Settings/SettingsGeneral.vue';
 import SettingsProfile from '@/components/Settings/SettingsProfile.vue';
 import SettingsSocial from '@/components/Settings/SettingsSocial.vue';
 import SettingsHobbies from '@/components/Settings/SettingsHobbies.vue';
 import SettingsLanguages from '@/components/Settings/SettingsLanguages.vue';
-import {Component, Prop} from 'vue-property-decorator';
 import IUser from '@/api/responses/IUser';
 import UserService from '@/api/user';
 
 @Component({
-  components: {SettingsLanguages, SettingsHobbies, SettingsSocial, SettingsProfile, SettingsGeneral},
+  components: {
+    SettingsLanguages, SettingsHobbies, SettingsSocial, SettingsProfile, SettingsGeneral,
+  },
 })
 export default class SettingsTabs extends Vue {
   @Prop({ required: true }) user!: IUser
@@ -77,11 +79,11 @@ export default class SettingsTabs extends Vue {
 
   get tabs(): { title: string; icon: string }[] {
     return [
-      {title: this.$t('settings.tabs.general').toString(), icon: 'mdi-account-cog-outline'},
-      {title: this.$t('settings.tabs.profile').toString(), icon: 'mdi-account-circle-outline'},
-      {title: this.$t('settings.tabs.social').toString(), icon: 'mdi-account-group'},
-      {title: this.$t('settings.tabs.hobbies').toString(), icon: 'mdi-heart-outline'},
-      {title: this.$t('settings.tabs.languages').toString(), icon: 'mdi-account-voice'},
+      { title: this.$t('settings.tabs.general').toString(), icon: 'mdi-account-cog-outline' },
+      { title: this.$t('settings.tabs.profile').toString(), icon: 'mdi-account-circle-outline' },
+      { title: this.$t('settings.tabs.social').toString(), icon: 'mdi-account-group' },
+      { title: this.$t('settings.tabs.hobbies').toString(), icon: 'mdi-heart-outline' },
+      { title: this.$t('settings.tabs.languages').toString(), icon: 'mdi-account-voice' },
     ];
   }
 }

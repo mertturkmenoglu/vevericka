@@ -64,18 +64,19 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from 'vue-property-decorator';
-import {router} from '@/router';
-import {publicPages} from '@/data/ApplicationConstants';
+import { Component, Vue } from 'vue-property-decorator';
+import { router } from '@/router';
+import { publicPages } from '@/data/ApplicationConstants';
 import AppBarTitle from '@/components/App/AppBarTitle.vue';
 import AppBarMenu from '@/components/App/AppBarMenu.vue';
 import AppBarIcon from '@/components/App/AppBarIcon.vue';
 
 @Component({
-  components: {AppBarIcon, AppBarMenu, AppBarTitle},
+  components: { AppBarIcon, AppBarMenu, AppBarTitle },
 })
 export default class AppBar extends Vue {
   isAppBarSearchFocused = false
+
   searchTerm = ''
 
   get textFieldBackground(): string {
@@ -83,7 +84,7 @@ export default class AppBar extends Vue {
   }
 
   get showNavbar(): boolean {
-    return publicPages.every(page => this.$route.path !== page);
+    return publicPages.every((page) => this.$route.path !== page);
   }
 
   get appBarColor(): string {

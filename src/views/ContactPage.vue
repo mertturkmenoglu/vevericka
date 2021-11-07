@@ -24,11 +24,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 
 @Component({})
 export default class ContactPage extends Vue {
   readonly administratorUsername: string = 'adminmert'
+
   readonly contactMail: string = 'contactvevericka@gmail.com'
 }
 </script>

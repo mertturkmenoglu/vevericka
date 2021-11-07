@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component} from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 import ExploreService from '@/api/explore';
 import ExploreCardItem from '@/components/Home/ExploreCardItem.vue';
 import ExploreCardSub from '@/components/Home/ExploreCardSub.vue';
@@ -45,10 +45,11 @@ import ExploreCardActions from '@/components/Home/ExploreCardActions.vue';
 import ITag from '@/api/responses/ITag';
 
 @Component({
-  components: {ExploreCardActions, ExploreCardSub, ExploreCardItem},
+  components: { ExploreCardActions, ExploreCardSub, ExploreCardItem },
 })
 export default class ExploreCard extends Vue {
   exploreLoading = true
+
   exploreTags: ITag[] = []
 
   get exploreBoxBackground(): string {

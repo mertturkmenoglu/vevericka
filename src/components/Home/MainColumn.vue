@@ -1,9 +1,6 @@
 <template>
   <div>
-    <CreatePost
-      :user="user"
-      @postCreated="postCreated"
-    />
+    <CreatePost :user="user" @postCreated="postCreated" />
     <div v-if="feed.length > 0">
       <UserFeed
         :feed="feed"
@@ -24,19 +21,22 @@
   </div>
 </template>
 <script lang="ts">
-import {Component, Emit, Prop, Vue} from 'vue-property-decorator';
-import {UserFeedAction, UserFeedActionMessageKey} from '@/types';
+import {
+  Component, Emit, Prop, Vue,
+} from 'vue-property-decorator';
+import { UserFeedAction, UserFeedActionMessageKey } from '@/types';
 import IUser from '@/api/responses/IUser';
 import CreatePost from '@/components/Post/CreatePost.vue';
 import IPost from '@/api/responses/IPost';
 import UserFeed from '@/components/Post/UserFeed.vue';
 
 @Component({
-  components: {UserFeed, CreatePost},
+  components: { UserFeed, CreatePost },
 })
 export default class MainColumn extends Vue {
-  @Prop({ required: true }) user?: IUser
-  @Prop({ required: true }) feed!: IPost[]
+  @Prop({ required: true }) user?: IUser;
+
+  @Prop({ required: true }) feed!: IPost[];
 
   get actions(): typeof UserFeedAction {
     return UserFeedAction;
@@ -48,8 +48,8 @@ export default class MainColumn extends Vue {
   }
 
   @Emit('post-created')
-  postCreated(): void {
-    return;
+  postCreated(): string {
+    return '';
   }
 }
 </script>

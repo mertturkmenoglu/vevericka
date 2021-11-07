@@ -20,10 +20,10 @@
 </template>
 
 <script lang="ts">
-import PostCard from '@/components/Post/PostCard.vue';
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Prop} from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
+import PostCard from '@/components/Post/PostCard.vue';
 import IPost from '@/api/responses/IPost';
 
 @Component({

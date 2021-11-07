@@ -1,17 +1,16 @@
-import axios, {AxiosInstance} from 'axios';
+import axios, { AxiosInstance } from 'axios';
+import { BASE_URL } from '../constants';
 
 type LoginResponse = {
-    userId: string;
-    username: string;
-    token: string;
+  userId: string;
+  username: string;
+  token: string;
 }
 
 class AuthService {
   static get auth(): AxiosInstance {
     return axios.create({
-      baseURL: process.env.NODE_ENV === 'production'
-        ? 'https://vevericka-backend.herokuapp.com/api/v2/auth'
-        : 'http://localhost:5000/api/v2/auth',
+      baseURL: `${BASE_URL}/api/v2/auth`,
     });
   }
 
@@ -21,9 +20,9 @@ class AuthService {
       password,
     });
 
-    const data = resp.data;
+    const { data } = resp;
     const { userId, username } = data;
-    const token = resp.headers['authorization'];
+    const token = resp.headers.authorization;
 
     return {
       userId,
@@ -32,14 +31,19 @@ class AuthService {
     };
   }
 
-  static async register(email: string, username: string, name: string, password: string): Promise<string | null> {
+  static async register(
+    email: string,
+    username: string,
+    name: string,
+    password: string,
+  ): Promise<string | null> {
     const resp = await AuthService.auth.post('/register', {
       email, username, name, password,
     });
 
-    const data = resp.data;
-    if (data['id']) {
-      return data['id'];
+    const { data } = resp;
+    if (data.id) {
+      return data.id;
     }
 
     return null;

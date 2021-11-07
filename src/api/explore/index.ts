@@ -1,23 +1,22 @@
-import axios, {AxiosInstance} from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import IPost from '@/api/responses/IPost';
 import ITag from '@/api/responses/ITag';
+import { BASE_URL } from '../constants';
 
 export type TrendingPerson = {
-    user: {
-        name: string;
-        username: string;
-        image: string;
-    };
+  user: {
+    name: string;
+    username: string;
+    image: string;
+  };
 }
 
 class ExploreService {
   static get service(): AxiosInstance {
     return axios.create({
-      baseURL: process.env.NODE_ENV === 'production'
-        ? 'https://vevericka-backend.herokuapp.com/api/v2/explore'
-        : 'http://localhost:5000/api/v2/explore',
+      baseURL: `${BASE_URL}/api/v2/explore`,
       headers: {
-        'authorization': localStorage.getItem('vev-token') || '',
+        authorization: localStorage.getItem('vev-token') || '',
       },
     });
   }
@@ -28,7 +27,7 @@ class ExploreService {
   }
 
   static async getPostsByTag(tag: string): Promise<IPost[]> {
-    const res = await ExploreService.service.get<IPost[]>('/tag/' + tag);
+    const res = await ExploreService.service.get<IPost[]>(`/tag/${tag}`);
     return res.data;
   }
 

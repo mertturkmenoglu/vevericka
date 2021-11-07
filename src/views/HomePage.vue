@@ -48,10 +48,10 @@
 </template>
 
 <script lang="ts">
-import CreatePost from '@/components/Post/CreatePost.vue';
-import UserFeed from '@/components/Post/UserFeed.vue';
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import CreatePost from '@/components/Post/CreatePost.vue';
+import UserFeed from '@/components/Post/UserFeed.vue';
 import IUser from '@/api/responses/IUser';
 import PostService from '@/api/post';
 import IPost from '@/api/responses/IPost';
@@ -63,13 +63,19 @@ import HomeSnackbar from '@/components/Home/HomeSnackbar.vue';
 import MainColumn from '@/components/Home/MainColumn.vue';
 
 @Component({
-  components: {MainColumn, HomeSnackbar, HomeScrollTopFab, ExploreCard, CreatePost, UserFeed},
+  components: {
+    MainColumn, HomeSnackbar, HomeScrollTopFab, ExploreCard, CreatePost, UserFeed,
+  },
 })
 export default class HomePage extends Vue {
   user?: IUser = undefined
+
   feed: IPost[] = []
+
   isLoading = true
+
   snackbar = false
+
   snackbarMessage = ''
 
   get username(): string {

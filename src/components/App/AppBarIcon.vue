@@ -28,13 +28,16 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({})
 export default class AppBarIcon extends Vue {
   @Prop({ required: true }) to!: string
+
   @Prop({ required: true }) label!: string
+
   @Prop({ required: true }) iconName!: string
+
   @Prop({ required: true }) tooltip!: string
 }
 </script>

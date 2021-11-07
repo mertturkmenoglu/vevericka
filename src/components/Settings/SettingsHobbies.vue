@@ -195,15 +195,19 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Emit, Prop} from 'vue-property-decorator';
+import { Emit, Prop } from 'vue-property-decorator';
 import IUser from '@/api/responses/IUser';
 
 @Component({})
 export default class SettingsHobbies extends Vue {
   @Prop({ required: true }) user!: IUser;
+
   featureDialog = false;
+
   hobbyDialog = false;
+
   newFeature = '';
+
   newHobby = '';
 
   addFeature(): void {

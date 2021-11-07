@@ -1,35 +1,34 @@
-import axios, {AxiosInstance} from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import IPost from '@/api/responses/IPost';
+import { BASE_URL } from '../constants';
 
 type PostDto = {
-    createdBy: string;
-    content: string;
+  createdBy: string;
+  content: string;
 }
 
 class PostService {
   static get post(): AxiosInstance {
     return axios.create({
-      baseURL: process.env.NODE_ENV === 'production'
-        ? 'https://vevericka-backend.herokuapp.com/api/v2/post'
-        : 'http://localhost:5000/api/v2/post',
+      baseURL: `${BASE_URL}/api/v2/post`,
       headers: {
-        'authorization': localStorage.getItem('vev-token') || '',
+        authorization: localStorage.getItem('vev-token') || '',
       },
     });
   }
 
   static async getUserPosts(username: string): Promise<IPost[]> {
-    const res = await PostService.post.get<IPost[]>('/user/' + username);
+    const res = await PostService.post.get<IPost[]>(`/user/${username}`);
     return res.data;
   }
 
   static async getPostById(id: string): Promise<IPost> {
-    const res = await PostService.post.get<IPost>('/' + id);
+    const res = await PostService.post.get<IPost>(`/${id}`);
     return res.data;
   }
 
   static async getFeedByUsername(username: string): Promise<IPost[]> {
-    const res = await PostService.post.get<IPost[]>('/feed/' + username);
+    const res = await PostService.post.get<IPost[]>(`/feed/${username}`);
     return res.data;
   }
 
@@ -39,7 +38,7 @@ class PostService {
   }
 
   static async deletePost(postId: string): Promise<boolean> {
-    await PostService.post.delete('/' + postId);
+    await PostService.post.delete(`/${postId}`);
     return true;
   }
 }
