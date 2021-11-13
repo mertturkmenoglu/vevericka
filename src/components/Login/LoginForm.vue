@@ -1,114 +1,81 @@
 <template>
-  <v-form
-    class="form"
-    @submit.prevent="submit"
-  >
-    <v-text-field
-      v-model="email"
-      class="pt-5"
-      :label="$t('login.email')"
-      type="email"
-      prepend-inner-icon="mdi-email"
-      :rules="[rulesRequired, rulesEmail]"
-      color="deep-orange"
-      outlined
-      dense
-    />
-    <v-text-field
-      v-model="password"
-      class="pt-5"
-      :rules="[rulesRequired]"
-      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="showPassword ? 'text' : 'password'"
-      :label="$t('login.password')"
-      prepend-inner-icon="mdi-lock"
-      color="deep-orange"
-      outlined
-      dense
-      @click:append="showPassword = !showPassword"
-    />
-    <div class="text-center mt-6">
-      <div
-        v-if="loginLoading"
-        class="py-3 text-center"
-      >
-        <v-progress-circular
-          indeterminate
-          color="deep-orange"
+  <form @submit.prevent="submit">
+    <div class="flex flex-col">
+      <div class="flex flex-col">
+        <label for="login-form-email">{{ $t("login.email") }}</label>
+        <input
+          type="email"
+          v-model="email"
+          id="login-form-email"
+          class="border-2 border-deep-orange rounded-sm"
         />
       </div>
 
-      <v-alert
-        v-model="showLoginError"
-        dense
-        close-icon="mdi-close"
-        type="error"
-        dismissible
-      >
-        {{ loginError }}
-      </v-alert>
-      <v-btn
-        color="deep-orange"
-        outlined
-        block
-        :disabled="!isLoginButtonEnabled"
-        @click="submit"
-      >
-        {{ $t('login.login_button') }}
-      </v-btn>
+      <div class="flex flex-col">
+        <label for="login-form-password">{{ $t("login.password") }}</label>
+        <input
+          :type="showPassword ? 'text' : 'password'"
+          v-model="password"
+          id="login-form-password"
+        />
+      </div>
+
+      <div v-if="loginLoading" class="py-3 text-center">
+        <v-progress-circular indeterminate color="deep-orange" />
+      </div>
+
+      <button class="text-deep-orange" :disabled="!isLoginButtonEnabled" @click="submit">
+        {{ $t("login.login_button") }}
+      </button>
+
+      <div class="text-center mt-5 text-md">
+        <span class="grey--text text--darken-1 font-weight-light">
+          {{ $t("login.to_register.text") }}
+        </span>
+        <router-link to="/register" class="link font-weight-light">
+          {{ $t("login.to_register.register") }}
+        </router-link>
+      </div>
+      <div class="text-center mt-5 text-md">
+        <span class="grey--text text--darken-1 font-weight-light">
+          {{ $t("login.to_password_reset.text") }}
+        </span>
+        <router-link to="/password" class="link font-weight-light">
+          {{ $t("login.to_password_reset.reset") }}
+        </router-link>
+      </div>
     </div>
-    <div class="text-center mt-5 text-body-1">
-      <span class="grey--text text--darken-1 font-weight-light">
-        {{ $t('login.to_register.text') }}
-      </span>
-      <router-link
-        to="/register"
-        class="link font-weight-light"
-      >
-        {{ $t('login.to_register.register') }}
-      </router-link>
-    </div>
-    <div class="text-center mt-5 text-body-1">
-      <span class="grey--text text--darken-1 font-weight-light">
-        {{ $t('login.to_password_reset.text') }}
-      </span>
-      <router-link
-        to="/password"
-        class="link font-weight-light"
-      >
-        {{ $t('login.to_password_reset.reset') }}
-      </router-link>
-    </div>
-  </v-form>
+  </form>
 </template>
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import { EMAIL_REGEX } from '@/data/ApplicationConstants';
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { EMAIL_REGEX } from "@/data/ApplicationConstants";
 
 @Component({})
 export default class LoginForm extends Vue {
-  showPassword = false
+  showPassword = false;
 
-  email = ''
+  email = "";
 
-  password = ''
+  password = "";
 
-  isLoginButtonEnabled = false
+  isLoginButtonEnabled = false;
 
   get rulesRequired() {
-    return (value: string): string | true => !!value || this.$t('login.rules.required').toString();
+    return (value: string): string | true => !!value || this.$t("login.rules.required").toString();
   }
 
   get rulesEmail() {
-    return (value: string): string | true => EMAIL_REGEX.test(value) || this.$t('login.rules.email').toString();
+    return (value: string): string | true =>
+      EMAIL_REGEX.test(value) || this.$t("login.rules.email").toString();
   }
 
   get computeLoginButton(): boolean {
-    return (this.rulesEmail(this.email) === true && this.email !== '' && this.password !== '');
+    return this.rulesEmail(this.email) === true && this.email !== "" && this.password !== "";
   }
 
   get loginLoading(): boolean {
-    return this.$store.state.loginStatus === 'loading';
+    return this.$store.state.loginStatus === "loading";
   }
 
   get loginError(): string {
@@ -116,27 +83,27 @@ export default class LoginForm extends Vue {
   }
 
   get showLoginError(): boolean {
-    return this.$store.state.error !== '';
+    return this.$store.state.error !== "";
   }
 
-  @Watch('email')
+  @Watch("email")
   emailChanged(): void {
     this.isLoginButtonEnabled = this.computeLoginButton;
   }
 
-  @Watch('password')
+  @Watch("password")
   passwordChanged(): void {
     this.isLoginButtonEnabled = this.computeLoginButton;
   }
 
   // noinspection JSUnusedGlobalSymbols
   beforeRouteLeave(_to: never, _from: never, next: () => void): void {
-    this.$store.state.error = '';
+    this.$store.state.error = "";
     next();
   }
 
   submit(): void {
-    this.$store.dispatch('login', {
+    this.$store.dispatch("login", {
       email: this.email,
       password: this.password,
     });
