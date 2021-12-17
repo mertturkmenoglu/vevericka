@@ -24,7 +24,11 @@
         <v-progress-circular indeterminate color="deep-orange" />
       </div>
 
-      <button class="text-deep-orange" :disabled="!isLoginButtonEnabled" @click="submit">
+      <button
+        class="text-deep-orange border-2 border-deep-orange py-3"
+        :disabled="!isLoginButtonEnabled"
+        @click="submit"
+      >
         {{ $t("login.login_button") }}
       </button>
 
@@ -32,7 +36,7 @@
         <span class="grey--text text--darken-1 font-weight-light">
           {{ $t("login.to_register.text") }}
         </span>
-        <router-link to="/register" class="link font-weight-light">
+        <router-link to="/register" class="text-deep-orange font-weight-light">
           {{ $t("login.to_register.register") }}
         </router-link>
       </div>
@@ -40,7 +44,7 @@
         <span class="grey--text text--darken-1 font-weight-light">
           {{ $t("login.to_password_reset.text") }}
         </span>
-        <router-link to="/password" class="link font-weight-light">
+        <router-link to="/password" class="text-deep-orange font-weight-light no-underline">
           {{ $t("login.to_password_reset.reset") }}
         </router-link>
       </div>
@@ -111,17 +115,7 @@ export default class LoginForm extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-a.no-text-decoration {
+a {
   text-decoration: none;
-}
-
-.form {
-  max-width: 25rem;
-  min-width: 20rem;
-  margin: 0 auto;
-}
-
-.link {
-  color: #ff5722;
 }
 </style>

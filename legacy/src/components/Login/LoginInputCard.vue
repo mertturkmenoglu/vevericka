@@ -1,10 +1,10 @@
 <template>
-  <v-col cols="12" md="4" class="py-6 vertical-center">
+  <div class="w-full md:w-4/12 py-6 flex flex-col justify-center items-center">
     <h1 class="text-center text-4xl font-light text-deep-orange">
       {{ $t("login.title") }}
     </h1>
     <LoginForm class="mt-8" />
-  </v-col>
+  </div>
 </template>
 
 <script lang="ts">
@@ -17,12 +17,3 @@ import LoginForm from "@/components/Login/LoginForm.vue";
 })
 export default class LoginInputCard extends Vue {}
 </script>
-
-<style scoped lang="scss">
-.vertical-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-</style>
