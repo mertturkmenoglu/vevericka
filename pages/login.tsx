@@ -1,9 +1,19 @@
+import { useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
+
 
 const Login: NextPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const onShowPasswordClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    setShowPassword((prev) => !prev)
+  };
+
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       <Head>
@@ -35,11 +45,17 @@ const Login: NextPage = () => {
             <div className="relative w-full mt-8">
               <label htmlFor="loginPassword" className="font-medium text-sm absolute -top-3 left-2 bg-white px-1">Password</label>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 id="loginPassword"
                 className="border border-gray-500 text-black rounded-md h-8 px-4 w-full placeholder:text-gray-600 focus:outline-none focus:border-deep-orange"
                 placeholder="Password"
               />
+              <button onClick={onShowPasswordClick} className="absolute top-1.5 right-3">
+                <span className="sr-only">
+                  Show password
+                </span>
+                {showPassword ? <EyeIcon className="h-5 w-5" /> : <EyeOffIcon className="h-5 w-5" />}
+              </button>
             </div>
 
             <button className="bg-white border border-deep-orange rounded-md mt-10 py-2 font-medium uppercase text-sm hover:bg-deep-orange hover:text-white transition ease-in-out delay-75">
