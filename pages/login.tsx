@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import type { NextPage } from 'next';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 import AuthLayout from '../components/AuthLayout';
@@ -6,54 +6,56 @@ import AuthLink from '../components/AuthLink';
 import AuthButton from '../components/AuthButton';
 import AuthInputField from '../components/AuthInputField';
 import AuthForm from '../components/AuthForm';
+import { LoginContext } from '../context/LoginContext';
+import LoginContextProvider from '../context/LoginContextProvider';
 
 const Login: NextPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const ctx = useContext(LoginContext);
 
-  const onShowPasswordClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onShowPasswordClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
-    setShowPassword((prev) => !prev)
+    ctx.setShowPassword((prev) => !prev);
   };
 
   return (
-    <AuthLayout pageTitle="Login | Vevericka" formTitle="Login">
-      <AuthForm>
-        <AuthInputField
-          label="Email"
-          placeholder="Email"
-          type="email"
-          update={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
+    <LoginContextProvider>
+      <AuthLayout pageTitle="Login | Vevericka" formTitle="Login">
+        <AuthForm>
+          <AuthInputField
+            label="Email"
+            placeholder="Email"
+            type="email"
+            update={ctx.setEmail}
+          />
 
-        <AuthInputField
-          label="Password"
-          placeholder="Password"
-          type={showPassword ? 'text' : 'password'}
-          update={(e) => {
-            setPassword(e.target.value)
-          }}
-          appendIcon={() => {
-            return showPassword ? <EyeIcon className="w-5 h-5" /> : <EyeOffIcon className="w-5 h-5" />
-          }}
-          appendIconAlt="Show password"
-          appendIconClick={onShowPasswordClick}
-        />
+          <AuthInputField
+            label="Password"
+            placeholder="Password"
+            type={ctx.showPassword ? 'text' : 'password'}
+            update={ctx.setPassword}
+            appendIcon={() => {
+              return ctx.showPassword ? (
+                <EyeIcon className="w-5 h-5" />
+              ) : (
+                <EyeOffIcon className="w-5 h-5" />
+              );
+            }}
+            appendIconAlt="Show password"
+            appendIconClick={onShowPasswordClick}
+          />
 
-        <AuthButton text="Login" onClick={() => {
-          console.log({ email, password });
-        }} />
-        
-        <div className="mt-4 flex flex-col text-gray-600 text-sm w-full items-center">
-          <AuthLink href="/register" text="New user?" cta="Register" />
-          <AuthLink href="/reset" text="Forgot password?" cta="Reset" />
-        </div>
-      </AuthForm>
-    </AuthLayout>
+          <AuthButton text="Login" onClick={() => {}} />
+
+          <div className="mt-4 flex flex-col text-gray-600 text-sm w-full items-center">
+            <AuthLink href="/register" text="New user?" cta="Register" />
+            <AuthLink href="/reset" text="Forgot password?" cta="Reset" />
+          </div>
+        </AuthForm>
+      </AuthLayout>
+    </LoginContextProvider>
   );
-}
+};
 
 export default Login;
