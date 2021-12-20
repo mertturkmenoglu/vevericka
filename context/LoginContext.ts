@@ -1,12 +1,13 @@
 import { createContext, Dispatch, SetStateAction } from "react";
+import { SetState } from "./types";
 
 export interface ILoginContextState {
   email: string;
-  setEmail: Dispatch<SetStateAction<string>>
+  setEmail: SetState<string>;
   password: string;
-  setPassword: Dispatch<SetStateAction<string>>
+  setPassword: SetState<string>;
   showPassword: boolean;
-  setShowPassword: Dispatch<SetStateAction<boolean>>;
+  setShowPassword: SetState<boolean>;
 }
 
 const defaultLoginContextState: ILoginContextState = {

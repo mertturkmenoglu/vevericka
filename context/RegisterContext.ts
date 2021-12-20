@@ -1,18 +1,17 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-
-type State<T> = Dispatch<SetStateAction<T>>
+import { SetState } from "./types";
 
 export interface IRegisterContextState {
   email: string;
-  setEmail: State<string>;
+  setEmail: SetState<string>;
   password: string;
-  setPassword: State<string>;
+  setPassword: SetState<string>;
   showPassword: boolean;
-  setShowPassword: State<boolean>;
+  setShowPassword: SetState<boolean>;
   name: string;
-  setName: State<string>;
+  setName: SetState<string>;
   username: string;
-  setUsername: State<string>;
+  setUsername: SetState<string>;
 }
 
 const defaultRegisterContextState: IRegisterContextState = {
