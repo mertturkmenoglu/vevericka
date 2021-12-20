@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+  .auth-button {
+    @apply bg-white border border-deep-orange rounded-md mt-10 py-2 font-medium uppercase text-sm hover:bg-deep-orange hover:text-white transition ease-in-out delay-75;
+  }
+}
