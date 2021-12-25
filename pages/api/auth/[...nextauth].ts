@@ -30,6 +30,23 @@ export default NextAuth({
       },
     }),
   ],
+  callbacks: {
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.email = user?.email;
+        token.userId = user?.userId;
+        token.username = user?.username;
+      }
+
+      return token;
+    },
+    session: ({ session, token }) => {
+      session.email = token.email || '';
+      session.userId = token.userId as string;
+      session.username = token.username as string;
+      return session;
+    },
+  },
   pages: {
     signIn: '/login',
   },
