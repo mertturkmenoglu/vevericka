@@ -1,28 +1,45 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { getSession, signOut, useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import { User } from '../api/User';
 import AppBar from '../components/AppBar';
+import CreatePost from '../components/CreatePost';
+import IUser from '../legacy/src/api/responses/IUser';
 
 export interface HomePageProps {}
 
 const Home: NextPage<HomePageProps> = () => {
-  const { data, status } = useSession();
+  const [user, setUser] = useState<IUser | null>(null);
+  const { data } = useSession();
+
+  useEffect(() => {
+    if (data) {
+      User.getUserByUsername(data.username).then((v) => setUser(v));
+    }
+  }, [data]);
+
   return (
     <>
       <Head>
         <title>Home | Vevericka</title>
       </Head>
-      <AppBar />
-      <div>Home</div>
-      <div>{data?.user?.email}</div>
-      <button
-        onClick={async () => {
-          await signOut();
-        }}
-      >
-        Sign out
-      </button>
+      <header>
+        <AppBar />
+      </header>
+      <main className="w-screen flex justify-center">
+        {/* <pre>{JSON.stringify(data)}</pre>
+        <pre>{JSON.stringify(user)}</pre> */}
+
+        <div className="flex flex-col w-10/12 sm:w-1/2 md:w-1/3 ">
+          <CreatePost
+            image={user?.image || ''}
+            name={user?.name || ''}
+            username={user?.username || ''}
+          />
+        </div>
+      </main>
     </>
   );
 };
