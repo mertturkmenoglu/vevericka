@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { LoginContext } from './LoginContext';
+import {
+  LoginContext,
+  defaultLoginContextState as defaultValues,
+} from './LoginContext';
 
-export interface LoginContextProviderProps {
-  children: React.ReactNode;
-}
+export interface LoginContextProviderProps {}
 
 const LoginContextProvider: React.FC<LoginContextProviderProps> = ({
   children,
 }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState(defaultValues.email);
+  const [password, setPassword] = useState(defaultValues.password);
+  const [showPassword, setShowPassword] = useState(defaultValues.showPassword);
 
   return (
     <LoginContext.Provider
