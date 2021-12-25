@@ -14,7 +14,7 @@ export interface IRegisterContextState {
   setUsername: SetState<string>;
 }
 
-const defaultRegisterContextState: IRegisterContextState = {
+export const defaultRegisterContextState: IRegisterContextState = {
   email: '',
   password: '',
   showPassword: false,
