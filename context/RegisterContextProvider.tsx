@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import { RegisterContext } from './RegisterContext';
+import {
+  RegisterContext,
+  defaultRegisterContextState as defaultValues,
+} from './RegisterContext';
 
-export interface RegisterContextProviderProps {
-  children: React.ReactNode;
-}
+export interface RegisterContextProviderProps {}
 
 const RegisterContextProvider: React.FC<RegisterContextProviderProps> = ({
   children,
 }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState(defaultValues.email);
+  const [password, setPassword] = useState(defaultValues.password);
+  const [showPassword, setShowPassword] = useState(defaultValues.showPassword);
+  const [name, setName] = useState(defaultValues.name);
+  const [username, setUsername] = useState(defaultValues.username);
 
   return (
     <RegisterContext.Provider
