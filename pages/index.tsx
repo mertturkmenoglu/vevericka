@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { getSession, signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
+import AppBar from '../components/AppBar';
 
 export interface HomePageProps {}
 
@@ -12,6 +13,7 @@ const Home: NextPage<HomePageProps> = () => {
       <Head>
         <title>Home | Vevericka</title>
       </Head>
+      <AppBar />
       <div>Home</div>
       <div>{data?.user?.email}</div>
       <button
