@@ -20,59 +20,53 @@ const Register: NextPage = () => {
   };
 
   return (
-    <RegisterContextProvider>
-      <AuthLayout pageTitle="Register | Vevericka" formTitle="Register">
-        <AuthForm>
-          <AuthInputField
-            label="Email"
-            placeholder="Email"
-            type="email"
-            update={ctx.setEmail}
-          />
+    <AuthLayout pageTitle="Register | Vevericka" formTitle="Register">
+      <AuthForm>
+        <AuthInputField
+          label="Email"
+          placeholder="Email"
+          type="email"
+          update={ctx.setEmail}
+        />
 
-          <AuthInputField
-            label="Username"
-            placeholder="Username"
-            type="text"
-            update={ctx.setUsername}
-          />
+        <AuthInputField
+          label="Username"
+          placeholder="Username"
+          type="text"
+          update={ctx.setUsername}
+        />
 
-          <AuthInputField
-            label="Name"
-            placeholder="Name"
-            type="text"
-            update={ctx.setName}
-          />
+        <AuthInputField
+          label="Name"
+          placeholder="Name"
+          type="text"
+          update={ctx.setName}
+        />
 
-          <AuthInputField
-            label="Password"
-            placeholder="Password"
-            type={ctx.showPassword ? 'text' : 'password'}
-            update={ctx.setPassword}
-            appendIcon={() => {
-              return ctx.showPassword ? (
-                <EyeIcon className="w-5 h-5" />
-              ) : (
-                <EyeOffIcon className="w-5 h-5" />
-              );
-            }}
-            appendIconAlt="Show password"
-            appendIconClick={onShowPasswordClick}
-          />
+        <AuthInputField
+          label="Password"
+          placeholder="Password"
+          type={ctx.showPassword ? 'text' : 'password'}
+          update={ctx.setPassword}
+          appendIcon={() => {
+            return ctx.showPassword ? (
+              <EyeIcon className="w-5 h-5" />
+            ) : (
+              <EyeOffIcon className="w-5 h-5" />
+            );
+          }}
+          appendIconAlt="Show password"
+          appendIconClick={onShowPasswordClick}
+        />
 
-          <AuthButton text="Login" onClick={() => {}} />
+        <AuthButton text="Login" onClick={() => {}} />
 
-          <div className="mt-4 flex flex-col text-gray-600 text-sm w-full items-center">
-            <AuthLink
-              href="/login"
-              text="Already have an account?"
-              cta="Login"
-            />
-            <AuthLink href="/reset" text="Forgot password?" cta="Reset" />
-          </div>
-        </AuthForm>
-      </AuthLayout>
-    </RegisterContextProvider>
+        <div className="mt-4 flex flex-col text-gray-600 text-sm w-full items-center">
+          <AuthLink href="/login" text="Already have an account?" cta="Login" />
+          <AuthLink href="/reset" text="Forgot password?" cta="Reset" />
+        </div>
+      </AuthForm>
+    </AuthLayout>
   );
 };
 
