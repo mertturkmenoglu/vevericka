@@ -10,7 +10,7 @@ export interface ILoginContextState {
   setShowPassword: SetState<boolean>;
 }
 
-const defaultLoginContextState: ILoginContextState = {
+export const defaultLoginContextState: ILoginContextState = {
   email: '',
   password: '',
   showPassword: false,
