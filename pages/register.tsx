@@ -7,7 +7,6 @@ import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 import AuthButton from '../components/AuthButton';
 import AuthLink from '../components/AuthLink';
 import { RegisterContext } from '../context/RegisterContext';
-import RegisterContextProvider from '../context/RegisterContextProvider';
 
 const Register: NextPage = () => {
   const ctx = useContext(RegisterContext);
