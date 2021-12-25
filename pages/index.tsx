@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { User } from '../api/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
+import Trending from '../components/Trending';
 import IUser from '../legacy/src/api/responses/IUser';
 
 export interface HomePageProps {}
@@ -28,16 +29,22 @@ const Home: NextPage<HomePageProps> = () => {
       <header>
         <AppBar />
       </header>
-      <main className="w-screen flex justify-center">
+      <main className="w-screen sm:w-10/12 md:w-3/4 mx-auto flex flex-col sm:flex-row sm:justify-between">
         {/* <pre>{JSON.stringify(data)}</pre>
         <pre>{JSON.stringify(user)}</pre> */}
 
-        <div className="flex flex-col w-10/12 sm:w-1/2 md:w-1/3 ">
-          <CreatePost
-            image={user?.image || ''}
-            name={user?.name || ''}
-            username={user?.username || ''}
-          />
+        <div className="flex flex-col w-full items-center">
+          <div className="w-8/12 sm:w-full md:w-8/12">
+            <CreatePost
+              image={user?.image || ''}
+              name={user?.name || ''}
+              username={user?.username || ''}
+            />
+          </div>
+        </div>
+
+        <div className="w-1/3 sm:w-2/3 md:w-1/3">
+          <Trending />
         </div>
       </main>
     </>
