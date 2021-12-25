@@ -1,6 +1,6 @@
 export interface AuthButtonProps {
   text: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const AuthButton: React.FC<AuthButtonProps> = ({ text, onClick }) => {
