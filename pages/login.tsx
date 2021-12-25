@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import type { NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 import AuthLayout from '../components/AuthLayout';
 import AuthLink from '../components/AuthLink';
@@ -7,9 +8,14 @@ import AuthButton from '../components/AuthButton';
 import AuthInputField from '../components/AuthInputField';
 import AuthForm from '../components/AuthForm';
 import { LoginContext } from '../context/LoginContext';
+import { useRouter } from 'next/router';
+import { getSession, signIn } from 'next-auth/react';
+
+export interface LoginPageProps {}
 
 const Login: NextPage = () => {
   const ctx = useContext(LoginContext);
+  const router = useRouter();
 
   const onShowPasswordClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -46,8 +52,16 @@ const Login: NextPage = () => {
 
         <AuthButton
           text="Login"
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
+            try {
+              await signIn('credentials', {
+                redirect: false,
+                email: ctx.email,
+                password: ctx.password,
+              });
+              await router.push('/');
+            } catch (e) {}
           }}
         />
 
@@ -58,6 +72,24 @@ const Login: NextPage = () => {
       </AuthForm>
     </AuthLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
+  context
+) => {
+  const session = await getSession(context);
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default Login;
