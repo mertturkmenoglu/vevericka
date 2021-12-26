@@ -9,10 +9,12 @@ import { User } from '../api/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
 import PostCard from '../components/PostCard';
+import ScrollToTopFab from '../components/ScrollToTopFab';
 import Trending from '../components/Trending';
 import { ApplicationContext } from '../context/ApplicationContext';
 import IPost from '../legacy/src/api/responses/IPost';
 import IUser from '../legacy/src/api/responses/IUser';
+import { LocalStorage } from '../utils/LocalStorage';
 
 export interface HomePageProps {
   user: IUser;
@@ -30,7 +32,9 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
     appContext.user.setName(user.name);
     appContext.user.setUserId(userId);
     appContext.user.setUsername(user.username);
-    setTheme(appContext.isDarkTheme ? 'dark' : 'light');
+    const storage = new LocalStorage();
+    appContext.setIsDarkTheme(storage.isDarkTheme);
+    setTheme(storage.isDarkTheme ? 'dark' : 'light');
   }, []);
 
   return (
@@ -64,6 +68,8 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
         <div className="w-1/3 sm:w-2/3 md:w-1/3">
           <Trending />
         </div>
+
+        <ScrollToTopFab />
       </main>
     </>
   );
