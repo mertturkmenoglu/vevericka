@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { Fragment, useMemo } from 'react';
 import IPost from '../legacy/src/api/responses/IPost';
+import { preparePostText } from '../utils/Post.utils';
 
 export interface PostCardProps {
   post: IPost;
@@ -103,7 +104,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       </div>
 
       {/* Content */}
-      <p className="break-words mt-4 text-slate-700">{post.content}</p>
+      <p
+        className="break-words mt-4 text-slate-700"
+        dangerouslySetInnerHTML={{ __html: preparePostText(post.content) }}
+      />
 
       {/* Date - Comments */}
       <div className="flex w-full justify-end mt-2 items-center">
