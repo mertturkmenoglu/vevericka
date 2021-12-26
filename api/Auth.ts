@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { createApi } from './Api';
+import { createPublicApi } from './Api';
 
 interface ILoginRequest {
   email: string;
@@ -14,7 +14,7 @@ interface ILoginResponse {
 
 export class Auth {
   private static get api(): AxiosInstance {
-    return createApi('auth');
+    return createPublicApi('auth');
   }
 
   public static async login(email: string, password: string): Promise<ILoginResponse | null> {

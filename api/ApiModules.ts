@@ -1,3 +1,4 @@
 export type AvailableApiModules =
   | 'auth'
-  | 'user';
+  | 'user'
+  | 'post';

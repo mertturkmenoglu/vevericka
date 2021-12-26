@@ -34,13 +34,15 @@ interface IUser {
 }
 
 export class User {
-  private static get api(): AxiosInstance {
-    return createApi('user');
+  public constructor(private readonly token: string) { }
+
+  private get api(): AxiosInstance {
+    return createApi('user', this.token);
   }
 
-  public static async getUserByUsername(username: string): Promise<IUser | null> {
+  public async getUserByUsername(username: string): Promise<IUser | null> {
     try {
-      const response = await User.api.get<IUser>(`/username/${username}`);
+      const response = await this.api.get<IUser>(`/username/${username}`);
       return response.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
