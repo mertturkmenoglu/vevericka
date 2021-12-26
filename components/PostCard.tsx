@@ -43,7 +43,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             </a>
           </Link>
           <Link href={`/user/${post.createdBy.username}`}>
-            <a className="ml-2 text-xl text-slate-700 dark:text-gray-200">
+            <a className="ml-2 text-xl text-slate-700 dark:text-gray-200 hover:underline">
               {post.createdBy.name}
             </a>
           </Link>
