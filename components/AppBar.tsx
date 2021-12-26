@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useMemo } from 'react';
 import { Menu, Switch, Transition } from '@headlessui/react';
 import {
   AtSymbolIcon,
@@ -35,6 +35,14 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
     const storage = new LocalStorage();
     appContext.isDarkTheme = storage.isDarkTheme;
   }, []);
+
+  const image = useMemo(() => {
+    if (appContext.user.image === 'profile.png') {
+      return '/assets/profile.png';
+    }
+
+    return appContext.user.image;
+  }, [appContext]);
 
   return (
     <nav className="w-screen flex justify-between py-2 px-4">
@@ -94,16 +102,16 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
               <div className="px-1 py-1">
                 <Menu.Item>
                   {() => (
-                    <Link href="/user/adminmert">
+                    <Link href={`/user/${appContext.user.username}`}>
                       <a className="flex">
                         <img
-                          src="https://i.pravatar.cc/300?img=3"
+                          src={image}
                           className="rounded-full w-10 h-10 m-2"
                           alt="User image"
                         />
                         <div className="flex flex-col mt-2">
                           <span className="text-deep-orange font-medium text-sm">
-                            @adminmert
+                            @{appContext.user.username}
                           </span>
                           <span className="text-gray-500 text-xs font-light">
                             View your profile
