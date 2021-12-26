@@ -2,11 +2,12 @@ import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { User } from '../api/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
 import Trending from '../components/Trending';
+import { ApplicationContext } from '../context/ApplicationContext';
 import IUser from '../legacy/src/api/responses/IUser';
 
 export interface HomePageProps {}
@@ -14,10 +15,20 @@ export interface HomePageProps {}
 const Home: NextPage<HomePageProps> = () => {
   const [user, setUser] = useState<IUser | null>(null);
   const { data } = useSession();
+  const appContext = useContext(ApplicationContext);
 
   useEffect(() => {
     if (data) {
-      User.getUserByUsername(data.username).then((v) => setUser(v));
+      User.getUserByUsername(data.username).then((v) => {
+        if (v) {
+          setUser(v);
+          appContext.user.setEmail(v.email);
+          appContext.user.setImage(v.image);
+          appContext.user.setName(v.name);
+          appContext.user.setUserId(data.userId);
+          appContext.user.setUsername(v.username);
+        }
+      });
     }
   }, [data]);
 
