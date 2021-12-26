@@ -26,12 +26,12 @@ const NotFound: NextPage = () => {
           />
           <span className="ml-3">Not Found</span>
         </h1>
-        <div className="mt-4 tracking-wide text-xl">
+        <div className="mt-4 tracking-wide text-xl text-slate-700 dark:text-white">
           Oops <span className="text-deep-orange font-bold">...</span> We can't
           remember where we buried the nuts{' '}
           <span className="text-deep-orange font-bold">:(</span>
         </div>
-        <div>
+        <div className="text-slate-700 dark:text-white">
           <span className="text-deep-orange font-bold">[</span>
           <span className="font-regular text-sm">Sad squirrel noises</span>
           <span className="text-deep-orange font-bold">]</span>

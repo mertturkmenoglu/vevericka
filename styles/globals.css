@@ -3,3 +3,4 @@
 @tailwind utilities;
 
 @import 'auth.css';
+@import 'app-bar.css';

@@ -33,22 +33,22 @@ const Trending: React.FC<TrendingProps> = ({}) => {
 
   if (loading) {
     return (
-      <div className="w-full flex items-center justify-center h-64 bg-slate-50 rounded-md shadow-sm">
+      <div className="w-full flex items-center justify-center h-64 bg-slate-50 dark:bg-neutral-800 rounded-md shadow-sm">
         <Image src="/assets/loading_standard.gif" width={96} height={96} />
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-slate-100 rounded-md shadow-sm p-4">
+    <div className="w-full bg-slate-100 rounded-md shadow-sm p-4 dark:bg-neutral-800">
       <div className="text-2xl text-deep-orange">Explore Vevericka</div>
       <div className="mt-4 divide-y-2 flex flex-col space-y-2">
         {tags.map((tag) => (
-          <div>
+          <div key={tag.tag}>
             <Link href={`/explore/${tag.tag}`}>
               <a className="pt-2 flex items-center">
                 <span className="font-black text-xl text-deep-orange">#</span>
-                <span className="ml-2 text-slate-700 font-medium text-lg">
+                <span className="ml-2 text-slate-700 font-medium text-lg dark:text-gray-200">
                   {tag.tag}
                 </span>
               </a>
@@ -59,7 +59,7 @@ const Trending: React.FC<TrendingProps> = ({}) => {
       </div>
       <div className="w-full flex justify-end">
         <Link href="/explore">
-          <a className="uppercase text-sm text-deep-orange font-medium py-2 px-4 rounded-full hover:bg-orange-100">
+          <a className="uppercase text-sm text-deep-orange font-medium py-2 px-4 rounded-full hover:bg-orange-100 hover:bg-opacity-25">
             MORE
           </a>
         </Link>

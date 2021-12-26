@@ -42,14 +42,14 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
     <div className="relative w-full mt-8">
       <label
         htmlFor={id}
-        className="font-medium text-sm absolute -top-3 left-2 bg-white px-1"
+        className="font-medium text-sm absolute -top-3 left-2 bg-white px-1 dark:bg-neutral-800"
       >
         {label}
       </label>
       <input
         type={type}
         id={id}
-        className="border border-gray-500 text-black rounded-md h-8 px-4 w-full placeholder:text-gray-600 focus:outline-none focus:border-deep-orange"
+        className="border border-gray-500 text-black rounded-md h-8 px-4 w-full placeholder:text-gray-600 focus:outline-none focus:border-deep-orange bg-white dark:bg-neutral-800 dark:placeholder:text-gray-400 dark:text-gray-200"
         placeholder={placeholder}
         onChange={(e) => update(e.target.value)}
       />

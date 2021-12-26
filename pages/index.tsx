@@ -38,15 +38,17 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
       <header>
         <AppBar />
       </header>
-      <main className="w-screen sm:w-10/12 md:w-3/4 mx-auto flex flex-col sm:flex-row sm:justify-between">
+      <main className="w-screen sm:w-10/12 md:w-3/4 mx-auto flex flex-col sm:flex-row sm:justify-between mt-4">
         <div className="flex flex-col w-full items-center">
           <div className="w-8/12 sm:w-full md:w-8/12">
-            <CreatePost
-              image={user?.image || ''}
-              name={user?.name || ''}
-              username={user?.username || ''}
-            />
-            <div className="divide-y-2 space-y-2">
+            <div className="w-full bg-white dark:bg-neutral-800 p-2 rounded-md">
+              <CreatePost
+                image={user?.image || ''}
+                name={user?.name || ''}
+                username={user?.username || ''}
+              />
+            </div>
+            <div className="divide-y-2 space-y-2 mt-4 dark:divide-y-0">
               {feed.map((post) => (
                 <div key={post._id}>
                   <PostCard post={post} />
