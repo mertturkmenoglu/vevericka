@@ -12,5 +12,6 @@ declare module "next-auth" {
     email: string;
     userId: string;
     username: string;
+    jwt: string;
   }
 }
