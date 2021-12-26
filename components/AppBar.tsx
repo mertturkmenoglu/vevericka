@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { Menu, Switch, Transition } from '@headlessui/react';
 import {
   AtSymbolIcon,
@@ -21,11 +21,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { signOut } from 'next-auth/react';
+import { ApplicationContext } from '../context/ApplicationContext';
+import { LocalStorage } from '../utils/LocalStorage';
+import { useForceUpdate } from '../hooks/useForceUpdate';
 
 export interface AppBarProps {}
 
 const AppBar: React.FC<AppBarProps> = ({}) => {
-  const [darkTheme, setDarkTheme] = useState(false);
+  const appContext = useContext(ApplicationContext);
+  const forceUpdate = useForceUpdate();
+
+  useEffect(() => {
+    const storage = new LocalStorage();
+    appContext.isDarkTheme = storage.isDarkTheme;
+  }, []);
 
   return (
     <nav className="w-screen flex justify-between py-2 px-4">
@@ -157,13 +166,18 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
                           </span>
                         </div>
                         <Switch
-                          checked={darkTheme}
-                          onChange={setDarkTheme}
+                          checked={appContext.isDarkTheme}
+                          onChange={(value) => {
+                            appContext.isDarkTheme = value;
+                            const storage = new LocalStorage();
+                            storage.isDarkTheme = value;
+                            forceUpdate();
+                          }}
                           className={clsx(
                             'relative inline-flex flex-shrink-0 h-5 w-10 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200',
                             {
-                              'bg-deep-orange': darkTheme,
-                              'bg-orange-200': !darkTheme,
+                              'bg-deep-orange': appContext.isDarkTheme,
+                              'bg-orange-200': !appContext.isDarkTheme,
                             }
                           )}
                         >
@@ -171,7 +185,9 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
                           <span
                             aria-hidden="true"
                             className={`${
-                              darkTheme ? 'translate-x-5' : 'translate-x-1'
+                              appContext.isDarkTheme
+                                ? 'translate-x-5'
+                                : 'translate-x-1'
                             }
             pointer-events-none inline-block h-3 w-3 rounded-full bg-white shadow-lg transform ring-0 transition ease-in-out duration-200 mt-0.5`}
                           />
