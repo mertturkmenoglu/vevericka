@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import {
   BookmarkIcon,
   ChatAltIcon,
+  ClipboardCopyIcon,
   DotsVerticalIcon,
   FlagIcon,
   LogoutIcon,
@@ -11,12 +12,18 @@ import Link from 'next/link';
 import { Fragment, useMemo } from 'react';
 import IPost from '../legacy/src/api/responses/IPost';
 import { preparePostText } from '../utils/Post.utils';
+import { toast } from 'react-toastify';
+import { useTheme } from 'next-themes';
+import { useRouter } from 'next/router';
 
 export interface PostCardProps {
   post: IPost;
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
+  const { theme } = useTheme();
+  const router = useRouter();
+
   const image = useMemo(() => {
     if (post.createdBy.image === 'profile.png') {
       return '/assets/profile.png';
@@ -24,6 +31,30 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
     return post.createdBy.image;
   }, [post]);
+
+  const shareClick = () => {
+    const tmpInput = document.createElement('input');
+    const base =
+      process.env.NODE_ENV === 'production'
+        ? 'https://vevericka.app'
+        : 'http://localhost:3000';
+    tmpInput.value = base + `/post/${post._id}`;
+    document.body.appendChild(tmpInput);
+    tmpInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tmpInput);
+    toast.info('Link copied to your clipboard', {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      icon: <ClipboardCopyIcon className="text-deep-orange w-8 h-8" />,
+      theme: theme === 'dark' ? 'dark' : 'light',
+    });
+  };
 
   return (
     <article
@@ -72,7 +103,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
               <div className="px-2 py-1">
                 <Menu.Item>
                   {() => (
-                    <button className="w-full flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <button
+                      className="w-full flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25"
+                      onClick={shareClick}
+                    >
                       <ShareIcon className="w-4 h-4 text-deep-orange" />
                       <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
                         Share
