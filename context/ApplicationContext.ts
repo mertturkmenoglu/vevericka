@@ -23,7 +23,7 @@ export const defaultApplicationContextState: IApplicationContextState = {
     email: '',
     username: '',
     userId: '',
-    image: '',
+    image: '/assets/profile.png',
     name: '',
     setEmail: () => { },
     setUsername: () => { },
