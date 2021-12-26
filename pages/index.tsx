@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import { useContext, useEffect } from 'react';
 import { Post } from '../api/Post';
@@ -21,6 +22,7 @@ export interface HomePageProps {
 
 const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
   const appContext = useContext(ApplicationContext);
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     appContext.user.setEmail(user.email);
@@ -28,6 +30,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
     appContext.user.setName(user.name);
     appContext.user.setUserId(userId);
     appContext.user.setUsername(user.username);
+    setTheme(appContext.isDarkTheme ? 'dark' : 'light');
   }, []);
 
   return (

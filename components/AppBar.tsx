@@ -24,16 +24,19 @@ import { signOut } from 'next-auth/react';
 import { ApplicationContext } from '../context/ApplicationContext';
 import { LocalStorage } from '../utils/LocalStorage';
 import { useForceUpdate } from '../hooks/useForceUpdate';
+import { useTheme } from 'next-themes';
 
 export interface AppBarProps {}
 
 const AppBar: React.FC<AppBarProps> = ({}) => {
   const appContext = useContext(ApplicationContext);
   const forceUpdate = useForceUpdate();
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     const storage = new LocalStorage();
     appContext.isDarkTheme = storage.isDarkTheme;
+    setTheme(appContext.isDarkTheme ? 'dark' : 'ligh');
   }, []);
 
   const image = useMemo(() => {
@@ -176,6 +179,7 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
                             appContext.isDarkTheme = value;
                             const storage = new LocalStorage();
                             storage.isDarkTheme = value;
+                            setTheme(appContext.isDarkTheme ? 'dark' : 'light');
                             forceUpdate();
                           }}
                           className={clsx(
