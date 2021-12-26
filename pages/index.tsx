@@ -3,19 +3,23 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useContext, useEffect } from 'react';
+import { Post } from '../api/Post';
 import { User } from '../api/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
+import PostCard from '../components/PostCard';
 import Trending from '../components/Trending';
 import { ApplicationContext } from '../context/ApplicationContext';
+import IPost from '../legacy/src/api/responses/IPost';
 import IUser from '../legacy/src/api/responses/IUser';
 
 export interface HomePageProps {
   user: IUser;
   userId: string;
+  feed: IPost[];
 }
 
-const Home: NextPage<HomePageProps> = ({ user, userId }) => {
+const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
   const appContext = useContext(ApplicationContext);
 
   useEffect(() => {
@@ -42,6 +46,13 @@ const Home: NextPage<HomePageProps> = ({ user, userId }) => {
               name={user?.name || ''}
               username={user?.username || ''}
             />
+            <div className="divide-y-2 space-y-2">
+              {feed.map((post) => (
+                <div key={post._id}>
+                  <PostCard post={post} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -67,9 +78,12 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
     };
   }
 
-  const user = await User.getUserByUsername(session.username);
+  const userApi = new User(session.jwt);
+  const postApi = new Post(session.jwt);
+  const user = await userApi.getUserByUsername(session.username);
+  const feed = await postApi.getFeedByUsername(session.username);
 
-  if (!user) {
+  if (!user || !feed) {
     return {
       redirect: {
         destination: '/error',
@@ -82,6 +96,7 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
     props: {
       user,
       userId: session.userId,
+      feed,
     },
   };
 };
