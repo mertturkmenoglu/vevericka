@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { getSession, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { User } from '../api/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
@@ -10,27 +10,21 @@ import Trending from '../components/Trending';
 import { ApplicationContext } from '../context/ApplicationContext';
 import IUser from '../legacy/src/api/responses/IUser';
 
-export interface HomePageProps {}
+export interface HomePageProps {
+  user: IUser;
+  userId: string;
+}
 
-const Home: NextPage<HomePageProps> = () => {
-  const [user, setUser] = useState<IUser | null>(null);
-  const { data } = useSession();
+const Home: NextPage<HomePageProps> = ({ user, userId }) => {
   const appContext = useContext(ApplicationContext);
 
   useEffect(() => {
-    if (data) {
-      User.getUserByUsername(data.username).then((v) => {
-        if (v) {
-          setUser(v);
-          appContext.user.setEmail(v.email);
-          appContext.user.setImage(v.image);
-          appContext.user.setName(v.name);
-          appContext.user.setUserId(data.userId);
-          appContext.user.setUsername(v.username);
-        }
-      });
-    }
-  }, [data]);
+    appContext.user.setEmail(user.email);
+    appContext.user.setImage(user.image);
+    appContext.user.setName(user.name);
+    appContext.user.setUserId(userId);
+    appContext.user.setUsername(user.username);
+  }, []);
 
   return (
     <>
@@ -41,9 +35,6 @@ const Home: NextPage<HomePageProps> = () => {
         <AppBar />
       </header>
       <main className="w-screen sm:w-10/12 md:w-3/4 mx-auto flex flex-col sm:flex-row sm:justify-between">
-        {/* <pre>{JSON.stringify(data)}</pre>
-        <pre>{JSON.stringify(user)}</pre> */}
-
         <div className="flex flex-col w-full items-center">
           <div className="w-8/12 sm:w-full md:w-8/12">
             <CreatePost
@@ -76,8 +67,22 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
     };
   }
 
+  const user = await User.getUserByUsername(session.username);
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    };
+  }
+
   return {
-    props: {},
+    props: {
+      user,
+      userId: session.userId,
+    },
   };
 };
 
