@@ -150,9 +150,11 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
       {/* Date - Comments */}
       <div className="flex w-full justify-end mt-2 items-center">
-        <div className="text-xs text-slate-700 dark:text-gray-600">
-          {new Date(post.createdAt).toLocaleDateString()}
-        </div>
+        <Link href={`/post/${post._id}`}>
+          <a className="text-xs text-slate-700 dark:text-gray-600 hover:underline">
+            {new Date(post.createdAt).toLocaleDateString()}
+          </a>
+        </Link>
         <button className="flex items-center">
           <ChatAltIcon className="w-4 h-4 text-deep-orange ml-4" />
           <span className="text-xs text-slate-700 font-thin ml-1 dark:text-gray-400">

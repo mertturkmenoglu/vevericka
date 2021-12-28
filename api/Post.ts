@@ -20,4 +20,16 @@ export class Post {
       return null;
     }
   }
+
+  public async getPostById(postId: string): Promise<IPost | null> {
+    try {
+      const response = await this.api.get<IPost>(`/${postId}`);
+      return response.data;
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        console.error(e.message);
+      }
+      return null;
+    }
+  }
 }
