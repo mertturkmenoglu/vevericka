@@ -1,6 +1,6 @@
-import axios, { AxiosInstance } from "axios";
-import ITag from "../legacy/src/api/responses/ITag";
-import { createApi } from "./Api";
+import { AxiosInstance } from 'axios';
+import ITag from '../legacy/src/api/responses/ITag';
+import { createApi } from './Api';
 
 export class Explore {
   public constructor(private readonly token: string) { }
@@ -11,12 +11,9 @@ export class Explore {
 
   public async getTags(): Promise<ITag[]> {
     try {
-      const response = await this.api.get<ITag[]>(`/tags`);
+      const response = await this.api.get<ITag[]>('/tags');
       return response.data;
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        console.error(e.message);
-      }
       return [];
     }
   }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import ITag from '../legacy/src/api/responses/ITag';
@@ -12,7 +12,7 @@ const Trending: React.FC<TrendingProps> = ({}) => {
   const [tags, setTags] = useState<ITag[]>([]);
   const { data } = useSession();
 
-  const fetchTrending = async (): Promise<ITag[]> => {
+  const fetchTrending = useCallback(async (): Promise<ITag[]> => {
     if (!data) {
       return [];
     }
@@ -20,7 +20,7 @@ const Trending: React.FC<TrendingProps> = ({}) => {
     const exploreApi = new Explore(data.jwt);
     const tags = await exploreApi.getTags();
     return tags.sort((a, b) => b.count - a.count).slice(0, 5);
-  };
+  }, [data]);
 
   useEffect(() => {
     if (data && loading) {
@@ -29,12 +29,12 @@ const Trending: React.FC<TrendingProps> = ({}) => {
         setLoading(false);
       });
     }
-  }, [data]);
+  }, [data, loading, fetchTrending]);
 
   if (loading) {
     return (
       <div className="w-full flex items-center justify-center h-64 bg-slate-50 dark:bg-neutral-800 rounded-md shadow-sm">
-        <Image src="/assets/loading_standard.gif" width={96} height={96} />
+        <Image src="/assets/loading_standard.gif" width={96} height={96} alt="Loading" />
       </div>
     );
   }

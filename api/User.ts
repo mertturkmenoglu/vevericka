@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance } from 'axios';
 import { createApi } from './Api';
 
 export type UserPopulated = {
@@ -45,9 +45,6 @@ export class User {
       const response = await this.api.get<IUser>(`/username/${username}`);
       return response.data;
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        console.error(e.message);
-      }
       return null;
     }
   }

@@ -1,5 +1,5 @@
-import { createContext } from "react";
-import { SetState } from "./types";
+import { createContext } from 'react';
+import { SetState } from './types';
 
 export interface ILoginContextState {
   email: string;

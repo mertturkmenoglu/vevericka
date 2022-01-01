@@ -15,4 +15,4 @@ export const createPublicApi = (module: AvailableApiModules): AxiosInstance => {
   return axios.create({
     baseURL: `${BASE_URL}/api/${API_VER}/${module}`,
   });
-}
+};

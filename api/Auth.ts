@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosResponse } from 'axios';
 import { createPublicApi } from './Api';
 
 interface ILoginRequest {
@@ -19,7 +19,7 @@ export class Auth {
 
   public static async login(email: string, password: string): Promise<ILoginResponse | null> {
     try {
-      const response = await Auth.api.post('/login', {
+      const response = await Auth.api.post<any, AxiosResponse<ILoginResponse>, ILoginRequest>('/login', {
         email,
         password,
       });
@@ -31,11 +31,8 @@ export class Auth {
         userId,
         username,
         token,
-      }
+      };
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        console.error(e.message);
-      }
       return null;
     }
   }

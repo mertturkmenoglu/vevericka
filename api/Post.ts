@@ -1,6 +1,6 @@
-import axios, { AxiosInstance } from "axios";
-import IPost from "../legacy/src/api/responses/IPost";
-import { createApi } from "./Api";
+import { AxiosInstance } from 'axios';
+import IPost from '../legacy/src/api/responses/IPost';
+import { createApi } from './Api';
 
 export class Post {
   public constructor(private readonly token: string) { }
@@ -14,9 +14,6 @@ export class Post {
       const response = await this.api.get<IPost[]>(`/feed/${username}`);
       return response.data;
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        console.error(e.message);
-      }
       return null;
     }
   }
@@ -26,9 +23,6 @@ export class Post {
       const response = await this.api.get<IPost>(`/${postId}`);
       return response.data;
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        console.error(e.message);
-      }
       return null;
     }
   }

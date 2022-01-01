@@ -5,7 +5,6 @@ import {
   ClipboardCopyIcon,
   DotsVerticalIcon,
   FlagIcon,
-  LogoutIcon,
   ShareIcon,
 } from '@heroicons/react/outline';
 import Link from 'next/link';
@@ -14,7 +13,6 @@ import IPost from '../legacy/src/api/responses/IPost';
 import { preparePostText } from '../utils/Post.utils';
 import { toast } from 'react-toastify';
 import { useTheme } from 'next-themes';
-import { useRouter } from 'next/router';
 
 export interface PostCardProps {
   post: IPost;
@@ -22,7 +20,6 @@ export interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const { theme } = useTheme();
-  const router = useRouter();
 
   const image = useMemo(() => {
     if (post.createdBy.image === 'profile.png') {

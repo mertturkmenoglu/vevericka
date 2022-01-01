@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { LocalStorage } from '../utils/LocalStorage';
 import {
   ApplicationContext,
   defaultApplicationContextState as defaultValues,

@@ -39,13 +39,13 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
     appContext.setIsDarkTheme(storage.isDarkTheme);
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
     forceUpdate();
-  }, []);
+  });
 
   return (
     <nav className="w-full flex justify-between px-4 dark:bg-neutral-800">
       <Link href="/">
         <a className="flex items-center">
-          <Image src="/assets/icon_primary.svg" width={32} height={32} />
+          <Image src="/assets/icon_primary.svg" width={32} height={32} alt="Application icon" />
           <div className="text-xl text-deep-orange ml-4 mt-1 hidden sm:block">
             Vevericka
           </div>

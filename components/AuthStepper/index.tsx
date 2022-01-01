@@ -1,4 +1,4 @@
-import { useState, Children, useEffect, useMemo } from 'react';
+import { useState, Children, useEffect, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/outline';
 import AuthStepperStep, { AuthStepperStepProps } from './AuthStepperStep';
@@ -19,17 +19,13 @@ const AuthStepper: Component = ({ children }) => {
    * @returns true if index boundaries are safe
    * @returns false if index is not safe to use
    */
-  const checkChildrenArrayIndexBound = () => {
-    if (childrenArray.length === 0) {
-      return false;
-    }
-
-    return true;
-  };
+  const checkChildrenArrayIndexBound = useCallback(() => {
+    return childrenArray.length !== 0;
+  }, [childrenArray]);
 
   useEffect(() => {
     setSafeRenderFlag(checkChildrenArrayIndexBound());
-  }, [childrenArray]);
+  }, [childrenArray, checkChildrenArrayIndexBound, setSafeRenderFlag]);
 
   const isFirstStep = useMemo(() => {
     return currentIndex === 0;
