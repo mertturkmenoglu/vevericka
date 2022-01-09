@@ -23,9 +23,10 @@ export default NextAuth({
 
         return {
           email: credentials.email,
-          userId: response.userId,
+          id: response.id,
           username: response.username,
           token: response.token,
+          image: response.image,
         };
       },
     }),
@@ -34,7 +35,7 @@ export default NextAuth({
     jwt: ({ token, user }) => {
       if (user) {
         token.email = user?.email;
-        token.userId = user?.userId;
+        token.id = user?.id;
         token.username = user?.username;
         token.jwt = user?.token;
       }
@@ -43,7 +44,7 @@ export default NextAuth({
     },
     session: ({ session, token }) => {
       session.email = token.email || '';
-      session.userId = token.userId as string;
+      session.id = token.id as number;
       session.username = token.username as string;
       session.jwt = token.jwt as string;
 
