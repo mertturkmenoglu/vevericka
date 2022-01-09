@@ -34,7 +34,12 @@ const Trending: React.FC<TrendingProps> = ({}) => {
   if (loading) {
     return (
       <div className="w-full flex items-center justify-center h-64 bg-slate-50 dark:bg-neutral-800 rounded-md shadow-sm">
-        <Image src="/assets/loading_standard.gif" width={96} height={96} alt="Loading" />
+        <Image
+          src="/assets/loading_standard.gif"
+          width={96}
+          height={96}
+          alt="Loading"
+        />
       </div>
     );
   }
@@ -42,20 +47,26 @@ const Trending: React.FC<TrendingProps> = ({}) => {
   return (
     <div className="w-full bg-slate-100 rounded-md shadow-sm p-4 dark:bg-neutral-800">
       <div className="text-2xl text-deep-orange">Explore Vevericka</div>
-      <div className="mt-4 divide-y-2 flex flex-col space-y-2">
-        {tags.map((tag) => (
-          <div key={tag.tag}>
-            <Link href={`/explore/${tag.tag}`}>
-              <a className="pt-2 flex items-center">
-                <span className="font-black text-xl text-deep-orange">#</span>
-                <span className="ml-2 text-slate-700 font-medium text-lg dark:text-gray-200">
-                  {tag.tag}
-                </span>
-              </a>
-            </Link>
-            <span className="text-sm text-slate-500">{tag.count} posts</span>
+      <div className="mt-4 divide-y-2 flex flex-col space-y-2 w-full">
+        {tags.length > 0 &&
+          tags.map((tag) => (
+            <div key={tag.tag}>
+              <Link href={`/explore/${tag.tag}`}>
+                <a className="pt-2 flex items-center">
+                  <span className="font-black text-xl text-deep-orange">#</span>
+                  <span className="ml-2 text-slate-700 font-medium text-lg dark:text-gray-200">
+                    {tag.tag}
+                  </span>
+                </a>
+              </Link>
+              <span className="text-sm text-slate-500">{tag.count} posts</span>
+            </div>
+          ))}
+        {tags.length === 0 && (
+          <div className="pt-2 flex items-center w-full">
+            We couldn't find any results
           </div>
-        ))}
+        )}
       </div>
       <div className="w-full flex justify-end">
         <Link href="/explore">
