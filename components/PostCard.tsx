@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { Fragment, useMemo } from 'react';
-import IPost from '../legacy/src/api/responses/IPost';
+import { IPost } from '../api/models/IPost';
 import { preparePostText } from '../utils/Post.utils';
 import { toast } from 'react-toastify';
 import { useTheme } from 'next-themes';
@@ -22,11 +22,11 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const { theme } = useTheme();
 
   const image = useMemo(() => {
-    if (post.createdBy.image === 'profile.png') {
+    if (post.user.image === 'profile.png') {
       return '/assets/profile.png';
     }
 
-    return post.createdBy.image;
+    return post.user.image;
   }, [post]);
 
   const shareClick = () => {
@@ -35,7 +35,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       process.env.NODE_ENV === 'production'
         ? 'https://vevericka.app'
         : 'http://localhost:3000';
-    tmpInput.value = base + `/post/${post._id}`;
+    tmpInput.value = base + `/post/${post.id}`;
     document.body.appendChild(tmpInput);
     tmpInput.select();
     document.execCommand('copy');
@@ -55,24 +55,24 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
   return (
     <article
-      key={post._id}
+      key={post.id}
       className="flex flex-col py-4 px-2 bg-white dark:bg-neutral-800 rounded-md"
     >
       {/* Image - Name - Menu */}
       <div className="flex justify-between items-center">
         <div className="flex items-center">
-          <Link href={`/user/${post.createdBy.username}`}>
+          <Link href={`/user/${post.user.username}`}>
             <a>
               <img
                 src={image}
-                alt={post.createdBy.name}
+                alt={post.user.name}
                 className="w-10 h-10 rounded-full"
               />
             </a>
           </Link>
-          <Link href={`/user/${post.createdBy.username}`}>
+          <Link href={`/user/${post.user.username}`}>
             <a className="ml-2 text-xl text-slate-700 dark:text-gray-200 hover:underline">
-              {post.createdBy.name}
+              {post.user.name}
             </a>
           </Link>
         </div>
@@ -147,7 +147,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
       {/* Date - Comments */}
       <div className="flex w-full justify-end mt-2 items-center">
-        <Link href={`/post/${post._id}`}>
+        <Link href={`/post/${post.id}`}>
           <a className="text-xs text-slate-700 dark:text-gray-600 hover:underline">
             {new Date(post.createdAt).toLocaleDateString()}
           </a>
@@ -155,7 +155,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <button className="flex items-center">
           <ChatAltIcon className="w-4 h-4 text-deep-orange ml-4" />
           <span className="text-xs text-slate-700 font-thin ml-1 dark:text-gray-400">
-            {post.comments.length}
+            {/* {post.comments.length} */}0
             <span className="sr-only">comments</span>
           </span>
         </button>
