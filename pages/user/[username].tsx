@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import IUser from '../../legacy/src/api/responses/IUser';
+import { IUser } from '../../api/models/IUser';
 import { User } from '../../api/User';
 import { useContext, useEffect, useMemo } from 'react';
 import { ApplicationContext } from '../../context/ApplicationContext';
@@ -14,7 +14,7 @@ export interface UserPageProps {
   username: string;
   user: IUser;
   currentUser: IUser;
-  currentUserId: string;
+  currentUserId: number;
 }
 
 const UserPage: NextPage<UserPageProps> = ({
@@ -118,7 +118,7 @@ export const getServerSideProps: GetServerSideProps<UserPageProps> = async (
       user,
       username,
       currentUser,
-      currentUserId: session.userId,
+      currentUserId: session.id,
     },
   };
 };

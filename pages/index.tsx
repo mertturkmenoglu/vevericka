@@ -5,16 +5,15 @@ import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import { useContext, useEffect } from 'react';
 import { IPost } from '../api/models/IPost';
+import { IUser } from '../api/models/IUser';
 import { Post } from '../api/Post';
 import { User } from '../api/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
 import HomePageFeed from '../components/HomePageFeed';
-import PostCard from '../components/PostCard';
 import ScrollToTopFab from '../components/ScrollToTopFab';
 import Trending from '../components/Trending';
 import { ApplicationContext } from '../context/ApplicationContext';
-import IUser from '../legacy/src/api/responses/IUser';
 import { LocalStorage } from '../utils/LocalStorage';
 
 export interface HomePageProps {
