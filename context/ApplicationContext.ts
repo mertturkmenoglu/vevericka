@@ -8,7 +8,7 @@ export interface IApplicationContextState {
     username: string;
     setUsername: SetState<string>;
     userId: string;
-    setUserId: SetState<string>;
+    setUserId: SetState<string | number>;
     image: string;
     setImage: SetState<string>;
     name: string;
