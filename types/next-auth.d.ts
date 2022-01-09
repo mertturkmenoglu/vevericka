@@ -10,7 +10,7 @@ declare module "next-auth" {
       address: string
     };
     email: string;
-    userId: string;
+    id: number;
     username: string;
     jwt: string;
   }
