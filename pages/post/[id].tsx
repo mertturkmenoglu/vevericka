@@ -1,21 +1,21 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import IUser from '../../legacy/src/api/responses/IUser';
 import { User } from '../../api/User';
-import { useContext, useEffect, useMemo } from 'react';
+import { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../../context/ApplicationContext';
 import { useTheme } from 'next-themes';
 import { LocalStorage } from '../../utils/LocalStorage';
 import Head from 'next/head';
 import AppBar from '../../components/AppBar';
-import IPost from '../../legacy/src/api/responses/IPost';
 import { Post } from '../../api/Post';
 import PostCard from '../../components/PostCard';
+import { IUser } from '../../api/models/IUser';
+import { IPost } from '../../api/models/IPost';
 
 export interface PostPageProps {
   user: IUser;
-  userId: string;
+  userId: number;
   post: IPost;
 }
 
@@ -35,14 +35,6 @@ const PostPage: NextPage<PostPageProps> = ({ user, userId, post }) => {
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
   });
 
-  const image = useMemo(() => {
-    if (user.image === 'profile.png') {
-      return '/assets/profile.png';
-    }
-
-    return user.image;
-  }, [user]);
-
   return (
     <>
       <Head>
@@ -52,7 +44,7 @@ const PostPage: NextPage<PostPageProps> = ({ user, userId, post }) => {
         <AppBar />
       </header>
       <main className="w-screen mt-4 bg-white dark:bg-neutral-800 md:w-1/3 mx-auto rounded-md">
-        <div className="flex flex-col p-4 items-center">
+        <div className="flex flex-col p-4 items-center w-full">
           <PostCard post={post} />
         </div>
       </main>
@@ -103,7 +95,7 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async (
     props: {
       user,
       post,
-      userId: session.userId,
+      userId: session.id,
     },
   };
 };

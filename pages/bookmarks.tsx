@@ -6,13 +6,13 @@ import AppBar from '../components/AppBar';
 import { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../context/ApplicationContext';
 import { useTheme } from 'next-themes';
-import IUser from '../legacy/src/api/responses/IUser';
 import { LocalStorage } from '../utils/LocalStorage';
 import { User } from '../api/User';
+import { IUser } from '../api/models/IUser';
 
 export interface BookmarksPageProps {
   user: IUser;
-  userId: string;
+  userId: number;
 }
 
 const Bookmarks: NextPage<BookmarksPageProps> = ({ user, userId }) => {
@@ -45,37 +45,38 @@ const Bookmarks: NextPage<BookmarksPageProps> = ({ user, userId }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<BookmarksPageProps> =
-  async (context) => {
-    const session = await getSession(context);
+export const getServerSideProps: GetServerSideProps<
+  BookmarksPageProps
+> = async (context) => {
+  const session = await getSession(context);
 
-    if (!session || !session.user) {
-      return {
-        redirect: {
-          destination: '/login',
-          permanent: false,
-        },
-      };
-    }
-
-    const userApi = new User(session.jwt);
-    const user = await userApi.getUserByUsername(session.username);
-
-    if (!user) {
-      return {
-        redirect: {
-          destination: '/login',
-          permanent: false,
-        },
-      };
-    }
-
+  if (!session || !session.user) {
     return {
-      props: {
-        user,
-        userId: session.userId,
+      redirect: {
+        destination: '/login',
+        permanent: false,
       },
     };
+  }
+
+  const userApi = new User(session.jwt);
+  const user = await userApi.getUserByUsername(session.username);
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      user,
+      userId: session.id,
+    },
   };
+};
 
 export default Bookmarks;
