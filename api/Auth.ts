@@ -7,8 +7,10 @@ interface ILoginRequest {
 }
 
 interface ILoginResponse {
-  userId: string;
+  id: number;
   username: string;
+  email: string;
+  image: string;
   token: string;
 }
 
@@ -24,13 +26,15 @@ export class Auth {
         password,
       });
 
-      const { userId, username } = response.data;
+      const { id, username, email: Email, image } = response.data;
       const token = response.headers.authorization;
 
       return {
-        userId,
+        id,
         username,
         token,
+        image,
+        email: Email
       };
     } catch (e) {
       return null;
