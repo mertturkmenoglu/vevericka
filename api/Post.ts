@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
-import IPost from '../legacy/src/api/responses/IPost';
 import { createApi } from './Api';
+import { IPost } from './models/IPost';
+import { PaginatedResult } from './models/PaginatedResult';
 
 export class Post {
   public constructor(private readonly token: string) { }
@@ -9,9 +10,14 @@ export class Post {
     return createApi('post', this.token);
   }
 
-  public async getFeedByUsername(username: string): Promise<IPost[] | null> {
+  public async getFeedByUsername(username: string): Promise<PaginatedResult<IPost> | null> {
     try {
-      const response = await this.api.get<IPost[]>(`/feed/${username}`);
+      const response = await this.api.get<PaginatedResult<IPost>>(`/feed/${username}`, {
+        params: {
+          page: 1,
+          pageSize: 20,
+        }
+      });
       return response.data;
     } catch (e) {
       return null;
