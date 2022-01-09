@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export interface CreatePostProps {
   image: string;
@@ -9,11 +9,19 @@ export interface CreatePostProps {
 const CreatePost: React.FC<CreatePostProps> = ({ image, name, username }) => {
   const [text, setText] = useState('');
 
+  const userImage = useMemo(() => {
+    if (image === 'profile.png') {
+      return '/assets/profile.png';
+    }
+
+    return image;
+  }, [image]);
+
   return (
     <>
       <div className="flex w-full items-center">
         <img
-          src={image}
+          src={userImage}
           alt="User picture"
           className="w-16 h-16 rounded-full"
         />
