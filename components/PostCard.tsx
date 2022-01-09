@@ -56,7 +56,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   return (
     <article
       key={post.id}
-      className="flex flex-col py-4 px-2 bg-white dark:bg-neutral-800 rounded-md"
+      className="flex flex-col py-4 px-2 bg-white dark:bg-neutral-800 rounded-md w-full"
     >
       {/* Image - Name - Menu */}
       <div className="flex justify-between items-center">
