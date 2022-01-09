@@ -56,8 +56,8 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
     const storage = new LocalStorage();
     appContext.setIsDarkTheme(storage.isDarkTheme);
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
-    forceUpdate();
-  });
+    //forceUpdate();
+  }, []);
 
   return (
     <>

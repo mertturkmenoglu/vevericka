@@ -7,45 +7,47 @@ import { ApplicationContext } from '../context/ApplicationContext';
 import { LocalStorage } from '../utils/LocalStorage';
 import { useTheme } from 'next-themes';
 import AppBarMenu from './AppBarMenu';
-import { useForceUpdate } from '../hooks/useForceUpdate';
 
 export interface AppBarProps {}
+
+const visibleIcons = [
+  {
+    Icon: SearchIcon,
+    href: '/search',
+    isMobileOnly: true,
+  },
+  {
+    Icon: BellIcon,
+    href: '/notifications',
+    isMobileOnly: false,
+  },
+  {
+    Icon: MailIcon,
+    href: '/messages',
+    isMobileOnly: false,
+  },
+];
 
 const AppBar: React.FC<AppBarProps> = ({}) => {
   const appContext = useContext(ApplicationContext);
   const { setTheme } = useTheme();
-  const forceUpdate = useForceUpdate();
-
-  const visibleIcons = [
-    {
-      Icon: SearchIcon,
-      href: '/search',
-      isMobileOnly: true,
-    },
-    {
-      Icon: BellIcon,
-      href: '/notifications',
-      isMobileOnly: false,
-    },
-    {
-      Icon: MailIcon,
-      href: '/messages',
-      isMobileOnly: false,
-    },
-  ];
 
   useEffect(() => {
     const storage = new LocalStorage();
     appContext.setIsDarkTheme(storage.isDarkTheme);
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
-    forceUpdate();
-  });
+  }, [setTheme]);
 
   return (
     <nav className="w-full flex justify-between px-4 dark:bg-neutral-800">
       <Link href="/">
         <a className="flex items-center">
-          <Image src="/assets/icon_primary.svg" width={32} height={32} alt="Application icon" />
+          <Image
+            src="/assets/icon_primary.svg"
+            width={32}
+            height={32}
+            alt="Application icon"
+          />
           <div className="text-xl text-deep-orange ml-4 mt-1 hidden sm:block">
             Vevericka
           </div>
