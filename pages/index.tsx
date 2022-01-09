@@ -4,21 +4,22 @@ import { getSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import { useContext, useEffect } from 'react';
+import { IPost } from '../api/models/IPost';
 import { Post } from '../api/Post';
 import { User } from '../api/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
+import HomePageFeed from '../components/HomePageFeed';
 import PostCard from '../components/PostCard';
 import ScrollToTopFab from '../components/ScrollToTopFab';
 import Trending from '../components/Trending';
 import { ApplicationContext } from '../context/ApplicationContext';
-import IPost from '../legacy/src/api/responses/IPost';
 import IUser from '../legacy/src/api/responses/IUser';
 import { LocalStorage } from '../utils/LocalStorage';
 
 export interface HomePageProps {
   user: IUser;
-  userId: string;
+  userId: number;
   feed: IPost[];
 }
 
@@ -55,13 +56,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
                 username={user?.username || ''}
               />
             </div>
-            <div className="divide-y-2 space-y-2 mt-4 dark:divide-y-0">
-              {feed.map((post) => (
-                <div key={post._id}>
-                  <PostCard post={post} />
-                </div>
-              ))}
-            </div>
+            <HomePageFeed feed={feed} />
           </div>
         </div>
 
@@ -106,8 +101,8 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
   return {
     props: {
       user,
-      userId: session.userId,
-      feed,
+      userId: session.id as number,
+      feed: feed.data,
     },
   };
 };
