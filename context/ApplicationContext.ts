@@ -7,7 +7,7 @@ export interface IApplicationContextState {
     setEmail: SetState<string>;
     username: string;
     setUsername: SetState<string>;
-    userId: string;
+    userId: string | number;
     setUserId: SetState<string | number>;
     image: string;
     setImage: SetState<string>;

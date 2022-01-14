@@ -85,7 +85,7 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async (
   if (!user || !post) {
     return {
       redirect: {
-        destination: '/error',
+        destination: '/error?code=1',
         permanent: false,
       },
     };

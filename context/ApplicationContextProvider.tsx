@@ -11,7 +11,9 @@ const ApplicationContextProvider: React.FC<ApplicationContextProviderProps> = ({
 }) => {
   const [email, setEmail] = useState(defaultValues.user.email);
   const [username, setUsername] = useState(defaultValues.user.username);
-  const [userId, setUserId] = useState(defaultValues.user.userId);
+  const [userId, setUserId] = useState<string | number>(
+    defaultValues.user.userId
+  );
   const [image, setImage] = useState(defaultValues.user.image);
   const [name, setName] = useState(defaultValues.user.name);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
