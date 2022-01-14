@@ -28,7 +28,7 @@ const Bookmarks: NextPage<BookmarksPageProps> = ({ user, userId }) => {
     const storage = new LocalStorage();
     appContext.setIsDarkTheme(storage.isDarkTheme);
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
-  }, []);
+  });
 
   return (
     <>

@@ -15,7 +15,7 @@ const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed }) => {
     return (
       <div className="flex justify-center mt-16">
         <div className="text-deep-orange text-xl font-semibold">
-          We couldn't find any results.
+          We couldn&apos;t find any results.
         </div>
       </div>
     );

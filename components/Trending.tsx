@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import ITag from '../legacy/src/api/responses/ITag';
+import { ITag } from '../api/models/ITag';
 import { Explore } from '../api/Explore';
 import Link from 'next/link';
 
@@ -64,7 +64,7 @@ const Trending: React.FC<TrendingProps> = ({}) => {
           ))}
         {tags.length === 0 && (
           <div className="pt-2 flex items-center w-full">
-            We couldn't find any results
+            We couldn&apos;t find any results
           </div>
         )}
       </div>

@@ -36,7 +36,7 @@ export const errorCodeMap: Record<number, ErrorObj> = {
     key: 'user-not-found',
     title: 'User Not Found | Vevericka',
     message:
-      "The squirrel you were looking is not here. Maybe it's in another tree? If you 'Vik', maybe you can get a response.",
+      'The squirrel you were looking is not here. Maybe it\'s in another tree? If you \'Vik\', maybe you can get a response.',
   },
 };
 

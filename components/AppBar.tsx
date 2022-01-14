@@ -36,7 +36,7 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
     const storage = new LocalStorage();
     appContext.setIsDarkTheme(storage.isDarkTheme);
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
-  }, [setTheme]);
+  }, [setTheme, appContext]);
 
   return (
     <nav className="w-full flex justify-between px-4 dark:bg-neutral-800">

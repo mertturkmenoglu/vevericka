@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import ITag from '../legacy/src/api/responses/ITag';
+import { ITag } from './models/ITag';
 import { createApi } from './Api';
 
 export class Explore {

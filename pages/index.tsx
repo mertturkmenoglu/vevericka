@@ -35,7 +35,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
     const storage = new LocalStorage();
     appContext.setIsDarkTheme(storage.isDarkTheme);
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
-  }, []);
+  });
 
   return (
     <>
