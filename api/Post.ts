@@ -11,8 +11,10 @@ export class Post {
   }
 
   public async getFeedByUsername(username: string): Promise<PaginatedResult<IPost> | null> {
+    // const realEndpoint = `/feed/${username}`;
+    const tmpEndpoint = `/user/${username}`;
     try {
-      const response = await this.api.get<PaginatedResult<IPost>>(`/feed/${username}`, {
+      const response = await this.api.get<PaginatedResult<IPost>>(tmpEndpoint, {
         params: {
           page: 1,
           pageSize: 20,
@@ -20,6 +22,7 @@ export class Post {
       });
       return response.data;
     } catch (e) {
+      console.error({ e });
       return null;
     }
   }

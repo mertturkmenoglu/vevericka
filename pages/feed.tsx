@@ -88,7 +88,7 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
   const user = await userApi.getUserByUsername(session.username);
   const feed = await postApi.getFeedByUsername(session.username);
 
-  if (!user || !feed) {
+  if (!user) {
     return {
       redirect: {
         destination: '/error',
@@ -101,7 +101,7 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
     props: {
       user,
       userId: session.id as number,
-      feed: feed.data,
+      feed: [],
     },
   };
 };

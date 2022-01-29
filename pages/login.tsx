@@ -81,7 +81,7 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
   if (session) {
     return {
       redirect: {
-        destination: '/',
+        destination: '/feed',
         permanent: false,
       },
     };
