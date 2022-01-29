@@ -60,7 +60,7 @@ const Login: NextPage = () => {
                 email: ctx.email,
                 password: ctx.password,
               });
-              await router.push('/');
+              await router.push('/feed');
             } catch (e) {}
           }}
         />
