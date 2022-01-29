@@ -40,7 +40,7 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
 
   return (
     <nav className="w-full flex justify-between px-4 dark:bg-neutral-800">
-      <Link href="/">
+      <Link href="/feed">
         <a className="flex items-center">
           <Image
             src="/assets/icon_primary.svg"
