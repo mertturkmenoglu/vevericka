@@ -22,7 +22,6 @@ export class Post {
       });
       return response.data;
     } catch (e) {
-      console.error({ e });
       return null;
     }
   }
