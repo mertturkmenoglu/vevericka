@@ -11,7 +11,7 @@ const AuthLink = ({ href, text, cta }: AuthLinkProps) => {
     <Link href={href}>
       <a>
         <span className="text-slate-700 dark:text-gray-400">{text}</span>{' '}
-        <span className="text-deep-orange hover:underline">{cta}</span>
+        <span className="text-primary hover:underline">{cta}</span>
       </a>
     </Link>
   );

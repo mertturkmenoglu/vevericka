@@ -42,7 +42,7 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
     <div className="relative w-full mt-8">
       <label
         htmlFor={id}
-        className="font-medium text-sm absolute -top-3 left-2 bg-white px-1 dark:bg-neutral-800"
+        className="font-medium text-sm absolute -top-3 left-2 bg-white px-1 dark:bg-neutral-800 text-midnight"
       >
         {label}
       </label>
