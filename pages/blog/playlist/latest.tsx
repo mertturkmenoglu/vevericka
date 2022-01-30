@@ -33,7 +33,7 @@ const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({
         <meta property="og:description" content={playlist.subtitle} />
         <meta
           property="og:image"
-          content={playlist.thumbnail.fields.file.url}
+          content={'https:' + playlist.thumbnail.fields.file.url}
         />
         <meta
           property="og:url"
