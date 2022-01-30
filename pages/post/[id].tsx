@@ -1,17 +1,17 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import { User } from '../../api/User';
+import { User } from '../../backend/User';
 import { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../../context/ApplicationContext';
 import { useTheme } from 'next-themes';
 import { LocalStorage } from '../../utils/LocalStorage';
 import Head from 'next/head';
 import AppBar from '../../components/AppBar';
-import { Post } from '../../api/Post';
+import { Post } from '../../backend/Post';
 import PostCard from '../../components/PostCard';
-import { IUser } from '../../api/models/IUser';
-import { IPost } from '../../api/models/IPost';
+import { IUser } from '../../backend/models/IUser';
+import { IPost } from '../../backend/models/IPost';
 
 export interface PostPageProps {
   user: IUser;

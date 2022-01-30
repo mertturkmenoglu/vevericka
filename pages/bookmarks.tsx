@@ -7,8 +7,8 @@ import { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../context/ApplicationContext';
 import { useTheme } from 'next-themes';
 import { LocalStorage } from '../utils/LocalStorage';
-import { User } from '../api/User';
-import { IUser } from '../api/models/IUser';
+import { User } from '../backend/User';
+import { IUser } from '../backend/models/IUser';
 
 export interface BookmarksPageProps {
   user: IUser;

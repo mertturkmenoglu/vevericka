@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import { IUser } from '../../api/models/IUser';
-import { User } from '../../api/User';
+import { IUser } from '../../backend/models/IUser';
+import { User } from '../../backend/User';
 import { useContext, useEffect, useMemo } from 'react';
 import { ApplicationContext } from '../../context/ApplicationContext';
 import { useTheme } from 'next-themes';

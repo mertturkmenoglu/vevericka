@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { IPost } from '../api/models/IPost';
+import { IPost } from '../backend/models/IPost';
 import PostCard from './PostCard';
 
 export interface HomePageFeedProps {
