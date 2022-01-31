@@ -46,7 +46,7 @@ const Login: NextPage = () => {
         return;
       }
 
-      ctx.setError('');
+      ctx.setError(null);
       await router.push('/feed');
     } catch (e: any) {
       ctx.setError(e.message);
