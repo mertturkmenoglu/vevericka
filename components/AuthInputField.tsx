@@ -13,6 +13,7 @@ export interface AuthInputFieldProps {
   ) => void;
   appendIconAlt?: string;
   appendIcon?: () => JSX.Element;
+  onEnterPressed?: () => void;
 }
 
 const AuthInputField: React.FC<AuthInputFieldProps> = ({
@@ -23,6 +24,7 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
   appendIconAlt,
   appendIconClick,
   appendIcon: AppendIcon,
+  onEnterPressed,
 }) => {
   const [id, setId] = useState('');
 
@@ -46,6 +48,11 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
         className="border-b border-gray-500 text-black rounded-none h-8 w-full placeholder:text-gray-600 focus:outline-none focus:border-deep-orange bg-white dark:bg-neutral-800 dark:placeholder:text-gray-400 dark:text-gray-200"
         placeholder={placeholder}
         onChange={(e) => update(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && onEnterPressed) {
+            onEnterPressed();
+          }
+        }}
       />
       {showAppendIcon && (
         <button onClick={appendIconClick} className="absolute top-1.5 right-0">

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
@@ -28,6 +28,35 @@ const Login: NextPage = () => {
     ctx.setShowPassword((prev) => !prev);
   };
 
+  const loginAction = async () => {
+    try {
+      const result = await signIn<'credentials'>('credentials', {
+        redirect: false,
+        email: ctx.email,
+        password: ctx.password,
+      });
+
+      if (!result) {
+        ctx.setError(t('error.genericSignInError'));
+        return;
+      }
+
+      if (!result.ok) {
+        ctx.setError(t('error.invalidEmailOrPassword'));
+        return;
+      }
+
+      ctx.setError('');
+      await router.push('/feed');
+    } catch (e: any) {
+      ctx.setError(e.message);
+    }
+  };
+
+  const showError = useMemo(() => {
+    return ctx.error !== null;
+  }, [ctx]);
+
   return (
     <AuthLayout pageTitle={t('pageTitle')} formTitle={t('formTitle')}>
       <AuthForm>
@@ -56,20 +85,20 @@ const Login: NextPage = () => {
               : t('form.password.appendIconAltHide')
           }
           appendIconClick={onShowPasswordClick}
+          onEnterPressed={() => loginAction()}
         />
+
+        {showError && (
+          <div className="mt-4 py-1 px-4 bg-red-500 text-white text-center">
+            {ctx.error}
+          </div>
+        )}
 
         <AuthButton
           text={t('form.button.text')}
           onClick={async (e) => {
             e.preventDefault();
-            try {
-              await signIn('credentials', {
-                redirect: false,
-                email: ctx.email,
-                password: ctx.password,
-              });
-              await router.push('/feed');
-            } catch (e) {}
+            loginAction();
           }}
         />
 

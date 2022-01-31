@@ -8,15 +8,19 @@ export interface ILoginContextState {
   setPassword: SetState<string>;
   showPassword: boolean;
   setShowPassword: SetState<boolean>;
+  error: string | null;
+  setError: SetState<string | null>;
 }
 
 export const defaultLoginContextState: ILoginContextState = {
   email: '',
   password: '',
   showPassword: false,
+  error: null,
   setEmail: () => { },
   setPassword: () => { },
   setShowPassword: () => { },
+  setError: () => { },
 };
 
 export const LoginContext = createContext<ILoginContextState>(defaultLoginContextState);

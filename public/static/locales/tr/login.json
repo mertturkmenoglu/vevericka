@@ -25,5 +25,9 @@
         "cta": "Sıfırlayın"
       }
     }
+  },
+  "error": {
+    "genericSignInError": "Giriş yapılamadı",
+    "invalidEmailOrPassword": "Geçersiz e-posta veya şifre"
   }
 }

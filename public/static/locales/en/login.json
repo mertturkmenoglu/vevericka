@@ -25,5 +25,9 @@
         "cta": "Reset"
       }
     }
+  },
+  "error": {
+    "genericSignInError": "Cannot login",
+    "invalidEmailOrPassword": "Invalid email or password"
   }
 }
