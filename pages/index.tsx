@@ -32,17 +32,17 @@ const LandingPage: NextPage<LandingPageProps> = () => {
         <LandingAppBar />
       </header>
       <main className="w-11/12 sm:w-2/3 md:w-1/2 mx-auto flex flex-col items-center">
-        <h1 className="mx-auto w-2/3 text-center text-slate-700 text-6xl font-lato mt-48 font-black leading-normal ">
+        <h1 className="mx-auto sm:w-2/3 text-center text-slate-700 text-3xl sm:text-6xl font-lato mt-12 sm:mt-48 font-black leading-normal ">
           We are the squirrels who say Vik!
         </h1>
-        <p className="text-center w-2/3 mx-auto mt-32 text-2xl leading-snug font-lato text-slate-700">
+        <p className="text-center w-full mx-auto mt-16 sm:mt-32 text-base sm:text-2xl leading-snug font-lato text-slate-700">
           Ok, I&apos;m going to tell you the truth. We are nuts about squirrels.
           We like to chat and share. Why shouldn&apos;t we merge these two? A
           social media with the concept of squirrels. Oh god, sounds great!
           Right? You in? Or should I vik more and try to convince you?
         </p>
         <Link href="/login">
-          <a className="mx-auto bg-midnight mt-16 rounded-md px-16 py-4 flex items-center transform hover:scale-105 ease-in-out transition-all duration-300">
+          <a className="mx-auto bg-midnight mt-16 rounded-md px-8 py-2 sm:px-16 sm:py-4 flex items-center transform hover:scale-105 ease-in-out transition-all duration-300">
             <Image
               src="/assets/nut_white.svg"
               width={32}
