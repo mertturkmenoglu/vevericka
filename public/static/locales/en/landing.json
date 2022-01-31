@@ -4,5 +4,10 @@
   "cta": "Lemme in",
   "login": "Login",
   "register": "Register",
-  "langDescription": "Change language"
+  "langDescription": "Change language",
+  "meta": {
+    "twitter": {
+      "imageAlt": "Vevericka Logo"
+    }
+  }
 }

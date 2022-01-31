@@ -4,5 +4,10 @@
   "cta": "Giriş yap",
   "login": "Giriş",
   "register": "Kaydol",
-  "langDescription": "Dil değiştir"
+  "langDescription": "Dil değiştir",
+  "meta": {
+    "twitter": {
+      "imageAlt": "Vevericka Logo"
+    }
+  }
 }
