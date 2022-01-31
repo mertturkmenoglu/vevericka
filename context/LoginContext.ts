@@ -1,3 +1,4 @@
+import { TFunction } from 'next-i18next';
 import { createContext } from 'react';
 import { SetState } from './types';
 
@@ -12,6 +13,7 @@ export interface ILoginContextState {
   setError: SetState<string | null>;
   loading: boolean;
   setLoading: SetState<boolean>;
+  login: (t: TFunction) => Promise<void>;
 }
 
 export const defaultLoginContextState: ILoginContextState = {
@@ -25,6 +27,7 @@ export const defaultLoginContextState: ILoginContextState = {
   setShowPassword: () => { },
   setError: () => { },
   setLoading: () => { },
+  login: async () => { }
 };
 
 export const LoginContext = createContext<ILoginContextState>(defaultLoginContextState);

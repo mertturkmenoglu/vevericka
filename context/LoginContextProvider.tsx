@@ -1,3 +1,6 @@
+import { signIn } from 'next-auth/react';
+import { TFunction } from 'next-i18next';
+import router from 'next/router';
 import { useState } from 'react';
 import {
   LoginContext,
@@ -15,6 +18,40 @@ const LoginContextProvider: React.FC<LoginContextProviderProps> = ({
   const [error, setError] = useState(defaultValues.error);
   const [loading, setLoading] = useState(defaultValues.loading);
 
+  const login = async (t: TFunction) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await signIn<'credentials'>('credentials', {
+        redirect: false,
+        email: email,
+        password: password,
+      });
+
+      if (!result) {
+        setError(t('error.genericSignInError'));
+        setLoading(false);
+        return;
+      }
+
+      if (!result.ok) {
+        setError(t('error.invalidEmailOrPassword'));
+        setLoading(false);
+        return;
+      }
+
+      setError(null);
+      setLoading(false);
+      await router.push('/feed');
+    } catch (e: any) {
+      setError(e.message);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <LoginContext.Provider
       value={{
@@ -28,6 +65,7 @@ const LoginContextProvider: React.FC<LoginContextProviderProps> = ({
         setShowPassword,
         setError,
         setLoading,
+        login,
       }}
     >
       {children}

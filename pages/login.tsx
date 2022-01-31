@@ -8,8 +8,7 @@ import AuthButton from '../components/AuthButton';
 import AuthInputField from '../components/AuthInputField';
 import AuthForm from '../components/AuthForm';
 import { LoginContext } from '../context/LoginContext';
-import { useRouter } from 'next/router';
-import { getSession, signIn } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 
@@ -17,8 +16,6 @@ export interface LoginPageProps {}
 
 const Login: NextPage = () => {
   const ctx = useContext(LoginContext);
-  const router = useRouter();
-
   const { t } = useTranslation('login');
 
   const onShowPasswordClick = (
@@ -29,37 +26,7 @@ const Login: NextPage = () => {
   };
 
   const loginAction = async () => {
-    ctx.setLoading(true);
-    ctx.setError(null);
-
-    try {
-      const result = await signIn<'credentials'>('credentials', {
-        redirect: false,
-        email: ctx.email,
-        password: ctx.password,
-      });
-
-      if (!result) {
-        ctx.setError(t('error.genericSignInError'));
-        ctx.setLoading(false);
-        return;
-      }
-
-      if (!result.ok) {
-        ctx.setError(t('error.invalidEmailOrPassword'));
-        ctx.setLoading(false);
-        return;
-      }
-
-      ctx.setError(null);
-      ctx.setLoading(false);
-      await router.push('/feed');
-    } catch (e: any) {
-      ctx.setError(e.message);
-      ctx.setLoading(false);
-    } finally {
-      ctx.setLoading(false);
-    }
+    await ctx.login(t);
   };
 
   const showError = useMemo(() => {
