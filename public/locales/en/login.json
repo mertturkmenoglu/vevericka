@@ -1,0 +1,29 @@
+{
+  "pageTitle": "Login | Vevericka",
+  "formTitle": "Login",
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "Email"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Password",
+      "appendIconAltShow": "Show password",
+      "appendIconAltHide": "Hide password"
+    },
+    "button": {
+      "text": "Login"
+    },
+    "links": {
+      "register": {
+        "text": "New user?",
+        "cta": "Register"
+      },
+      "reset": {
+        "text": "Forgot password?",
+        "cta": "Reset"
+      }
+    }
+  }
+}

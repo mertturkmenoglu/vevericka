@@ -10,12 +10,16 @@ import AuthForm from '../components/AuthForm';
 import { LoginContext } from '../context/LoginContext';
 import { useRouter } from 'next/router';
 import { getSession, signIn } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 export interface LoginPageProps {}
 
 const Login: NextPage = () => {
   const ctx = useContext(LoginContext);
   const router = useRouter();
+
+  const { t } = useTranslation('login');
 
   const onShowPasswordClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -25,18 +29,18 @@ const Login: NextPage = () => {
   };
 
   return (
-    <AuthLayout pageTitle="Login | Vevericka" formTitle="Login">
+    <AuthLayout pageTitle={t('pageTitle')} formTitle={t('formTitle')}>
       <AuthForm>
         <AuthInputField
-          label="Email"
-          placeholder="Email"
+          label={t('form.email.label')}
+          placeholder={t('form.email.placeholder')}
           type="email"
           update={ctx.setEmail}
         />
 
         <AuthInputField
-          label="Password"
-          placeholder="Password"
+          label={t('form.password.label')}
+          placeholder={t('form.password.placeholder')}
           type={ctx.showPassword ? 'text' : 'password'}
           update={ctx.setPassword}
           appendIcon={() => {
@@ -46,12 +50,16 @@ const Login: NextPage = () => {
               <EyeOffIcon className="w-5 h-5" />
             );
           }}
-          appendIconAlt="Show password"
+          appendIconAlt={
+            !ctx.showPassword
+              ? t('form.password.appendIconAltShow')
+              : t('form.password.appendIconAltHide')
+          }
           appendIconClick={onShowPasswordClick}
         />
 
         <AuthButton
-          text="Login"
+          text={t('form.button.text')}
           onClick={async (e) => {
             e.preventDefault();
             try {
@@ -66,8 +74,16 @@ const Login: NextPage = () => {
         />
 
         <div className="mt-4 flex flex-col text-gray-600 text-sm w-full items-center">
-          <AuthLink href="/register" text="New user?" cta="Register" />
-          <AuthLink href="/reset" text="Forgot password?" cta="Reset" />
+          <AuthLink
+            href="/register"
+            text={t('form.links.register.text')}
+            cta={t('form.links.register.cta')}
+          />
+          <AuthLink
+            href="/reset"
+            text={t('form.links.reset.text')}
+            cta={t('form.links.reset.cta')}
+          />
         </div>
       </AuthForm>
     </AuthLayout>
@@ -88,7 +104,12 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
   }
 
   return {
-    props: {},
+    props: {
+      ...(await serverSideTranslations(context.locale || 'en', [
+        'auth',
+        'login',
+      ])),
+    },
   };
 };
 

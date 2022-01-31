@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Register | Vevericka",
+  "formTitle": "Register",
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "Email"
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "Username"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Name"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Password",
+      "appendIconAltShow": "Show password",
+      "appendIconAltHide": "Hide password"
+    },
+    "button": {
+      "text": "Register"
+    },
+    "links": {
+      "login": {
+        "text": "Already have an account?",
+        "cta": "Login"
+      },
+      "reset": {
+        "text": "Forgot password?",
+        "cta": "Reset"
+      }
+    }
+  }
+}

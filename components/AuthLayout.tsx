@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -8,6 +9,8 @@ export interface AuthLayoutProps {
 }
 
 const AuthLayout = ({ pageTitle, formTitle, children }: AuthLayoutProps) => {
+  const { t } = useTranslation('auth');
+
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       <Head>
@@ -19,11 +22,11 @@ const AuthLayout = ({ pageTitle, formTitle, children }: AuthLayoutProps) => {
           src="/assets/icon_white.svg"
           width={256}
           height={256}
-          alt="Vevericka logo"
+          alt={t('logoAlt')}
         />
-        <h1 className="mt-8 font-thin text-6xl">Vevericka</h1>
+        <h1 className="mt-8 font-thin text-6xl">{t('appName')}</h1>
         <h2 className="mt-4 uppercase tracking-wide font-medium text-center">
-          We are the squirrels who say vik!
+          {t('subtitle')}
         </h2>
       </div>
 
