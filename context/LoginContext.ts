@@ -10,6 +10,8 @@ export interface ILoginContextState {
   setShowPassword: SetState<boolean>;
   error: string | null;
   setError: SetState<string | null>;
+  loading: boolean;
+  setLoading: SetState<boolean>;
 }
 
 export const defaultLoginContextState: ILoginContextState = {
@@ -17,10 +19,12 @@ export const defaultLoginContextState: ILoginContextState = {
   password: '',
   showPassword: false,
   error: null,
+  loading: false,
   setEmail: () => { },
   setPassword: () => { },
   setShowPassword: () => { },
   setError: () => { },
+  setLoading: () => { },
 };
 
 export const LoginContext = createContext<ILoginContextState>(defaultLoginContextState);

@@ -13,6 +13,7 @@ const LoginContextProvider: React.FC<LoginContextProviderProps> = ({
   const [password, setPassword] = useState(defaultValues.password);
   const [showPassword, setShowPassword] = useState(defaultValues.showPassword);
   const [error, setError] = useState(defaultValues.error);
+  const [loading, setLoading] = useState(defaultValues.loading);
 
   return (
     <LoginContext.Provider
@@ -21,10 +22,12 @@ const LoginContextProvider: React.FC<LoginContextProviderProps> = ({
         setEmail,
         password,
         error,
+        loading,
         setPassword,
         showPassword,
         setShowPassword,
         setError,
+        setLoading,
       }}
     >
       {children}

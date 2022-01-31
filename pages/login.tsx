@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
+import { EyeIcon, EyeOffIcon, RefreshIcon } from '@heroicons/react/outline';
 import AuthLayout from '../components/AuthLayout';
 import AuthLink from '../components/AuthLink';
 import AuthButton from '../components/AuthButton';
@@ -29,6 +29,9 @@ const Login: NextPage = () => {
   };
 
   const loginAction = async () => {
+    ctx.setLoading(true);
+    ctx.setError(null);
+
     try {
       const result = await signIn<'credentials'>('credentials', {
         redirect: false,
@@ -38,18 +41,24 @@ const Login: NextPage = () => {
 
       if (!result) {
         ctx.setError(t('error.genericSignInError'));
+        ctx.setLoading(false);
         return;
       }
 
       if (!result.ok) {
         ctx.setError(t('error.invalidEmailOrPassword'));
+        ctx.setLoading(false);
         return;
       }
 
       ctx.setError(null);
+      ctx.setLoading(false);
       await router.push('/feed');
     } catch (e: any) {
       ctx.setError(e.message);
+      ctx.setLoading(false);
+    } finally {
+      ctx.setLoading(false);
     }
   };
 
@@ -94,11 +103,17 @@ const Login: NextPage = () => {
           </div>
         )}
 
+        {ctx.loading && (
+          <div className="mx-auto mt-8 flex justify-center items-center">
+            <RefreshIcon className="w-6 h-6 text-primary animate-spin" />
+          </div>
+        )}
+
         <AuthButton
           text={t('form.button.text')}
           onClick={async (e) => {
             e.preventDefault();
-            loginAction();
+            await loginAction();
           }}
         />
 
