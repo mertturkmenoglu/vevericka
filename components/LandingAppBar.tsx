@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, Transition } from '@headlessui/react';
-import { GlobeIcon } from '@heroicons/react/outline';
-import { Fragment } from 'react';
+import { GlobeIcon, SunIcon } from '@heroicons/react/outline';
+import { Fragment, useContext } from 'react';
 import Cookies from 'universal-cookie';
 import { useTranslation } from 'next-i18next';
+import { ApplicationContext } from '../context/ApplicationContext';
+import { LocalStorage } from '../utils/LocalStorage';
+import { useTheme } from 'next-themes';
 
 export interface LandingAppBarProps {}
 
@@ -16,9 +19,11 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
   ];
 
   const { t } = useTranslation('landing');
+  const appContext = useContext(ApplicationContext);
+  const { setTheme } = useTheme();
 
   return (
-    <nav className="flex justify-between items-center bg-white">
+    <nav className="flex justify-between items-center bg-white dark:bg-neutral-800">
       <Link href="/">
         <a className="flex items-center">
           <Image
@@ -34,7 +39,10 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className="flex items-center">
-              <GlobeIcon className="w-8 h-8 text-midnight" aria-hidden="true" />
+              <GlobeIcon
+                className="w-8 h-8 text-midnight dark:text-white"
+                aria-hidden="true"
+              />
               <span className="sr-only">{t('langDescription')}</span>
             </Menu.Button>
           </div>
@@ -72,14 +80,26 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
           </Transition>
         </Menu>
 
+        <button
+          onClick={() => {
+            const value = appContext.isDarkTheme;
+            appContext.setIsDarkTheme((prev) => !prev);
+            const storage = new LocalStorage();
+            storage.isDarkTheme = !value;
+            setTheme(!value ? 'dark' : 'light');
+          }}
+        >
+          <SunIcon className="w-8 h-8 text-primary dark:text-white ml-4" />
+        </button>
+
         <Link href="/login">
-          <a className="font-medium text-gray-800 hover:bg-gray-100 py-2.5 px-3 rounded-full ml-4">
+          <a className="font-medium text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-700 py-2.5 px-3 rounded-full ml-4">
             {t('login')}
           </a>
         </Link>
 
         <Link href="/register">
-          <a className="font-medium bg-midnight ml-4 py-2.5 px-3 rounded-full text-white">
+          <a className="font-medium bg-midnight dark:bg-primary ml-4 py-2.5 px-3 rounded-full text-white">
             {t('register')}
           </a>
         </Link>

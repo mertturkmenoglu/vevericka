@@ -92,7 +92,7 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
                         alt="User image"
                       />
                       <div className="flex flex-col mt-2">
-                        <span className="text-deep-orange font-medium text-sm">
+                        <span className="text-primary font-medium text-sm">
                           @{appContext.user.username}
                         </span>
                         <span className="text-gray-500 text-xs font-light dark:text-gray-400">
@@ -109,9 +109,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/explore">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <HashtagIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Explore
                       </span>
                     </a>
@@ -122,9 +122,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/bookmarks">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <BookmarkIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Bookmarks
                       </span>
                     </a>
@@ -135,9 +135,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/settings">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <CogIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Settings
                       </span>
                     </a>
@@ -147,10 +147,10 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
 
               <Menu.Item>
                 {() => (
-                  <div className="flex items-center justify-between hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                  <div className="flex items-center justify-between hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                     <div className="flex items-center">
                       <SunIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Dark Mode
                       </span>
                     </div>
@@ -166,8 +166,8 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
                       className={clsx(
                         'relative inline-flex flex-shrink-0 h-5 w-10 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200',
                         {
-                          'bg-deep-orange': theme === 'dark',
-                          'bg-orange-200': theme !== 'dark',
+                          'bg-primary': theme === 'dark',
+                          'bg-primary bg-opacity-10': theme !== 'dark',
                         }
                       )}
                     >
@@ -187,11 +187,11 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <button
-                    className="w-full flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25"
+                    className="w-full flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25"
                     onClick={async () => await signOut()}
                   >
                     <LogoutIcon className="w-6 h-6 text-deep-orange" />
-                    <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                    <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                       Logout
                     </span>
                   </button>
@@ -201,11 +201,11 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <button
-                    className="w-full flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25"
+                    className="w-full flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25"
                     onClick={() => setIsLanguageDialogOpen(true)}
                   >
                     <TranslateIcon className="w-6 h-6 text-deep-orange" />
-                    <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                    <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                       Display Language
                     </span>
                   </button>
@@ -217,9 +217,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/help">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <QuestionMarkCircleIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Help
                       </span>
                     </a>
@@ -230,9 +230,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/contact">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <AtSymbolIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Contact
                       </span>
                     </a>
@@ -243,9 +243,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/report">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <FlagIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Report
                       </span>
                     </a>
@@ -256,9 +256,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/terms">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <BookOpenIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Terms
                       </span>
                     </a>
@@ -269,9 +269,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/privacy">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <LockClosedIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Privacy
                       </span>
                     </a>
@@ -284,9 +284,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Menu.Item>
                 {() => (
                   <Link href="/status">
-                    <a className="flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
+                    <a className="flex items-center hover:bg-primary hover:bg-opacity-10 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
                       <CloudIcon className="w-6 h-6 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <span className="ml-2 font-medium text-sm text-midnight dark:text-gray-200">
                         Status
                       </span>
                     </a>
@@ -296,11 +296,11 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
             </div>
 
             <div className="px-4 py-1 flex items-center text-sm space-x-1">
-              <span className="text-slate-700 dark:text-gray-200">
+              <span className="text-midnight dark:text-gray-200">
                 Vevericka
               </span>
-              <span className="text-deep-orange">&copy;</span>
-              <span className="text-slate-700 dark:text-gray-200">
+              <span className="text-primary">&copy;</span>
+              <span className="text-midnight dark:text-gray-200">
                 {new Date().getFullYear()}
               </span>
             </div>

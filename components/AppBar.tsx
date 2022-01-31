@@ -39,7 +39,7 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
   }, [setTheme, appContext]);
 
   return (
-    <nav className="w-full flex justify-between px-4 dark:bg-neutral-800">
+    <nav className="w-full flex justify-between px-4 dark:bg-midnight">
       <Link href="/feed">
         <a className="flex items-center">
           <Image
@@ -48,7 +48,7 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
             height={32}
             alt="Application icon"
           />
-          <div className="text-xl text-deep-orange ml-4 mt-1 hidden sm:block">
+          <div className="text-xl text-midnight font-lato antialiased ml-4 mt-1 hidden sm:block">
             Vevericka
           </div>
         </a>

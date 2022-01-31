@@ -31,18 +31,18 @@ const LandingPage: NextPage<LandingPageProps> = () => {
       <Head>
         <title>Vevericka</title>
       </Head>
-      <header className="mt-8 w-11/12 sm:w-2/3 md:w-1/2 mx-auto py-4 px-8 rounded-full bg-white">
+      <header className="mt-8 w-11/12 sm:w-2/3 md:w-1/2 mx-auto py-4 px-8 rounded-full bg-white dark:bg-neutral-800">
         <LandingAppBar />
       </header>
       <main className="w-11/12 sm:w-2/3 md:w-1/2 mx-auto flex flex-col items-center">
-        <h1 className="mx-auto sm:w-2/3 text-center text-slate-700 text-3xl sm:text-6xl font-lato mt-12 sm:mt-48 font-black leading-normal ">
+        <h1 className="mx-auto sm:w-2/3 text-center text-slate-700 text-3xl sm:text-6xl font-lato mt-12 sm:mt-48 font-black leading-normal dark:text-neutral-200">
           {t('title')}
         </h1>
-        <p className="text-center w-full mx-auto mt-16 sm:mt-32 text-base sm:text-2xl leading-snug font-lato text-slate-700">
+        <p className="text-center w-full mx-auto mt-16 sm:mt-32 text-base sm:text-2xl leading-snug font-lato text-slate-700 dark:text-neutral-200">
           {t('content')}
         </p>
         <Link href="/login">
-          <a className="mx-auto bg-midnight mt-16 rounded-md px-8 py-2 sm:px-16 sm:py-4 flex items-center transform hover:scale-105 ease-in-out transition-all duration-300">
+          <a className="mx-auto bg-midnight mt-16 rounded-md px-8 py-2 sm:px-16 sm:py-4 flex items-center transform hover:scale-105 ease-in-out transition-all duration-300 dark:border dark:border-primary">
             <Image
               src="/assets/nut_white.svg"
               width={32}

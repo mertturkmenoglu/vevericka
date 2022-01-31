@@ -32,7 +32,9 @@ const AuthLayout = ({ pageTitle, formTitle, children }: AuthLayoutProps) => {
 
       <div className="w-full lg:w-4/12 h-1/2 lg:h-full flex flex-col items-center justify-center bg-white dark:bg-neutral-800">
         <div className="w-3/4 md:w-2/4 lg:w-3/4 xl:w-2/4 bg-white text-primary flex flex-col items-center justify-center dark:bg-neutral-800">
-          <div className="font-normal text-3xl text-midnight">{formTitle}</div>
+          <h3 className="font-normal text-3xl text-midnight dark:text-primary">
+            {formTitle}
+          </h3>
           {children}
         </div>
       </div>
