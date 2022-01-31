@@ -40,21 +40,15 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
 
   return (
     <div className="relative w-full mt-8">
-      <label
-        htmlFor={id}
-        className="font-medium text-sm absolute -top-3 left-2 bg-white px-1 dark:bg-neutral-800 text-midnight"
-      >
-        {label}
-      </label>
       <input
         type={type}
         id={id}
-        className="border border-gray-500 text-black rounded-md h-8 px-4 w-full placeholder:text-gray-600 focus:outline-none focus:border-deep-orange bg-white dark:bg-neutral-800 dark:placeholder:text-gray-400 dark:text-gray-200"
+        className="border-b border-gray-500 text-black rounded-none h-8 w-full placeholder:text-gray-600 focus:outline-none focus:border-deep-orange bg-white dark:bg-neutral-800 dark:placeholder:text-gray-400 dark:text-gray-200"
         placeholder={placeholder}
         onChange={(e) => update(e.target.value)}
       />
       {showAppendIcon && (
-        <button onClick={appendIconClick} className="absolute top-1.5 right-3">
+        <button onClick={appendIconClick} className="absolute top-1.5 right-0">
           <span className="sr-only">{appendIconAlt}</span>
           {AppendIcon && AppendIcon()}
         </button>
