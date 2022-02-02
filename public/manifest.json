@@ -1,0 +1,16 @@
+{
+  "name": "Vevericka",
+  "short_name": "Vevericka",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#F9FAFB",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    }
+  ]
+}
