@@ -4,13 +4,18 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f9fafb",
-  "theme_color": "#F9FAFB",
+  "theme_color": "#be185d",
   "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/favicon.png",
       "type": "image/png",
       "sizes": "48x48"
+    },
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg",
+      "sizes": "any"
     }
   ]
 }
