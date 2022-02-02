@@ -89,6 +89,11 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
             setTheme(!value ? 'dark' : 'light');
           }}
         >
+          <span className="sr-only">
+            {appContext.isDarkTheme
+              ? t('themeIconAlt.dark')
+              : t('themeIconAlt.light')}
+          </span>
           <SunIcon className="w-8 h-8 text-primary dark:text-white ml-4" />
         </button>
 

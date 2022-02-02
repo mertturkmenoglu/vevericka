@@ -37,6 +37,7 @@ const LandingPage: NextPage<LandingPageProps> = () => {
           content="width=device-width,initial-scale=1,viewport-fit=cover"
         />
         <meta name="title" content="Vevericka" />
+        <meta property="description" content={t('title')} />
         <meta property="og:site_name" content="Vevericka" />
         <meta property="og:title" content="Vevericka" />
         <meta property="og:description" content={t('title')} />
