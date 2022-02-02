@@ -9,5 +9,9 @@
     "twitter": {
       "imageAlt": "Vevericka Logo"
     }
+  },
+  "themeIconAlt": {
+    "light": "Switch to dark theme",
+    "dark": "Switch to light theme"
   }
 }

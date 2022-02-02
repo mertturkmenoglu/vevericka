@@ -9,5 +9,9 @@
     "twitter": {
       "imageAlt": "Vevericka Logo"
     }
+  },
+  "themeIconAlt": {
+    "light": "Gece moduna geç",
+    "dark": "Gece modunu kapat"
   }
 }
