@@ -12,6 +12,7 @@ import { LocalStorage } from '../utils/LocalStorage';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import Seo from '../components/Seo';
 
 export interface LandingPageProps {}
 
@@ -38,33 +39,29 @@ const LandingPage: NextPage<LandingPageProps> = () => {
     <>
       <Head>
         <title>Vevericka</title>
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,viewport-fit=cover"
+        <Seo
+          title="Vevericka"
+          description={t('title')}
+          og={{
+            siteName: 'Vevericka',
+            title: 'Vevericka',
+            description: t('title'),
+            image:
+              'https://vevericka.app/_next/image?url=%2Fassets%2Ficon_primary.svg&w=64&q=75',
+            url: 'https://vevericka.app',
+            type: 'website',
+            locale: router.locale || 'en',
+          }}
+          twitter={{
+            card: 'summary',
+            title: 'Vevericka',
+            description: t('title'),
+            image:
+              'https://vevericka.app/_next/image?url=%2Fassets%2Ficon_primary.svg&w=64&q=75',
+            imageAlt: t('meta.twitter.imageAlt'),
+            creator: '@capreaee',
+          }}
         />
-        <meta name="title" content="Vevericka" />
-        <meta property="description" content={t('title')} />
-        <meta property="og:site_name" content="Vevericka" />
-        <meta property="og:title" content="Vevericka" />
-        <meta property="og:description" content={t('title')} />
-        <meta
-          property="og:image"
-          content={
-            'https://vevericka.app/_next/image?url=%2Fassets%2Ficon_primary.svg&w=64&q=75'
-          }
-        />
-        <meta property="og:url" content="https://vevericka.app/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:locale" content={router.locale} />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Vevericka" />
-        <meta name="twitter:description" content={t('title')} />
-        <meta
-          name="twitter:image"
-          content="https://vevericka.app/_next/image?url=%2Fassets%2Ficon_primary.svg&w=64&q=75"
-        />
-        <meta name="twitter:image:alt" content={t('meta.twitter.imageAlt')} />
-        <meta name="twitter:creator" content="@capreaee" />
       </Head>
       <header className="mt-8 w-11/12 sm:w-2/3 md:w-1/2 mx-auto py-4 px-8 rounded-full bg-white dark:bg-neutral-800">
         <LandingAppBar />
