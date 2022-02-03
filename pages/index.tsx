@@ -16,6 +16,8 @@ import { useRouter } from 'next/router';
 export interface LandingPageProps {}
 
 const LandingPage: NextPage<LandingPageProps> = () => {
+  const BODY_CLASSNAME = 'bg-gray-50';
+
   const appContext = useContext(ApplicationContext);
   const { setTheme } = useTheme();
   const { t } = useTranslation('landing');
@@ -25,8 +27,12 @@ const LandingPage: NextPage<LandingPageProps> = () => {
     const storage = new LocalStorage();
     appContext.setIsDarkTheme(storage.isDarkTheme);
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
-    document.querySelector('body')?.classList?.add('bg-gray-50');
+    document.querySelector('body')?.classList?.add(BODY_CLASSNAME);
   });
+
+  const beforeRouteLeave = () => {
+    document.querySelector('body')?.classList?.remove(BODY_CLASSNAME);
+  };
 
   return (
     <>
@@ -71,7 +77,10 @@ const LandingPage: NextPage<LandingPageProps> = () => {
           {t('content')}
         </p>
         <Link href="/login">
-          <a className="mx-auto bg-midnight mt-16 rounded-md px-8 py-2 sm:px-16 sm:py-4 flex items-center transform hover:scale-105 ease-in-out transition-all duration-300 dark:border dark:border-primary">
+          <a
+            className="mx-auto bg-midnight mt-16 rounded-md px-8 py-2 sm:px-16 sm:py-4 flex items-center transform hover:scale-105 ease-in-out transition-all duration-300 dark:border dark:border-primary"
+            onClick={beforeRouteLeave}
+          >
             <Image
               src="/assets/nut_white.svg"
               width={32}

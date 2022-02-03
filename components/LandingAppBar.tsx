@@ -12,6 +12,8 @@ import { useTheme } from 'next-themes';
 export interface LandingAppBarProps {}
 
 const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
+  const BODY_CLASSNAME = 'bg-gray-50';
+
   const languages = [
     { key: 'en', display: 'English' },
     { key: 'es', display: 'Spanish' },
@@ -22,10 +24,14 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
   const appContext = useContext(ApplicationContext);
   const { setTheme } = useTheme();
 
+  const beforeRouteLeave = () => {
+    document.querySelector('body')?.classList?.remove(BODY_CLASSNAME);
+  };
+
   return (
     <nav className="flex justify-between items-center bg-white dark:bg-neutral-800">
       <Link href="/">
-        <a className="flex items-center">
+        <a className="flex items-center" onClick={beforeRouteLeave}>
           <Image
             src="/assets/icon_primary.svg"
             width={32}
@@ -98,13 +104,19 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
         </button>
 
         <Link href="/login">
-          <a className="font-medium text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-700 py-2.5 px-3 rounded-full ml-4">
+          <a
+            className="font-medium text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-700 py-2.5 px-3 rounded-full ml-4"
+            onClick={beforeRouteLeave}
+          >
             {t('login')}
           </a>
         </Link>
 
         <Link href="/register">
-          <a className="font-medium bg-midnight dark:bg-primary ml-4 py-2.5 px-3 rounded-full text-white">
+          <a
+            className="font-medium bg-midnight dark:bg-primary ml-4 py-2.5 px-3 rounded-full text-white"
+            onClick={beforeRouteLeave}
+          >
             {t('register')}
           </a>
         </Link>
