@@ -16,12 +16,8 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link
-            rel="icon"
-            type="image/svg+xml"
-            href="/assets/images/favicon.svg"
-          />
-          <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+          <link rel="icon" type="image/png" href="/favicon.png" />
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#1a1a1a" />
         </Head>
