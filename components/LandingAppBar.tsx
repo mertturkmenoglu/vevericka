@@ -34,8 +34,8 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
         <a className="flex items-center" onClick={beforeRouteLeave}>
           <Image
             src="/assets/icon_primary.svg"
-            width={32}
-            height={32}
+            width={48}
+            height={48}
             alt="Application icon"
           />
         </a>
@@ -46,7 +46,7 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
           <div>
             <Menu.Button className="flex items-center">
               <GlobeIcon
-                className="w-8 h-8 text-midnight dark:text-white"
+                className="w-12 h-12 sm:w-8 sm:h-8 text-midnight dark:text-white"
                 aria-hidden="true"
               />
               <span className="sr-only">{t('langDescription')}</span>
@@ -100,12 +100,12 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
               ? t('themeIconAlt.dark')
               : t('themeIconAlt.light')}
           </span>
-          <SunIcon className="w-8 h-8 text-primary dark:text-white ml-4" />
+          <SunIcon className="w-12 h-12 sm:w-8 sm:h-8 text-primary dark:text-white ml-4" />
         </button>
 
         <Link href="/login">
           <a
-            className="font-medium text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-700 py-2.5 px-3 rounded-full ml-4"
+            className="hidden sm:flex font-medium text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-700 py-2.5 px-3 rounded-full ml-4"
             onClick={beforeRouteLeave}
           >
             {t('login')}
