@@ -61,15 +61,13 @@ const LandingAppBar: React.FC<LandingAppBarProps> = ({}) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items className="absolute -left-16 sm:right-0 w-56 mt-2 top-16 sm:top-14 origin-top-right bg-white dark:bg-neutral-800 dark:text-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="px-1 py-1 ">
                 {languages.map((lng) => (
                   <Menu.Item key={lng.key}>
-                    {({ active }) => (
+                    {() => (
                       <button
-                        className={`${
-                          active ? 'bg-midnight text-white' : 'text-midnight'
-                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                        className={'text-midnight dark:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm'}
                         onClick={() => {
                           const cookies = new Cookies();
                           cookies.set('NEXT_LOCALE', lng.key);
