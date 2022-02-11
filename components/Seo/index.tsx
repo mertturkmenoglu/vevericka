@@ -32,7 +32,7 @@ const Seo: React.FC<SeoProps> = ({ title, description, og, twitter }) => {
         content="width=device-width,initial-scale=1,viewport-fit=cover"
       />
       <meta name="title" content={title} />
-      <meta property="description" content={description} />
+      <meta name="description" content={description} />
       <meta property="og:site_name" content={og.siteName} />
       <meta property="og:title" content={og.title} />
       <meta property="og:description" content={og.description} />
