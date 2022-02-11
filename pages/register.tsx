@@ -1,17 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import type { NextPage } from 'next';
 import AuthForm from '../components/AuthForm';
 import AuthInputField from '../components/AuthInputField';
 import AuthLayout from '../components/AuthLayout';
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
+import { EyeIcon, EyeOffIcon, RefreshIcon } from '@heroicons/react/outline';
 import AuthButton from '../components/AuthButton';
 import AuthLink from '../components/AuthLink';
 import { RegisterContext } from '../context/RegisterContext';
 import AuthStepper from '../components/AuthStepper';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import router from 'next/router';
 
 export interface RegisterPageProps {}
 
@@ -26,6 +27,10 @@ const Register: NextPage = () => {
     ctx.setShowPassword((prev) => !prev);
   };
 
+  const showError = useMemo(() => {
+    return ctx.error !== null;
+  }, [ctx]);
+
   return (
     <AuthLayout pageTitle={t('pageTitle')} formTitle={t('formTitle')}>
       <AuthStepper>
@@ -35,6 +40,7 @@ const Register: NextPage = () => {
               label={t('form.email.label')}
               placeholder={t('form.email.placeholder')}
               type="email"
+              value={ctx.email}
               update={ctx.setEmail}
             />
 
@@ -42,6 +48,7 @@ const Register: NextPage = () => {
               label={t('form.username.label')}
               placeholder={t('form.username.placeholder')}
               type="text"
+              value={ctx.username}
               update={ctx.setUsername}
             />
           </AuthForm>
@@ -53,6 +60,7 @@ const Register: NextPage = () => {
               label={t('form.name.label')}
               placeholder={t('form.name.placeholder')}
               type="text"
+              value={ctx.name}
               update={ctx.setName}
             />
 
@@ -61,6 +69,7 @@ const Register: NextPage = () => {
               placeholder={t('form.password.placeholder')}
               type={ctx.showPassword ? 'text' : 'password'}
               update={ctx.setPassword}
+              value={ctx.password}
               appendIcon={() => {
                 return ctx.showPassword ? (
                   <EyeIcon className="w-5 h-5" />
@@ -71,15 +80,50 @@ const Register: NextPage = () => {
               appendIconAlt={
                 !ctx.showPassword
                   ? t('form.password.appendIconAltShow')
-                  : t('form.password.appenIconAltHide')
+                  : t('form.password.appendIconAltHide')
               }
               appendIconClick={onShowPasswordClick}
             />
 
+            <AuthInputField
+              label={t('form.betaCode.label')}
+              placeholder={t('form.betaCode.placeholder')}
+              type="text"
+              value={ctx.betaCode}
+              update={ctx.setBetaCode}
+            />
+
+            {showError && (
+              <div className="mt-4 py-1 px-4 bg-red-500 text-white text-center">
+                {ctx.error}
+              </div>
+            )}
+
+            {ctx.loading && (
+              <div className="mx-auto mt-8 flex justify-center items-center">
+                <RefreshIcon className="w-6 h-6 text-primary animate-spin" />
+              </div>
+            )}
+
             <AuthButton
               text={t('form.button.text')}
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
+                const res = await ctx.register();
+
+                if (res) {
+                  const result = await signIn<'credentials'>('credentials', {
+                    redirect: false,
+                    email: ctx.email,
+                    password: ctx.password,
+                  });
+
+                  if (result && result.ok) {
+                    ctx.setLoading(false);
+                    ctx.setError(null);
+                    await router.push('/feed');
+                  }
+                }
               }}
             />
           </AuthForm>

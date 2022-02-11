@@ -12,6 +12,13 @@ export interface IRegisterContextState {
   setName: SetState<string>;
   username: string;
   setUsername: SetState<string>;
+  betaCode: string;
+  setBetaCode: SetState<string>;
+  register: () => Promise<boolean>;
+  error: string | null;
+  setError: SetState<string | null>;
+  loading: boolean;
+  setLoading: SetState<boolean>;
 }
 
 export const defaultRegisterContextState: IRegisterContextState = {
@@ -20,11 +27,18 @@ export const defaultRegisterContextState: IRegisterContextState = {
   showPassword: false,
   name: '',
   username: '',
+  betaCode: '',
   setEmail: () => { },
   setPassword: () => { },
   setShowPassword: () => { },
   setName: () => { },
   setUsername: () => { },
+  setBetaCode: () => { },
+  register: async () => false,
+  error: null,
+  setError: () => { },
+  loading: false,
+  setLoading: () => { },
 };
 
 export const RegisterContext = createContext<IRegisterContextState>(defaultRegisterContextState);

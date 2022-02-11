@@ -20,6 +20,10 @@
       "appendIconAltShow": "Show password",
       "appendIconAltHide": "Hide password"
     },
+    "betaCode": {
+      "label": "Beta Code",
+      "placeholder": "Beta Code"
+    },
     "button": {
       "text": "Register"
     },

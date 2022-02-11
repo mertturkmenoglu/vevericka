@@ -3,4 +3,5 @@ export type AvailableApiModules =
   | 'user'
   | 'post'
   | 'explore'
-  | 'blog';
+  | 'blog'
+  | 'asset';

@@ -20,6 +20,10 @@
       "appendIconAltShow": "Şifreyi göster",
       "appendIconAltHide": "Şifreyi gizle"
     },
+    "betaCode": {
+      "label": "Beta Kodu",
+      "placeholder": "Beta Kodu"
+    },
     "button": {
       "text": "Kaydol"
     },

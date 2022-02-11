@@ -40,6 +40,7 @@ const Login: NextPage = () => {
           label={t('form.email.label')}
           placeholder={t('form.email.placeholder')}
           type="email"
+          value={ctx.email}
           update={ctx.setEmail}
         />
 
@@ -48,6 +49,7 @@ const Login: NextPage = () => {
           placeholder={t('form.password.placeholder')}
           type={ctx.showPassword ? 'text' : 'password'}
           update={ctx.setPassword}
+          value={ctx.password}
           appendIcon={() => {
             return ctx.showPassword ? (
               <EyeIcon className="w-5 h-5" />

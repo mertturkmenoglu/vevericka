@@ -6,6 +6,7 @@ export interface AuthInputFieldProps {
   type: React.HTMLInputTypeAttribute;
   placeholder: string;
   label: string;
+  value: string;
   update: Dispatch<SetStateAction<string>>;
   children?: React.ReactNode;
   appendIconClick?: (
@@ -17,9 +18,9 @@ export interface AuthInputFieldProps {
 }
 
 const AuthInputField: React.FC<AuthInputFieldProps> = ({
-  label,
   placeholder,
   type,
+  value,
   update,
   appendIconAlt,
   appendIconClick,
@@ -48,6 +49,7 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
         className="border-b border-gray-500 text-black rounded-none h-8 w-full placeholder:text-gray-600 focus:outline-none focus:border-deep-orange bg-white dark:bg-neutral-800 dark:placeholder:text-gray-400 dark:text-gray-200"
         placeholder={placeholder}
         onChange={(e) => update(e.target.value)}
+        value={value}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && onEnterPressed) {
             onEnterPressed();
