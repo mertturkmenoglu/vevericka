@@ -47,7 +47,7 @@ const LandingPage: NextPage<LandingPageProps> = () => {
             title: 'Vevericka',
             description: t('title'),
             image:
-              'https://vevericka.app/_next/image?url=%2Fassets%2Ficon_primary.svg&w=64&q=75',
+              'https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public',
             url: 'https://vevericka.app',
             type: 'website',
             locale: router.locale || 'en',
@@ -57,7 +57,7 @@ const LandingPage: NextPage<LandingPageProps> = () => {
             title: 'Vevericka',
             description: t('title'),
             image:
-              'https://vevericka.app/_next/image?url=%2Fassets%2Ficon_primary.svg&w=64&q=75',
+              'https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public',
             imageAlt: t('meta.twitter.imageAlt'),
             creator: '@capreaee',
           }}
