@@ -62,6 +62,7 @@ const LandingPage: NextPage<LandingPageProps> = () => {
             creator: '@capreaee',
           }}
         />
+        <meta name="twitter:image" content='https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public' />
       </Head>
       <header className="mt-8 w-11/12 sm:w-2/3 md:w-1/2 mx-auto py-4 px-8 rounded-full bg-white dark:bg-neutral-800">
         <LandingAppBar />
