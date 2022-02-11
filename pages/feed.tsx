@@ -47,7 +47,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
       </header>
       <main className="w-screen sm:w-10/12 md:w-3/4 mx-auto flex flex-col sm:flex-row sm:justify-between mt-4">
         <div className="flex flex-col w-full items-center">
-          <div className="w-8/12 sm:w-full md:w-8/12">
+          <div className="w-11/12 md:w-8/12">
             <div className="w-full bg-white dark:bg-neutral-800 p-2 rounded-md">
               <CreatePost
                 image={user?.image || ''}
