@@ -45,7 +45,7 @@ const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({
       <div id="inject-styles" className={`hidden ${styles}`} />
       <main className="mt-16 mx-8 sm:mx-auto sm:container">
         <Link href="/">
-          <a className="underline text-sm font-medium tracking-tighter text-midnight">
+          <a className="underline text-sm font-medium tracking-tighter text-midnight dark:text-white">
             Go to home
           </a>
         </Link>
@@ -56,10 +56,10 @@ const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({
             className="mt-8 rounded-full h-48 w-48 sm:h-32 sm:w-32"
           />
           <div className="sm:ml-8">
-            <h1 className="text-2xl font-bold font-lato mt-8 text-midnight underline underline-offset-4 text-center sm:text-left">
+            <h1 className="text-2xl font-bold font-lato mt-8 text-midnight underline underline-offset-4 text-center sm:text-left dark:text-white">
               {playlist.title}
             </h1>
-            <h2 className="font-lato mt-4 text-midnight text-center sm:text-left sm:mt-2">
+            <h2 className="font-lato mt-4 text-midnight text-center sm:text-left sm:mt-2 dark:text-white">
               {playlist.subtitle}
             </h2>
           </div>
