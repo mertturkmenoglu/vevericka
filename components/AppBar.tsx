@@ -48,7 +48,7 @@ const AppBar: React.FC<AppBarProps> = ({}) => {
             height={32}
             alt="Application icon"
           />
-          <div className="text-xl text-midnight font-lato antialiased ml-4 mt-1 hidden sm:block">
+          <div className="text-xl text-midnight font-lato antialiased ml-4 mt-1 hidden sm:block dark:text-white">
             Vevericka
           </div>
         </a>
