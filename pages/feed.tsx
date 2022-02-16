@@ -15,6 +15,7 @@ import ScrollToTopFab from '../components/ScrollToTopFab';
 import Trending from '../components/Trending';
 import { ApplicationContext } from '../context/ApplicationContext';
 import { LocalStorage } from '../utils/LocalStorage';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export interface HomePageProps {
   user: IUser;
@@ -99,6 +100,10 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale || 'en', [
+        'auth',
+        'login',
+      ])),
       user,
       userId: session.id as number,
       feed: [],
