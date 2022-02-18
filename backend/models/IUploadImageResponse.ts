@@ -1,10 +1,10 @@
 export interface IUploadImageResponse {
   result: {
     filename: string;
-    id: string,
+    id: string;
     requireSignedURLs: boolean;
     uploaded: string;
-    variants: string[]
+    variants: string[];
   };
   success: boolean;
 }

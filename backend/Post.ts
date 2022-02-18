@@ -4,13 +4,15 @@ import { IPost } from './models/IPost';
 import { PaginatedResult } from './models/PaginatedResult';
 
 export class Post {
-  public constructor(private readonly token: string) { }
+  public constructor(private readonly token: string) {}
 
   private get api(): AxiosInstance {
     return createApi('post', this.token);
   }
 
-  public async getFeedByUsername(username: string): Promise<PaginatedResult<IPost> | null> {
+  public async getFeedByUsername(
+    username: string
+  ): Promise<PaginatedResult<IPost> | null> {
     // const realEndpoint = `/feed/${username}`;
     const tmpEndpoint = `/user/${username}`;
     try {
@@ -18,7 +20,7 @@ export class Post {
         params: {
           page: 1,
           pageSize: 20,
-        }
+        },
       });
       return response.data;
     } catch (e) {

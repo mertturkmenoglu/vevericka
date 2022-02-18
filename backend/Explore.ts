@@ -3,7 +3,7 @@ import { ITag } from './models/ITag';
 import { createApi } from './Api';
 
 export class Explore {
-  public constructor(private readonly token: string) { }
+  public constructor(private readonly token: string) {}
 
   private get api(): AxiosInstance {
     return createApi('explore', this.token);
