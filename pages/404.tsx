@@ -9,14 +9,14 @@ const NotFound: NextPage = () => {
       <Head>
         <title>Not Found | Vevericka</title>
       </Head>
-      <main className="w-screen h-screen  flex items-center justify-center flex-col">
+      <main className="flex h-screen  w-screen flex-col items-center justify-center">
         <Image
           src="/assets/icon_primary.svg"
           width={128}
           height={128}
           alt="Vevericka logo"
         />
-        <h1 className="mt-16 font-bold text-4xl text-deep-orange">
+        <h1 className="text-deep-orange mt-16 text-4xl font-bold">
           <Image
             src="/assets/nut_primary.svg"
             width={32}
@@ -26,9 +26,9 @@ const NotFound: NextPage = () => {
           />
           <span className="ml-3">Not Found</span>
         </h1>
-        <div className="mt-4 tracking-wide text-xl text-slate-700 dark:text-white">
-          Oops <span className="text-deep-orange font-bold">...</span> We can&apos;t
-          remember where we buried the nuts{' '}
+        <div className="mt-4 text-xl tracking-wide text-slate-700 dark:text-white">
+          Oops <span className="text-deep-orange font-bold">...</span> We
+          can&apos;t remember where we buried the nuts{' '}
           <span className="text-deep-orange font-bold">:(</span>
         </div>
         <div className="text-slate-700 dark:text-white">
@@ -37,7 +37,7 @@ const NotFound: NextPage = () => {
           <span className="text-deep-orange font-bold">]</span>
         </div>
         <Link href="/">
-          <a className="text-deep-orange underline hover:no-underline focus:outline-offset-2 focus:outline-deep-orange">
+          <a className="text-deep-orange focus:outline-deep-orange underline hover:no-underline focus:outline-offset-2">
             Go to Home
           </a>
         </Link>

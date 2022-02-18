@@ -54,19 +54,19 @@ const UserPage: NextPage<UserPageProps> = ({
       <header>
         <AppBar />
       </header>
-      <main className="w-screen mt-4 bg-neutral-100 dark:bg-neutral-800 md:w-2/3 mx-auto rounded-md">
-        <div className="flex flex-col p-4 items-center">
-          <div className="w-full flex items-center justify-center rounded-md py-4">
+      <main className="mx-auto mt-4 w-screen rounded-md bg-neutral-100 dark:bg-neutral-800 md:w-2/3">
+        <div className="flex flex-col items-center p-4">
+          <div className="flex w-full items-center justify-center rounded-md py-4">
             <img
               src={image}
               alt="Profile Picture"
-              className="w-48 h-48 rounded-full border-4 border-deep-orange dark:border-white"
+              className="border-deep-orange h-48 w-48 rounded-full border-4 dark:border-white"
             />
           </div>
           <h1 className="mt-8 text-3xl font-medium text-slate-700 dark:text-gray-200">
             {user.name}
           </h1>
-          <h2 className="mt-2 font-medium text-deep-orange">
+          <h2 className="text-deep-orange mt-2 font-medium">
             @{user.username}
           </h2>
         </div>

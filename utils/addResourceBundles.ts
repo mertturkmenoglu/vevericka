@@ -4,7 +4,7 @@ import { AvailableLanguageKey, availableLanguages } from './AvailableLanguages';
 export function addResourceBundles(
   i18n: typeof i18nType,
   ns: string,
-  resources: Record<AvailableLanguageKey, any>,
+  resources: Record<AvailableLanguageKey, any>
 ) {
   if (!i18n) {
     throw Error('i18n object is null');

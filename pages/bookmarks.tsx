@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { getSession } from 'next-auth/react';
 import AppBar from '../components/AppBar';
 import { useContext, useEffect } from 'react';
@@ -38,7 +38,7 @@ const Bookmarks: NextPage<BookmarksPageProps> = ({ user, userId }) => {
       <header>
         <AppBar />
       </header>
-      <main className="w-full h-screen flex items-center justify-center flex-col">
+      <main className="flex h-screen w-full flex-col items-center justify-center">
         <div>Bookmarks</div>
       </main>
     </>

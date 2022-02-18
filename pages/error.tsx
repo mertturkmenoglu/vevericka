@@ -22,7 +22,7 @@ export const errorCodeMap: Record<number, ErrorObj> = {
     key: 'post-not-found',
     title: 'Post Not Found | Vevericka',
     message: (
-      <div className="flex text-center flex-col items-center text-sm sm:text-xl">
+      <div className="flex flex-col items-center text-center text-sm sm:text-xl">
         <p>We cannot find the post you were looking for.</p>
         <p>
           Sometimes <span className="text-deep-orange">avocados</span> can go
@@ -36,7 +36,7 @@ export const errorCodeMap: Record<number, ErrorObj> = {
     key: 'user-not-found',
     title: 'User Not Found | Vevericka',
     message:
-      'The squirrel you were looking is not here. Maybe it\'s in another tree? If you \'Vik\', maybe you can get a response.',
+      "The squirrel you were looking is not here. Maybe it's in another tree? If you 'Vik', maybe you can get a response.",
   },
 };
 
@@ -63,18 +63,18 @@ const Error: NextPage = () => {
       <Head>
         <title>{title}</title>
       </Head>
-      <main className="w-screen h-screen flex items-center justify-center flex-col">
+      <main className="flex h-screen w-screen flex-col items-center justify-center">
         <Image src="/assets/nut_primary.svg" width={32} height={32} alt="Nut" />
-        <div className="mt-4 tracking-wide text-xl text-slate-700 dark:text-white">
+        <div className="mt-4 text-xl tracking-wide text-slate-700 dark:text-white">
           {error.message}
         </div>
-        <div className="text-slate-700 dark:text-white mt-8">
+        <div className="mt-8 text-slate-700 dark:text-white">
           <span className="text-deep-orange font-bold">[</span>
           <span className="font-regular text-sm">Sad squirrel noises</span>
           <span className="text-deep-orange font-bold">]</span>
         </div>
         <Link href="/">
-          <a className="text-deep-orange underline hover:no-underline focus:outline-offset-2 focus:outline-deep-orange">
+          <a className="text-deep-orange focus:outline-deep-orange underline hover:no-underline focus:outline-offset-2">
             Go to Home
           </a>
         </Link>

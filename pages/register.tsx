@@ -1,5 +1,6 @@
 import { useContext, useMemo } from 'react';
 import type { NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import AuthForm from '../components/AuthForm';
 import AuthInputField from '../components/AuthInputField';
 import AuthLayout from '../components/AuthLayout';
@@ -8,7 +9,6 @@ import AuthButton from '../components/AuthButton';
 import AuthLink from '../components/AuthLink';
 import { RegisterContext } from '../context/RegisterContext';
 import AuthStepper from '../components/AuthStepper';
-import { GetServerSideProps } from 'next';
 import { getSession, signIn } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -72,9 +72,9 @@ const Register: NextPage = () => {
               value={ctx.password}
               appendIcon={() => {
                 return ctx.showPassword ? (
-                  <EyeIcon className="w-5 h-5" />
+                  <EyeIcon className="h-5 w-5" />
                 ) : (
-                  <EyeOffIcon className="w-5 h-5" />
+                  <EyeOffIcon className="h-5 w-5" />
                 );
               }}
               appendIconAlt={
@@ -94,14 +94,14 @@ const Register: NextPage = () => {
             />
 
             {showError && (
-              <div className="mt-4 py-1 px-4 bg-red-500 text-white text-center">
+              <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">
                 {ctx.error}
               </div>
             )}
 
             {ctx.loading && (
-              <div className="mx-auto mt-8 flex justify-center items-center">
-                <RefreshIcon className="w-6 h-6 text-primary animate-spin" />
+              <div className="mx-auto mt-8 flex items-center justify-center">
+                <RefreshIcon className="h-6 w-6 animate-spin text-primary" />
               </div>
             )}
 
@@ -130,7 +130,7 @@ const Register: NextPage = () => {
         </AuthStepper.Step>
       </AuthStepper>
 
-      <div className="mt-4 flex flex-col text-gray-600 text-sm w-full items-center">
+      <div className="mt-4 flex w-full flex-col items-center text-sm text-gray-600">
         <AuthLink
           href="/login"
           text={t('form.links.login.text')}

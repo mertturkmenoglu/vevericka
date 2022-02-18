@@ -1,12 +1,6 @@
-export type AvailableLanguageKey =
-  | 'en'
-  | 'es'
-  | 'tr';
+export type AvailableLanguageKey = 'en' | 'es' | 'tr';
 
-export type AvailableLanguageName =
-  | 'English'
-  | 'Spanish'
-  | 'Turkish';
+export type AvailableLanguageName = 'English' | 'Spanish' | 'Turkish';
 
 export interface IAvailableLanguage {
   key: AvailableLanguageKey;

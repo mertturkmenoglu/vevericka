@@ -7,7 +7,7 @@ const Status: NextPage = () => {
       <Head>
         <title>Status | Vevericka</title>
       </Head>
-      <main className="w-screen h-screen flex items-center justify-center flex-col">
+      <main className="flex h-screen w-screen flex-col items-center justify-center">
         <div>Status</div>
       </main>
     </>

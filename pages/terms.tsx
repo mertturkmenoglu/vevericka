@@ -7,7 +7,7 @@ const Terms: NextPage = () => {
       <Head>
         <title>Terms | Vevericka</title>
       </Head>
-      <main className="w-screen h-screen flex items-center justify-center flex-col">
+      <main className="flex h-screen w-screen flex-col items-center justify-center">
         <div>Terms</div>
       </main>
     </>

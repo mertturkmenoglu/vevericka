@@ -14,7 +14,7 @@ const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({
   playlist,
 }) => {
   const styles =
-    'first-letter:text-7xl first-letter:font-bold first-letter:text-primary first-letter:mr-3 first-letter:float-left sm:w-2/3 list-disc ml-2 sm:ml-16 my-16  ';
+    'first-letter:text-7xl first-letter:font-bold first-letter:text-primary first-letter:mr-3 first-letter:float-left sm:w-2/3 list-disc ml-2 sm:ml-16 my-16';
   useEffect(() => {
     document.querySelector('body')?.classList?.add('bg-gray-50');
   });
@@ -43,23 +43,23 @@ const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({
         <meta property="og:locale" content="en_US" />
       </Head>
       <div id="inject-styles" className={`hidden ${styles}`} />
-      <main className="mt-16 mx-8 sm:mx-auto sm:container">
+      <main className="mx-8 mt-16 sm:container sm:mx-auto">
         <Link href="/">
-          <a className="underline text-sm font-medium tracking-tighter text-midnight dark:text-white">
+          <a className="text-sm font-medium tracking-tighter text-midnight underline dark:text-white">
             Go to home
           </a>
         </Link>
-        <div className="flex flex-col items-center pb-4 border-midnight border-b-2 sm:flex-row">
+        <div className="flex flex-col items-center border-b-2 border-midnight pb-4 sm:flex-row">
           <img
             src={playlist.thumbnail.fields.file.url}
             alt={playlist.thumbnail.fields.description}
-            className="mt-8 rounded-full h-48 w-48 sm:h-32 sm:w-32"
+            className="mt-8 h-48 w-48 rounded-full sm:h-32 sm:w-32"
           />
           <div className="sm:ml-8">
-            <h1 className="text-2xl font-bold font-lato mt-8 text-midnight underline underline-offset-4 text-center sm:text-left dark:text-white">
+            <h1 className="font-lato mt-8 text-center text-2xl font-bold text-midnight underline underline-offset-4 dark:text-white sm:text-left">
               {playlist.title}
             </h1>
-            <h2 className="font-lato mt-4 text-midnight text-center sm:text-left sm:mt-2 dark:text-white">
+            <h2 className="font-lato mt-4 text-center text-midnight dark:text-white sm:mt-2 sm:text-left">
               {playlist.subtitle}
             </h2>
           </div>

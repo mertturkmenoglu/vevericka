@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import { getSession } from 'next-auth/react';
 
 export interface ExplorePageProps {}
@@ -11,7 +11,7 @@ const Explore: NextPage<ExplorePageProps> = () => {
       <Head>
         <title>Explore | Vevericka</title>
       </Head>
-      <main className="w-screen h-screen flex items-center justify-center flex-col">
+      <main className="flex h-screen w-screen flex-col items-center justify-center">
         <div>Explore</div>
       </main>
     </>

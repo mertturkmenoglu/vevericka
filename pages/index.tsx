@@ -62,21 +62,24 @@ const LandingPage: NextPage<LandingPageProps> = () => {
             creator: '@capreaee',
           }}
         />
-        <meta name="twitter:image" content='https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public' />
+        <meta
+          name="twitter:image"
+          content="https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public"
+        />
       </Head>
-      <header className="mt-8 w-11/12 sm:w-2/3 md:w-1/2 mx-auto py-4 px-8 rounded-full bg-white dark:bg-neutral-800">
+      <header className="mx-auto mt-8 w-11/12 rounded-full bg-white py-4 px-8 dark:bg-neutral-800 sm:w-2/3 md:w-1/2">
         <LandingAppBar />
       </header>
-      <main className="w-11/12 sm:w-2/3 md:w-1/2 mx-auto flex flex-col items-center">
-        <h1 className="mx-auto sm:w-2/3 text-center text-slate-700 text-3xl sm:text-6xl font-lato mt-12 sm:mt-48 font-black leading-normal dark:text-neutral-200">
+      <main className="mx-auto flex w-11/12 flex-col items-center sm:w-2/3 md:w-1/2">
+        <h1 className="font-lato mx-auto mt-12 text-center text-3xl font-black leading-normal text-slate-700 dark:text-neutral-200 sm:mt-48 sm:w-2/3 sm:text-6xl">
           {t('title')}
         </h1>
-        <p className="text-center w-full mx-auto mt-16 sm:mt-32 text-base sm:text-2xl leading-snug font-lato text-slate-700 dark:text-neutral-200">
+        <p className="font-lato mx-auto mt-16 w-full text-center text-base leading-snug text-slate-700 dark:text-neutral-200 sm:mt-32 sm:text-2xl">
           {t('content')}
         </p>
         <Link href="/login">
           <a
-            className="mx-auto bg-midnight mt-16 rounded-md px-8 py-2 sm:px-16 sm:py-4 flex items-center transform hover:scale-105 ease-in-out transition-all duration-300 dark:border dark:border-primary"
+            className="mx-auto mt-16 flex transform items-center rounded-md bg-midnight px-8 py-2 transition-all duration-300 ease-in-out hover:scale-105 dark:border dark:border-primary sm:px-16 sm:py-4"
             onClick={beforeRouteLeave}
           >
             <Image
@@ -86,7 +89,7 @@ const LandingPage: NextPage<LandingPageProps> = () => {
               alt="Nut"
               className="pt-2"
             />
-            <span className="font-lato text-lg font-medium ml-4 text-white">
+            <span className="font-lato ml-4 text-lg font-medium text-white">
               {t('cta')}
             </span>
           </a>

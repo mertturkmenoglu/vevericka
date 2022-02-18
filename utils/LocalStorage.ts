@@ -1,17 +1,6 @@
-export type LocalStorageField =
-  | 'v-token'
-  | 'v-user'
-  | 'v-is-dark-theme';
+export type LocalStorageField = 'v-token' | 'v-user' | 'v-is-dark-theme';
 
 export class LocalStorage {
-  private setValue(field: LocalStorageField, value: string): void {
-    window.localStorage.setItem(field, value);
-  }
-
-  private getValue(field: LocalStorageField): string | null {
-    return window.localStorage.getItem(field);
-  }
-
   public get vToken(): string {
     return this.getValue('v-token') || '';
   }
@@ -33,5 +22,13 @@ export class LocalStorage {
 
   public set isDarkTheme(value: boolean) {
     this.setValue('v-is-dark-theme', value.toString());
+  }
+
+  private setValue(field: LocalStorageField, value: string): void {
+    window.localStorage.setItem(field, value);
+  }
+
+  private getValue(field: LocalStorageField): string | null {
+    return window.localStorage.getItem(field);
   }
 }

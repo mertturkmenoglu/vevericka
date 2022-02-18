@@ -43,8 +43,8 @@ const PostPage: NextPage<PostPageProps> = ({ user, userId, post }) => {
       <header>
         <AppBar />
       </header>
-      <main className="w-screen mt-4 bg-white dark:bg-neutral-800 md:w-1/3 mx-auto rounded-md">
-        <div className="flex flex-col p-4 items-center w-full">
+      <main className="mx-auto mt-4 w-screen rounded-md bg-white dark:bg-neutral-800 md:w-1/3">
+        <div className="flex w-full flex-col items-center p-4">
           <PostCard post={post} />
         </div>
       </main>
