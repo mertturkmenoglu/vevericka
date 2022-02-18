@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../../context/ApplicationContext';
 import { LocalStorage } from '../../utils/LocalStorage';
 import { useTheme } from 'next-themes';
-import AppBarMenu from '../AppBarMenu';
+import AppBarMenu from './elements/AppBarMenu';
 import AppBarSearch from './elements/AppBarSearch';
 import LogoAndName from './elements/LogoAndName';
 import IconGroup from './elements/IconGroup';
