@@ -1,21 +1,21 @@
-import type { NextPage, } from 'next';
-import { GetServerSideProps, } from 'next';
-import { getSession, } from 'next-auth/react';
-import { useTheme, } from 'next-themes';
+import type { NextPage } from 'next';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import { useTheme } from 'next-themes';
 import Head from 'next/head';
-import { useContext, useEffect, } from 'react';
-import { IPost, } from '../backend/models/IPost';
-import { IUser, } from '../backend/models/IUser';
-import { Post, } from '../backend/Post';
-import { User, } from '../backend/User';
+import { useContext, useEffect } from 'react';
+import { IPost } from '../backend/models/IPost';
+import { IUser } from '../backend/models/IUser';
+import { Post } from '../backend/Post';
+import { User } from '../backend/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
 import HomePageFeed from '../components/HomePageFeed';
 import ScrollToTopFab from '../components/ScrollToTopFab';
 import Trending from '../components/Trending';
-import { ApplicationContext, } from '../context/ApplicationContext';
-import { LocalStorage, } from '../utils/LocalStorage';
-import { serverSideTranslations, } from 'next-i18next/serverSideTranslations';
+import { ApplicationContext } from '../context/ApplicationContext';
+import { LocalStorage } from '../utils/LocalStorage';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export interface HomePageProps {
   user: IUser;
@@ -23,9 +23,9 @@ export interface HomePageProps {
   feed: IPost[];
 }
 
-const Home: NextPage<HomePageProps> = ({ user, userId, feed, }) => {
+const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
   const appContext = useContext(ApplicationContext);
-  const { setTheme, } = useTheme();
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     appContext.user.setEmail(user.email);
