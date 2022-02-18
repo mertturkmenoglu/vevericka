@@ -20,7 +20,7 @@ const AppBar: React.FC<AppBarProps> = () => {
   }, [setTheme, appContext]);
 
   return (
-    <nav className="w-full flex justify-between px-4 dark:bg-midnight">
+    <nav className="flex w-full justify-between px-4 dark:bg-midnight">
       <LogoAndName />
       <div className="flex items-center">
         <AppBarSearch />

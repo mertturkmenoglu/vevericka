@@ -48,7 +48,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      icon: <ClipboardCopyIcon className="text-deep-orange w-8 h-8" />,
+      icon: <ClipboardCopyIcon className="text-deep-orange h-8 w-8" />,
       theme: theme === 'dark' ? 'dark' : 'light',
     });
   };
@@ -56,22 +56,22 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   return (
     <article
       key={post.id}
-      className="flex flex-col py-4 px-2 bg-white dark:bg-neutral-800 rounded-md w-full"
+      className="flex w-full flex-col rounded-md bg-white py-4 px-2 dark:bg-neutral-800"
     >
       {/* Image - Name - Menu */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Link href={`/user/${post.user.username}`}>
             <a>
               <img
                 src={image}
                 alt={post.user.name}
-                className="w-10 h-10 rounded-full"
+                className="h-10 w-10 rounded-full"
               />
             </a>
           </Link>
           <Link href={`/user/${post.user.username}`}>
-            <a className="ml-2 text-xl text-slate-700 dark:text-gray-200 hover:underline">
+            <a className="ml-2 text-xl text-slate-700 hover:underline dark:text-gray-200">
               {post.user.name}
             </a>
           </Link>
@@ -82,7 +82,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <Menu.Button className="">
               <span className="sr-only">Menu</span>
               <DotsVerticalIcon
-                className="w-8 h-8 text-deep-orange ml-2 hover:bg-orange-100 rounded-full p-2 dark:hover:bg-orange-100 dark:hover:bg-opacity-25"
+                className="text-deep-orange ml-2 h-8 w-8 rounded-full p-2 hover:bg-orange-100 dark:hover:bg-orange-100 dark:hover:bg-opacity-25"
                 aria-hidden="true"
               />
             </Menu.Button>
@@ -96,16 +96,16 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 w-40 origin-top-right bg-white dark:bg-neutral-700 divide-y divide-gray-100 rounded-md shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+            <Menu.Items className="absolute right-0 z-50 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-700">
               <div className="px-2 py-1">
                 <Menu.Item>
                   {() => (
                     <button
-                      className="w-full flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25"
+                      className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-orange-100 dark:hover:bg-opacity-25"
                       onClick={shareClick}
                     >
-                      <ShareIcon className="w-4 h-4 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                      <ShareIcon className="text-deep-orange h-4 w-4" />
+                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                         Share
                       </span>
                     </button>
@@ -114,9 +114,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
                 <Menu.Item>
                   {() => (
-                    <button className="w-full flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
-                      <BookmarkIcon className="w-4 h-4 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                    <button className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-orange-100 dark:hover:bg-opacity-25">
+                      <BookmarkIcon className="text-deep-orange h-4 w-4" />
+                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                         Save
                       </span>
                     </button>
@@ -125,9 +125,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
                 <Menu.Item>
                   {() => (
-                    <button className="w-full flex items-center hover:bg-orange-100 px-2 py-1 my-1 rounded-full dark:hover:bg-opacity-25">
-                      <FlagIcon className="w-4 h-4 text-deep-orange" />
-                      <span className="ml-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                    <button className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-orange-100 dark:hover:bg-opacity-25">
+                      <FlagIcon className="text-deep-orange h-4 w-4" />
+                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                         Report
                       </span>
                     </button>
@@ -141,20 +141,20 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
       {/* Content */}
       <p
-        className="break-words mt-4 text-slate-700 dark:text-gray-400"
+        className="mt-4 break-words text-slate-700 dark:text-gray-400"
         dangerouslySetInnerHTML={{ __html: preparePostText(post.content) }}
       />
 
       {/* Date - Comments */}
-      <div className="flex w-full justify-end mt-2 items-center">
+      <div className="mt-2 flex w-full items-center justify-end">
         <Link href={`/post/${post.id}`}>
-          <a className="text-xs text-slate-700 dark:text-gray-600 hover:underline">
+          <a className="text-xs text-slate-700 hover:underline dark:text-gray-600">
             {new Date(post.createdAt).toLocaleDateString()}
           </a>
         </Link>
         <button className="flex items-center">
-          <ChatAltIcon className="w-4 h-4 text-deep-orange ml-4" />
-          <span className="text-xs text-slate-700 font-thin ml-1 dark:text-gray-400">
+          <ChatAltIcon className="text-deep-orange ml-4 h-4 w-4" />
+          <span className="ml-1 text-xs font-thin text-slate-700 dark:text-gray-400">
             {/* {post.comments.length} */}0
             <span className="sr-only">comments</span>
           </span>

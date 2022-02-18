@@ -12,8 +12,7 @@ import ChangeLanguage from './elements/ChangeLanguage';
 import { availableLanguages } from '../../utils/AvailableLanguages';
 import Cookies from 'universal-cookie';
 
-export interface LandingAppBarProps {
-}
+export interface LandingAppBarProps {}
 
 const LandingAppBar: React.FC<LandingAppBarProps> = () => {
   const appContext = useContext(ApplicationContext);
@@ -21,9 +20,7 @@ const LandingAppBar: React.FC<LandingAppBarProps> = () => {
   const { t } = useTranslation('landing');
 
   const beforeRouteLeave = () => {
-    document.querySelector('body')
-      ?.classList
-      ?.remove(constants.BODY_CLASSNAME);
+    document.querySelector('body')?.classList?.remove(constants.BODY_CLASSNAME);
   };
 
   const changeTheme = () => {
@@ -41,25 +38,39 @@ const LandingAppBar: React.FC<LandingAppBarProps> = () => {
   }, [appContext.isDarkTheme, t]);
 
   return (
-    <nav className='flex justify-between items-center bg-white dark:bg-neutral-800'>
-      <AppIcon beforeRouteLeave={beforeRouteLeave} href='/' />
+    <nav className="flex items-center justify-between bg-white dark:bg-neutral-800">
+      <AppIcon beforeRouteLeave={beforeRouteLeave} href="/" />
 
-      <div className='flex items-center'>
-        <ChangeLanguage altText={t('langDescription')} languages={availableLanguages} onItemClick={(language) => {
-          const cookies = new Cookies();
-          cookies.set('NEXT_LOCALE', language.key);
-          window.location.href = '/';
-        }} />
+      <div className="flex items-center">
+        <ChangeLanguage
+          altText={t('langDescription')}
+          languages={availableLanguages}
+          onItemClick={(language) => {
+            const cookies = new Cookies();
+            cookies.set('NEXT_LOCALE', language.key);
+            window.location.href = '/';
+          }}
+        />
 
         <ChangeThemeButton
           onClick={changeTheme}
           altText={themeDescriptionText}
-          icon={<SunIcon className='w-12 h-12 sm:w-8 sm:h-8 text-primary dark:text-white ml-4' />}
+          icon={
+            <SunIcon className="ml-4 h-12 w-12 text-primary dark:text-white sm:h-8 sm:w-8" />
+          }
         />
 
-        <LandingCustomLink href='/login' text={t('login')} beforeRouteLeave={beforeRouteLeave} />
+        <LandingCustomLink
+          href="/login"
+          text={t('login')}
+          beforeRouteLeave={beforeRouteLeave}
+        />
 
-        <LandingCustomLink href='/register' text={t('register')} beforeRouteLeave={beforeRouteLeave} />
+        <LandingCustomLink
+          href="/register"
+          text={t('register')}
+          beforeRouteLeave={beforeRouteLeave}
+        />
       </div>
     </nav>
   );

@@ -4,7 +4,7 @@ export interface AuthFormProps {
 
 const AuthForm: React.FC<AuthFormProps> = ({ children }) => {
   return (
-    <form className="flex flex-col mt-4 lg:mt-4 w-full bg-white dark:bg-neutral-800">
+    <form className="mt-4 flex w-full flex-col bg-white dark:bg-neutral-800 lg:mt-4">
       {children}
     </form>
   );

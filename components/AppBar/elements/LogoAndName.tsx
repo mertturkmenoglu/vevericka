@@ -2,9 +2,7 @@ import AppBarLogo from './AppBarLogo';
 import AppName from './AppName';
 import Link from 'next/link';
 
-export interface LogoAndNameProps {
-
-}
+export interface LogoAndNameProps {}
 
 const LogoAndName: React.FC<LogoAndNameProps> = () => {
   return (

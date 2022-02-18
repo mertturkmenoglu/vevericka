@@ -9,9 +9,13 @@ export interface ChangeLanguageProps {
   onItemClick: (language: IAvailableLanguage) => void;
 }
 
-const ChangeLanguage: React.FC<ChangeLanguageProps> = ({ altText, languages, onItemClick }) => {
+const ChangeLanguage: React.FC<ChangeLanguageProps> = ({
+  altText,
+  languages,
+  onItemClick,
+}) => {
   return (
-    <Menu as='div' className='relative inline-block text-left'>
+    <Menu as="div" className="relative inline-block text-left">
       <div>
         <ChangeLanguageMenuButton altText={altText} />
       </div>

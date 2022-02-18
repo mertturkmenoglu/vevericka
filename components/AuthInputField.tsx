@@ -1,6 +1,11 @@
-import { useState, useMemo, useEffect, Dispatch, SetStateAction } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { nanoid } from 'nanoid';
-import React from 'react';
 
 export interface AuthInputFieldProps {
   type: React.HTMLInputTypeAttribute;
@@ -42,11 +47,11 @@ const AuthInputField: React.FC<AuthInputFieldProps> = ({
   }
 
   return (
-    <div className="relative w-full mt-8">
+    <div className="relative mt-8 w-full">
       <input
         type={type}
         id={id}
-        className="border-b border-gray-500 text-black rounded-none h-8 w-full placeholder:text-gray-600 focus:outline-none focus:border-deep-orange bg-white dark:bg-neutral-800 dark:placeholder:text-gray-400 dark:text-gray-200"
+        className="focus:border-deep-orange h-8 w-full rounded-none border-b border-gray-500 bg-white text-black placeholder:text-gray-600 focus:outline-none dark:bg-neutral-800 dark:text-gray-200 dark:placeholder:text-gray-400"
         placeholder={placeholder}
         onChange={(e) => update(e.target.value)}
         value={value}

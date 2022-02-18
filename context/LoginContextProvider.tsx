@@ -3,8 +3,8 @@ import { TFunction } from 'next-i18next';
 import router from 'next/router';
 import { useState } from 'react';
 import {
-  LoginContext,
   defaultLoginContextState as defaultValues,
+  LoginContext,
 } from './LoginContext';
 
 export interface LoginContextProviderProps {}

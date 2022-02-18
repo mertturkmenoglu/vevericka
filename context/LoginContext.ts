@@ -22,12 +22,14 @@ export const defaultLoginContextState: ILoginContextState = {
   showPassword: false,
   error: null,
   loading: false,
-  setEmail: () => { },
-  setPassword: () => { },
-  setShowPassword: () => { },
-  setError: () => { },
-  setLoading: () => { },
-  login: async () => { }
+  setEmail: () => {},
+  setPassword: () => {},
+  setShowPassword: () => {},
+  setError: () => {},
+  setLoading: () => {},
+  login: async () => {},
 };
 
-export const LoginContext = createContext<ILoginContextState>(defaultLoginContextState);
+export const LoginContext = createContext<ILoginContextState>(
+  defaultLoginContextState
+);

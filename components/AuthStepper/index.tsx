@@ -1,4 +1,4 @@
-import { useState, Children, useEffect, useMemo, useCallback } from 'react';
+import { Children, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/outline';
 import AuthStepperStep, { AuthStepperStepProps } from './AuthStepperStep';
@@ -18,7 +18,7 @@ const AuthStepper: Component = ({ children }) => {
   const { t } = useTranslation('auth-stepper');
 
   /**
-   * Check childrens
+   * Check children
    * @returns true if index boundaries are safe
    * @returns false if index is not safe to use
    */
@@ -43,17 +43,17 @@ const AuthStepper: Component = ({ children }) => {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       {childrenArray[currentIndex]}
 
       {/* Navigation buttons */}
-      <div className="mt-8 w-full flex justify-between">
+      <div className="mt-8 flex w-full justify-between">
         <button
           onClick={() => setCurrentIndex((prev) => prev - 1)}
           className={clsx('flex items-center', { 'opacity-0': isFirstStep })}
           disabled={isFirstStep}
         >
-          <ArrowLeftIcon className="w-5 h-5" />
+          <ArrowLeftIcon className="h-5 w-5" />
           <span className="ml-2">{t('previous')}</span>
         </button>
 
@@ -63,7 +63,7 @@ const AuthStepper: Component = ({ children }) => {
           disabled={isLastStep}
         >
           <span>{t('next')}</span>
-          <ArrowRightIcon className="w-5 h-5 ml-2" />
+          <ArrowRightIcon className="ml-2 h-5 w-5" />
         </button>
       </div>
     </div>

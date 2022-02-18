@@ -2,9 +2,7 @@ import Link from 'next/link';
 import { appBarIcons } from '../data/appBarIcons';
 import clsx from 'clsx';
 
-export interface IconGroupProps {
-
-}
+export interface IconGroupProps {}
 
 const IconGroup: React.FC<IconGroupProps> = () => {
   return (

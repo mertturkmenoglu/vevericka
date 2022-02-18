@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
-  RegisterContext,
   defaultRegisterContextState as defaultValues,
+  RegisterContext,
 } from './RegisterContext';
 import { Auth } from '../backend/Auth';
 import { isApiError } from '../utils/isApiError';

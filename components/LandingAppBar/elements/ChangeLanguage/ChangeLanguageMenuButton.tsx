@@ -5,14 +5,16 @@ export interface ChangeLanguageMenuButton {
   altText: string;
 }
 
-const ChangeLanguageMenuButton: React.FC<ChangeLanguageMenuButton> = ({ altText }) => {
+const ChangeLanguageMenuButton: React.FC<ChangeLanguageMenuButton> = ({
+  altText,
+}) => {
   return (
-    <Menu.Button className='flex items-center'>
+    <Menu.Button className="flex items-center">
       <GlobeIcon
-        className='w-12 h-12 sm:w-8 sm:h-8 text-midnight dark:text-white'
-        aria-hidden='true'
+        className="h-12 w-12 text-midnight dark:text-white sm:h-8 sm:w-8"
+        aria-hidden="true"
       />
-      <span className='sr-only'>{altText}</span>
+      <span className="sr-only">{altText}</span>
     </Menu.Button>
   );
 };

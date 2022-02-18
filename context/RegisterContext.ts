@@ -28,17 +28,19 @@ export const defaultRegisterContextState: IRegisterContextState = {
   name: '',
   username: '',
   betaCode: '',
-  setEmail: () => { },
-  setPassword: () => { },
-  setShowPassword: () => { },
-  setName: () => { },
-  setUsername: () => { },
-  setBetaCode: () => { },
+  setEmail: () => {},
+  setPassword: () => {},
+  setShowPassword: () => {},
+  setName: () => {},
+  setUsername: () => {},
+  setBetaCode: () => {},
   register: async () => false,
   error: null,
-  setError: () => { },
+  setError: () => {},
   loading: false,
-  setLoading: () => { },
+  setLoading: () => {},
 };
 
-export const RegisterContext = createContext<IRegisterContextState>(defaultRegisterContextState);
+export const RegisterContext = createContext<IRegisterContextState>(
+  defaultRegisterContextState
+);

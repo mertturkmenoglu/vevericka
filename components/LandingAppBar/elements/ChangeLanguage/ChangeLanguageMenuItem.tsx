@@ -6,12 +6,17 @@ export interface ChangeLanguageMenuItemProps {
   onClick: (language: IAvailableLanguage) => void;
 }
 
-const ChangeLanguageMenuItem: React.FC<ChangeLanguageMenuItemProps> = ({ language, onClick }) => {
+const ChangeLanguageMenuItem: React.FC<ChangeLanguageMenuItemProps> = ({
+  language,
+  onClick,
+}) => {
   return (
     <Menu.Item>
       {() => (
         <button
-          className={'text-midnight dark:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm'}
+          className={
+            'group flex w-full items-center rounded-md px-2 py-2 text-sm text-midnight dark:text-white'
+          }
           onClick={(event) => {
             event.preventDefault();
             onClick(language);

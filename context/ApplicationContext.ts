@@ -25,14 +25,16 @@ export const defaultApplicationContextState: IApplicationContextState = {
     userId: '',
     image: '/assets/profile.png',
     name: '',
-    setEmail: () => { },
-    setUsername: () => { },
-    setUserId: () => { },
-    setImage: () => { },
-    setName: () => { },
+    setEmail: () => {},
+    setUsername: () => {},
+    setUserId: () => {},
+    setImage: () => {},
+    setName: () => {},
   },
   isDarkTheme: false,
-  setIsDarkTheme: () => { },
+  setIsDarkTheme: () => {},
 };
 
-export const ApplicationContext = createContext<IApplicationContextState>(defaultApplicationContextState);
+export const ApplicationContext = createContext<IApplicationContextState>(
+  defaultApplicationContextState
+);
