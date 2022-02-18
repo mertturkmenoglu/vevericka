@@ -1,6 +1,7 @@
 import { BellIcon, MailIcon, SearchIcon } from '@heroicons/react/outline';
+import { IAppBarIcon } from './IAppBarIcon';
 
-export const appBarIcons = [
+export const appBarIcons: IAppBarIcon[] = [
   {
     Icon: SearchIcon,
     href: '/search',

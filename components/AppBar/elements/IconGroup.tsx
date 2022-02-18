@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { appBarIcons } from './appBarIcons';
+import { appBarIcons } from '../data/appBarIcons';
 import clsx from 'clsx';
 
 export interface IconGroupProps {
