@@ -13,7 +13,7 @@ const AppBarSearch: React.FC<AppBarSearchProps> = () => {
     <input
       type="text"
       placeholder={t('search.placeholder')}
-      className={`hidden bg-gray-100 text-gray-400 placeholder:text-gray-400 focus:outline-none dark:bg-neutral-700 
+      className={`hidden rounded-full bg-gray-100 px-4 py-1 text-gray-400 placeholder:text-gray-400 focus:outline-none dark:bg-neutral-700 
       dark:bg-neutral-700 dark:text-gray-200 dark:placeholder:text-gray-200 dark:placeholder:text-gray-200 sm:block sm:block`}
     />
   );
