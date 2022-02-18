@@ -46,10 +46,10 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
       <header>
         <AppBar />
       </header>
-      <main className='w-screen sm:w-10/12 md:w-3/4 mx-auto flex flex-col sm:flex-row sm:justify-between mt-4'>
-        <div className='flex flex-col w-full items-center'>
-          <div className='w-11/12 md:w-8/12'>
-            <div className='w-full bg-white dark:bg-neutral-800 p-2 rounded-md'>
+      <main className="mx-auto mt-4 flex w-screen flex-col sm:w-10/12 sm:flex-row sm:justify-between md:w-3/4">
+        <div className="flex w-full flex-col items-center">
+          <div className="w-11/12 md:w-8/12">
+            <div className="w-full rounded-md bg-white p-2 dark:bg-neutral-800">
               <CreatePost
                 image={user?.image || ''}
                 name={user?.name || ''}
@@ -60,7 +60,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
           </div>
         </div>
 
-        <div className='w-1/3 sm:w-2/3 md:w-1/3'>
+        <div className="w-1/3 sm:w-2/3 md:w-1/3">
           <Trending />
         </div>
 

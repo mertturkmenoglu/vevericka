@@ -20,8 +20,8 @@ const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed }) => {
 
   if (isFeedEmpty) {
     return (
-      <div className='flex justify-center mt-16'>
-        <div className='text-midnight dark:text-white text-xl font-semibold'>
+      <div className="mt-16 flex justify-center">
+        <div className="text-xl font-semibold text-midnight dark:text-white">
           {t('feedEmpty')}
         </div>
       </div>
@@ -30,7 +30,7 @@ const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed }) => {
 
   return (
     <>
-      <div className='divide-y-2 space-y-2 mt-4 dark:divide-y-0'>
+      <div className="mt-4 space-y-2 divide-y-2 dark:divide-y-0">
         {feed.map((post) => (
           <PostCard post={post} key={post.id} />
         ))}
