@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IPost } from '../backend/models/IPost';
 import { IUser } from '../backend/models/IUser';
 import { Post } from '../backend/Post';
@@ -16,6 +16,7 @@ import Trending from '../components/Trending';
 import { ApplicationContext } from '../context/ApplicationContext';
 import { LocalStorage } from '../utils/LocalStorage';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import CreatePostModal from '../components/CreatePostModal';
 
 export interface HomePageProps {
   user: IUser;
@@ -24,6 +25,8 @@ export interface HomePageProps {
 }
 
 const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
+  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
+
   const appContext = useContext(ApplicationContext);
   const { setTheme } = useTheme();
 
@@ -50,7 +53,13 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
         <div className="flex w-full flex-col items-center">
           <div className="w-11/12 md:w-8/12">
             <div className="w-full rounded-md bg-white p-2 dark:bg-neutral-800">
-              <CreatePost image={user?.image || ''} name={user?.name || ''} username={user?.username || ''} />
+              <CreatePost
+                image={user?.image || ''}
+                name={user?.name || ''}
+                username={user?.username || ''}
+                openModal={setIsCreatePostModalOpen}
+              />
+              <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
             </div>
             <HomePageFeed feed={feed} />
           </div>
@@ -81,7 +90,7 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (cont
   const userApi = new User(session.jwt);
   const postApi = new Post(session.jwt);
   const user = await userApi.getUserByUsername(session.username);
-  const feed = await postApi.getFeedByUsername(session.username);
+  const _feed = await postApi.getFeedByUsername(session.username);
 
   if (!user) {
     return {
