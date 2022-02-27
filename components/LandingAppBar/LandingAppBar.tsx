@@ -11,6 +11,7 @@ import ChangeThemeButton from './elements/ChangeLanguage/ChangeThemeButton';
 import ChangeLanguage from './elements/ChangeLanguage';
 import { availableLanguages } from '../../utils/AvailableLanguages';
 import Cookies from 'universal-cookie';
+import Tooltip from '../Tooltip';
 
 export interface LandingAppBarProps {}
 
@@ -40,21 +41,25 @@ const LandingAppBar: React.FC<LandingAppBarProps> = () => {
       <AppIcon beforeRouteLeave={beforeRouteLeave} href="/" />
 
       <div className="flex items-center">
-        <ChangeLanguage
-          altText={t('langDescription')}
-          languages={availableLanguages}
-          onItemClick={(language) => {
-            const cookies = new Cookies();
-            cookies.set('NEXT_LOCALE', language.key);
-            window.location.href = '/';
-          }}
-        />
+        <Tooltip position="bottom" text={t('langDescription')}>
+          <ChangeLanguage
+            altText={t('langDescription')}
+            languages={availableLanguages}
+            onItemClick={(language) => {
+              const cookies = new Cookies();
+              cookies.set('NEXT_LOCALE', language.key);
+              window.location.href = '/';
+            }}
+          />
+        </Tooltip>
 
-        <ChangeThemeButton
-          onClick={changeTheme}
-          altText={themeDescriptionText}
-          icon={<SunIcon className="h-12 w-12 text-primary dark:text-white sm:h-8 sm:w-8" />}
-        />
+        <Tooltip position="bottom" text={themeDescriptionText}>
+          <ChangeThemeButton
+            onClick={changeTheme}
+            altText={themeDescriptionText}
+            icon={<SunIcon className="h-12 w-12 text-primary dark:text-white sm:h-8 sm:w-8" />}
+          />
+        </Tooltip>
 
         <LandingCustomLink href="/login" text={t('login')} beforeRouteLeave={beforeRouteLeave} />
 

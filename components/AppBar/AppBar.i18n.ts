@@ -6,6 +6,13 @@ export const en = {
   appIcon: {
     alt: 'Vevericka application icon',
   },
+  icons: {
+    tooltips: {
+      search: 'Search',
+      notifications: 'Notifications',
+      messages: 'Messages',
+    },
+  },
   menu: {
     profile: {
       imageAlt: 'User image',
@@ -39,6 +46,13 @@ export const es = {
   appIcon: {
     alt: 'Vevericka application icon',
   },
+  icons: {
+    tooltips: {
+      search: 'Search',
+      notifications: 'Notifications',
+      messages: 'Messages',
+    },
+  },
   menu: {
     profile: {
       imageAlt: 'User image',
@@ -71,6 +85,13 @@ export const tr = {
   },
   appIcon: {
     alt: 'Vevericka uygulama ikonu',
+  },
+  icons: {
+    tooltips: {
+      search: 'Ara',
+      notifications: 'Bildirimler',
+      messages: 'Mesajlar',
+    },
   },
   menu: {
     profile: {

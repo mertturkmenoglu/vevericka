@@ -15,6 +15,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, position, text }) => {
         onMouseLeave={() => setShow(false)}
         onFocus={() => setShow(true)}
         onBlur={() => setShow(false)}
+        className="flex items-center justify-center"
       >
         {children}
       </div>
