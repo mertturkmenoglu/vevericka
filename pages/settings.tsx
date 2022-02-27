@@ -18,9 +18,7 @@ const Settings: NextPage<SettingsPageProps> = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<SettingsPageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<SettingsPageProps> = async (context) => {
   const session = await getSession(context);
 
   if (!session || !session.user) {

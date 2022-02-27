@@ -6,13 +6,9 @@ export interface Props {
   text: string;
 }
 
-type LandingCustomLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
-  Props;
+type LandingCustomLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & Props;
 
-const LandingCustomLink = (
-  props: LandingCustomLinkProps,
-  ref: React.ForwardedRef<HTMLAnchorElement>
-) => {
+const LandingCustomLink = (props: LandingCustomLinkProps, ref: React.ForwardedRef<HTMLAnchorElement>) => {
   const { beforeRouteLeave, text, href = '', ...nativeAttributes } = props;
   return (
     <Link href={href}>
@@ -28,6 +24,4 @@ const LandingCustomLink = (
   );
 };
 
-export default React.forwardRef<HTMLAnchorElement, LandingCustomLinkProps>(
-  LandingCustomLink
-);
+export default React.forwardRef<HTMLAnchorElement, LandingCustomLinkProps>(LandingCustomLink);

@@ -38,10 +38,7 @@ const ScrollToTopFab: React.FC<ScrollToTopFabProps> = ({}) => {
       leaveTo="transform opacity-0 scale-95"
       show={show}
     >
-      <button
-        className="fixed bottom-8 right-8 rounded-full bg-primary p-2"
-        onClick={onClick}
-      >
+      <button className="fixed bottom-8 right-8 rounded-full bg-primary p-2" onClick={onClick}>
         <ChevronUpIcon className="h-4 w-4 text-white" />
       </button>
     </Transition>

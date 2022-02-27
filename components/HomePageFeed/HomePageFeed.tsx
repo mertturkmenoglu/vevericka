@@ -21,9 +21,7 @@ const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed }) => {
   if (isFeedEmpty) {
     return (
       <div className="mt-16 flex justify-center">
-        <div className="text-xl font-semibold text-midnight dark:text-white">
-          {t('feedEmpty')}
-        </div>
+        <div className="text-xl font-semibold text-midnight dark:text-white">{t('feedEmpty')}</div>
       </div>
     );
   }

@@ -8,10 +8,7 @@ export interface ChangeLanguageMenuProps {
   onItemClick: (language: IAvailableLanguage) => void;
 }
 
-const ChangeLanguageMenu: React.FC<ChangeLanguageMenuProps> = ({
-  languages,
-  onItemClick,
-}) => {
+const ChangeLanguageMenu: React.FC<ChangeLanguageMenuProps> = ({ languages, onItemClick }) => {
   return (
     <Transition
       as={Fragment}
@@ -29,11 +26,7 @@ const ChangeLanguageMenu: React.FC<ChangeLanguageMenuProps> = ({
       >
         <div className="px-1 py-1 ">
           {languages.map((language) => (
-            <ChangeLanguageMenuItem
-              language={language}
-              onClick={onItemClick}
-              key={language.key}
-            />
+            <ChangeLanguageMenuItem language={language} onClick={onItemClick} key={language.key} />
           ))}
         </div>
       </Menu.Items>

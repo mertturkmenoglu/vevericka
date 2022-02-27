@@ -20,9 +20,7 @@ const Register: NextPage = () => {
   const ctx = useContext(RegisterContext);
   const { t } = useTranslation('register');
 
-  const onShowPasswordClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onShowPasswordClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     ctx.setShowPassword((prev) => !prev);
   };
@@ -71,16 +69,10 @@ const Register: NextPage = () => {
               update={ctx.setPassword}
               value={ctx.password}
               appendIcon={() => {
-                return ctx.showPassword ? (
-                  <EyeIcon className="h-5 w-5" />
-                ) : (
-                  <EyeOffIcon className="h-5 w-5" />
-                );
+                return ctx.showPassword ? <EyeIcon className="h-5 w-5" /> : <EyeOffIcon className="h-5 w-5" />;
               }}
               appendIconAlt={
-                !ctx.showPassword
-                  ? t('form.password.appendIconAltShow')
-                  : t('form.password.appendIconAltHide')
+                !ctx.showPassword ? t('form.password.appendIconAltShow') : t('form.password.appendIconAltHide')
               }
               appendIconClick={onShowPasswordClick}
             />
@@ -93,11 +85,7 @@ const Register: NextPage = () => {
               update={ctx.setBetaCode}
             />
 
-            {showError && (
-              <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">
-                {ctx.error}
-              </div>
-            )}
+            {showError && <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">{ctx.error}</div>}
 
             {ctx.loading && (
               <div className="mx-auto mt-8 flex items-center justify-center">
@@ -131,24 +119,14 @@ const Register: NextPage = () => {
       </AuthStepper>
 
       <div className="mt-4 flex w-full flex-col items-center text-sm text-gray-600">
-        <AuthLink
-          href="/login"
-          text={t('form.links.login.text')}
-          cta={t('form.links.login.cta')}
-        />
-        <AuthLink
-          href="/reset"
-          text={t('form.links.reset.text')}
-          cta={t('form.links.reset.cta')}
-        />
+        <AuthLink href="/login" text={t('form.links.login.text')} cta={t('form.links.login.cta')} />
+        <AuthLink href="/reset" text={t('form.links.reset.text')} cta={t('form.links.reset.cta')} />
       </div>
     </AuthLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<RegisterPageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<RegisterPageProps> = async (context) => {
   const session = await getSession(context);
   if (session) {
     return {
@@ -161,11 +139,7 @@ export const getServerSideProps: GetServerSideProps<RegisterPageProps> = async (
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale || 'en', [
-        'auth',
-        'register',
-        'auth-stepper',
-      ])),
+      ...(await serverSideTranslations(context.locale || 'en', ['auth', 'register', 'auth-stepper'])),
     },
   };
 };

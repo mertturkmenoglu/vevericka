@@ -50,11 +50,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
         <div className="flex w-full flex-col items-center">
           <div className="w-11/12 md:w-8/12">
             <div className="w-full rounded-md bg-white p-2 dark:bg-neutral-800">
-              <CreatePost
-                image={user?.image || ''}
-                name={user?.name || ''}
-                username={user?.username || ''}
-              />
+              <CreatePost image={user?.image || ''} name={user?.name || ''} username={user?.username || ''} />
             </div>
             <HomePageFeed feed={feed} />
           </div>
@@ -70,9 +66,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<HomePageProps> = async (context) => {
   const session = await getSession(context);
 
   if (!session || !session.user) {
@@ -100,10 +94,7 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale || 'en', [
-        'auth',
-        'login',
-      ])),
+      ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
       user,
       userId: session.id as number,
       feed: [],

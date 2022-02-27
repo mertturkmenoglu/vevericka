@@ -20,15 +20,9 @@ const MenuProfile: React.FC<MenuProfileProps> = ({ username, userImage }) => {
       {() => (
         <Link href={`/user/${username}`}>
           <a className="flex">
-            <img
-              src={userImage}
-              className="m-2 h-10 w-10 rounded-full"
-              alt={t('menu.profile.imageAlt')}
-            />
+            <img src={userImage} className="m-2 h-10 w-10 rounded-full" alt={t('menu.profile.imageAlt')} />
             <div className="mt-2 flex flex-col">
-              <span className="text-sm font-medium text-primary">
-                @{username}
-              </span>
+              <span className="text-sm font-medium text-primary">@{username}</span>
               <span className="text-xs font-light text-neutral-500 dark:text-neutral-400">
                 {t('menu.profile.viewYourProfile')}
               </span>

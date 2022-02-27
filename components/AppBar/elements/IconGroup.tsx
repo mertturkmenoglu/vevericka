@@ -10,9 +10,7 @@ const IconGroup: React.FC<IconGroupProps> = () => {
       {appBarIcons.map(({ Icon, href, isMobileOnly }) => (
         <Link href={href} key={href}>
           <a>
-            <Icon
-              className={clsx('app-bar-icon', { 'sm:hidden': isMobileOnly })}
-            />
+            <Icon className={clsx('app-bar-icon', { 'sm:hidden': isMobileOnly })} />
           </a>
         </Link>
       ))}

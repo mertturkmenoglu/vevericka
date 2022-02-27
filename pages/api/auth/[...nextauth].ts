@@ -15,10 +15,7 @@ export default NextAuth({
           return null;
         }
 
-        const response = await Auth.login(
-          credentials.email,
-          credentials.password
-        );
+        const response = await Auth.login(credentials.email, credentials.password);
 
         if (!response) {
           return null;

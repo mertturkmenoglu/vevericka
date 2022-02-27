@@ -27,10 +27,7 @@ export interface TwitterProps {
 const Seo: React.FC<SeoProps> = ({ title, description, og, twitter }) => {
   return (
     <>
-      <meta
-        name="viewport"
-        content="width=device-width,initial-scale=1,viewport-fit=cover"
-      />
+      <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
       <meta name="title" content={title} />
       <meta name="description" content={description} />
       <meta property="og:site_name" content={og.siteName} />

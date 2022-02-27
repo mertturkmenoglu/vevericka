@@ -20,15 +20,9 @@ const CreatePost: React.FC<CreatePostProps> = ({ image, name, username }) => {
   return (
     <>
       <div className="flex w-full items-center">
-        <img
-          src={userImage}
-          alt="User picture"
-          className="h-16 w-16 rounded-full"
-        />
+        <img src={userImage} alt="User picture" className="h-16 w-16 rounded-full" />
         <div className="ml-2 flex flex-col">
-          <span className="text-xl font-medium text-gray-800 dark:text-gray-200">
-            {name}
-          </span>
+          <span className="text-xl font-medium text-gray-800 dark:text-gray-200">{name}</span>
           <span className="text-deep-orange text-lg">@{username}</span>
         </div>
       </div>

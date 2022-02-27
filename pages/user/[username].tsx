@@ -17,12 +17,7 @@ export interface UserPageProps {
   currentUserId: number;
 }
 
-const UserPage: NextPage<UserPageProps> = ({
-  username,
-  user,
-  currentUser,
-  currentUserId,
-}) => {
+const UserPage: NextPage<UserPageProps> = ({ username, user, currentUser, currentUserId }) => {
   const appContext = useContext(ApplicationContext);
   const { setTheme } = useTheme();
 
@@ -63,21 +58,15 @@ const UserPage: NextPage<UserPageProps> = ({
               className="border-deep-orange h-48 w-48 rounded-full border-4 dark:border-white"
             />
           </div>
-          <h1 className="mt-8 text-3xl font-medium text-slate-700 dark:text-gray-200">
-            {user.name}
-          </h1>
-          <h2 className="text-deep-orange mt-2 font-medium">
-            @{user.username}
-          </h2>
+          <h1 className="mt-8 text-3xl font-medium text-slate-700 dark:text-gray-200">{user.name}</h1>
+          <h2 className="text-deep-orange mt-2 font-medium">@{user.username}</h2>
         </div>
       </main>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<UserPageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<UserPageProps> = async (context) => {
   const session = await getSession(context);
   // const isAuth = !(!session || !session.user);
   const username = context.params?.username;

@@ -1,10 +1,4 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { nanoid } from 'nanoid';
 
 export interface AuthInputFieldProps {
@@ -14,9 +8,7 @@ export interface AuthInputFieldProps {
   value: string;
   update: Dispatch<SetStateAction<string>>;
   children?: React.ReactNode;
-  appendIconClick?: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  appendIconClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   appendIconAlt?: string;
   appendIcon?: () => JSX.Element;
   onEnterPressed?: () => void;

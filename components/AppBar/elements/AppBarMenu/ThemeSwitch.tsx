@@ -24,9 +24,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ text, icon }) => {
         <div className="my-1 flex items-center justify-between rounded-full px-2 py-1 hover:bg-primary hover:bg-opacity-10 dark:hover:bg-opacity-25">
           <div className="flex items-center">
             <Icon className="h-6 w-6 text-primary" />
-            <span className="ml-2 text-sm font-medium text-midnight dark:text-gray-200">
-              {text}
-            </span>
+            <span className="ml-2 text-sm font-medium text-midnight dark:text-gray-200">{text}</span>
           </div>
           <Switch
             checked={theme === 'dark'}
@@ -48,9 +46,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ text, icon }) => {
             <span className="sr-only">{text}</span>
             <span
               aria-hidden="true"
-              className={`${
-                theme === 'dark' ? 'translate-x-5' : 'translate-x-1'
-              }
+              className={`${theme === 'dark' ? 'translate-x-5' : 'translate-x-1'}
             pointer-events-none mt-0.5 inline-block h-3 w-3 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
             />
           </Switch>
