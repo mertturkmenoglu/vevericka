@@ -53,7 +53,7 @@ const LandingAppBar: React.FC<LandingAppBarProps> = () => {
         <ChangeThemeButton
           onClick={changeTheme}
           altText={themeDescriptionText}
-          icon={<SunIcon className="ml-4 h-12 w-12 text-primary dark:text-white sm:h-8 sm:w-8" />}
+          icon={<SunIcon className="h-12 w-12 text-primary dark:text-white sm:h-8 sm:w-8" />}
         />
 
         <LandingCustomLink href="/login" text={t('login')} beforeRouteLeave={beforeRouteLeave} />

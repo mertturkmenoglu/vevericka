@@ -6,7 +6,7 @@ export interface ChangeThemeButtonProps {
 
 const ChangeThemeButton: React.FC<ChangeThemeButtonProps> = ({ onClick, altText, icon }) => {
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick} className="ml-4">
       <span className="sr-only">{altText}</span>
       {icon}
     </button>
