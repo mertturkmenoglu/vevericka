@@ -58,7 +58,7 @@ const LandingAppBar: React.FC<LandingAppBarProps> = () => {
 
         <LandingCustomLink href="/login" text={t('login')} beforeRouteLeave={beforeRouteLeave} />
 
-        <LandingCustomLink href="/register" text={t('register')} beforeRouteLeave={beforeRouteLeave} />
+        <LandingCustomLink href="/register" text={t('register')} beforeRouteLeave={beforeRouteLeave} variant="dark" />
       </div>
     </nav>
   );
