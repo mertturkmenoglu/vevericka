@@ -15,13 +15,13 @@ const IconGroup: React.FC<IconGroupProps> = () => {
   return (
     <>
       {appBarIcons.map(({ Icon, href, isMobileOnly, tooltip }) => (
-        <Link href={href} key={href}>
-          <a>
-            <Tooltip position="bottom" text={t(tooltip)}>
+        <Tooltip position="bottom" text={t(tooltip)} key={href}>
+          <Link href={href}>
+            <a>
               <Icon className={clsx('app-bar-icon', { 'sm:hidden': isMobileOnly })} />
-            </Tooltip>
-          </a>
-        </Link>
+            </a>
+          </Link>
+        </Tooltip>
       ))}
     </>
   );
