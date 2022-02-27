@@ -14,7 +14,7 @@ const LandingCustomLink = (props: LandingCustomLinkProps, ref: React.ForwardedRe
   const { beforeRouteLeave, text, variant = 'light', href = '', ...nativeAttributes } = props;
   const className = clsx('ml-4 rounded-full py-2.5 px-3 font-medium', {
     'hidden text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-neutral-700 sm:flex': variant === 'light',
-    'text-white bg-midnight': variant === 'dark',
+    'text-white bg-midnight dark:bg-primary': variant === 'dark',
   });
 
   return (
