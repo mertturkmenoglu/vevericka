@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { CalendarIcon, LocationMarkerIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
+import Tooltip from './Tooltip';
 
 export interface CreatePostProps {
   image: string;
@@ -34,7 +36,33 @@ const CreatePost: React.FC<CreatePostProps> = ({ image, name, username }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <div className="flex w-full justify-end">
+        <div className="mt-4 flex w-full items-center justify-between">
+          <div className="flex items-center">
+            <Tooltip position="bottom" text="Add Location">
+              <button className="mx-1">
+                <LocationMarkerIcon className="h-8 w-8 rounded-full p-1 text-primary hover:bg-primary hover:bg-opacity-20" />
+              </button>
+            </Tooltip>
+
+            <Tooltip position="bottom" text="Add image">
+              <button className="mx-1">
+                <PhotographIcon className="h-8 w-8 rounded-full p-1 text-primary hover:bg-primary hover:bg-opacity-20" />
+              </button>
+            </Tooltip>
+
+            <Tooltip position="bottom" text="Add video">
+              <button className="mx-1">
+                <VideoCameraIcon className="h-8 w-8 rounded-full p-1 text-primary hover:bg-primary hover:bg-opacity-20" />
+              </button>
+            </Tooltip>
+
+            <Tooltip position="bottom" text="Schedule post">
+              <button className="mx-1">
+                <CalendarIcon className="h-8 w-8 rounded-full p-1 text-primary hover:bg-primary hover:bg-opacity-20" />
+              </button>
+            </Tooltip>
+          </div>
+
           <button className="text-slate-700 dark:text-gray-400">Post</button>
         </div>
       </div>
