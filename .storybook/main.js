@@ -11,6 +11,7 @@ module.exports = {
         },
       },
     },
+    'storybook-tailwind-dark-mode',
   ],
   core: {
     builder: 'webpack5',
