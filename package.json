@@ -14,6 +14,7 @@
     "@heroicons/react": "^1.0.5",
     "axios": "^0.24.0",
     "clsx": "^1.1.1",
+    "i18next": "^21.6.13",
     "nanoid": "^3.1.30",
     "next": "12.0.7",
     "next-auth": "^4.0.6",
@@ -21,6 +22,7 @@
     "next-themes": "^0.0.15",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-i18next": "^11.15.5",
     "react-toastify": "^8.1.0",
     "universal-cookie": "^4.0.4"
   },
