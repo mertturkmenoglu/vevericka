@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, useMemo } from 'react';
+import { useMemo } from 'react';
 import clsx from 'clsx';
 import type { AppearanceType, SpacingType } from '../common/';
 import { appearanceMapping, spacingMapping } from './Button.variants';
@@ -16,7 +16,7 @@ export interface ButtonAtomicProps {
   prependIcon?: JSX.Element | undefined;
 }
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonAtomicProps;
+export type ButtonProps = React.ComponentProps<'button'> & ButtonAtomicProps;
 
 const Button: React.FC<ButtonProps> = ({
   appearance,
@@ -27,6 +27,7 @@ const Button: React.FC<ButtonProps> = ({
   block = false,
   appendIcon,
   prependIcon,
+  className: cs,
   ...rest
 }) => {
   const calcSpacing = useMemo(() => {
@@ -43,6 +44,17 @@ const Button: React.FC<ButtonProps> = ({
     });
   }, [block]);
 
+  const className = clsx(
+    'flex items-center justify-center',
+    calcSpacing,
+    calcAppearance,
+    calcBlock,
+    {
+      'rounded-full': rounded,
+    },
+    cs
+  );
+
   const loadingAppearance = useMemo(() => {
     const map: Record<AppearanceType, SpinnerAppearance> = {
       primary: 'white',
@@ -58,10 +70,6 @@ const Button: React.FC<ButtonProps> = ({
   const showPrependIcon = useMemo(() => prependIcon !== undefined && !loading, [prependIcon, loading]);
 
   const showAppendIcon = useMemo(() => appendIcon !== undefined && !loading, [appendIcon, loading]);
-
-  const className = clsx('flex items-center justify-center', calcSpacing, calcAppearance, calcBlock, {
-    'rounded-full': rounded,
-  });
 
   return (
     <button className={className} {...rest}>
