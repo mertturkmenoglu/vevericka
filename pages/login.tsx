@@ -1,16 +1,16 @@
 import { useContext, useMemo } from 'react';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { EyeIcon, EyeOffIcon, RefreshIcon } from '@heroicons/react/outline';
+import { EyeIcon, EyeOffIcon, LockClosedIcon } from '@heroicons/react/outline';
 import AuthLayout from '../components/AuthLayout';
 import AuthLink from '../components/AuthLink';
-import AuthButton from '../components/AuthButton';
 import AuthInputField from '../components/AuthInputField';
 import AuthForm from '../components/AuthForm';
 import { LoginContext } from '../context/LoginContext';
 import { getSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import Button from '../atom/Button/Button';
 
 export interface LoginPageProps {}
 
@@ -60,14 +60,14 @@ const Login: NextPage = () => {
 
         {showError && <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">{ctx.error}</div>}
 
-        {ctx.loading && (
-          <div className="mx-auto mt-8 flex items-center justify-center">
-            <RefreshIcon className="h-6 w-6 animate-spin text-primary" />
-          </div>
-        )}
-
-        <AuthButton
+        <Button
           text={t('form.button.text')}
+          className="mt-4"
+          appearance="primary"
+          spacing="default"
+          loading={ctx.loading}
+          block
+          appendIcon={<LockClosedIcon className="mr-2 h-4 w-4" />}
           onClick={async (e) => {
             e.preventDefault();
             await loginAction();
