@@ -11,9 +11,9 @@ export const appearanceMapping: Record<SpinnerAppearance, string> = {
 };
 
 export const spacingMapping: Record<SpacingType, string> = {
-  compact: 'h-2 w-2',
-  small: 'h-3 w-3',
-  default: 'h-4 w-4',
-  medium: 'h-6 w-6',
-  large: 'h-8 w-8',
+  compact: 'h-4 w-4',
+  small: 'h-5 w-5',
+  default: 'h-6 w-6',
+  medium: 'h-8 w-8',
+  large: 'h-10 w-10',
 };
