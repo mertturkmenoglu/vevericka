@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import constants from '../../AppBar.constants';
 import { addResourceBundles } from '../../../../utils/addResourceBundles';
 import translations from '../../AppBar.i18n';
-import Avatar from '../../../../atom/Avatar/Avatar';
+import Avatar from '../../../../atom/Avatar';
 
 export interface MenuProfileProps {
   username: string;
