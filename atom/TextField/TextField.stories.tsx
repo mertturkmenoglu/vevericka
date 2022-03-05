@@ -3,9 +3,8 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import TextField from './TextField';
-import { TextFieldTypeAsArray } from '../common/TextField.type.ts';
+import { AppearanceAsArray, TextFieldTypeAsArray } from '../common';
 import { EyeIcon } from '@heroicons/react/outline';
-import { AppearanceAsArray } from '../common';
 
 export default {
   title: 'Atom/TextField',

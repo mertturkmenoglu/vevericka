@@ -1,5 +1,4 @@
-import type { AppearanceType } from '../common';
-import { TextFieldType } from '../common/TextField.type.ts';
+import type { AppearanceType, TextFieldType } from '../common';
 import clsx from 'clsx';
 import { useMemo } from 'react';
 import { nanoid } from 'nanoid';
