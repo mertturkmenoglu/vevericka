@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next';
 import constants from '../../AppBar.constants';
 import { addResourceBundles } from '../../../../utils/addResourceBundles';
 import translations from '../../AppBar.i18n';
+import Avatar from '../../../../atom/Avatar/Avatar';
 
 export interface MenuProfileProps {
   username: string;
@@ -20,7 +21,13 @@ const MenuProfile: React.FC<MenuProfileProps> = ({ username, userImage }) => {
       {() => (
         <Link href={`/user/${username}`}>
           <a className="flex">
-            <img src={userImage} className="m-2 h-10 w-10 rounded-full" alt={t('menu.profile.imageAlt')} />
+            <Avatar
+              appearance="circle"
+              label={t('menu.profile.imageAlt')}
+              size="default"
+              src={userImage}
+              className="m-2"
+            />
             <div className="mt-2 flex flex-col">
               <span className="text-sm font-medium text-primary">@{username}</span>
               <span className="text-xs font-light text-neutral-500 dark:text-neutral-400">
