@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/storybook.css';
 import * as NextImage from 'next/image';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
