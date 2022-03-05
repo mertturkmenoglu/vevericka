@@ -8,6 +8,9 @@ describe('Button Unit Tests', () => {
   beforeEach(() => {
     props = {
       text: 'Lorem ipsum',
+      loading: false,
+      spacing: 'default',
+      appearance: 'primary',
     };
   });
 
