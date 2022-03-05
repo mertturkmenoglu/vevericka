@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import Avatar from './Avatar';
 import { AvatarAppearanceAsArray, AvatarSizeAsArray } from '../common';
+import mock from './Avatar.mock';
 
 export default {
   title: 'Atom/Avatar',
@@ -15,8 +16,6 @@ export default {
   },
 } as ComponentMeta<typeof Avatar>;
 
-const src = 'https://github.com/mertturkmenoglu.png';
-
 const Template: ComponentStory<typeof Avatar> = (args) => (
   <div className="storybook-container">
     <Avatar {...args} />
@@ -25,16 +24,13 @@ const Template: ComponentStory<typeof Avatar> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  src,
-  label: 'Profile Picture',
-  appearance: 'circle',
-  size: 'default',
+  ...mock,
 };
 
 const AllAppearancesTemplate: ComponentStory<typeof Avatar> = () => (
   <div className="storybook-container flex gap-x-8">
     {AvatarAppearanceAsArray.map((appearance) => (
-      <Avatar key={appearance} appearance={appearance} label="Profile Picture" size="xlarge" src={src} />
+      <Avatar key={appearance} appearance={appearance} label="Profile Picture" size="xlarge" src={mock.src} />
     ))}
   </div>
 );
@@ -44,7 +40,7 @@ export const AllAppearance = AllAppearancesTemplate.bind({});
 const AllSizesTemplate: ComponentStory<typeof Avatar> = () => (
   <div className="storybook-container flex gap-x-8">
     {AvatarSizeAsArray.map((size) => (
-      <Avatar key={size} appearance="circle" label="Profile Picture" size={size} src={src} />
+      <Avatar key={size} appearance="circle" label="Profile Picture" size={size} src={mock.src} />
     ))}
   </div>
 );

@@ -1,15 +1,14 @@
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Avatar, { AvatarProps } from './Avatar';
+import Avatar, { AvatarProps } from './index';
+import mock from './Avatar.mock';
 
 describe('Avatar Unit Tests', () => {
   let props: AvatarProps;
 
   beforeEach(() => {
     props = {
-      appearance: 'circle',
-      label: 'Lorem ipsum',
-      size: 'default',
+      ...mock,
     };
   });
 
