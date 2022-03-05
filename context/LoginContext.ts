@@ -5,6 +5,7 @@ import { SetState } from './types';
 export interface ILoginContextState {
   email: string;
   setEmail: SetState<string>;
+  isEmailValid: boolean;
   password: string;
   setPassword: SetState<string>;
   showPassword: boolean;
@@ -18,6 +19,7 @@ export interface ILoginContextState {
 
 export const defaultLoginContextState: ILoginContextState = {
   email: '',
+  isEmailValid: true,
   password: '',
   showPassword: false,
   error: null,
@@ -30,6 +32,4 @@ export const defaultLoginContextState: ILoginContextState = {
   login: async () => {},
 };
 
-export const LoginContext = createContext<ILoginContextState>(
-  defaultLoginContextState
-);
+export const LoginContext = createContext<ILoginContextState>(defaultLoginContextState);

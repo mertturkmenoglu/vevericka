@@ -4,13 +4,13 @@ import { GetServerSideProps } from 'next';
 import { EyeIcon, EyeOffIcon, LockClosedIcon } from '@heroicons/react/outline';
 import AuthLayout from '../components/AuthLayout';
 import AuthLink from '../components/AuthLink';
-import AuthInputField from '../components/AuthInputField';
 import AuthForm from '../components/AuthForm';
 import { LoginContext } from '../context/LoginContext';
 import { getSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import Button from '../atom/Button/Button';
+import TextField from '../atom/TextField/TextField';
 
 export interface LoginPageProps {}
 
@@ -34,31 +34,32 @@ const Login: NextPage = () => {
   return (
     <AuthLayout pageTitle={t('pageTitle')} formTitle={t('formTitle')}>
       <AuthForm>
-        <AuthInputField
+        <TextField
           label={t('form.email.label')}
-          placeholder={t('form.email.placeholder')}
           type="email"
+          appearance="primary"
           value={ctx.email}
-          update={ctx.setEmail}
+          setValue={ctx.setEmail}
         />
 
-        <AuthInputField
+        <TextField
           label={t('form.password.label')}
-          placeholder={t('form.password.placeholder')}
           type={ctx.showPassword ? 'text' : 'password'}
-          update={ctx.setPassword}
+          appearance="primary"
           value={ctx.password}
-          appendIcon={() => {
-            return ctx.showPassword ? <EyeIcon className="h-5 w-5" /> : <EyeOffIcon className="h-5 w-5" />;
-          }}
-          appendIconAlt={
-            !ctx.showPassword ? t('form.password.appendIconAltShow') : t('form.password.appendIconAltHide')
+          setValue={ctx.setPassword}
+          appendIcon={
+            ctx.showPassword ? (
+              <EyeIcon className="h-5 w-5 text-midnight dark:text-gray-400" />
+            ) : (
+              <EyeOffIcon className="h-5 w-5 text-midnight dark:text-gray-400" />
+            )
           }
-          appendIconClick={onShowPasswordClick}
-          onEnterPressed={() => loginAction()}
+          onAppendIconClick={(e) => {
+            e.preventDefault();
+            onShowPasswordClick(e);
+          }}
         />
-
-        {showError && <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">{ctx.error}</div>}
 
         <Button
           text={t('form.button.text')}
@@ -73,6 +74,8 @@ const Login: NextPage = () => {
             await loginAction();
           }}
         />
+
+        {showError && <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">{ctx.error}</div>}
 
         <div className="mt-4 flex w-full flex-col items-center text-sm text-gray-600">
           <AuthLink href="/register" text={t('form.links.register.text')} cta={t('form.links.register.cta')} />
