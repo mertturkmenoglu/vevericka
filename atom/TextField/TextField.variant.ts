@@ -2,10 +2,14 @@ import type { AppearanceType } from '../common';
 import clsx from 'clsx';
 
 export const inputBorderColorMapping: Record<AppearanceType, string> = {
-  primary: 'border-midnight focus:border-midnight dark:border-gray-600 dark:focus:border-gray-600',
-  accent: 'border-primary focus:border-midnight dark:border-primary dark:focus:border-gray-600',
-  danger: 'border-red-600 focus:border-midnight dark:border-red-600 dark:focus:border-gray-600',
-  warning: 'border-amber-400 focus:border-midnight dark:border-amber-400 dark:focus:border-gray-600',
+  primary:
+    'border-midnight focus:border-midnight dark:border-gray-600 dark:focus:border-gray-600',
+  accent:
+    'border-primary focus:border-midnight dark:border-primary dark:focus:border-gray-600',
+  danger:
+    'border-red-600 focus:border-midnight dark:border-red-600 dark:focus:border-gray-600',
+  warning:
+    'border-amber-400 focus:border-midnight dark:border-amber-400 dark:focus:border-gray-600',
   subtle:
     'border-gray-600 focus:border-midnight dark:border-midnight dark:border-opacity-80 dark:focus:border-gray-600',
 };

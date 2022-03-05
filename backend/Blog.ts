@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance } from 'axios';
 import { createPublicApi } from './Api';
 import { IPlaylist } from './models/IPlaylist';
 

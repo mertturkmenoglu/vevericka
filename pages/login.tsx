@@ -18,7 +18,9 @@ const Login: NextPage = () => {
   const ctx = useContext(LoginContext);
   const { t } = useTranslation('login');
 
-  const onShowPasswordClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onShowPasswordClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     ctx.setShowPassword((prev) => !prev);
   };
@@ -75,18 +77,32 @@ const Login: NextPage = () => {
           }}
         />
 
-        {showError && <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">{ctx.error}</div>}
+        {showError && (
+          <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">
+            {ctx.error}
+          </div>
+        )}
 
         <div className="mt-4 flex w-full flex-col items-center text-sm text-gray-600">
-          <AuthLink href="/register" text={t('form.links.register.text')} cta={t('form.links.register.cta')} />
-          <AuthLink href="/reset" text={t('form.links.reset.text')} cta={t('form.links.reset.cta')} />
+          <AuthLink
+            href="/register"
+            text={t('form.links.register.text')}
+            cta={t('form.links.register.cta')}
+          />
+          <AuthLink
+            href="/reset"
+            text={t('form.links.reset.text')}
+            cta={t('form.links.reset.cta')}
+          />
         </div>
       </AuthForm>
     </AuthLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
+  context
+) => {
   const session = await getSession(context);
   if (session) {
     return {
@@ -99,7 +115,10 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (con
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
+      ...(await serverSideTranslations(context.locale || 'en', [
+        'auth',
+        'login',
+      ])),
     },
   };
 };

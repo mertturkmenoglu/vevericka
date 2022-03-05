@@ -22,7 +22,8 @@ export interface TextFieldAtomicProps {
   inputClassName?: string;
 }
 
-export type TextFieldProps = Exclude<React.ComponentProps<'input'>, 'type'> & TextFieldAtomicProps;
+export type TextFieldProps = Exclude<React.ComponentProps<'input'>, 'type'> &
+  TextFieldAtomicProps;
 
 const TextField: React.FC<TextFieldProps> = ({
   appearance,
@@ -63,7 +64,11 @@ const TextField: React.FC<TextFieldProps> = ({
     inputClassName
   );
 
-  const labelClassName = clsx(labelClasses, calcInputTextColor, `peer-focus:${calcInputTextColor}`);
+  const labelClassName = clsx(
+    labelClasses,
+    calcInputTextColor,
+    `peer-focus:${calcInputTextColor}`
+  );
 
   return (
     <div className={clsx('group relative z-0 mb-6 w-full', cs)}>
@@ -86,7 +91,10 @@ const TextField: React.FC<TextFieldProps> = ({
         {label}
       </label>
       {appendIcon !== undefined && (
-        <button className="absolute right-0 top-4 z-10" onClick={onAppendIconClick}>
+        <button
+          className="absolute right-0 top-4 z-10"
+          onClick={onAppendIconClick}
+        >
           {appendIcon}
         </button>
       )}

@@ -15,7 +15,12 @@ export interface CreatePostProps {
   openModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreatePost: React.FC<CreatePostProps> = ({ image, name, username, openModal }) => {
+const CreatePost: React.FC<CreatePostProps> = ({
+  image,
+  name,
+  username,
+  openModal,
+}) => {
   const [text, setText] = useState('');
 
   const userImage = useMemo(() => {
@@ -30,9 +35,15 @@ const CreatePost: React.FC<CreatePostProps> = ({ image, name, username, openModa
     <div className="group">
       <div className="flex justify-between">
         <div className="flex w-full items-center">
-          <img src={userImage} alt="User picture" className="h-16 w-16 rounded-full" />
+          <img
+            src={userImage}
+            alt="User picture"
+            className="h-16 w-16 rounded-full"
+          />
           <div className="ml-2 flex flex-col">
-            <span className="text-xl font-medium text-gray-800 dark:text-gray-200">{name}</span>
+            <span className="text-xl font-medium text-gray-800 dark:text-gray-200">
+              {name}
+            </span>
             <span className="text-lg text-primary">@{username}</span>
           </div>
         </div>

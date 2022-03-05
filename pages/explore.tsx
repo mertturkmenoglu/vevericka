@@ -18,7 +18,9 @@ const Explore: NextPage<ExplorePageProps> = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<ExplorePageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<ExplorePageProps> = async (
+  context
+) => {
   const session = await getSession(context);
 
   if (!session || !session.user) {

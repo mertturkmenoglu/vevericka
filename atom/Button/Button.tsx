@@ -1,22 +1,12 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
-import type { AppearanceType, SpacingType } from '../common/';
-import { appearanceMapping, spacingMapping } from './Button.variants';
-import { SpinnerAppearance } from '../Spinner';
+import {
+  appearanceMapping,
+  loadingMapping,
+  spacingMapping,
+} from './Button.variants';
 import Spinner from '../Spinner/Spinner';
-
-export interface ButtonAtomicProps {
-  appearance: AppearanceType;
-  text?: string | undefined;
-  loading?: boolean | undefined;
-  rounded?: boolean | undefined;
-  spacing?: SpacingType | undefined;
-  block?: boolean | undefined;
-  appendIcon?: JSX.Element | undefined;
-  prependIcon?: JSX.Element | undefined;
-}
-
-export type ButtonProps = React.ComponentProps<'button'> & ButtonAtomicProps;
+import { ButtonProps } from './Button.type';
 
 const Button: React.FC<ButtonProps> = ({
   appearance,
@@ -30,19 +20,21 @@ const Button: React.FC<ButtonProps> = ({
   className: cs,
   ...rest
 }) => {
-  const calcSpacing = useMemo(() => {
-    return spacingMapping[spacing];
-  }, [spacing]);
+  const calcSpacing = useMemo(() => spacingMapping[spacing], [spacing]);
 
-  const calcAppearance = useMemo(() => {
-    return clsx(appearanceMapping[appearance], 'hover:transform hover:scale-[1.01]');
-  }, [appearance]);
+  const calcAppearance = useMemo(
+    () =>
+      clsx(appearanceMapping[appearance], 'hover:transform hover:scale-[1.01]'),
+    [appearance]
+  );
 
-  const calcBlock = useMemo(() => {
-    return clsx({
-      'w-full': block,
-    });
-  }, [block]);
+  const calcBlock = useMemo(
+    () =>
+      clsx({
+        'w-full': block,
+      }),
+    [block]
+  );
 
   const className = clsx(
     'flex items-center justify-center',
@@ -55,21 +47,20 @@ const Button: React.FC<ButtonProps> = ({
     cs
   );
 
-  const loadingAppearance = useMemo(() => {
-    const map: Record<AppearanceType, SpinnerAppearance> = {
-      primary: 'white',
-      warning: 'white',
-      subtle: 'primary',
-      danger: 'white',
-      accent: 'white',
-    };
+  const loadingAppearance = useMemo(
+    () => loadingMapping[appearance],
+    [appearance]
+  );
 
-    return map[appearance];
-  }, [appearance]);
+  const showPrependIcon = useMemo(
+    () => prependIcon !== undefined && !loading,
+    [prependIcon, loading]
+  );
 
-  const showPrependIcon = useMemo(() => prependIcon !== undefined && !loading, [prependIcon, loading]);
-
-  const showAppendIcon = useMemo(() => appendIcon !== undefined && !loading, [appendIcon, loading]);
+  const showAppendIcon = useMemo(
+    () => appendIcon !== undefined && !loading,
+    [appendIcon, loading]
+  );
 
   return (
     <button className={className} {...rest}>

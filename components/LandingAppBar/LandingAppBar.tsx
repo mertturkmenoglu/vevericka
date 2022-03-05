@@ -33,7 +33,9 @@ const LandingAppBar: React.FC<LandingAppBarProps> = () => {
   };
 
   const themeDescriptionText = useMemo(() => {
-    return appContext.isDarkTheme ? t('themeIconAlt.dark') : t('themeIconAlt.light');
+    return appContext.isDarkTheme
+      ? t('themeIconAlt.dark')
+      : t('themeIconAlt.light');
   }, [appContext.isDarkTheme, t]);
 
   return (
@@ -57,13 +59,24 @@ const LandingAppBar: React.FC<LandingAppBarProps> = () => {
           <ChangeThemeButton
             onClick={changeTheme}
             altText={themeDescriptionText}
-            icon={<SunIcon className="h-12 w-12 text-primary dark:text-white sm:h-8 sm:w-8" />}
+            icon={
+              <SunIcon className="h-12 w-12 text-primary dark:text-white sm:h-8 sm:w-8" />
+            }
           />
         </Tooltip>
 
-        <LandingCustomLink href="/login" text={t('login')} beforeRouteLeave={beforeRouteLeave} />
+        <LandingCustomLink
+          href="/login"
+          text={t('login')}
+          beforeRouteLeave={beforeRouteLeave}
+        />
 
-        <LandingCustomLink href="/register" text={t('register')} beforeRouteLeave={beforeRouteLeave} variant="dark" />
+        <LandingCustomLink
+          href="/register"
+          text={t('register')}
+          beforeRouteLeave={beforeRouteLeave}
+          variant="dark"
+        />
       </div>
     </nav>
   );

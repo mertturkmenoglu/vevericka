@@ -17,7 +17,9 @@ const ButtonItem: React.FC<ButtonItemProps> = ({ text, onClick, icon }) => {
           onClick={onClick}
         >
           <Icon className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-sm font-medium text-midnight dark:text-gray-200">{text}</span>
+          <span className="ml-2 text-sm font-medium text-midnight dark:text-gray-200">
+            {text}
+          </span>
         </button>
       )}
     </Menu.Item>

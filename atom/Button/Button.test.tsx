@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Button, { ButtonProps } from './Button';
+import Button, { ButtonProps } from './index';
 
 describe('Button Unit Tests', () => {
   let props: ButtonProps;
@@ -22,7 +22,8 @@ describe('Button Unit Tests', () => {
   it('renders default button with the given text', () => {
     const component = render(<Button {...props} />);
     const expected = props.text;
-    const element = component.container.querySelector<HTMLButtonElement>('button');
+    const element =
+      component.container.querySelector<HTMLButtonElement>('button');
     const actual = element?.textContent;
 
     expect(element).toBeInTheDocument();

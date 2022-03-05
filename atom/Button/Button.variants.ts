@@ -1,4 +1,5 @@
 import type { AppearanceType, SpacingType } from '../common';
+import { SpinnerAppearance } from '../Spinner';
 
 export const spacingMapping: Record<SpacingType, string> = {
   compact: 'px-2 py-1 text-xs',
@@ -14,4 +15,12 @@ export const appearanceMapping: Record<AppearanceType, string> = {
   danger: 'bg-red-600 text-white',
   subtle: 'bg-transparent text-midnight opacity-80',
   warning: 'bg-amber-400 text-white',
+};
+
+export const loadingMapping: Record<AppearanceType, SpinnerAppearance> = {
+  primary: 'white',
+  warning: 'white',
+  subtle: 'primary',
+  danger: 'white',
+  accent: 'white',
 };

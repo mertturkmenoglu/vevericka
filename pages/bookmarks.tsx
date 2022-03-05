@@ -45,7 +45,9 @@ const Bookmarks: NextPage<BookmarksPageProps> = ({ user, userId }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<BookmarksPageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<
+  BookmarksPageProps
+> = async (context) => {
   const session = await getSession(context);
 
   if (!session || !session.user) {

@@ -15,7 +15,8 @@ export const errorCodeMap: Record<number, ErrorObj> = {
   0: {
     key: 'generic',
     title: 'Vevericka',
-    message: 'Something went wrong. Sometimes squirrels cannot understand what is going on.',
+    message:
+      'Something went wrong. Sometimes squirrels cannot understand what is going on.',
   },
   1: {
     key: 'post-not-found',
@@ -24,7 +25,8 @@ export const errorCodeMap: Record<number, ErrorObj> = {
       <div className="flex flex-col items-center text-center text-sm sm:text-xl">
         <p>We cannot find the post you were looking for.</p>
         <p>
-          Sometimes <span className="text-deep-orange">avocados</span> can go missing but this has nothing to do with{' '}
+          Sometimes <span className="text-deep-orange">avocados</span> can go
+          missing but this has nothing to do with{' '}
           <span className="text-deep-orange">Thumbelina</span>.
         </p>
       </div>
@@ -63,7 +65,9 @@ const Error: NextPage = () => {
       </Head>
       <main className="flex h-screen w-screen flex-col items-center justify-center">
         <Image src="/assets/nut_primary.svg" width={32} height={32} alt="Nut" />
-        <div className="mt-4 text-xl tracking-wide text-slate-700 dark:text-white">{error.message}</div>
+        <div className="mt-4 text-xl tracking-wide text-slate-700 dark:text-white">
+          {error.message}
+        </div>
         <div className="mt-8 text-slate-700 dark:text-white">
           <span className="text-deep-orange font-bold">[</span>
           <span className="font-regular text-sm">Sad squirrel noises</span>

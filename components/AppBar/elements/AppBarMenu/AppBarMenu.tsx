@@ -23,7 +23,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
 
   const [isLanguageDialogOpen, setIsLanguageDialogOpen] = useState(false);
   const router = useRouter();
-  const [selectedLanguage, setSelectedLanguage] = useState(router.locale || 'en');
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    router.locale || 'en'
+  );
 
   const image = useMemo(() => {
     if (appContext.user.image === 'profile.png') {
@@ -65,7 +67,11 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
         </Transition>
       </Menu>
       <Transition appear show={isLanguageDialogOpen} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => setIsLanguageDialogOpen(false)}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={() => setIsLanguageDialogOpen(false)}
+        >
           <div className="min-h-screen px-4 text-center">
             <Transition.Child
               as={Fragment}
@@ -79,7 +85,10 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               <Dialog.Overlay className="fixed inset-0" />
             </Transition.Child>
 
-            <span className="inline-block h-screen align-middle" aria-hidden="true">
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
               &#8203;
             </span>
             <Transition.Child
@@ -92,13 +101,21 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
               leaveTo="opacity-0 scale-95"
             >
               <div className="my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-neutral-800">
-                <Dialog.Title as="h3" className="text-deep-orange flex items-center text-lg font-medium leading-6">
+                <Dialog.Title
+                  as="h3"
+                  className="text-deep-orange flex items-center text-lg font-medium leading-6"
+                >
                   <TranslateIcon className="h-8 w-8" />
                   <span className="ml-2">{t('languageDialog.title')}</span>
                 </Dialog.Title>
                 <div className="mt-2">
-                  <RadioGroup value={selectedLanguage} onChange={setSelectedLanguage}>
-                    <RadioGroup.Label className="sr-only">{t('languageDialog.languages')}</RadioGroup.Label>
+                  <RadioGroup
+                    value={selectedLanguage}
+                    onChange={setSelectedLanguage}
+                  >
+                    <RadioGroup.Label className="sr-only">
+                      {t('languageDialog.languages')}
+                    </RadioGroup.Label>
                     <div className="space-y-2">
                       {availableLanguages.map((lang) => (
                         <RadioGroup.Option
@@ -114,7 +131,9 @@ const AppBarMenu: React.FC<AppBarMenuProps> = ({}) => {
                                     <RadioGroup.Label
                                       as="p"
                                       className={`font-medium  ${
-                                        checked ? 'text-deep-orange' : 'text-slate-700 dark:text-gray-400'
+                                        checked
+                                          ? 'text-deep-orange'
+                                          : 'text-slate-700 dark:text-gray-400'
                                       }`}
                                     >
                                       {lang.name}

@@ -2,12 +2,17 @@ import { signIn } from 'next-auth/react';
 import { TFunction } from 'next-i18next';
 import router from 'next/router';
 import { useMemo, useState } from 'react';
-import { defaultLoginContextState as defaultValues, LoginContext } from './LoginContext';
+import {
+  defaultLoginContextState as defaultValues,
+  LoginContext,
+} from './LoginContext';
 import isEmail from 'validator/lib/isEmail';
 
 export interface LoginContextProviderProps {}
 
-const LoginContextProvider: React.FC<LoginContextProviderProps> = ({ children }) => {
+const LoginContextProvider: React.FC<LoginContextProviderProps> = ({
+  children,
+}) => {
   const [email, setEmail] = useState(defaultValues.email);
   const [password, setPassword] = useState(defaultValues.password);
   const [showPassword, setShowPassword] = useState(defaultValues.showPassword);

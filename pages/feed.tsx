@@ -59,7 +59,10 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
                 username={user?.username || ''}
                 openModal={setIsCreatePostModalOpen}
               />
-              <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
+              <CreatePostModal
+                isOpen={isCreatePostModalOpen}
+                setIsOpen={setIsCreatePostModalOpen}
+              />
             </div>
             <HomePageFeed feed={feed} />
           </div>
@@ -75,7 +78,9 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<HomePageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
+  context
+) => {
   const session = await getSession(context);
 
   if (!session || !session.user) {
@@ -103,7 +108,10 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (cont
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
+      ...(await serverSideTranslations(context.locale || 'en', [
+        'auth',
+        'login',
+      ])),
       user,
       userId: session.id as number,
       feed: [],

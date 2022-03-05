@@ -4,7 +4,13 @@ import { useTranslation } from 'next-i18next';
 import constants from './CreatePostModal.constants';
 import { addResourceBundles } from '../../utils/addResourceBundles';
 import translations from './CreatePostModal.i18n';
-import { CalendarIcon, LocationMarkerIcon, PhotographIcon, VideoCameraIcon, XIcon } from '@heroicons/react/outline';
+import {
+  CalendarIcon,
+  LocationMarkerIcon,
+  PhotographIcon,
+  VideoCameraIcon,
+  XIcon,
+} from '@heroicons/react/outline';
 import Tooltip from '../Tooltip';
 
 export interface CreatePostModalProps {
@@ -12,7 +18,10 @@ export interface CreatePostModalProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, setIsOpen }) => {
+const CreatePostModal: React.FC<CreatePostModalProps> = ({
+  isOpen,
+  setIsOpen,
+}) => {
   const { t, i18n } = useTranslation(constants.I18N_NS);
   addResourceBundles(i18n, constants.I18N_NS, translations);
 
@@ -20,7 +29,11 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, setIsOpen }) 
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => setIsOpen(false)}>
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-10 overflow-y-auto"
+        onClose={() => setIsOpen(false)}
+      >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
             as={Fragment}
@@ -34,7 +47,10 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, setIsOpen }) 
             <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
           </Transition.Child>
 
-          <span className="inline-block h-screen align-middle" aria-hidden="true">
+          <span
+            className="inline-block h-screen align-middle"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -47,8 +63,14 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, setIsOpen }) 
             leaveTo="opacity-0 scale-95"
           >
             <div className="inline-block w-full max-w-3xl transform overflow-hidden bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-neutral-800">
-              <Dialog.Title as="h3" className="flex justify-end font-medium leading-6">
-                <button onClick={() => setIsOpen(false)} className="flex items-start">
+              <Dialog.Title
+                as="h3"
+                className="flex justify-end font-medium leading-6"
+              >
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-start"
+                >
                   <XIcon className="h-8 w-8 text-midnight dark:text-white" />
                 </button>
               </Dialog.Title>
@@ -89,7 +111,9 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, setIsOpen }) 
                     </Tooltip>
                   </div>
 
-                  <button className="text-slate-700 dark:text-gray-400">Post</button>
+                  <button className="text-slate-700 dark:text-gray-400">
+                    Post
+                  </button>
                 </div>
               </div>
             </div>

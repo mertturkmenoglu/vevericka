@@ -18,7 +18,9 @@ const IconGroup: React.FC<IconGroupProps> = () => {
         <Tooltip position="bottom" text={t(tooltip)} key={href}>
           <Link href={href}>
             <a>
-              <Icon className={clsx('app-bar-icon', { 'sm:hidden': isMobileOnly })} />
+              <Icon
+                className={clsx('app-bar-icon', { 'sm:hidden': isMobileOnly })}
+              />
             </a>
           </Link>
         </Tooltip>

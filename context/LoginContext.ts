@@ -32,4 +32,6 @@ export const defaultLoginContextState: ILoginContextState = {
   login: async () => {},
 };
 
-export const LoginContext = createContext<ILoginContextState>(defaultLoginContextState);
+export const LoginContext = createContext<ILoginContextState>(
+  defaultLoginContextState
+);

@@ -52,7 +52,9 @@ const PostPage: NextPage<PostPageProps> = ({ user, userId, post }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<PostPageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<PostPageProps> = async (
+  context
+) => {
   const session = await getSession(context);
   // const isAuth = !(!session || !session.user);
   const postId = context.params?.id;

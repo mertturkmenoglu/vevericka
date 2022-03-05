@@ -31,7 +31,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
   const shareClick = () => {
     const tmpInput = document.createElement('input');
-    const base = process.env.NODE_ENV === 'production' ? 'https://vevericka.app' : 'http://localhost:3000';
+    const base =
+      process.env.NODE_ENV === 'production'
+        ? 'https://vevericka.app'
+        : 'http://localhost:3000';
     tmpInput.value = base + `/post/${post.id}`;
     document.body.appendChild(tmpInput);
     tmpInput.select();
@@ -51,17 +54,26 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   };
 
   return (
-    <article key={post.id} className="flex w-full flex-col rounded-md bg-white py-4 px-2 dark:bg-neutral-800">
+    <article
+      key={post.id}
+      className="flex w-full flex-col rounded-md bg-white py-4 px-2 dark:bg-neutral-800"
+    >
       {/* Image - Name - Menu */}
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Link href={`/user/${post.user.username}`}>
             <a>
-              <img src={image} alt={post.user.name} className="h-10 w-10 rounded-full" />
+              <img
+                src={image}
+                alt={post.user.name}
+                className="h-10 w-10 rounded-full"
+              />
             </a>
           </Link>
           <Link href={`/user/${post.user.username}`}>
-            <a className="ml-2 text-xl text-slate-700 hover:underline dark:text-gray-200">{post.user.name}</a>
+            <a className="ml-2 text-xl text-slate-700 hover:underline dark:text-gray-200">
+              {post.user.name}
+            </a>
           </Link>
         </div>
 
@@ -93,7 +105,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                       onClick={shareClick}
                     >
                       <ShareIcon className="text-deep-orange h-4 w-4" />
-                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">Share</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Share
+                      </span>
                     </button>
                   )}
                 </Menu.Item>
@@ -102,7 +116,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                   {() => (
                     <button className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-orange-100 dark:hover:bg-opacity-25">
                       <BookmarkIcon className="text-deep-orange h-4 w-4" />
-                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">Save</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Save
+                      </span>
                     </button>
                   )}
                 </Menu.Item>
@@ -111,7 +127,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                   {() => (
                     <button className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-orange-100 dark:hover:bg-opacity-25">
                       <FlagIcon className="text-deep-orange h-4 w-4" />
-                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">Report</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Report
+                      </span>
                     </button>
                   )}
                 </Menu.Item>
@@ -137,7 +155,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <button className="flex items-center">
           <ChatAltIcon className="text-deep-orange ml-4 h-4 w-4" />
           <span className="ml-1 text-xs font-thin text-slate-700 dark:text-gray-400">
-            {/* {post.comments.length} */}0<span className="sr-only">comments</span>
+            {/* {post.comments.length} */}0
+            <span className="sr-only">comments</span>
           </span>
         </button>
       </div>
