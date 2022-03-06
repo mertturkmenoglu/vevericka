@@ -4,4 +4,8 @@
     .storybook-container {
         @apply p-4 dark:bg-neutral-800 w-96
     }
+
+    .storybook-container--full-width {
+        @apply dark:bg-neutral-800 w-full
+    }
 }
