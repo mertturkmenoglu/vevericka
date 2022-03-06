@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import * as React from 'react';
 import { useContext, useEffect } from 'react';
 import LandingAppBar from '../components/LandingAppBar';
 import { ApplicationContext } from '../context/ApplicationContext';
@@ -13,6 +14,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import Seo from '../components/Seo';
+import Banner from '../atom/Banner';
 
 export interface LandingPageProps {}
 
@@ -67,6 +69,13 @@ const LandingPage: NextPage<LandingPageProps> = () => {
           content="https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public"
         />
       </Head>
+      <div className="mx-auto">
+        <Banner appearance="primary">
+          <div className="flex items-center truncate text-ellipsis">
+            <span className="ml-2 text-white">{t('banner.text')}</span>
+          </div>
+        </Banner>
+      </div>
       <header className="mx-auto mt-8 w-11/12 rounded-full bg-white py-4 px-8 dark:bg-neutral-800 sm:w-2/3 md:w-1/2">
         <LandingAppBar />
       </header>

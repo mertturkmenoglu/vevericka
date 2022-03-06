@@ -13,5 +13,8 @@
   "themeIconAlt": {
     "light": "Switch to dark theme",
     "dark": "Switch to light theme"
+  },
+  "banner": {
+    "text": "Vevericka stands with Ukraine \uD83C\uDDFA\uD83C\uDDE6"
   }
 }
