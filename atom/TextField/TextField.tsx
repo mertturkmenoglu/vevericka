@@ -36,11 +36,12 @@ const TextField: React.FC<TextFieldProps> = ({
   onAppendIconClick,
   inputClassName = '',
   className: cs,
+  name,
   ...rest
 }) => {
   const uid = useMemo(() => {
-    return 'name' + nanoid();
-  }, []);
+    return name ? name : 'name' + nanoid();
+  }, [name]);
 
   const calcInputBorderColor = useMemo(() => {
     return inputBorderColorMapping[appearance];
