@@ -18,6 +18,7 @@ const LoginContextProvider: React.FC<LoginContextProviderProps> = ({
   const [showPassword, setShowPassword] = useState(defaultValues.showPassword);
   const [error, setError] = useState(defaultValues.error);
   const [loading, setLoading] = useState(defaultValues.loading);
+  const [captchaToken, setCaptchaToken] = useState(defaultValues.captchaToken);
 
   const isEmailValid = useMemo(() => {
     return isEmail(email);
@@ -71,6 +72,8 @@ const LoginContextProvider: React.FC<LoginContextProviderProps> = ({
         setShowPassword,
         setError,
         setLoading,
+        captchaToken,
+        setCaptchaToken,
         login,
       }}
     >

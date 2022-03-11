@@ -15,6 +15,8 @@ export interface ILoginContextState {
   loading: boolean;
   setLoading: SetState<boolean>;
   login: (t: TFunction) => Promise<void>;
+  captchaToken: string | null;
+  setCaptchaToken: SetState<string | null>;
 }
 
 export const defaultLoginContextState: ILoginContextState = {
@@ -24,12 +26,14 @@ export const defaultLoginContextState: ILoginContextState = {
   showPassword: false,
   error: null,
   loading: false,
+  captchaToken: null,
   setEmail: () => {},
   setPassword: () => {},
   setShowPassword: () => {},
   setError: () => {},
   setLoading: () => {},
   login: async () => {},
+  setCaptchaToken: () => {},
 };
 
 export const LoginContext = createContext<ILoginContextState>(
