@@ -37,3 +37,6 @@ yarn-error.log*
 *.tsbuildinfo
 
 .idea
+
+# storybook build log
+build-storybook.log
