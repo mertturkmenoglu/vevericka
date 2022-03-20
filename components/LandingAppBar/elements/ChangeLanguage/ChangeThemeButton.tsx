@@ -10,7 +10,11 @@ const ChangeThemeButton: React.FC<ChangeThemeButtonProps> = ({
   icon,
 }) => {
   return (
-    <button onClick={onClick} className="ml-4">
+    <button
+      onClick={onClick}
+      className="ml-4"
+      data-testid="change-theme-button"
+    >
       <span className="sr-only">{altText}</span>
       {icon}
     </button>

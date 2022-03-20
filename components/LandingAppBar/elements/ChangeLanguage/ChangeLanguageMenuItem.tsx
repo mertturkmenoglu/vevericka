@@ -21,6 +21,7 @@ const ChangeLanguageMenuItem: React.FC<ChangeLanguageMenuItemProps> = ({
             event.preventDefault();
             onClick(language);
           }}
+          data-testid={`language-button-${language.key}`}
         >
           {language.name}
         </button>
