@@ -10,7 +10,8 @@
     "build:storybook": "build-storybook",
     "test": "jest --watch",
     "chromatic": "chromatic --exit-zero-on-changes",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.1.1",
