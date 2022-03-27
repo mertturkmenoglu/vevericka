@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { IPost } from '../../backend/models/IPost';
+import { IPost } from '../../service/models/IPost';
 import PostCard from '../PostCard';
 import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '../../utils/addResourceBundles';

@@ -3,8 +3,8 @@ import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Blog } from '../../../backend/Blog';
-import { IPlaylist } from '../../../backend/models/IPlaylist';
+import { Blog } from '../../../service/Blog';
+import { IPlaylist } from '../../../service/models/IPlaylist';
 
 export interface LatestPlaylistPageProps {
   playlist: IPlaylist;

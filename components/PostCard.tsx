@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { Fragment, useMemo } from 'react';
-import { IPost } from '../backend/models/IPost';
+import { IPost } from '../service/models/IPost';
 import { preparePostText } from '../utils/Post.utils';
 import { toast } from 'react-toastify';
 import { useTheme } from 'next-themes';

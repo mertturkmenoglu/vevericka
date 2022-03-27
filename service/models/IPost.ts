@@ -19,6 +19,7 @@ export interface IPost {
     verified: boolean;
     protected: boolean;
   };
+
   tagsCount: number;
   commentsCount: number;
   dislikesCount: number;

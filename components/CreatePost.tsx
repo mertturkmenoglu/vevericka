@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/outline';
 import Tooltip from './Tooltip';
 import { useSession } from 'next-auth/react';
-import { Post } from '../backend/Post';
+import { Post } from '../service/Post';
 
 export interface CreatePostProps {
   image: string;

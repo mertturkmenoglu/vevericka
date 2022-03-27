@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { defaultRegisterContextState as defaultValues, RegisterContext } from './RegisterContext';
-import { Auth } from '../backend/Auth';
+import { Auth } from '../service/Auth';
 import { isApiError } from '../utils/isApiError';
 
 export interface RegisterContextProviderProps {}

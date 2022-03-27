@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import { ITag } from '../backend/models/ITag';
+import { ITag } from '../service/models/ITag';
 import Link from 'next/link';
 
 export interface TrendingProps {}
