@@ -22,9 +22,7 @@ const Login: NextPage = () => {
   const { t } = useTranslation('login');
   const captchaRef = useRef<HCaptcha | null>(null);
 
-  const onShowPasswordClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onShowPasswordClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     ctx.setShowPassword((prev) => !prev);
   };
@@ -106,23 +104,11 @@ const Login: NextPage = () => {
           size="invisible"
         />
 
-        {showError && (
-          <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">
-            {ctx.error}
-          </div>
-        )}
+        {showError && <div className="mt-4 bg-red-500 py-1 px-4 text-center text-white">{ctx.error}</div>}
 
         <div className="mt-4 flex w-full flex-col items-center text-sm text-gray-600">
-          <AuthLink
-            href="/register"
-            text={t('form.links.register.text')}
-            cta={t('form.links.register.cta')}
-          />
-          <AuthLink
-            href="/reset"
-            text={t('form.links.reset.text')}
-            cta={t('form.links.reset.cta')}
-          />
+          <AuthLink href="/register" text={t('form.links.register.text')} cta={t('form.links.register.cta')} />
+          <AuthLink href="/reset" text={t('form.links.reset.text')} cta={t('form.links.reset.cta')} />
         </div>
 
         <div className="mt-8 text-center text-sm text-midnight dark:text-gray-400">
@@ -145,9 +131,7 @@ const Login: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (context) => {
   const session = await getSession(context);
   if (session) {
     return {
@@ -160,10 +144,7 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale || 'en', [
-        'auth',
-        'login',
-      ])),
+      ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
     },
   };
 };

@@ -10,9 +10,7 @@ export interface LatestPlaylistPageProps {
   playlist: IPlaylist;
 }
 
-const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({
-  playlist,
-}) => {
+const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({ playlist }) => {
   const styles =
     'first-letter:text-7xl first-letter:font-bold first-letter:text-primary first-letter:mr-3 first-letter:float-left sm:w-2/3 list-disc ml-2 sm:ml-16 my-16';
   useEffect(() => {
@@ -23,31 +21,20 @@ const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({
     <>
       <Head>
         <title>{playlist.title}</title>
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,viewport-fit=cover"
-        />
+        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
         <meta name="title" content={playlist.title} />
         <meta property="og:site_name" content="Vevericka" />
         <meta property="og:title" content={playlist.title} />
         <meta property="og:description" content={playlist.subtitle} />
-        <meta
-          property="og:image"
-          content={'https:' + playlist.thumbnail.fields.file.url}
-        />
-        <meta
-          property="og:url"
-          content="https://vevericka.app/blog/playlist/latest"
-        />
+        <meta property="og:image" content={'https:' + playlist.thumbnail.fields.file.url} />
+        <meta property="og:url" content="https://vevericka.app/blog/playlist/latest" />
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="en_US" />
       </Head>
       <div id="inject-styles" className={`hidden ${styles}`} />
       <main className="mx-8 mt-16 sm:container sm:mx-auto">
         <Link href="/">
-          <a className="text-sm font-medium tracking-tighter text-midnight underline dark:text-white">
-            Go to home
-          </a>
+          <a className="text-sm font-medium tracking-tighter text-midnight underline dark:text-white">Go to home</a>
         </Link>
         <div className="flex flex-col items-center border-b-2 border-midnight pb-4 sm:flex-row">
           <img
@@ -65,18 +52,13 @@ const LatestPlaylistPage: NextPage<LatestPlaylistPageProps> = ({
           </div>
         </div>
 
-        <div
-          dangerouslySetInnerHTML={{ __html: playlist.content }}
-          className="mt-8"
-        />
+        <div dangerouslySetInnerHTML={{ __html: playlist.content }} className="mt-8" />
       </main>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<
-  LatestPlaylistPageProps
-> = async () => {
+export const getServerSideProps: GetServerSideProps<LatestPlaylistPageProps> = async () => {
   const blogApi = new Blog();
   const latest = await blogApi.getLatestPlaylist();
 

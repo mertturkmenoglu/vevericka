@@ -48,8 +48,7 @@ const LandingPage: NextPage<LandingPageProps> = () => {
             siteName: 'Vevericka',
             title: 'Vevericka',
             description: t('title'),
-            image:
-              'https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public',
+            image: 'https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public',
             url: 'https://vevericka.app',
             type: 'website',
             locale: router.locale || 'en',
@@ -58,8 +57,7 @@ const LandingPage: NextPage<LandingPageProps> = () => {
             card: 'summary',
             title: 'Vevericka',
             description: t('title'),
-            image:
-              'https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public',
+            image: 'https://imagedelivery.net/JVFt9XOk2_QXFDv2enrWOQ/c870d0f4-35a8-4ec9-c570-9c8082421700/public',
             imageAlt: t('meta.twitter.imageAlt'),
             creator: '@capreaee',
           }}
@@ -91,16 +89,8 @@ const LandingPage: NextPage<LandingPageProps> = () => {
             className="mx-auto mt-16 flex transform items-center rounded-md bg-midnight px-8 py-2 transition-all duration-300 ease-in-out hover:scale-105 dark:border dark:border-primary sm:px-16 sm:py-4"
             onClick={beforeRouteLeave}
           >
-            <Image
-              src="/assets/nut_white.svg"
-              width={32}
-              height={32}
-              alt="Nut"
-              className="pt-2"
-            />
-            <span className="font-lato ml-4 text-lg font-medium text-white">
-              {t('cta')}
-            </span>
+            <Image src="/assets/nut_white.svg" width={32} height={32} alt="Nut" className="pt-2" />
+            <span className="font-lato ml-4 text-lg font-medium text-white">{t('cta')}</span>
           </a>
         </Link>
       </main>
@@ -109,9 +99,7 @@ const LandingPage: NextPage<LandingPageProps> = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<LandingPageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<LandingPageProps> = async (context) => {
   const session = await getSession(context);
 
   if (session) {
