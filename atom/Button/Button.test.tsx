@@ -22,8 +22,7 @@ describe('Button Unit Tests', () => {
   it('renders default button with the given text', () => {
     const component = render(<Button {...props} />);
     const expected = props.text;
-    const element =
-      component.container.querySelector<HTMLButtonElement>('button');
+    const element = component.container.querySelector<HTMLButtonElement>('button');
     const actual = element?.textContent;
 
     expect(element).toBeInTheDocument();

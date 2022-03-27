@@ -12,11 +12,7 @@ export interface SpinnerAtomicProps {
 
 export type SpinnerProps = React.ComponentProps<'svg'> & SpinnerAtomicProps;
 
-const Spinner: React.FC<SpinnerProps> = ({
-  appearance,
-  spacing = 'default',
-  ...rest
-}) => {
+const Spinner: React.FC<SpinnerProps> = ({ appearance, spacing = 'default', ...rest }) => {
   const calcAppearance = useMemo(() => {
     return appearanceMapping[appearance];
   }, [appearance]);
@@ -25,11 +21,7 @@ const Spinner: React.FC<SpinnerProps> = ({
     return spacingMapping[spacing];
   }, [spacing]);
 
-  const className = clsx(
-    'inline animate-spin text-neutral-100 dark:text-slate-600',
-    calcAppearance,
-    calcSpacing
-  );
+  const className = clsx('inline animate-spin text-neutral-100 dark:text-slate-600', calcAppearance, calcSpacing);
 
   return (
     <svg

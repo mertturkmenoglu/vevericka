@@ -36,6 +36,4 @@ export const defaultLoginContextState: ILoginContextState = {
   setCaptchaToken: () => {},
 };
 
-export const LoginContext = createContext<ILoginContextState>(
-  defaultLoginContextState
-);
+export const LoginContext = createContext<ILoginContextState>(defaultLoginContextState);

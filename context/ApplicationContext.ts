@@ -35,6 +35,4 @@ export const defaultApplicationContextState: IApplicationContextState = {
   setIsDarkTheme: () => {},
 };
 
-export const ApplicationContext = createContext<IApplicationContextState>(
-  defaultApplicationContextState
-);
+export const ApplicationContext = createContext<IApplicationContextState>(defaultApplicationContextState);

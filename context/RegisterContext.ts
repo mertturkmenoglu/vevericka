@@ -41,6 +41,4 @@ export const defaultRegisterContextState: IRegisterContextState = {
   setLoading: () => {},
 };
 
-export const RegisterContext = createContext<IRegisterContextState>(
-  defaultRegisterContextState
-);
+export const RegisterContext = createContext<IRegisterContextState>(defaultRegisterContextState);

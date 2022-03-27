@@ -34,9 +34,7 @@ Default.args = {
   label: 'Lorem Ipsum',
 };
 
-const WithHelperAndAppendIconTemplate: ComponentStory<typeof TextField> = (
-  args
-) => {
+const WithHelperAndAppendIconTemplate: ComponentStory<typeof TextField> = (args) => {
   const [value, setValue] = useState('');
 
   return (
@@ -61,9 +59,7 @@ const AppearanceVariantsTemplate: ComponentStory<typeof TextField> = () => {
     <div className="storybook-container">
       {AppearanceAsArray.map((appearance, index) => (
         <div key={index} className="mt-4">
-          <p className="font-mono text-midnight dark:text-gray-400">
-            {appearance}:{' '}
-          </p>
+          <p className="font-mono text-midnight dark:text-gray-400">{appearance}: </p>
           <TextField
             appearance={appearance}
             label="Lorem ipsum"
@@ -71,9 +67,7 @@ const AppearanceVariantsTemplate: ComponentStory<typeof TextField> = () => {
             value={value}
             setValue={setValue}
             helper={<p>Helper text</p>}
-            appendIcon={
-              <EyeIcon className="h5-w-5 text-midnight dark:text-gray-400" />
-            }
+            appendIcon={<EyeIcon className="h5-w-5 text-midnight dark:text-gray-400" />}
           />
         </div>
       ))}

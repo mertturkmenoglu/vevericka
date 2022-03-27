@@ -2,14 +2,10 @@ import type { AppearanceType } from '../common';
 import clsx from 'clsx';
 
 export const inputBorderColorMapping: Record<AppearanceType, string> = {
-  primary:
-    'border-midnight focus:border-midnight dark:border-gray-600 dark:focus:border-gray-600',
-  accent:
-    'border-primary focus:border-midnight dark:border-primary dark:focus:border-gray-600',
-  danger:
-    'border-red-600 focus:border-midnight dark:border-red-600 dark:focus:border-gray-600',
-  warning:
-    'border-amber-400 focus:border-midnight dark:border-amber-400 dark:focus:border-gray-600',
+  primary: 'border-midnight focus:border-midnight dark:border-gray-600 dark:focus:border-gray-600',
+  accent: 'border-primary focus:border-midnight dark:border-primary dark:focus:border-gray-600',
+  danger: 'border-red-600 focus:border-midnight dark:border-red-600 dark:focus:border-gray-600',
+  warning: 'border-amber-400 focus:border-midnight dark:border-amber-400 dark:focus:border-gray-600',
   subtle:
     'border-gray-600 focus:border-midnight dark:border-midnight dark:border-opacity-80 dark:focus:border-gray-600',
 };
@@ -35,7 +31,7 @@ export const labelClasses = clsx(
   'text-sm',
   'peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100',
   'peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75',
-  'dark:text-gray-400 peer-focus:dark:text-blue-500'
+  'dark:text-gray-400 peer-focus:dark:text-blue-500',
 );
 
 export const inputClasses =

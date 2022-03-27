@@ -4,11 +4,7 @@ import * as React from 'react';
 import Banner from './Banner';
 import { AppearanceAsArray } from '../common';
 import mock from './Banner.mock';
-import {
-  CloudIcon,
-  ExclamationCircleIcon,
-  ExclamationIcon,
-} from '@heroicons/react/outline';
+import { CloudIcon, ExclamationCircleIcon, ExclamationIcon } from '@heroicons/react/outline';
 
 export default {
   title: 'Atom/Banner',
@@ -44,12 +40,8 @@ const DangerTemplate: ComponentStory<typeof Banner> = (args) => (
       <div className="flex items-center truncate text-ellipsis">
         <ExclamationCircleIcon className="h-5 w-5 text-white" />
         <span className="ml-2 text-white">
-          Oops... Something went wrong. Vevericka is experiencing an incident.
-          Our best squirrels are on it.{' '}
-          <a
-            href="/components/banner/examples"
-            className="text-white underline"
-          >
+          Oops... Something went wrong. Vevericka is experiencing an incident. Our best squirrels are on it.{' '}
+          <a href="/components/banner/examples" className="text-white underline">
             Learn more
           </a>
         </span>
@@ -69,9 +61,7 @@ const WarningTemplate: ComponentStory<typeof Banner> = (args) => (
     <Banner {...args}>
       <div className="flex items-center truncate text-ellipsis">
         <ExclamationIcon className="h-5 w-5 text-midnight" />
-        <span className="ml-2 text-midnight">
-          Please update your e-mail information
-        </span>
+        <span className="ml-2 text-midnight">Please update your e-mail information</span>
       </div>
     </Banner>
   </div>

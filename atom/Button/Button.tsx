@@ -1,10 +1,6 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
-import {
-  appearanceMapping,
-  loadingMapping,
-  spacingMapping,
-} from './Button.variants';
+import { appearanceMapping, loadingMapping, spacingMapping } from './Button.variants';
 import Spinner from '../Spinner/Spinner';
 import { ButtonProps } from './Button.type';
 
@@ -23,9 +19,8 @@ const Button: React.FC<ButtonProps> = ({
   const calcSpacing = useMemo(() => spacingMapping[spacing], [spacing]);
 
   const calcAppearance = useMemo(
-    () =>
-      clsx(appearanceMapping[appearance], 'hover:transform hover:scale-[1.01]'),
-    [appearance]
+    () => clsx(appearanceMapping[appearance], 'hover:transform hover:scale-[1.01]'),
+    [appearance],
   );
 
   const calcBlock = useMemo(
@@ -33,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({
       clsx({
         'w-full': block,
       }),
-    [block]
+    [block],
   );
 
   const className = clsx(
@@ -44,23 +39,14 @@ const Button: React.FC<ButtonProps> = ({
     {
       'rounded-full': rounded,
     },
-    cs
+    cs,
   );
 
-  const loadingAppearance = useMemo(
-    () => loadingMapping[appearance],
-    [appearance]
-  );
+  const loadingAppearance = useMemo(() => loadingMapping[appearance], [appearance]);
 
-  const showPrependIcon = useMemo(
-    () => prependIcon !== undefined && !loading,
-    [prependIcon, loading]
-  );
+  const showPrependIcon = useMemo(() => prependIcon !== undefined && !loading, [prependIcon, loading]);
 
-  const showAppendIcon = useMemo(
-    () => appendIcon !== undefined && !loading,
-    [appendIcon, loading]
-  );
+  const showAppendIcon = useMemo(() => appendIcon !== undefined && !loading, [appendIcon, loading]);
 
   return (
     <button className={className} {...rest}>

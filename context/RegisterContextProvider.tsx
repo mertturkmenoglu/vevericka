@@ -1,16 +1,11 @@
 import { useState } from 'react';
-import {
-  defaultRegisterContextState as defaultValues,
-  RegisterContext,
-} from './RegisterContext';
+import { defaultRegisterContextState as defaultValues, RegisterContext } from './RegisterContext';
 import { Auth } from '../backend/Auth';
 import { isApiError } from '../utils/isApiError';
 
 export interface RegisterContextProviderProps {}
 
-const RegisterContextProvider: React.FC<RegisterContextProviderProps> = ({
-  children,
-}) => {
+const RegisterContextProvider: React.FC<RegisterContextProviderProps> = ({ children }) => {
   const [email, setEmail] = useState(defaultValues.email);
   const [password, setPassword] = useState(defaultValues.password);
   const [showPassword, setShowPassword] = useState(defaultValues.showPassword);

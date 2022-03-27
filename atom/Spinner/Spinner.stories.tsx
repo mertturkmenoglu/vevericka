@@ -9,9 +9,7 @@ export default {
   component: Spinner,
 } as ComponentMeta<typeof Spinner>;
 
-const Template: ComponentStory<typeof Spinner> = (args) => (
-  <Spinner {...args} />
-);
+const Template: ComponentStory<typeof Spinner> = (args) => <Spinner {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -31,11 +29,7 @@ const AllAppearanceTemplate: ComponentStory<typeof Spinner> = () => {
     <div className="container grid grid-cols-5 gap-y-8 dark:bg-neutral-800">
       {AppearanceAsArray.map((appearance, i) => {
         return SpacingTypeAsArray.map((spacing, j) => (
-          <Spinner
-            appearance={appearance}
-            spacing={spacing}
-            key={`a${i}-s${j}`}
-          />
+          <Spinner appearance={appearance} spacing={spacing} key={`a${i}-s${j}`} />
         ));
       })}
     </div>

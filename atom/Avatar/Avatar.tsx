@@ -3,17 +3,8 @@ import clsx from 'clsx';
 import { appearanceMapping, sizeMapping } from './Avatar.variant';
 import { AvatarProps } from './Avatar.type';
 
-const Avatar: React.FC<AvatarProps> = ({
-  appearance,
-  label,
-  size,
-  className: cs,
-  ...rest
-}) => {
-  const calcAppearance = useMemo(
-    () => appearanceMapping[appearance],
-    [appearance]
-  );
+const Avatar: React.FC<AvatarProps> = ({ appearance, label, size, className: cs, ...rest }) => {
+  const calcAppearance = useMemo(() => appearanceMapping[appearance], [appearance]);
 
   const calcSize = useMemo(() => sizeMapping[size], [size]);
 
