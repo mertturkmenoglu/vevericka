@@ -5,8 +5,7 @@ export interface AuthLinkComponentProps {
   cta: string;
 }
 
-export type AuthLinkProps = React.PropsWithChildren<LinkProps> &
-  AuthLinkComponentProps;
+export type AuthLinkProps = React.PropsWithChildren<LinkProps> & AuthLinkComponentProps;
 
 const AuthLink = ({ text, cta, ...rest }: AuthLinkProps) => {
   return (

@@ -29,9 +29,7 @@ const MenuProfile: React.FC<MenuProfileProps> = ({ username, userImage }) => {
               className="m-2"
             />
             <div className="mt-2 flex flex-col">
-              <span className="text-sm font-medium text-primary">
-                @{username}
-              </span>
+              <span className="text-sm font-medium text-primary">@{username}</span>
               <span className="text-xs font-light text-neutral-500 dark:text-neutral-400">
                 {t('menu.profile.viewYourProfile')}
               </span>
