@@ -59,10 +59,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
                 username={user?.username || ''}
                 openModal={setIsCreatePostModalOpen}
               />
-              <CreatePostModal
-                isOpen={isCreatePostModalOpen}
-                setIsOpen={setIsCreatePostModalOpen}
-              />
+              <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
             </div>
             <HomePageFeed feed={feed} />
           </div>
@@ -78,9 +75,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<HomePageProps> = async (context) => {
   const session = await getSession(context);
 
   if (!session || !session.user) {
@@ -95,9 +90,9 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
   const userApi = new User(session.jwt);
   const postApi = new Post(session.jwt);
   const user = await userApi.getUserByUsername(session.username);
-  const _feed = await postApi.getFeedByUsername(session.username);
+  const feed = await postApi.getFeedByUsername(session.username);
 
-  if (!user) {
+  if (!user || !feed) {
     return {
       redirect: {
         destination: '/error',
@@ -108,13 +103,10 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale || 'en', [
-        'auth',
-        'login',
-      ])),
+      ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
       user,
       userId: session.id as number,
-      feed: [],
+      feed: feed.data,
     },
   };
 };

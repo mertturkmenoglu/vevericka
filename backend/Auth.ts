@@ -22,16 +22,9 @@ export class Auth {
     return createPublicApi('auth');
   }
 
-  public static async login(
-    email: string,
-    password: string
-  ): Promise<ILoginResponse | null> {
+  public static async login(email: string, password: string): Promise<ILoginResponse | null> {
     try {
-      const response = await Auth.api.post<
-        any,
-        AxiosResponse<ILoginResponse>,
-        ILoginRequest
-      >('/login', {
+      const response = await Auth.api.post<any, AxiosResponse<ILoginResponse>, ILoginRequest>('/login', {
         email,
         password,
       });
@@ -51,15 +44,9 @@ export class Auth {
     }
   }
 
-  public static async register(
-    data: IRegisterRequest
-  ): Promise<IRegisterResponse | IError> {
+  public static async register(data: IRegisterRequest): Promise<IRegisterResponse | IError> {
     try {
-      const response = await Auth.api.post<
-        any,
-        AxiosResponse<IRegisterResponse>,
-        IRegisterRequest
-      >('/register', data);
+      const response = await Auth.api.post<any, AxiosResponse<IRegisterResponse>, IRegisterRequest>('/register', data);
       return response.data;
     } catch (e: any) {
       if (axios.isAxiosError(e) && e.response) {

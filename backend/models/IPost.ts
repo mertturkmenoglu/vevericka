@@ -3,15 +3,25 @@ import { IUser } from './IUser';
 export interface IPost {
   id: number;
 
-  user: IUser;
-
   content: string;
-
-  likes: IUser[];
-
-  dislikes: IUser[];
 
   createdAt: string;
 
   updatedAt: string;
+
+  tags: any[];
+
+  user: {
+    id: number;
+    username: string;
+    name: string;
+    image: string;
+    verified: boolean;
+    protected: boolean;
+  };
+  tagsCount: number;
+  commentsCount: number;
+  dislikesCount: number;
+  likesCount: number;
+  likeStatus: 'NONE' | 'LIKED' | 'DISLIKED';
 }

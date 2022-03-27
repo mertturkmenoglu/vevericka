@@ -7,6 +7,8 @@ import {
   VideoCameraIcon,
 } from '@heroicons/react/outline';
 import Tooltip from './Tooltip';
+import { useSession } from 'next-auth/react';
+import { Post } from '../backend/Post';
 
 export interface CreatePostProps {
   image: string;
@@ -15,13 +17,9 @@ export interface CreatePostProps {
   openModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreatePost: React.FC<CreatePostProps> = ({
-  image,
-  name,
-  username,
-  openModal,
-}) => {
+const CreatePost: React.FC<CreatePostProps> = ({ image, name, username, openModal }) => {
   const [text, setText] = useState('');
+  const { data } = useSession();
 
   const userImage = useMemo(() => {
     if (image === 'profile.png') {
@@ -31,19 +29,31 @@ const CreatePost: React.FC<CreatePostProps> = ({
     return image;
   }, [image]);
 
+  const createPost = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+
+    if (!data) {
+      return;
+    }
+
+    const postApi = new Post(data.jwt);
+    const response = await postApi.createPost({
+      content: text,
+      username: data.username,
+    });
+
+    if (response) {
+      window.location.reload();
+    }
+  };
+
   return (
     <div className="group">
       <div className="flex justify-between">
         <div className="flex w-full items-center">
-          <img
-            src={userImage}
-            alt="User picture"
-            className="h-16 w-16 rounded-full"
-          />
+          <img src={userImage} alt="User picture" className="h-16 w-16 rounded-full" />
           <div className="ml-2 flex flex-col">
-            <span className="text-xl font-medium text-gray-800 dark:text-gray-200">
-              {name}
-            </span>
+            <span className="text-xl font-medium text-gray-800 dark:text-gray-200">{name}</span>
             <span className="text-lg text-primary">@{username}</span>
           </div>
         </div>
@@ -92,7 +102,9 @@ const CreatePost: React.FC<CreatePostProps> = ({
             </Tooltip>
           </div>
 
-          <button className="text-slate-700 dark:text-gray-400">Post</button>
+          <button className="text-slate-700 dark:text-gray-400" onClick={createPost}>
+            Post
+          </button>
         </div>
       </div>
     </div>

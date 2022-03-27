@@ -1,24 +1,18 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:prettier/recommended",
-    "plugin:cypress/recommended"
-  ],
-  "plugins": [
-    "prettier",
-    "cypress"
-  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "plugins": ["prettier", "cypress"],
   "env": {
     "cypress/globals": true
   },
   "rules": {
-    "prettier/prettier": "error",
     "no-console": "error",
     "no-debugger": "error",
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": ["error", 2],
     "quotes": [
       "error",
       "single",
@@ -26,15 +20,9 @@
         "avoidEscape": true
       }
     ],
-    "semi": [
-      "error",
-      "always"
-    ],
+    "semi": ["error", "always"],
     "@next/next/no-img-element": "off",
-    "comma-dangle": [
-      "error",
-      "always-multiline"
-    ],
+    "comma-dangle": ["error", "always-multiline"],
     "cypress/no-unnecessary-waiting": "off"
   }
 }

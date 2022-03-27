@@ -12,6 +12,7 @@ import { Post } from '../../backend/Post';
 import PostCard from '../../components/PostCard';
 import { IUser } from '../../backend/models/IUser';
 import { IPost } from '../../backend/models/IPost';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export interface PostPageProps {
   user: IUser;
@@ -52,11 +53,8 @@ const PostPage: NextPage<PostPageProps> = ({ user, userId, post }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<PostPageProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps<PostPageProps> = async (context) => {
   const session = await getSession(context);
-  // const isAuth = !(!session || !session.user);
   const postId = context.params?.id;
 
   if (typeof postId !== 'string') {
@@ -93,6 +91,7 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async (
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
       user,
       post,
       userId: session.id,

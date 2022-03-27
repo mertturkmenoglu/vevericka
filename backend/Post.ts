@@ -1,5 +1,6 @@
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 import { createApi } from './Api';
+import { CreatePostDto } from './dto/CreatePostDto';
 import { IPost } from './models/IPost';
 import { PaginatedResult } from './models/PaginatedResult';
 
@@ -10,11 +11,9 @@ export class Post {
     return createApi('post', this.token);
   }
 
-  public async getFeedByUsername(
-    username: string
-  ): Promise<PaginatedResult<IPost> | null> {
+  public async getFeedByUsername(username: string): Promise<PaginatedResult<IPost> | null> {
     // const realEndpoint = `/feed/${username}`;
-    const tmpEndpoint = `/user/${username}`;
+    const tmpEndpoint = `/user/${username}/feed`;
     try {
       const response = await this.api.get<PaginatedResult<IPost>>(tmpEndpoint, {
         params: {
@@ -34,6 +33,15 @@ export class Post {
       return response.data;
     } catch (e) {
       return null;
+    }
+  }
+
+  public async createPost(dto: CreatePostDto): Promise<boolean> {
+    try {
+      await this.api.post<any, AxiosResponse<{}>, CreatePostDto>('/', dto);
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }

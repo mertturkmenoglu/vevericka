@@ -18,10 +18,7 @@ export class Asset {
     }
   }
 
-  public async uploadImage(
-    url: string,
-    data: FormData
-  ): Promise<IUploadImageResponse | null> {
+  public async uploadImage(url: string, data: FormData): Promise<IUploadImageResponse | null> {
     try {
       const response = await axios({
         method: 'POST',

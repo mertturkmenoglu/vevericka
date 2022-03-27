@@ -18,17 +18,11 @@ export class User {
     }
   }
 
-  public async setProfilePicture(
-    username: string,
-    url: string
-  ): Promise<IUser | null> {
+  public async setProfilePicture(username: string, url: string): Promise<IUser | null> {
     try {
-      const response = await this.api.post<IUser>(
-        `/${username}/profile-picture`,
-        {
-          url,
-        }
-      );
+      const response = await this.api.post<IUser>(`/${username}/profile-picture`, {
+        url,
+      });
       return response.data;
     } catch (e) {
       return null;
