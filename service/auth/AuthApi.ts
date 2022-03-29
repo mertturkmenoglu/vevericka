@@ -1,8 +1,10 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { createPublicApi } from './Api';
-import { IRegisterRequest } from './models/IRegisterRequest';
-import { IRegisterResponse } from './models/IRegisterResponse';
-import { IError } from './models/IError';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { createPublicApi } from '../Api';
+import { IError } from '../models/IError';
+import { LoginResponseDto } from './dto/LoginResponseDto';
+import { LoginRequestDto } from './dto/LoginRequestDto';
+import { RegisterRequestDto } from './dto/RegisterRequestDto';
+import { RegisterResponseDto } from './dto/RegisterResponseDto';
 
 interface ILoginRequest {
   email: string;
@@ -24,12 +26,12 @@ export class Auth {
 
   public static async login(email: string, password: string): Promise<ILoginResponse | null> {
     try {
-      const response = await Auth.api.post<any, AxiosResponse<ILoginResponse>, ILoginRequest>('/login', {
+      const response = await Auth.api.post<any, AxiosResponse<LoginResponseDto>, LoginRequestDto>('/login', {
         email,
         password,
       });
 
-      const { id, username, email: Email, image } = response.data;
+      const { id, username, email: emailFromResponse, image } = response.data;
       const token = response.headers.authorization;
 
       return {
@@ -37,18 +39,21 @@ export class Auth {
         username,
         token,
         image,
-        email: Email,
+        email: emailFromResponse,
       };
     } catch (e) {
       return null;
     }
   }
 
-  public static async register(data: IRegisterRequest): Promise<IRegisterResponse | IError> {
+  public static async register(dto: RegisterRequestDto): Promise<RegisterResponseDto | IError> {
     try {
-      const response = await Auth.api.post<any, AxiosResponse<IRegisterResponse>, IRegisterRequest>('/register', data);
+      const response = await Auth.api.post<any, AxiosResponse<RegisterResponseDto>, RegisterRequestDto>(
+        '/register',
+        dto,
+      );
       return response.data;
-    } catch (e: any) {
+    } catch (e) {
       if (axios.isAxiosError(e) && e.response) {
         return {
           message: e.response.data.message,

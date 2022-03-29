@@ -61,6 +61,7 @@ const UserPage: NextPage<UserPageProps> = ({ username, user, currentUser, curren
           </div>
           <h1 className="mt-8 text-3xl font-medium text-slate-700 dark:text-gray-200">{user.name}</h1>
           <h2 className="text-deep-orange mt-2 font-medium">@{user.username}</h2>
+          {JSON.stringify(user)}
         </div>
       </main>
     </>

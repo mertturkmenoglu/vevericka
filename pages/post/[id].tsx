@@ -8,16 +8,17 @@ import { useTheme } from 'next-themes';
 import { LocalStorage } from '../../utils/LocalStorage';
 import Head from 'next/head';
 import AppBar from '../../components/AppBar';
-import { Post } from '../../service/Post';
+import { PostApi } from '../../service/post/PostApi';
 import PostCard from '../../components/PostCard';
 import { IUser } from '../../service/models/IUser';
 import { IPost } from '../../service/models/IPost';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { SinglePost } from '../../service/common/models';
 
 export interface PostPageProps {
   user: IUser;
   userId: number;
-  post: IPost;
+  post: SinglePost;
 }
 
 const PostPage: NextPage<PostPageProps> = ({ user, userId, post }) => {
@@ -45,9 +46,7 @@ const PostPage: NextPage<PostPageProps> = ({ user, userId, post }) => {
         <AppBar />
       </header>
       <main className="mx-auto mt-4 w-screen rounded-md bg-white dark:bg-neutral-800 md:w-1/3">
-        <div className="flex w-full flex-col items-center p-4">
-          <PostCard post={post} />
-        </div>
+        <div className="flex w-full flex-col items-center p-4">{JSON.stringify(post)}</div>
       </main>
     </>
   );
@@ -76,11 +75,11 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async (cont
   }
 
   const userApi = new User(session.jwt);
-  const postApi = new Post(session.jwt);
+  const postApi = new PostApi(session.jwt);
   const user = await userApi.getUserByUsername(session.username);
-  const post = await postApi.getPostById(postId);
+  const post = await postApi.getPostById(parseInt(postId));
 
-  if (!user || !post) {
+  if (!user || !post.data) {
     return {
       redirect: {
         destination: '/error?code=1',
@@ -93,7 +92,7 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async (cont
     props: {
       ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
       user,
-      post,
+      post: post.data,
       userId: session.id,
     },
   };

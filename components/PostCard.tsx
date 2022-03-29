@@ -1,5 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import {
+  ArrowCircleDownIcon,
+  ArrowCircleUpIcon,
   BookmarkIcon,
   ChatAltIcon,
   ClipboardCopyIcon,
@@ -9,13 +11,13 @@ import {
 } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { Fragment, useMemo } from 'react';
-import { IPost } from '../service/models/IPost';
 import { preparePostText } from '../utils/Post.utils';
 import { toast } from 'react-toastify';
 import { useTheme } from 'next-themes';
+import { FeedPost } from '../service/common/models/FeedPost';
 
 export interface PostCardProps {
-  post: IPost;
+  post: FeedPost;
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
@@ -128,18 +130,30 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       />
 
       {/* Date - Comments */}
-      <div className="mt-2 flex w-full items-center justify-end">
-        <Link href={`/post/${post.id}`}>
-          <a className="text-xs text-slate-700 hover:underline dark:text-gray-600">
-            {new Date(post.createdAt).toLocaleDateString()}
-          </a>
-        </Link>
-        <button className="flex items-center">
-          <ChatAltIcon className="text-deep-orange ml-4 h-4 w-4" />
-          <span className="ml-1 text-xs font-thin text-slate-700 dark:text-gray-400">
-            {/* {post.comments.length} */}0<span className="sr-only">comments</span>
-          </span>
-        </button>
+      <div className="mt-4 flex w-full items-center justify-between">
+        <div className="flex">
+          <div className="flex">
+            <ArrowCircleUpIcon className="h-6 w-6 text-midnight dark:text-white" />
+            <span className="ml-1 text-midnight dark:text-white">{post._count.likes}</span>
+          </div>
+          <div className="ml-4 flex">
+            <ArrowCircleDownIcon className="h-6 w-6 text-midnight dark:text-white" />
+            <span className="ml-1 text-midnight dark:text-white">{post._count.dislikes}</span>
+          </div>
+        </div>
+        <div className="flex">
+          <Link href={`/post/${post.id}`}>
+            <a className="text-xs text-slate-700 hover:underline dark:text-gray-600">
+              {new Date(post.createdAt).toLocaleDateString()}
+            </a>
+          </Link>
+          <button className="flex items-center">
+            <ChatAltIcon className="ml-4 h-6 w-6 text-primary" />
+            <span className="ml-1 text-xs font-thin text-slate-700 dark:text-gray-400">
+              {post._count.comments} <span className="sr-only">comments</span>
+            </span>
+          </button>
+        </div>
       </div>
     </article>
   );

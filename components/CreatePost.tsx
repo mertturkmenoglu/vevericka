@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/outline';
 import Tooltip from './Tooltip';
 import { useSession } from 'next-auth/react';
-import { Post } from '../service/Post';
+import { PostApi } from '../service/post/PostApi';
 
 export interface CreatePostProps {
   image: string;
@@ -36,7 +36,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ image, name, username, openModa
       return;
     }
 
-    const postApi = new Post(data.jwt);
+    const postApi = new PostApi(data.jwt);
     const response = await postApi.createPost({
       content: text,
       username: data.username,

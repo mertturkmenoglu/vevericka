@@ -6,7 +6,7 @@ import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 import { IPost } from '../service/models/IPost';
 import { IUser } from '../service/models/IUser';
-import { Post } from '../service/Post';
+import { PostApi } from '../service/post/PostApi';
 import { User } from '../service/User';
 import AppBar from '../components/AppBar';
 import CreatePost from '../components/CreatePost';
@@ -17,11 +17,13 @@ import { ApplicationContext } from '../context/ApplicationContext';
 import { LocalStorage } from '../utils/LocalStorage';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import CreatePostModal from '../components/CreatePostModal';
+import { PaginatedResults } from '../service/common/PaginatedResult';
+import { FeedPost } from '../service/common/models/FeedPost';
 
 export interface HomePageProps {
   user: IUser;
   userId: number;
-  feed: IPost[];
+  feed: PaginatedResults<FeedPost[]>;
 }
 
 const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
@@ -88,11 +90,11 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (cont
   }
 
   const userApi = new User(session.jwt);
-  const postApi = new Post(session.jwt);
+  const postApi = new PostApi(session.jwt);
   const user = await userApi.getUserByUsername(session.username);
   const feed = await postApi.getFeedByUsername(session.username);
 
-  if (!user || !feed) {
+  if (!user || !feed.data) {
     return {
       redirect: {
         destination: '/error',

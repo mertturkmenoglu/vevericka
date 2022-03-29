@@ -11,7 +11,7 @@ export class User {
 
   public async getUserByUsername(username: string): Promise<IUser | null> {
     try {
-      const response = await this.api.get<IUser>(`/${username}`);
+      const response = await this.api.get<IUser>(`/${username}/profile`);
       return response.data;
     } catch (e) {
       return null;

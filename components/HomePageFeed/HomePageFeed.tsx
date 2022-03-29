@@ -5,9 +5,11 @@ import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '../../utils/addResourceBundles';
 import translations from './HomePageFeed.i18n';
 import constants from './HomePageFeed.constants';
+import { PaginatedResults } from '../../service/common/PaginatedResult';
+import { FeedPost } from '../../service/common/models/FeedPost';
 
 export interface HomePageFeedProps {
-  feed: IPost[];
+  feed: PaginatedResults<FeedPost[]>;
 }
 
 const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed }) => {
@@ -15,7 +17,7 @@ const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed }) => {
   addResourceBundles(i18n, constants.I18N_NS, translations);
 
   const isFeedEmpty = useMemo(() => {
-    return feed.length === 0;
+    return feed.data.length === 0;
   }, [feed]);
 
   if (isFeedEmpty) {
@@ -29,7 +31,7 @@ const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed }) => {
   return (
     <>
       <div className="mt-4 space-y-2 divide-y-2 dark:divide-y-0">
-        {feed.map((post) => (
+        {feed.data.map((post) => (
           <PostCard post={post} key={post.id} />
         ))}
       </div>
