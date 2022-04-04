@@ -47,7 +47,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      icon: <ClipboardCopyIcon className="text-deep-orange h-8 w-8" />,
+      icon: <ClipboardCopyIcon className="h-8 w-8 text-primary" />,
       theme: theme === 'dark' ? 'dark' : 'light',
     });
   };
@@ -72,7 +72,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <Menu.Button className="">
               <span className="sr-only">Menu</span>
               <DotsVerticalIcon
-                className="text-deep-orange ml-2 h-8 w-8 rounded-full p-2 hover:bg-orange-100 dark:hover:bg-orange-100 dark:hover:bg-opacity-25"
+                className="ml-2 h-8 w-8 rounded-full p-2 text-primary hover:bg-primary hover:bg-opacity-10"
                 aria-hidden="true"
               />
             </Menu.Button>
@@ -91,29 +91,29 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                 <Menu.Item>
                   {() => (
                     <button
-                      className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-orange-100 dark:hover:bg-opacity-25"
+                      className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-primary hover:bg-opacity-10"
                       onClick={shareClick}
                     >
-                      <ShareIcon className="text-deep-orange h-4 w-4" />
-                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">Share</span>
+                      <ShareIcon className="h-4 w-4 text-primary" />
+                      <span className="ml-2 text-sm font-medium text-midnight dark:text-gray-200">Share</span>
                     </button>
                   )}
                 </Menu.Item>
 
                 <Menu.Item>
                   {() => (
-                    <button className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-orange-100 dark:hover:bg-opacity-25">
-                      <BookmarkIcon className="text-deep-orange h-4 w-4" />
-                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">Save</span>
+                    <button className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-primary hover:bg-opacity-10">
+                      <BookmarkIcon className="h-4 w-4 text-primary" />
+                      <span className="ml-2 text-sm font-medium text-midnight dark:text-gray-200">Save</span>
                     </button>
                   )}
                 </Menu.Item>
 
                 <Menu.Item>
                   {() => (
-                    <button className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-orange-100 dark:hover:bg-opacity-25">
-                      <FlagIcon className="text-deep-orange h-4 w-4" />
-                      <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">Report</span>
+                    <button className="my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-primary hover:bg-opacity-10">
+                      <FlagIcon className="h-4 w-4 text-primary" />
+                      <span className="ml-2 text-sm font-medium text-midnight dark:text-gray-200">Report</span>
                     </button>
                   )}
                 </Menu.Item>
