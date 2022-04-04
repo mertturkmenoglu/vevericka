@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
@@ -19,18 +19,25 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import CreatePostModal from '../components/CreatePostModal';
 import { PaginatedResults } from '../service/common/PaginatedResult';
 import { FeedPost } from '../service/common/models/FeedPost';
+import { PaginationOrder } from '../service/common/PaginationOrder';
+import { PaginationQuery } from '../service/common/PaginationQuery';
+import Spinner from '../atom/Spinner/Spinner';
 
 export interface HomePageProps {
   user: IUser;
   userId: number;
-  feed: PaginatedResults<FeedPost[]>;
 }
 
-const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
+const Home: NextPage<HomePageProps> = ({ user, userId }) => {
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(true);
+  const [postApi, setPostApi] = useState<PostApi | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const session = useSession();
   const appContext = useContext(ApplicationContext);
   const { setTheme } = useTheme();
+  const [feed, setFeed] = useState<FeedPost[]>([]);
 
   useEffect(() => {
     appContext.user.setEmail(user.email);
@@ -42,6 +49,26 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
     appContext.setIsDarkTheme(storage.isDarkTheme);
     setTheme(storage.isDarkTheme ? 'dark' : 'light');
   });
+
+  useEffect(() => {
+    if (session.status === 'authenticated') {
+      setPostApi(new PostApi(session.data.jwt));
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (postApi === null) {
+      return;
+    }
+
+    postApi.getFeedByUsername(user.username, new PaginationQuery(PaginationOrder.DESC, 1, 20)).then((response) => {
+      if (response.data) {
+        setFeed(response.data.data);
+        setLoading(false);
+        setIsFetching(false);
+      }
+    });
+  }, [postApi, user, setFeed]);
 
   return (
     <>
@@ -63,13 +90,43 @@ const Home: NextPage<HomePageProps> = ({ user, userId, feed }) => {
               />
               <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
             </div>
-            <HomePageFeed feed={feed} />
+            {loading && (
+              <div className="flex justify-center">
+                <Spinner appearance="accent" spacing="medium" />
+              </div>
+            )}
+            {!loading && (
+              <HomePageFeed
+                feed={feed}
+                isFetching={isFetching}
+                onLoadMore={async () => {
+                  if (postApi === null) {
+                    return;
+                  }
+                  setIsFetching(true);
+
+                  const response = await postApi.getFeedByUsername(
+                    user.username,
+                    new PaginationQuery(PaginationOrder.DESC, currentPage + 1, 20),
+                  );
+
+                  if (response?.data?.data) {
+                    setFeed((prev) => {
+                      const r = response.data?.data;
+                      if (!r) {
+                        return prev;
+                      }
+                      return [...prev, ...r];
+                    });
+                    setCurrentPage((prev) => prev + 1);
+                  }
+                }}
+              />
+            )}
           </div>
         </div>
 
-        <div className="w-1/3 sm:w-2/3 md:w-1/3">
-          <Trending />
-        </div>
+        {/* <div className="w-1/3 sm:w-2/3 md:w-1/3"><Trending /></div> */}
 
         <ScrollToTopFab />
       </main>
@@ -90,11 +147,10 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (cont
   }
 
   const userApi = new User(session.jwt);
-  const postApi = new PostApi(session.jwt);
-  const user = await userApi.getUserByUsername(session.username);
-  const feed = await postApi.getFeedByUsername(session.username);
 
-  if (!user || !feed.data) {
+  const user = await userApi.getUserByUsername(session.username);
+
+  if (!user) {
     return {
       redirect: {
         destination: '/error',
@@ -108,7 +164,6 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (cont
       ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
       user,
       userId: session.id as number,
-      feed: feed.data,
     },
   };
 };
