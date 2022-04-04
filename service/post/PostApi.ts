@@ -51,12 +51,16 @@ export class PostApi {
     };
   }
 
-  public async getFeedByUsername(username: string): AsyncApiResult<PaginatedResults<FeedPost[]>> {
+  public async getFeedByUsername(
+    username: string,
+    paginationQuery: PaginationQuery,
+  ): AsyncApiResult<PaginatedResults<FeedPost[]>> {
     try {
       const response = await this.api.get<PaginatedResults<FeedPost[]>>(`/user/${username}/feed`, {
         params: {
-          page: 1,
-          pageSize: 20,
+          page: paginationQuery.page,
+          pageSize: paginationQuery.pageSize,
+          order: paginationQuery.order,
         },
       });
       return {
