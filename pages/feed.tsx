@@ -78,7 +78,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId }) => {
       <header>
         <AppBar />
       </header>
-      <main className="mx-auto mt-4 flex w-screen flex-col sm:w-10/12 sm:flex-row sm:justify-between md:w-3/4">
+      <main className="mx-auto mt-4 flex w-screen flex-col sm:w-10/12 sm:flex-row sm:justify-between md:w-7/12">
         <div className="flex w-full flex-col items-center">
           <div className="w-11/12 md:w-8/12">
             <div className="w-full rounded-md bg-white p-2 dark:bg-neutral-800">
