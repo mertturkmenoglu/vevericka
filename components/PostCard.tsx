@@ -129,6 +129,14 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         dangerouslySetInnerHTML={{ __html: preparePostText(post.content) }}
       />
 
+      {post.images.length > 0 && (
+        <div className="mx-auto mt-8 grid grid-cols-4 gap-x-4">
+          {post.images.map((image, index) => (
+            <img src={image.url} alt="" key={index} className="h-[256px] w-[256px] object-fill" />
+          ))}
+        </div>
+      )}
+
       {/* Date - Comments */}
       <div className="mt-4 flex w-full items-center justify-between">
         <div className="flex">

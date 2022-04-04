@@ -40,6 +40,8 @@ const CreatePost: React.FC<CreatePostProps> = ({ image, name, username, openModa
     const response = await postApi.createPost({
       content: text,
       username: data.username,
+      images: [],
+      videos: [],
     });
 
     if (response) {
