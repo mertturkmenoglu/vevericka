@@ -6,6 +6,8 @@ export interface Pagination {
   totalRecords: number;
   totalPages: number;
   order: PaginationOrder;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
 }
 
 export type PaginatedResults<T> = {
