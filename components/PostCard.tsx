@@ -15,6 +15,8 @@ import { preparePostText } from '../utils/Post.utils';
 import { toast } from 'react-toastify';
 import { useTheme } from 'next-themes';
 import { FeedPost } from '../service/common/models/FeedPost';
+import clsx from 'clsx';
+import { LikeStatus } from '../service/common/models';
 
 export interface PostCardProps {
   post: FeedPost;
@@ -51,6 +53,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       theme: theme === 'dark' ? 'dark' : 'light',
     });
   };
+
+  const gridClass = useMemo(() => {
+    return post.images.length === 1 ? 'grid grid-cols-1' : 'grid grid-cols-2';
+  }, [post]);
 
   return (
     <article key={post.id} className="flex w-full flex-col rounded-md bg-white py-4 px-2 dark:bg-neutral-800">
@@ -130,9 +136,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       />
 
       {post.images.length > 0 && (
-        <div className="mx-auto mt-8 grid grid-cols-4 gap-x-4">
+        <div className={`mx-auto mt-8 grid ${gridClass} place-items-center gap-4`}>
           {post.images.map((image, index) => (
-            <img src={image.url} alt="" key={index} className="h-[256px] w-[256px] object-fill" />
+            <img src={image.url} alt="" key={index} className="aspect-video max-h-[256px] rounded-md object-cover" />
           ))}
         </div>
       )}
@@ -140,16 +146,24 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       {/* Date - Comments */}
       <div className="mt-4 flex w-full items-center justify-between">
         <div className="flex">
-          <div className="flex">
-            <ArrowCircleUpIcon className="h-6 w-6 text-midnight dark:text-white" />
+          <button className="flex">
+            <ArrowCircleUpIcon
+              className={clsx('h-6 w-6 text-midnight dark:text-white', {
+                'text-primary': post.likeStatus === LikeStatus.LIKED,
+              })}
+            />
             <span className="ml-1 text-midnight dark:text-white">{post._count.likes}</span>
-          </div>
-          <div className="ml-4 flex">
-            <ArrowCircleDownIcon className="h-6 w-6 text-midnight dark:text-white" />
+          </button>
+          <button className="ml-4 flex">
+            <ArrowCircleDownIcon
+              className={clsx('h-6 w-6 text-midnight dark:text-white', {
+                'text-primary': post.likeStatus === LikeStatus.DISLIKED,
+              })}
+            />
             <span className="ml-1 text-midnight dark:text-white">{post._count.dislikes}</span>
-          </div>
+          </button>
         </div>
-        <div className="flex">
+        <div className="flex items-center">
           <Link href={`/post/${post.id}`}>
             <a className="text-xs text-slate-700 hover:underline dark:text-gray-600">
               {new Date(post.createdAt).toLocaleDateString()}
