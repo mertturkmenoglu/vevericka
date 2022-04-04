@@ -3,8 +3,10 @@ import { AvailableApiModules } from './ApiModules';
 import { API_VER, BASE_URL } from './constants';
 
 export const createApi = (module: AvailableApiModules, token: string): AxiosInstance => {
+  const baseURL =
+    process.env.NODE_ENV === 'production' ? `${BASE_URL}/${API_VER}/${module}` : `${BASE_URL}/api/${API_VER}/${module}`;
   return axios.create({
-    baseURL: `${BASE_URL}/api/${API_VER}/${module}`,
+    baseURL,
     headers: {
       authorization: token,
     },
@@ -12,7 +14,10 @@ export const createApi = (module: AvailableApiModules, token: string): AxiosInst
 };
 
 export const createPublicApi = (module: AvailableApiModules): AxiosInstance => {
+  const baseURL =
+    process.env.NODE_ENV === 'production' ? `${BASE_URL}/${API_VER}/${module}` : `${BASE_URL}/api/${API_VER}/${module}`;
+
   return axios.create({
-    baseURL: `${BASE_URL}/api/${API_VER}/${module}`,
+    baseURL,
   });
 };
