@@ -88,7 +88,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId }) => {
               <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
             </div>
             {loading && (
-              <div className="flex justify-center">
+              <div className="mt-4 flex justify-center">
                 <Spinner appearance="accent" spacing="medium" />
               </div>
             )}
