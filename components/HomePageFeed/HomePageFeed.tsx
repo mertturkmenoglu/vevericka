@@ -4,7 +4,6 @@ import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '../../utils/addResourceBundles';
 import translations from './HomePageFeed.i18n';
 import constants from './HomePageFeed.constants';
-import { PaginatedResults } from '../../service/common/PaginatedResult';
 import { FeedPost } from '../../service/common/models/FeedPost';
 import Spinner from '../../atom/Spinner/Spinner';
 
