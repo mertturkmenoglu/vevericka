@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import React, { Fragment, useMemo, useState } from 'react';
 import { FeedPost } from '../../service/common/models/FeedPost';
-import { preparePostText } from '../../utils/Post.utils';
+import { getYoutubeIframe, preparePostText } from '../../utils/Post.utils';
 
 export interface PostCardContentProps {
   post: FeedPost;
@@ -39,6 +39,7 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ post }) => {
         </div>
       )}
 
+      <div className="mt-4">{getYoutubeIframe(post.content)}</div>
       <Transition appear show={isDialogOpen} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => setIsDialogOpen(false)}>
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
