@@ -10,7 +10,7 @@ export interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   return (
-    <article key={post.id} className={clsx('flex flex-col', 'bg-white dark:bg-neutral-800', 'w-full', 'py-4 px-2')}>
+    <article key={post.id} className={clsx('flex flex-col', 'bg-white dark:bg-neutral-800', 'w-full', 'px-2 pt-2')}>
       <PostCardTitle post={post} />
 
       <PostCardContent post={post} />
