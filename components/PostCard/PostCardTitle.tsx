@@ -8,6 +8,7 @@ import PostCardMenu from './PostCardMenu';
 import { copyToClipboard } from '../../utils/Post.utils';
 import { toast } from 'react-toastify';
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
+import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { useTheme } from 'next-themes';
 
 export interface PostCardTitleProps {
@@ -58,7 +59,10 @@ const PostCardTitle: React.FC<PostCardTitleProps> = ({ post }) => {
         </Link>
         <div className="ml-2 flex flex-col justify-center">
           <Link href={`/user/${post.user.username}`}>
-            <a className="text-xl text-midnight hover:underline dark:text-gray-200">{post.user.name}</a>
+            <a className="flex items-center text-xl text-midnight hover:underline dark:text-gray-200">
+              <span>{post.user.name}</span>
+              {post.user.verified && <BadgeCheckIcon className="ml-1 mt-1 h-4 w-4 text-primary" />}
+            </a>
           </Link>
           <Link href={`/post/${post.id}`}>
             <a className="text-xs text-slate-700 hover:underline dark:text-gray-600">
