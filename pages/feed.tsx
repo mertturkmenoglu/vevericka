@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { getSession, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { IUser } from '../service/models/IUser';
 import { PostApi } from '../service/post/PostApi';
 import { User } from '../service/User';
@@ -12,60 +12,58 @@ import CreatePost from '../components/CreatePost';
 import HomePageFeed from '../components/HomePageFeed';
 import ScrollToTopFab from '../components/ScrollToTopFab';
 import { ApplicationContext } from '../context/ApplicationContext';
-import { LocalStorage } from '../utils/LocalStorage';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import CreatePostModal from '../components/CreatePostModal';
 import { FeedPost } from '../service/common/models/FeedPost';
 import { PaginationOrder } from '../service/common/PaginationOrder';
 import { PaginationQuery } from '../service/common/PaginationQuery';
 import Spinner from '../atom/Spinner/Spinner';
+import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
+import { PaginatedResults } from '../service/common/PaginatedResult';
+import { ApiError } from '../service/common/ApiError';
+import { initContext } from '../utils/initContext';
 
 export interface HomePageProps {
   user: IUser;
   userId: number;
+  token: string;
 }
 
-const Home: NextPage<HomePageProps> = ({ user, userId }) => {
-  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [isFetching, setIsFetching] = useState(true);
-  const [postApi, setPostApi] = useState<PostApi | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const session = useSession();
+const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
   const appContext = useContext(ApplicationContext);
   const { setTheme } = useTheme();
-  const [feed, setFeed] = useState<FeedPost[]>([]);
+  const postApi = useMemo(() => new PostApi(token), [token]);
+  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
 
-  useEffect(() => {
-    appContext.user.setEmail(user.email);
-    appContext.user.setImage(user.image);
-    appContext.user.setName(user.name);
-    appContext.user.setUserId(userId);
-    appContext.user.setUsername(user.username);
-    const storage = new LocalStorage();
-    appContext.setIsDarkTheme(storage.isDarkTheme);
-    setTheme(storage.isDarkTheme ? 'dark' : 'light');
+  const fetchFeed = async (context: QueryFunctionContext) => {
+    const page = context.pageParam as number;
+
+    const feedResponse = await postApi.getFeedByUsername(
+      user.username,
+      new PaginationQuery(PaginationOrder.DESC, page, 20),
+    );
+
+    if (!feedResponse.data) {
+      throw feedResponse.exception;
+    }
+
+    return feedResponse.data;
+  };
+
+  const {
+    isLoading,
+    isError,
+    data: feedData,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery<PaginatedResults<FeedPost[]>, ApiError>('feed', fetchFeed, {
+    getNextPageParam: (lastPage, _allPages) => lastPage.pagination.currentPage + 1,
   });
 
   useEffect(() => {
-    if (session.status === 'authenticated') {
-      setPostApi(new PostApi(session.data.jwt));
-    }
-  }, [session]);
-
-  useEffect(() => {
-    if (postApi === null) {
-      return;
-    }
-
-    postApi.getFeedByUsername(user.username, new PaginationQuery(PaginationOrder.DESC, 1, 20)).then((response) => {
-      if (response.data) {
-        setFeed(response.data.data);
-        setLoading(false);
-        setIsFetching(false);
-      }
-    });
-  }, [postApi, user, setFeed]);
+    initContext(appContext, user, userId);
+    setTheme(appContext.isDarkTheme ? 'dark' : 'light');
+  }, [appContext, user, setTheme, userId]);
 
   return (
     <>
@@ -87,44 +85,30 @@ const Home: NextPage<HomePageProps> = ({ user, userId }) => {
               />
               <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
             </div>
-            {loading && (
+
+            {isError && (
+              <div className="mt-4 flex justify-center">
+                <p>An error happened</p>
+              </div>
+            )}
+
+            {isLoading && (
               <div className="mt-4 flex justify-center">
                 <Spinner appearance="accent" spacing="medium" />
               </div>
             )}
-            {!loading && (
+
+            {feedData && (
               <HomePageFeed
-                feed={feed}
-                isFetching={isFetching}
+                feed={feedData.pages.map((page) => page.data).flat()}
+                isFetching={isFetchingNextPage}
                 onLoadMore={async () => {
-                  if (postApi === null) {
-                    return;
-                  }
-                  setIsFetching(true);
-
-                  const response = await postApi.getFeedByUsername(
-                    user.username,
-                    new PaginationQuery(PaginationOrder.DESC, currentPage + 1, 20),
-                  );
-
-                  if (response?.data?.data) {
-                    setFeed((prev) => {
-                      const r = response.data?.data;
-                      if (!r) {
-                        return prev;
-                      }
-                      return [...prev, ...r];
-                    });
-                    setCurrentPage((prev) => prev + 1);
-                  }
+                  await fetchNextPage();
                 }}
               />
             )}
           </div>
         </div>
-
-        {/* <div className="w-1/3 sm:w-2/3 md:w-1/3"><Trending /></div> */}
-
         <ScrollToTopFab />
       </main>
     </>
@@ -161,6 +145,7 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (cont
       ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
       user,
       userId: session.id as number,
+      token: session.jwt,
     },
   };
 };
