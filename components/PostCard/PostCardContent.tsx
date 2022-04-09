@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 import React, { Fragment, useMemo, useState } from 'react';
 import { FeedPost } from '../../service/common/models/FeedPost';
 import { getYoutubeIframe, preparePostText } from '../../utils/Post.utils';
@@ -10,10 +11,14 @@ export interface PostCardContentProps {
 
 const PostCardContent: React.FC<PostCardContentProps> = ({ post }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedImageId, setSelectedImageId] = useState<number | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   const gridClass = useMemo(() => {
     return post.images.length === 1 ? 'grid grid-cols-1' : 'grid grid-cols-2';
+  }, [post]);
+
+  const youtubeIframe = useMemo(() => {
+    return getYoutubeIframe(post.content);
   }, [post]);
 
   return (
@@ -30,16 +35,28 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ post }) => {
               key={image.id}
               onClick={() => {
                 setIsDialogOpen(true);
-                setSelectedImageId(image.id);
+                setSelectedImageIndex(index);
               }}
             >
-              <img src={image.url} alt="" className="aspect-video max-h-[256px] rounded-md object-cover" />
+              <img
+                src={image.url}
+                alt=""
+                className={clsx(
+                  'aspect-video',
+                  {
+                    'max-h-[256px]': post.images.length > 1,
+                    'h-full': post.images.length === 1,
+                  },
+                  'rounded-md object-cover',
+                )}
+              />
             </button>
           ))}
         </div>
       )}
 
-      <div className="mt-4">{getYoutubeIframe(post.content)}</div>
+      {youtubeIframe && <div className="mt-4">{youtubeIframe}</div>}
+
       <Transition appear show={isDialogOpen} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => setIsDialogOpen(false)}>
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
@@ -69,22 +86,42 @@ const PostCardContent: React.FC<PostCardContentProps> = ({ post }) => {
               leaveTo="opacity-0 scale-95"
             >
               <div className="my-8 inline-block h-auto w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-neutral-800">
-                <div className="flex items-center justify-end">
+                <div className="flex items-center justify-between">
+                  <Dialog.Title className="text-center text-midnight dark:text-white">{post.content}</Dialog.Title>
                   <button onClick={() => setIsDialogOpen(false)}>
                     <XIcon className="h-5 w-5 text-midnight dark:text-white" />
                   </button>
                 </div>
-                <div className="mt-4">
-                  {selectedImageId !== null && (
-                    <img
-                      src={post.images.find((img) => img.id === selectedImageId)!.url}
-                      alt=""
-                      className="h-full w-full"
-                    />
-                  )}
-                </div>
 
-                <div className="mt-4 flex justify-center"></div>
+                {selectedImageIndex !== null && (
+                  <div className="mt-4 flex h-full w-full items-center">
+                    {post.images.length !== 1 && (
+                      <button
+                        className="rounded-full p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                        disabled={selectedImageIndex === 0}
+                        onClick={() => {
+                          setSelectedImageIndex(selectedImageIndex - 1);
+                        }}
+                      >
+                        <ChevronLeftIcon className="h-5 w-5 text-midnight dark:text-white" />
+                      </button>
+                    )}
+
+                    <img src={post.images[selectedImageIndex]!.url} alt="" className="mx-auto aspect-square w-10/12" />
+
+                    {post.images.length !== 1 && (
+                      <button
+                        className="rounded-full p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                        disabled={selectedImageIndex === post.images.length - 1}
+                        onClick={() => {
+                          setSelectedImageIndex(selectedImageIndex + 1);
+                        }}
+                      >
+                        <ChevronRightIcon className="h-5 w-5 text-midnight dark:text-white" />
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             </Transition.Child>
           </div>
