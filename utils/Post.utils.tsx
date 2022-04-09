@@ -22,7 +22,7 @@ export const getYoutubeIframe = (text: string): JSX.Element | null => {
       <div className="flex w-full flex-col items-center justify-center">
         <iframe
           title="youtube"
-          src={`https://www.youtube.com/embed/${youtubeId}`}
+          src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
           className="aspect-video w-full"
           // width="560"
           // height="315"
