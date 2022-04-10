@@ -1,3 +1,5 @@
+import { Translation } from '../../utils/translation';
+
 export const en = {
   feedEmpty: "We couldn't find any results.",
 };
@@ -10,10 +12,8 @@ export const tr = {
   feedEmpty: 'Hiçbir sonuç yok.',
 };
 
-const translations = {
+export const translations: Translation<typeof en> = {
   en,
   es,
   tr,
 };
-
-export default translations;

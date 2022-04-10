@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import PostCard from '../PostCard';
 import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '../../utils/addResourceBundles';
-import translations from './HomePageFeed.i18n';
+import { translations } from './HomePageFeed.i18n';
 import constants from './HomePageFeed.constants';
 import { FeedPost } from '../../service/common/models/FeedPost';
 import Spinner from '../../atom/Spinner/Spinner';
@@ -53,7 +53,7 @@ const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed, onLoadMore, isFetchin
         <PostCard post={post} key={post.id} />
       ))}
       {isFetching && (
-        <div className="flex justify-center">
+        <div className="mt-4 flex justify-center">
           <Spinner appearance="accent" spacing="medium" />
         </div>
       )}
