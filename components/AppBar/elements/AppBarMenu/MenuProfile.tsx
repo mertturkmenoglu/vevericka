@@ -3,7 +3,7 @@ import { Menu } from '@headlessui/react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import constants from '../../AppBar.constants';
-import { addResourceBundles } from '../../../../utils/addResourceBundles';
+import { addResourceBundles } from '@utils/index';
 import translations from '../../AppBar.i18n';
 import Avatar from '../../../../atom/Avatar';
 

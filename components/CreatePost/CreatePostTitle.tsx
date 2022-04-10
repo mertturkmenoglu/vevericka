@@ -1,9 +1,9 @@
 import { useTranslation } from 'next-i18next';
 import React, { useMemo } from 'react';
 import constants from './CreatePost.constants';
-import { addResourceBundles } from '../../utils/addResourceBundles';
+import { addResourceBundles } from '@utils/index';
 import { translations } from './CreatePost.i18n';
-import Tooltip from '../Tooltip';
+import Tooltip from '@components/Tooltip';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 
 export interface CreatePostTitleProps {

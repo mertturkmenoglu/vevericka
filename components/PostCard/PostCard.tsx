@@ -1,4 +1,4 @@
-import { FeedPost } from '../../service/common/models/FeedPost';
+import { FeedPost } from '@service/common/models/FeedPost';
 import clsx from 'clsx';
 import PostCardTitle from './PostCardTitle';
 import PostCardContent from './PostCardContent';

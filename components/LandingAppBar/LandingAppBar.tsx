@@ -1,6 +1,6 @@
 import { useContext, useMemo } from 'react';
-import { ApplicationContext } from '../../context/ApplicationContext';
-import { LocalStorage } from '../../utils/LocalStorage';
+import { ApplicationContext } from '@context/ApplicationContext';
+import { LocalStorage, availableLanguages } from '@utils/index';
 import { useTheme } from 'next-themes';
 import { useTranslation } from 'next-i18next';
 import constants from './LandingAppBar.constants';
@@ -9,9 +9,8 @@ import AppIcon from './elements/AppIcon';
 import LandingCustomLink from './elements/LandingCustomLink';
 import ChangeThemeButton from './elements/ChangeLanguage/ChangeThemeButton';
 import ChangeLanguage from './elements/ChangeLanguage';
-import { availableLanguages } from '../../utils/AvailableLanguages';
 import Cookies from 'universal-cookie';
-import Tooltip from '../Tooltip';
+import Tooltip from '@components/Tooltip';
 
 export interface LandingAppBarProps {}
 

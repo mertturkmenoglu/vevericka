@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import constants from './CreatePost.constants';
-import { addResourceBundles } from '../../utils/addResourceBundles';
+import { addResourceBundles } from '@utils/index';
 import { useTranslation } from 'next-i18next';
 import { translations } from './CreatePost.i18n';
 import clsx from 'clsx';
-import Tooltip from '../Tooltip';
+import Tooltip from '@components/Tooltip';
 import { PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import { useSession } from 'next-auth/react';
 import { useQueryClient } from 'react-query';
-import { PostApi } from '../../service/post/PostApi';
+import { PostApi } from '@service/post/PostApi';
 
 export interface CreatePostActionProps {}
 

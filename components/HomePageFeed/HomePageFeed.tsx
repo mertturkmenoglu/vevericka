@@ -1,12 +1,11 @@
 import { useEffect, useMemo } from 'react';
-import PostCard from '../PostCard';
+import PostCard from '@components/PostCard';
 import { useTranslation } from 'next-i18next';
-import { addResourceBundles } from '../../utils/addResourceBundles';
+import { addResourceBundles, isElementInViewport } from '@utils/index';
 import { translations } from './HomePageFeed.i18n';
 import constants from './HomePageFeed.constants';
-import { FeedPost } from '../../service/common/models/FeedPost';
-import Spinner from '../../atom/Spinner/Spinner';
-import { isElementInViewport } from '../../utils/isElementInViewport';
+import { FeedPost } from '@service/common/models/FeedPost';
+import Spinner from '@atom/Spinner/Spinner';
 
 export interface HomePageFeedProps {
   feed: FeedPost[];

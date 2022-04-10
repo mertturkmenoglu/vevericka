@@ -9,9 +9,8 @@ import MenuIcon from './MenuIcon';
 import MenuItems from './MenuItems';
 import { useTranslation } from 'next-i18next';
 import constants from '../../AppBar.constants';
-import { addResourceBundles } from '../../../../utils/addResourceBundles';
+import { addResourceBundles, availableLanguages } from '@utils/index';
 import translations from '../../AppBar.i18n';
-import { availableLanguages } from '../../../../utils/AvailableLanguages';
 
 export interface AppBarMenuProps {}
 

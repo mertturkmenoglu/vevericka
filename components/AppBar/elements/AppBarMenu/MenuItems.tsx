@@ -20,7 +20,7 @@ import ButtonItem from './ButtonItem';
 import Copyright from './Copyright';
 import { useTranslation } from 'next-i18next';
 import constants from '../../AppBar.constants';
-import { addResourceBundles } from '../../../../utils/addResourceBundles';
+import { addResourceBundles } from '@utils/index';
 import translations from '../../AppBar.i18n';
 
 export interface MenuItemsProps {

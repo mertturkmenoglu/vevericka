@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { IAvailableLanguage } from '../../../../utils/AvailableLanguages';
+import { IAvailableLanguage } from '@utils/index';
 
 export interface ChangeLanguageMenuItemProps {
   language: IAvailableLanguage;

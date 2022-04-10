@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { ArrowCircleDownIcon, ArrowCircleUpIcon, ChatAltIcon } from '@heroicons/react/outline';
-import { LikeStatus } from '../../service/common/models';
-import { FeedPost } from '../../service/common/models/FeedPost';
-import { PostApi } from '../../service/post/PostApi';
+import { LikeStatus } from '@service/common/models';
+import { FeedPost } from '@service/common/models/FeedPost';
+import { PostApi } from '@service/post/PostApi';
 import { useQueryClient } from 'react-query';
 import Link from 'next/link';
 

@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { IAvailableLanguage } from '../../../../utils/AvailableLanguages';
+import { IAvailableLanguage } from '@utils/index';
 import ChangeLanguageMenuItem from './ChangeLanguageMenuItem';
 
 export interface ChangeLanguageMenuProps {

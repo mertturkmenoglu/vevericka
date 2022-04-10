@@ -1,4 +1,4 @@
-import { Translation } from '../../utils/translation';
+import { Translation } from '@utils/index';
 
 export const en = {
   userPicture: 'User picture',
