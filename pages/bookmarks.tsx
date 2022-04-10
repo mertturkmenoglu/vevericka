@@ -6,9 +6,10 @@ import AppBar from '../components/AppBar';
 import { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../context/ApplicationContext';
 import { useTheme } from 'next-themes';
-import { LocalStorage } from '../utils/LocalStorage';
 import { User } from '../service/User';
 import { IUser } from '../service/models/IUser';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { initContext } from '../utils/initContext';
 
 export interface BookmarksPageProps {
   user: IUser;
@@ -20,14 +21,8 @@ const Bookmarks: NextPage<BookmarksPageProps> = ({ user, userId }) => {
   const { setTheme } = useTheme();
 
   useEffect(() => {
-    appContext.user.setEmail(user.email);
-    appContext.user.setImage(user.image);
-    appContext.user.setName(user.name);
-    appContext.user.setUserId(userId);
-    appContext.user.setUsername(user.username);
-    const storage = new LocalStorage();
-    appContext.setIsDarkTheme(storage.isDarkTheme);
-    setTheme(storage.isDarkTheme ? 'dark' : 'light');
+    initContext(appContext, user, userId);
+    setTheme(appContext.isDarkTheme ? 'dark' : 'light');
   });
 
   return (
@@ -71,6 +66,7 @@ export const getServerSideProps: GetServerSideProps<BookmarksPageProps> = async 
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale || 'en', ['auth', 'login'])),
       user,
       userId: session.id,
     },
