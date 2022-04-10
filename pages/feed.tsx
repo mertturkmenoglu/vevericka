@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
 import { IUser } from '../service/models/IUser';
 import { PostApi } from '../service/post/PostApi';
 import { User } from '../service/User';
@@ -22,6 +22,10 @@ import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
 import { PaginatedResults } from '../service/common/PaginatedResult';
 import { ApiError } from '../service/common/ApiError';
 import { initContext } from '../utils/initContext';
+import clsx from 'clsx';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid';
+import { Menu, Transition } from '@headlessui/react';
+import MessagesMenu from '../components/MessagesMenu/MessagesMenu';
 
 export interface HomePageProps {
   user: IUser;
@@ -109,7 +113,10 @@ const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
             )}
           </div>
         </div>
-        <ScrollToTopFab />
+
+        <MessagesMenu />
+
+        <ScrollToTopFab bottom="bottom-4 sm:bottom-1" right="right-8 sm:right-[448px]" />
       </main>
     </>
   );
