@@ -6,10 +6,11 @@ import { User } from '../../service/User';
 import { useContext, useEffect, useMemo } from 'react';
 import { ApplicationContext } from '../../context/ApplicationContext';
 import { useTheme } from 'next-themes';
-import { LocalStorage } from '../../utils/LocalStorage';
 import Head from 'next/head';
 import AppBar from '../../components/AppBar';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { initContext } from '../../utils/initContext';
+import clsx from 'clsx';
 
 export interface UserPageProps {
   username: string;
@@ -23,15 +24,8 @@ const UserPage: NextPage<UserPageProps> = ({ username, user, currentUser, curren
   const { setTheme } = useTheme();
 
   useEffect(() => {
-    appContext.user.setEmail(currentUser.email);
-    appContext.user.setImage(currentUser.image);
-    appContext.user.setName(currentUser.name);
-    appContext.user.setUserId(currentUserId);
-    appContext.user.setUsername(user.username);
-
-    const storage = new LocalStorage();
-    appContext.setIsDarkTheme(storage.isDarkTheme);
-    setTheme(storage.isDarkTheme ? 'dark' : 'light');
+    initContext(appContext, currentUser, currentUserId);
+    setTheme(appContext.isDarkTheme ? 'dark' : 'light');
   });
 
   const image = useMemo(() => {
@@ -50,7 +44,7 @@ const UserPage: NextPage<UserPageProps> = ({ username, user, currentUser, curren
       <header>
         <AppBar />
       </header>
-      <main className="mx-auto mt-4 w-screen rounded-md bg-neutral-100 dark:bg-neutral-800 md:w-2/3">
+      <main className={clsx('mx-auto mt-4', 'rounded-md', 'bg-neutral-100 dark:bg-neutral-800', 'md:w-2/3')}>
         <div className="flex flex-col items-center p-4">
           <div className="flex w-full items-center justify-center rounded-md py-4">
             <img
@@ -70,7 +64,6 @@ const UserPage: NextPage<UserPageProps> = ({ username, user, currentUser, curren
 
 export const getServerSideProps: GetServerSideProps<UserPageProps> = async (context) => {
   const session = await getSession(context);
-  // const isAuth = !(!session || !session.user);
   const username = context.params?.username;
 
   if (typeof username !== 'string') {
