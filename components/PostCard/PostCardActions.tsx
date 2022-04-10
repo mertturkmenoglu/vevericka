@@ -18,7 +18,7 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (authStatus !== 'authenticated') {
+    if (authStatus !== 'authenticated' || !session) {
       return;
     }
 
