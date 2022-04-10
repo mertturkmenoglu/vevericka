@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createApi } from './Api';
+import { Profile } from './common/models/Profile';
 import { IUser } from './models/IUser';
 
 export class User {
@@ -23,6 +24,15 @@ export class User {
       const response = await this.api.post<IUser>(`/${username}/profile-picture`, {
         url,
       });
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  public async getProfileByUsername(username: string): Promise<Profile | null> {
+    try {
+      const response = await this.api.get<Profile>(`/${username}/profile`);
       return response.data;
     } catch (e) {
       return null;
