@@ -33,6 +33,7 @@
     "react-instantsearch-hooks": "^6.23.1",
     "react-query": "^3.34.19",
     "react-toastify": "^8.1.0",
+    "react-tooltip": "^4.2.21",
     "universal-cookie": "^4.0.4",
     "validator": "^13.7.0"
   },
