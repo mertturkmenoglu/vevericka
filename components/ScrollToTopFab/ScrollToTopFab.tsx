@@ -1,10 +1,14 @@
 import { Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 import { Fragment, useEffect, useState } from 'react';
 
-export interface ScrollToTopFabProps {}
+export interface ScrollToTopFabProps {
+  bottom: string;
+  right: string;
+}
 
-const ScrollToTopFab: React.FC<ScrollToTopFabProps> = ({}) => {
+const ScrollToTopFab: React.FC<ScrollToTopFabProps> = ({ bottom, right }) => {
   const [show, setShow] = useState(false);
 
   const onClick = () => {
@@ -38,7 +42,7 @@ const ScrollToTopFab: React.FC<ScrollToTopFabProps> = ({}) => {
       leaveTo="transform opacity-0 scale-95"
       show={show}
     >
-      <button className="fixed bottom-8 right-8 rounded-full bg-primary p-2" onClick={onClick}>
+      <button className={clsx('fixed rounded-full bg-primary p-2', bottom, right)} onClick={onClick}>
         <ChevronUpIcon className="h-4 w-4 text-white" />
       </button>
     </Transition>
