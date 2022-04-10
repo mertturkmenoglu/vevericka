@@ -66,7 +66,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({ userImage, username, toggleLangua
       </div>
 
       <div className="px-2 py-1">
-        <LinkItem href="/status" text={t('menu.status')} icon={CloudIcon} />
+        <LinkItem href="https://vevericka.statuspage.io/" text={t('menu.status')} icon={CloudIcon} />
       </div>
 
       <Copyright />
