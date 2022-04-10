@@ -1,29 +1,28 @@
-import { useState } from 'react';
+import { useMemo, useRef } from 'react';
+import { useTheme } from 'next-themes';
+import ReactTooltip from 'react-tooltip';
 
 export interface TooltipProps {
-  position: 'top' | 'bottom' | 'left' | 'right';
   text: string;
+  position?: 'top' | 'bottom' | 'left' | 'right';
+  effect?: 'solid' | 'float';
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ children, position, text }) => {
-  const [show, setShow] = useState(false);
+const Tooltip: React.FC<TooltipProps> = ({ children, text, position = 'bottom', effect = 'solid' }) => {
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
+  const { theme: themeFromHook } = useTheme();
+  const theme = useMemo(() => (themeFromHook === 'dark' ? 'dark' : 'light'), [themeFromHook]);
+  const bgColor = useMemo(() => (theme === 'dark' ? '#404040' : '#1a1a1a'), [theme]);
 
   return (
-    <div className="relative">
-      <div
-        onMouseEnter={() => setShow(true)}
-        onMouseLeave={() => setShow(false)}
-        onFocus={() => setShow(true)}
-        onBlur={() => setShow(false)}
-        className="flex items-center justify-center"
-      >
-        {children}
-      </div>
-      {show && (
-        <p className="absolute left-0 right-0 z-10 flex min-w-max justify-center rounded-md bg-neutral-800 bg-opacity-60 py-2 px-2 text-center text-xs text-white dark:bg-neutral-600 dark:bg-opacity-100">
-          {text}
-        </p>
-      )}
+    <div
+      data-tip={text}
+      ref={tooltipRef}
+      onFocus={() => ReactTooltip.show(tooltipRef.current!)}
+      onBlur={() => ReactTooltip.hide(tooltipRef.current!)}
+    >
+      {children}
+      <ReactTooltip place={position} backgroundColor={bgColor} effect={effect} clickable={true} />
     </div>
   );
 };
