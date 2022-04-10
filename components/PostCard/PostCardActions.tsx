@@ -37,6 +37,7 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
     }
 
     queryClient.invalidateQueries('feed');
+    queryClient.refetchQueries('feed');
   };
 
   const dislikePost = async () => {
@@ -51,6 +52,7 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
     }
 
     queryClient.invalidateQueries('feed');
+    queryClient.refetchQueries('feed');
   };
 
   return (
