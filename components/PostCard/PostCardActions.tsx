@@ -58,28 +58,28 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
   return (
     <div className="mt-4 flex w-full items-center justify-between">
       <div className="flex">
-        <button className="flex" onClick={likePost}>
+        <button className="flex items-center" onClick={likePost}>
           <ArrowCircleUpIcon
-            className={clsx('h-6 w-6', 'text-midnight dark:text-white', {
+            className={clsx('h-4 w-4', 'text-midnight dark:text-white', {
               'text-primary dark:text-primary': post.likeStatus === LikeStatus.LIKED,
             })}
           />
-          <span className="ml-1 text-midnight dark:text-white">{post._count.likes}</span>
+          <span className="ml-1 text-sm text-midnight dark:text-white">{post._count.likes}</span>
         </button>
-        <button className="ml-4 flex" onClick={dislikePost}>
+        <button className="ml-4 flex items-center" onClick={dislikePost}>
           <ArrowCircleDownIcon
-            className={clsx('h-6 w-6', 'text-midnight dark:text-white', {
+            className={clsx('h-4 w-4', 'text-midnight dark:text-white', {
               'text-primary dark:text-primary': post.likeStatus === LikeStatus.DISLIKED,
             })}
           />
-          <span className="ml-1 text-midnight dark:text-white">{post._count.dislikes}</span>
+          <span className="ml-1 text-sm text-midnight dark:text-white">{post._count.dislikes}</span>
         </button>
       </div>
       <div className="flex items-center">
         <Link href={`/post/${post.id}`}>
           <a className="flex items-center">
-            <ChatAltIcon className="ml-4 h-6 w-6 text-primary" />
-            <span className="ml-1 text-midnight hover:underline dark:text-gray-400">
+            <ChatAltIcon className="ml-4 h-4 w-4 text-primary" />
+            <span className="ml-1 text-sm text-midnight hover:underline dark:text-gray-400">
               {post._count.comments} <span className="sr-only">comments</span>
             </span>
           </a>
