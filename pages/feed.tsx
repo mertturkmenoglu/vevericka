@@ -23,6 +23,8 @@ import { PaginatedResults } from '../service/common/PaginatedResult';
 import { ApiError } from '../service/common/ApiError';
 import { initContext } from '../utils/initContext';
 import MessagesMenu from '../components/MessagesMenu/MessagesMenu';
+import clsx from 'clsx';
+import Link from 'next/link';
 
 export interface HomePageProps {
   user: IUser;
@@ -74,45 +76,115 @@ const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
       <header>
         <AppBar />
       </header>
-      <main className="mx-auto mt-4 flex w-11/12 flex-col sm:w-10/12 sm:flex-row sm:justify-between md:w-8/12 lg:w-6/12 xl:w-5/12 2xl:w-4/12">
-        <div className="flex w-full flex-col items-center">
-          <div>
-            <div className="w-full rounded-md bg-white p-2 dark:bg-neutral-800">
-              <CreatePost
-                image={user?.image || ''}
-                name={user?.name || ''}
-                username={user?.username || ''}
-                openModal={setIsCreatePostModalOpen}
-              />
-              <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
+      <main className="mx-auto flex  max-w-[1200px] grid-cols-12 gap-x-12 p-4 sm:grid">
+        <div className="hidden xl:col-span-1 xl:flex"></div>
+
+        <div className="home-feed__main-col col-span-full mx-auto sm:col-span-11 md:col-span-7 lg:col-span-6">
+          <div className="flex w-full flex-col items-center">
+            <div>
+              <div className="w-full rounded-md bg-white p-2 dark:bg-neutral-800">
+                <CreatePost
+                  image={user?.image || ''}
+                  name={user?.name || ''}
+                  username={user?.username || ''}
+                  openModal={setIsCreatePostModalOpen}
+                />
+                <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
+              </div>
+
+              {isError && (
+                <div className="mt-4 flex justify-center">
+                  <p>An error happened</p>
+                </div>
+              )}
+
+              {isLoading && (
+                <div className="mt-4 flex justify-center">
+                  <Spinner appearance="accent" spacing="medium" />
+                </div>
+              )}
+
+              {feedData && (
+                <HomePageFeed
+                  feed={feedData.pages.map((page) => page.data).flat()}
+                  isFetching={isFetchingNextPage}
+                  onLoadMore={async () => {
+                    await fetchNextPage();
+                  }}
+                />
+              )}
             </div>
-
-            {isError && (
-              <div className="mt-4 flex justify-center">
-                <p>An error happened</p>
-              </div>
-            )}
-
-            {isLoading && (
-              <div className="mt-4 flex justify-center">
-                <Spinner appearance="accent" spacing="medium" />
-              </div>
-            )}
-
-            {feedData && (
-              <HomePageFeed
-                feed={feedData.pages.map((page) => page.data).flat()}
-                isFetching={isFetchingNextPage}
-                onLoadMore={async () => {
-                  await fetchNextPage();
-                }}
-              />
-            )}
           </div>
         </div>
 
-        <MessagesMenu />
+        <div className="hidden lg:col-span-1 lg:flex"></div>
 
+        <div className="hidden md:col-span-5 md:flex md:flex-col lg:col-span-4">
+          <article className={clsx('rounded-md', 'text-midnight', 'p-2', 'bg-white dark:bg-neutral-800')}>
+            <h2 className="border-b-2 border-midnight pb-2 text-xl font-bold dark:text-white">Explore</h2>
+            <div className="mt-2 flex flex-col space-y-2">
+              {[
+                { tag: 'Vevericka 1', count: 123 },
+                { tag: 'Vevericka 2', count: 120 },
+                { tag: 'Vevericka 3', count: 100 },
+                { tag: 'Vevericka 4', count: 90 },
+              ].map((tagObj) => (
+                <Link href={`/explore/${tagObj.tag}`} key={tagObj.tag}>
+                  <a className="flex w-full items-end justify-between text-midnight outline-midnight dark:text-gray-400">
+                    <span className="text-sm">
+                      <span className="text-base font-bold text-primary">#</span>
+                      <span className="ml-2 hover:underline focus:underline">{tagObj.tag}</span>
+                    </span>
+                    <span className="text-xs hover:underline focus:underline">{tagObj.count} posts</span>
+                  </a>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-4 w-full">
+              <Link href="/explore">
+                <a className="flex justify-end outline-none" tabIndex={-1}>
+                  <span
+                    className="rounded-full bg-midnight py-1 px-4 text-sm text-white outline-primary duration-100 ease-in-out hover:scale-[1.1]"
+                    tabIndex={0}
+                  >
+                    More
+                  </span>
+                </a>
+              </Link>
+            </div>
+          </article>
+          <article className={clsx('rounded-md', 'text-midnight', 'mt-4 p-2', 'bg-white dark:bg-neutral-800')}>
+            <h2 className="border-b-2 border-midnight pb-2 text-xl font-bold dark:text-white">People to follow</h2>
+            <div className="mt-2 flex flex-col space-y-2">
+              {[
+                { username: 'adminmert', name: 'Mert Turkmenoglu', image: 'https://github.com/mertturkmenoglu.png' },
+                { username: 'adminmert', name: 'Mert Turkmenoglu', image: 'https://github.com/mertturkmenoglu.png' },
+                { username: 'adminmert', name: 'Mert Turkmenoglu', image: 'https://github.com/mertturkmenoglu.png' },
+                { username: 'adminmert', name: 'Mert Turkmenoglu', image: 'https://github.com/mertturkmenoglu.png' },
+              ].map((user) => (
+                <div key={user.username} className="flex items-center justify-between">
+                  <Link href={`/user/${user.username}`}>
+                    <a className="flex w-full items-center justify-start text-midnight outline-midnight dark:text-gray-400">
+                      <img src={user.image} alt="" className="h-10 w-10 rounded-full" />
+                      <div className="ml-2 flex flex-col text-base">
+                        <span className="text-lg font-bold">{user.name}</span>
+                        <div>
+                          <span className="text-base font-bold text-primary">@</span>
+                          <span className="ml-1 hover:underline focus:underline">{user.username}</span>
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
+                  <button className="flex items-center justify-center rounded-full bg-midnight py-1 px-4 text-sm text-white outline-primary duration-100 ease-in-out hover:scale-[1.01]">
+                    Follow
+                  </button>
+                </div>
+              ))}
+            </div>
+          </article>
+        </div>
+
+        <MessagesMenu />
         <ScrollToTopFab bottom="bottom-4 sm:bottom-1" right="right-8 sm:right-[448px]" />
       </main>
     </>
