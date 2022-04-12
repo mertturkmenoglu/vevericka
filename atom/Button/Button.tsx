@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import { appearanceMapping, loadingMapping, spacingMapping } from './Button.variants';
-import Spinner from '../Spinner/Spinner';
 import { ButtonProps } from './Button.type';
+import Spinner from '@atom/Spinner';
 
 const Button: React.FC<ButtonProps> = ({
   appearance,

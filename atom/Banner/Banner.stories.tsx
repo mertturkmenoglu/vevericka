@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import * as React from 'react';
 
-import Banner from './Banner';
-import { AppearanceAsArray } from '../common';
-import mock from './Banner.mock';
 import { CloudIcon, ExclamationCircleIcon, ExclamationIcon } from '@heroicons/react/outline';
+import { AppearanceAsArray } from '../common';
+import Banner from './Banner';
+import mock from './Banner.mock';
 
 export default {
   title: 'Atom/Banner',

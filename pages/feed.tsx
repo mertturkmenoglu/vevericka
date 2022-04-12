@@ -6,6 +6,8 @@ import Head from 'next/head';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
+import Explore from '@components/Explore';
+import LoadingLayout from '@components/LoadingLayout';
 import { IUser } from '../service/models/IUser';
 import { PostApi } from '../service/post/PostApi';
 import { User } from '../service/User';
@@ -22,8 +24,6 @@ import { PaginatedResults } from '../service/common/PaginatedResult';
 import { ApiError } from '../service/common/ApiError';
 import { initContext } from '../utils/initContext';
 import MessagesMenu from '../components/MessagesMenu/MessagesMenu';
-import Explore from '@components/Explore';
-import LoadingLayout from '@components/LoadingLayout';
 
 export interface HomePageProps {
   user: IUser;

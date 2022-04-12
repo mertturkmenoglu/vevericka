@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import * as React from 'react';
 
-import Link from './Link';
 import { LinkAppearanceAsArray } from '../common';
+import Link from './Link';
 import mock from './Link.mock';
 
 export default {

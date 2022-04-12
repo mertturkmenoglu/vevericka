@@ -1,8 +1,8 @@
 import { Children, useCallback, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/outline';
-import AuthStepperStep, { AuthStepperStepProps } from './AuthStepperStep';
 import { useTranslation } from 'next-i18next';
+import AuthStepperStep, { AuthStepperStepProps } from './AuthStepperStep';
 
 export interface AuthStepperProps {}
 

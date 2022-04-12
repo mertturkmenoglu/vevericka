@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Avatar, { AvatarProps } from './index';
-import mock from './Avatar.mock';
 import axe from 'axe-core';
+import mock from './Avatar.mock';
+import Avatar, { AvatarProps } from './index';
 
 describe('Avatar Unit Tests', () => {
   let props: AvatarProps;

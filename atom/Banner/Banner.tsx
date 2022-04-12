@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { BannerProps } from './Banner.type';
 import clsx from 'clsx';
+import { BannerProps } from './Banner.type';
 import { appearanceMapping } from './Banner.variant';
 
 const Banner: React.FC<BannerProps> = ({ appearance, children, className: cs, ...rest }) => {

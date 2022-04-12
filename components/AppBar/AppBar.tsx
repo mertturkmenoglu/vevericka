@@ -1,8 +1,8 @@
+import clsx from 'clsx';
 import AppBarMenu from './elements/AppBarMenu';
 import AppBarSearch from './elements/AppBarSearch';
 import LogoAndName from './elements/LogoAndName';
 import IconGroup from './elements/IconGroup';
-import clsx from 'clsx';
 
 export interface AppBarProps {
   app?: boolean;

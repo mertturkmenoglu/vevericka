@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { FeedPost } from '@service/common/models/FeedPost';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import { useRouter } from 'next/router';
-import { getDateLocaleFromRouterLocale, getUrl, copyToClipboard } from '../../utils';
-import PostCardMenu from './PostCardMenu';
 import { toast } from 'react-toastify';
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { useTheme } from 'next-themes';
+import { getDateLocaleFromRouterLocale, getUrl, copyToClipboard } from '../../utils';
+import PostCardMenu from './PostCardMenu';
 
 export interface PostCardTitleProps {
   post: FeedPost;

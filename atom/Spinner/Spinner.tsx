@@ -1,6 +1,6 @@
-import type { AppearanceType, SpacingType } from '../common';
 import clsx from 'clsx';
 import { useMemo } from 'react';
+import type { AppearanceType, SpacingType } from '../common';
 import { appearanceMapping, spacingMapping } from './Spinner.variants';
 
 export type SpinnerAppearance = AppearanceType | 'white';

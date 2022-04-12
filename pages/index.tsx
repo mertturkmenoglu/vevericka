@@ -7,12 +7,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { useContext, useEffect } from 'react';
-import LandingAppBar from '../components/LandingAppBar';
-import { ApplicationContext } from '../context/ApplicationContext';
-import { LocalStorage } from '../utils/LocalStorage';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import LandingAppBar from '../components/LandingAppBar';
+import { ApplicationContext } from '../context/ApplicationContext';
+import { LocalStorage } from '../utils/LocalStorage';
 import Seo from '../components/Seo';
 import Banner from '../atom/Banner';
 

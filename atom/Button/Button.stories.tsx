@@ -1,8 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import * as React from 'react';
-
-import Button from './Button';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { DownloadIcon } from '@heroicons/react/outline';
+import Button from './Button';
 
 export default {
   title: 'Atom/Button',

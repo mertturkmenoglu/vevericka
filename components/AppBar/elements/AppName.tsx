@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next';
+import { addResourceBundles } from '@utils/index';
 import translations from '../AppBar.i18n';
 import constants from '../AppBar.constants';
-import { addResourceBundles } from '@utils/index';
 
 export interface AppNameProps {}
 

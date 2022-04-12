@@ -13,15 +13,15 @@ import {
   TranslateIcon,
 } from '@heroicons/react/outline';
 import { signOut } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
+import { addResourceBundles } from '@utils/index';
+import constants from '../../AppBar.constants';
+import translations from '../../AppBar.i18n';
 import MenuProfile from './MenuProfile';
 import LinkItem from './LinkItem';
 import ThemeSwitch from './ThemeSwitch';
 import ButtonItem from './ButtonItem';
 import Copyright from './Copyright';
-import { useTranslation } from 'next-i18next';
-import constants from '../../AppBar.constants';
-import { addResourceBundles } from '@utils/index';
-import translations from '../../AppBar.i18n';
 
 export interface MenuItemsProps {
   username: string;

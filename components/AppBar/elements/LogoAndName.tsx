@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import AppBarLogo from './AppBarLogo';
 import AppName from './AppName';
-import Link from 'next/link';
 
 export interface LogoAndNameProps {}
 

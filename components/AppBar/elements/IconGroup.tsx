@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { appBarIcons } from '../data/appBarIcons';
 import clsx from 'clsx';
-import Tooltip from '../../Tooltip';
 import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '@utils/index';
+import Tooltip from '../../Tooltip';
+import { appBarIcons } from '../data/appBarIcons';
 import constants from '../AppBar.constants';
 import translations from '../AppBar.i18n';
 

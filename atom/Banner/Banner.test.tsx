@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Banner, { BannerProps } from './index';
 import mock from './Banner.mock';
+import Banner, { BannerProps } from './index';
 
 describe('Banner Unit Tests', () => {
   let props: BannerProps;

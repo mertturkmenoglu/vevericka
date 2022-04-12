@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Link, { LinkProps } from './index';
 import mock from './Link.mock';
+import Link, { LinkProps } from './index';
 
 describe('Link Unit Tests', () => {
   let props: LinkProps;

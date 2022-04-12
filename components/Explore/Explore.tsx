@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { useQuery } from 'react-query';
+import { ExploreApi } from '@service/explore/ExploreApi';
+import { TagsAndPeople } from '@service/common/models/TagsAndPeople';
+import { PaginationQuery } from '@service/common/PaginationQuery';
 import ExploreLayout from './ExploreLayout';
 import FollowUserItem from './FollowUserItem';
 import MoreButton from './MoreButton';
 import TagItem from './TagItem';
-import { ExploreApi } from '@service/explore/ExploreApi';
-import { TagsAndPeople } from '@service/common/models/TagsAndPeople';
-import { PaginationQuery } from '@service/common/PaginationQuery';
 
 export interface ExploreProps {}
 

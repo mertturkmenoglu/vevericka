@@ -2,10 +2,10 @@ import React from 'react';
 import { Menu } from '@headlessui/react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import constants from '../../AppBar.constants';
 import { addResourceBundles } from '@utils/index';
+import Avatar from '@atom/Avatar';
+import constants from '../../AppBar.constants';
 import translations from '../../AppBar.i18n';
-import Avatar from '../../../../atom/Avatar';
 
 export interface MenuProfileProps {
   username: string;

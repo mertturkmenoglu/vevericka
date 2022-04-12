@@ -1,19 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { EyeIcon, EyeOffIcon, LockClosedIcon } from '@heroicons/react/outline';
+import { getSession } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+import Cookies from 'universal-cookie';
 import AuthLayout from '../components/AuthLayout';
 import AuthLink from '../components/AuthLink';
 import AuthForm from '../components/AuthForm';
 import { LoginContext } from '../context/LoginContext';
-import { getSession } from 'next-auth/react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import Button from '../atom/Button/Button';
 import TextField from '../atom/TextField/TextField';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
-import Cookies from 'universal-cookie';
 
 export interface LoginPageProps {}
 
