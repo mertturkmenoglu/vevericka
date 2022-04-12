@@ -1,18 +1,20 @@
 import { useContext, useMemo } from 'react';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { EyeIcon, EyeOffIcon, RefreshIcon } from '@heroicons/react/outline';
-import { getSession, signIn } from 'next-auth/react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import router from 'next/router';
-import AuthForm from '../components/AuthForm';
-import AuthInputField from '../components/AuthInputField';
-import AuthLayout from '../components/AuthLayout';
-import AuthButton from '../components/AuthButton';
-import AuthLink from '../components/AuthLink';
-import { RegisterContext } from '../context/RegisterContext';
-import AuthStepper from '../components/AuthStepper';
+
+import { getSession, signIn } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { EyeIcon, EyeOffIcon, RefreshIcon } from '@heroicons/react/outline';
+
+import { RegisterContext } from '@context/RegisterContext';
+import AuthLayout from '@layouts/AuthLayout';
+import AuthForm from '@components/AuthForm';
+import AuthInputField from '@components/AuthInputField';
+import AuthButton from '@components/AuthButton';
+import AuthLink from '@components/AuthLink';
+import AuthStepper from '@components/AuthStepper';
 
 export interface RegisterPageProps {}
 

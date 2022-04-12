@@ -18,7 +18,7 @@ import { ApplicationContext } from '@context/ApplicationContext';
 import { initContext } from '@utils/index';
 
 import Explore from '@components/Explore';
-import LoadingLayout from '@components/LoadingLayout';
+import LoadingLayout from 'layouts/LoadingLayout';
 import AppBar from '@components/AppBar';
 import CreatePost from '@components/CreatePost';
 import HomePageFeed from '@components/HomePageFeed';
