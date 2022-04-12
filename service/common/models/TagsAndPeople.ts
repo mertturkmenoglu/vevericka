@@ -1,4 +1,4 @@
-import { PaginatedResults } from '../PaginatedResult';
+import { PaginatedResults } from '../PaginatedResults';
 import { MinimalUserResponse } from './MinimalUserResponse';
 import { TagWithCount } from './TagWithCount';
 

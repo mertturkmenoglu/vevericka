@@ -1,4 +1,3 @@
-import { Pagination } from './PaginatedResult';
 import { PaginationOrder } from './PaginationOrder';
 
 export class PaginationQuery {
