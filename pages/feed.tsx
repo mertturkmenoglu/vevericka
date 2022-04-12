@@ -3,7 +3,9 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
 import { IUser } from '../service/models/IUser';
 import { PostApi } from '../service/post/PostApi';
 import { User } from '../service/User';
@@ -12,21 +14,16 @@ import CreatePost from '../components/CreatePost';
 import HomePageFeed from '../components/HomePageFeed';
 import ScrollToTopFab from '../components/ScrollToTopFab';
 import { ApplicationContext } from '../context/ApplicationContext';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import CreatePostModal from '../components/CreatePostModal';
 import { FeedPost } from '../service/common/models/FeedPost';
 import { PaginationOrder } from '../service/common/PaginationOrder';
 import { PaginationQuery } from '../service/common/PaginationQuery';
-import Spinner from '../atom/Spinner/Spinner';
-import { QueryFunctionContext, useInfiniteQuery, useQuery } from 'react-query';
 import { PaginatedResults } from '../service/common/PaginatedResult';
 import { ApiError } from '../service/common/ApiError';
 import { initContext } from '../utils/initContext';
 import MessagesMenu from '../components/MessagesMenu/MessagesMenu';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { ExploreApi } from '@service/explore/ExploreApi';
-import { TagsAndPeople } from '@service/common/models/TagsAndPeople';
+import Explore from '@components/Explore';
+import LoadingLayout from '@components/LoadingLayout';
 
 export interface HomePageProps {
   user: IUser;
@@ -38,9 +35,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
   const appContext = useContext(ApplicationContext);
   const { setTheme } = useTheme();
   const postApi = useMemo(() => new PostApi(token), [token]);
-  const exploreApi = useMemo(() => new ExploreApi(), []);
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
-  const image = useCallback((s: string) => (s === 'profile.png' ? '/assets/profile.png' : s), []);
 
   const fetchFeed = async (context: QueryFunctionContext) => {
     const page = context.pageParam as number;
@@ -57,20 +52,6 @@ const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
     return feedResponse.data;
   };
 
-  const fetchTagsAndPeople = async () => {
-    const tagsAndPeopleResponse = await exploreApi.getPopularTagsAndPeople({
-      page: 1,
-      pageSize: 5,
-      order: 'desc',
-    } as PaginationQuery);
-
-    if (!tagsAndPeopleResponse.data) {
-      throw tagsAndPeopleResponse.exception;
-    }
-
-    return tagsAndPeopleResponse.data;
-  };
-
   const {
     isLoading,
     isError,
@@ -80,12 +61,6 @@ const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
   } = useInfiniteQuery<PaginatedResults<FeedPost[]>, ApiError>('feed', fetchFeed, {
     getNextPageParam: (lastPage, _allPages) => lastPage.pagination.currentPage + 1,
   });
-
-  const {
-    isLoading: isExploreLoading,
-    isError: isExploreError,
-    data: exploreData,
-  } = useQuery<TagsAndPeople>('tagsAndPeople', fetchTagsAndPeople);
 
   useEffect(() => {
     initContext(appContext, user, userId);
@@ -116,27 +91,17 @@ const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
                 <CreatePostModal isOpen={isCreatePostModalOpen} setIsOpen={setIsCreatePostModalOpen} />
               </div>
 
-              {isError && (
-                <div className="mt-4 flex justify-center">
-                  <p>An error happened</p>
-                </div>
-              )}
-
-              {isLoading && (
-                <div className="mt-4 flex justify-center">
-                  <Spinner appearance="accent" spacing="medium" />
-                </div>
-              )}
-
-              {feedData && (
-                <HomePageFeed
-                  feed={feedData.pages.map((page) => page.data).flat()}
-                  isFetching={isFetchingNextPage}
-                  onLoadMore={async () => {
-                    await fetchNextPage();
-                  }}
-                />
-              )}
+              <LoadingLayout isLoading={isLoading} isError={isError}>
+                {feedData && (
+                  <HomePageFeed
+                    feed={feedData.pages.map((page) => page.data).flat()}
+                    isFetching={isFetchingNextPage}
+                    onLoadMore={async () => {
+                      await fetchNextPage();
+                    }}
+                  />
+                )}
+              </LoadingLayout>
             </div>
           </div>
         </div>
@@ -144,88 +109,7 @@ const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
         <div className="hidden lg:col-span-1 lg:flex"></div>
 
         <div className="hidden md:col-span-5 md:flex md:flex-col lg:col-span-4">
-          {/* Tags */}
-          <article className={clsx('rounded-md', 'text-midnight', 'p-2', 'bg-white dark:bg-neutral-800')}>
-            <h2 className="border-b-2 border-midnight pb-2 text-xl font-bold dark:text-white">Explore</h2>
-            {isExploreLoading && (
-              <div className="mt-4 flex justify-center">
-                <Spinner appearance="accent" spacing="medium" />
-              </div>
-            )}
-
-            {isExploreError && (
-              <div className="mt-4 flex justify-center">
-                <p>An error happened</p>
-              </div>
-            )}
-
-            <div className="mt-2 flex flex-col space-y-2">
-              {exploreData &&
-                exploreData.tags.data.map((tagObj) => (
-                  <Link href={`/explore/${tagObj.tagName}`} key={tagObj.tagName}>
-                    <a className="flex w-full items-end justify-between text-midnight outline-midnight dark:text-gray-400">
-                      <span className="text-sm">
-                        <span className="text-base font-bold text-primary">#</span>
-                        <span className="ml-2 hover:underline focus:underline">{tagObj.tagName}</span>
-                      </span>
-                      <span className="text-xs hover:underline focus:underline">{tagObj._count.posts} posts</span>
-                    </a>
-                  </Link>
-                ))}
-            </div>
-            <div className="mt-4 w-full">
-              <Link href="/explore">
-                <a className="flex justify-end outline-none" tabIndex={-1}>
-                  <span
-                    className="rounded-full bg-midnight py-1 px-4 text-sm text-white outline-primary duration-100 ease-in-out hover:scale-[1.1]"
-                    tabIndex={0}
-                  >
-                    More
-                  </span>
-                </a>
-              </Link>
-            </div>
-          </article>
-
-          {/* People */}
-          <article className={clsx('rounded-md', 'text-midnight', 'mt-4 p-2', 'bg-white dark:bg-neutral-800')}>
-            <h2 className="border-b-2 border-midnight pb-2 text-xl font-bold dark:text-white">People to follow</h2>
-
-            {isExploreLoading && (
-              <div className="mt-4 flex justify-center">
-                <Spinner appearance="accent" spacing="medium" />
-              </div>
-            )}
-
-            {isExploreError && (
-              <div className="mt-4 flex justify-center">
-                <p>An error happened</p>
-              </div>
-            )}
-
-            <div className="mt-2 flex flex-col space-y-2">
-              {exploreData &&
-                exploreData.people.data.map((user) => (
-                  <div key={`explore-${user.username}`} className="flex items-center justify-between">
-                    <Link href={`/user/${user.username}`}>
-                      <a className="flex w-full items-center justify-start text-midnight outline-midnight dark:text-gray-400">
-                        <img src={image(user.image)} alt="" className="h-10 w-10 rounded-full" />
-                        <div className="ml-2 flex flex-col text-base">
-                          <span className="w-48 truncate text-base font-bold">{user.name}</span>
-                          <div>
-                            <span className="text-base font-bold text-primary">@</span>
-                            <span className="ml-1 hover:underline focus:underline">{user.username}</span>
-                          </div>
-                        </div>
-                      </a>
-                    </Link>
-                    <button className="flex items-center justify-center rounded-full bg-midnight py-1 px-4 text-sm text-white outline-primary duration-100 ease-in-out hover:scale-[1.01]">
-                      Follow
-                    </button>
-                  </div>
-                ))}
-            </div>
-          </article>
+          <Explore />
         </div>
 
         <MessagesMenu />
