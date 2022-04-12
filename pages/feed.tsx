@@ -1,29 +1,30 @@
+import { useContext, useEffect, useMemo, useState } from 'react';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+
 import { getSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
-import Head from 'next/head';
-import { useContext, useEffect, useMemo, useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
+
+import { FeedPost } from '@service/common/models';
+import { PaginationOrder, PaginationQuery, PaginatedResults, ApiError } from '@service/common';
+import { User } from '@service/User';
+import { PostApi } from '@service/post/PostApi';
+import { IUser } from '@service/models/IUser';
+
+import { ApplicationContext } from '@context/ApplicationContext';
+import { initContext } from '@utils/index';
+
 import Explore from '@components/Explore';
 import LoadingLayout from '@components/LoadingLayout';
-import { IUser } from '../service/models/IUser';
-import { PostApi } from '../service/post/PostApi';
-import { User } from '../service/User';
-import AppBar from '../components/AppBar';
-import CreatePost from '../components/CreatePost';
-import HomePageFeed from '../components/HomePageFeed';
-import ScrollToTopFab from '../components/ScrollToTopFab';
-import { ApplicationContext } from '../context/ApplicationContext';
-import CreatePostModal from '../components/CreatePostModal';
-import { FeedPost } from '../service/common/models/FeedPost';
-import { PaginationOrder } from '../service/common/PaginationOrder';
-import { PaginationQuery } from '../service/common/PaginationQuery';
-import { PaginatedResults } from '../service/common/PaginatedResult';
-import { ApiError } from '../service/common/ApiError';
-import { initContext } from '../utils/initContext';
-import MessagesMenu from '../components/MessagesMenu/MessagesMenu';
+import AppBar from '@components/AppBar';
+import CreatePost from '@components/CreatePost';
+import HomePageFeed from '@components/HomePageFeed';
+import ScrollToTopFab from '@components/ScrollToTopFab';
+import CreatePostModal from '@components/CreatePostModal';
+import MessagesMenu from '@components/MessagesMenu/MessagesMenu';
 
 export interface HomePageProps {
   user: IUser;
