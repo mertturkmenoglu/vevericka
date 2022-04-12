@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import LoadingLayout from '@components/LoadingLayout';
+import LoadingLayout from 'layouts/LoadingLayout';
 
 export interface ExploreLayoutProps {
   title: string;
