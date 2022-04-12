@@ -1,12 +1,8 @@
-import { Api } from '@service/common/Api';
-import { AsyncApiResult } from '@service/common/AsyncApiResult';
-import { MinimalUserResponse, Tag } from '@service/common/models';
-import { TagsAndPeople } from '@service/common/models/TagsAndPeople';
-import { TagWithCount } from '@service/common/models/TagWithCount';
-import { PaginatedResults } from '@service/common/PaginatedResult';
-import { PaginationQuery } from '@service/common/PaginationQuery';
 import { AxiosInstance } from 'axios';
-import { createPublicApi } from '../Api';
+
+import { Api, AsyncApiResult, PaginatedResults, PaginationQuery } from '@service/common';
+import { MinimalUserResponse, Tag, TagsAndPeople, TagWithCount } from '@service/common/models';
+import { createPublicApi } from '@service/Api';
 
 export class ExploreApi {
   private get api(): AxiosInstance {
