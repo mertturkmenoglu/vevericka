@@ -4,12 +4,7 @@
     "project": "tsconfig.json",
     "sourceType": "module"
   },
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:prettier/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript"
-  ],
+  "extends": ["plugin:prettier/recommended", "plugin:import/recommended", "plugin:import/typescript"],
   "plugins": ["prettier", "cypress"],
   "env": {
     "cypress/globals": true
@@ -29,6 +24,8 @@
     "@next/next/no-img-element": "off",
     "comma-dangle": ["error", "always-multiline"],
     "cypress/no-unnecessary-waiting": "off",
-    "import/order": "error"
+    "import/order": "error",
+    "import/no-unresolved": "off",
+    "import/no-named-as-default": "off"
   }
 }
