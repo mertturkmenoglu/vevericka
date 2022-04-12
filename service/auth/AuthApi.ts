@@ -1,15 +1,10 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
-import { createPublicApi } from '../Api';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { createPublicApi } from '@service/Api';
 import { IError } from '../models/IError';
 import { LoginResponseDto } from './dto/LoginResponseDto';
 import { LoginRequestDto } from './dto/LoginRequestDto';
 import { RegisterRequestDto } from './dto/RegisterRequestDto';
 import { RegisterResponseDto } from './dto/RegisterResponseDto';
-
-interface ILoginRequest {
-  email: string;
-  password: string;
-}
 
 interface ILoginResponse {
   id: number;
