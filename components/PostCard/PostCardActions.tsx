@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { ArrowCircleDownIcon, ArrowCircleUpIcon, ChatAltIcon } from '@heroicons/react/outline';
@@ -7,15 +7,27 @@ import { FeedPost } from '@service/common/models/FeedPost';
 import { PostApi } from '@service/post/PostApi';
 import { useQueryClient } from 'react-query';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export interface PostCardActionsProps {
   post: FeedPost;
 }
 
 const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
-  const { data: session, status: authStatus } = useSession();
   const [postApi, setPostApi] = useState<PostApi | null>(null);
+
+  const { data: session, status: authStatus } = useSession();
+  const router = useRouter();
   const queryClient = useQueryClient();
+
+  const numberFormatter = useMemo(() => {
+    const locale = router.locale || 'en';
+    return Intl.NumberFormat(locale, {
+      compactDisplay: 'short',
+      notation: 'compact',
+      unitDisplay: 'narrow',
+    });
+  }, [router]);
 
   useEffect(() => {
     if (authStatus !== 'authenticated' || !session) {
@@ -64,7 +76,9 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
               'text-primary dark:text-primary': post.likeStatus === LikeStatus.LIKED,
             })}
           />
-          <span className="ml-1 text-sm text-midnight dark:text-white">{post._count.likes}</span>
+          <span className="ml-1 text-sm text-midnight dark:text-white">
+            {numberFormatter.format(post._count.likes)}
+          </span>
         </button>
         <button className="ml-4 flex items-center" onClick={dislikePost}>
           <ArrowCircleDownIcon
@@ -72,7 +86,9 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
               'text-primary dark:text-primary': post.likeStatus === LikeStatus.DISLIKED,
             })}
           />
-          <span className="ml-1 text-sm text-midnight dark:text-white">{post._count.dislikes}</span>
+          <span className="ml-1 text-sm text-midnight dark:text-white">
+            {numberFormatter.format(post._count.dislikes)}
+          </span>
         </button>
       </div>
       <div className="flex items-center">
@@ -80,7 +96,7 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
           <a className="flex items-center">
             <ChatAltIcon className="ml-4 h-4 w-4 text-primary" />
             <span className="ml-1 text-sm text-midnight hover:underline dark:text-gray-400">
-              {post._count.comments} <span className="sr-only">comments</span>
+              {numberFormatter.format(post._count.comments)} <span className="sr-only">comments</span>
             </span>
           </a>
         </Link>
