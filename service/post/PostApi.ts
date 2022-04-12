@@ -1,12 +1,7 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { createApi } from '../Api';
-import { Api } from '../common/Api';
-import { AsyncApiResult } from '../common/AsyncApiResult';
-import { Post, SinglePost } from '../common/models';
-import { FeedPost } from '../common/models/FeedPost';
-import { NotImplementedApiError } from '../common/NotImplementedApiError';
-import { PaginatedResults } from '../common/PaginatedResult';
-import { PaginationQuery } from '../common/PaginationQuery';
+import { AsyncApiResult, NotImplementedApiError, PaginatedResults, PaginationQuery, Api } from '@service/common';
+import { Post, SinglePost, FeedPost } from '@service/common/models';
+import { createApi } from '@service/Api';
 import { CreatePostDto } from './dto/CreatePostDto';
 
 export class PostApi {
