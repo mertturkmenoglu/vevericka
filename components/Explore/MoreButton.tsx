@@ -1,10 +1,18 @@
-import clsx from 'clsx';
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
+import clsx from 'clsx';
+import { useTranslation } from 'next-i18next';
+
+import { addResourceBundles } from '@utils/index';
+import constants from './Explore.constants';
+import { translations } from './Explore.i18n';
 
 export interface MoreButtonProps {}
 
 const MoreButton: React.FC<MoreButtonProps> = () => {
+  const { t, i18n } = useTranslation(constants.I18N_NS);
+  addResourceBundles(i18n, constants.I18N_NS, translations);
+
   return (
     <Link href="/explore">
       <a className="flex justify-end outline-none" tabIndex={-1}>
@@ -18,7 +26,7 @@ const MoreButton: React.FC<MoreButtonProps> = () => {
           )}
           tabIndex={0}
         >
-          More
+          {t('more')}
         </span>
       </a>
     </Link>
