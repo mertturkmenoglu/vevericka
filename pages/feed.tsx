@@ -79,9 +79,9 @@ const Home: NextPage<HomePageProps> = ({ user, userId, token }) => {
       <main className="mx-auto flex  max-w-[1200px] grid-cols-12 gap-x-12 p-4 sm:grid">
         <div className="hidden xl:col-span-1 xl:flex"></div>
 
-        <div className="home-feed__main-col col-span-full mx-auto sm:col-span-11 md:col-span-7 lg:col-span-6">
+        <div className="home-feed__main-col col-span-full mx-auto w-full sm:col-span-11 md:col-span-7 lg:col-span-6">
           <div className="flex w-full flex-col items-center">
-            <div>
+            <div className="w-full">
               <div className="w-full rounded-md bg-white p-2 dark:bg-neutral-800">
                 <CreatePost
                   image={user?.image || ''}
