@@ -8,6 +8,7 @@ import { PostApi } from '@service/post/PostApi';
 import { useQueryClient } from 'react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { getNumberFormatter } from '@utils/misc';
 
 export interface PostCardActionsProps {
   post: FeedPost;
@@ -19,15 +20,7 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
   const { data: session, status: authStatus } = useSession();
   const router = useRouter();
   const queryClient = useQueryClient();
-
-  const numberFormatter = useMemo(() => {
-    const locale = router.locale || 'en';
-    return Intl.NumberFormat(locale, {
-      compactDisplay: 'short',
-      notation: 'compact',
-      unitDisplay: 'narrow',
-    });
-  }, [router]);
+  const numberFormatter = useMemo(() => getNumberFormatter(router.locale), [router]);
 
   useEffect(() => {
     if (authStatus !== 'authenticated' || !session) {
