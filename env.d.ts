@@ -7,5 +7,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_HCAPTCHA_SECRET: string;
     NEXT_PUBLIC_ALGOLIA_APPLICATION_ID: string;
     NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY: string;
+    NEXT_PUBLIC_SERVICE_URL: string;
   }
 }
