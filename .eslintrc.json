@@ -24,7 +24,67 @@
     "@next/next/no-img-element": "off",
     "comma-dangle": ["error", "always-multiline"],
     "cypress/no-unnecessary-waiting": "off",
-    "import/order": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "internal", "external", "parent", "type"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "next/**",
+            "group": "builtin"
+          },
+          {
+            "pattern": "~/**",
+            "group": "external"
+          },
+          {
+            "pattern": "@service/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@context/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@utils/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@layouts/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@components/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@atom/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@hooks/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "pathGroupsExcludedImportTypes": ["builtin", "builtin", "type"]
+      }
+    ],
     "import/no-unresolved": "off",
     "import/no-named-as-default": "off"
   }
