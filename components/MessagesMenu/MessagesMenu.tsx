@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import clsx from 'clsx';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
+import clsx from 'clsx';
 
 export interface MessagesMenuProps {}
 

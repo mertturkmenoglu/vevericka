@@ -1,18 +1,18 @@
 import React, { useMemo } from 'react';
-import { useQuery } from 'react-query';
 import { useTranslation } from 'next-i18next';
+import { useQuery } from 'react-query';
 
-import { ExploreApi } from '@service/explore/ExploreApi';
 import { TagsAndPeople } from '@service/common/models/TagsAndPeople';
 import { PaginationQuery } from '@service/common/PaginationQuery';
+import { ExploreApi } from '@service/explore/ExploreApi';
 import { addResourceBundles } from '@utils/index';
 
+import constants from './Explore.constants';
+import { translations } from './Explore.i18n';
 import ExploreLayout from './ExploreLayout';
 import FollowUserItem from './FollowUserItem';
 import MoreButton from './MoreButton';
 import TagItem from './TagItem';
-import constants from './Explore.constants';
-import { translations } from './Explore.i18n';
 
 export interface ExploreProps {}
 

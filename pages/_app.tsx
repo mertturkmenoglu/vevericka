@@ -1,18 +1,18 @@
 import '../styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import type { AppProps } from 'next/app';
-import { appWithTranslation } from 'next-i18next';
+import algoliasearch from 'algoliasearch/lite';
 import { SessionProvider } from 'next-auth/react';
+import { appWithTranslation } from 'next-i18next';
 import { ThemeProvider } from 'next-themes';
-import { ToastContainer } from 'react-toastify';
+import { InstantSearch } from 'react-instantsearch-hooks';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch } from 'react-instantsearch-hooks';
+import { ToastContainer } from 'react-toastify';
 import ApplicationContextProvider from '@context/ApplicationContextProvider';
-import RegisterContextProvider from '../context/RegisterContextProvider';
 import LoginContextProvider from '../context/LoginContextProvider';
+import RegisterContextProvider from '../context/RegisterContextProvider';
+import type { AppProps } from 'next/app';
 
 const queryClient = new QueryClient();
 const searchClient = algoliasearch(

@@ -1,6 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 import Tooltip from '@components/Tooltip';
 
 export interface HeaderProps {

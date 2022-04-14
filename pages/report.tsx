@@ -1,9 +1,9 @@
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import AppBar from '@components/AppBar';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import clsx from 'clsx';
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import AppBar from '@components/AppBar';
+import type { NextPage } from 'next';
 
 export interface ReportPageProps {
   reportType: string | string[];

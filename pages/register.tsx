@@ -1,20 +1,20 @@
 import { useContext, useMemo } from 'react';
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
 import router from 'next/router';
+import { EyeIcon, EyeOffIcon, RefreshIcon } from '@heroicons/react/outline';
+import { GetServerSideProps } from 'next';
 
 import { getSession, signIn } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { EyeIcon, EyeOffIcon, RefreshIcon } from '@heroicons/react/outline';
 
 import { RegisterContext } from '@context/RegisterContext';
 import AuthLayout from '@layouts/AuthLayout';
+import AuthButton from '@components/AuthButton';
 import AuthForm from '@components/AuthForm';
 import AuthInputField from '@components/AuthInputField';
-import AuthButton from '@components/AuthButton';
 import AuthLink from '@components/AuthLink';
 import AuthStepper from '@components/AuthStepper';
+import type { NextPage } from 'next';
 
 export interface RegisterPageProps {}
 

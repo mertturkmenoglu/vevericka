@@ -1,5 +1,5 @@
-import { Menu } from '@headlessui/react';
 import Link from 'next/link';
+import { Menu } from '@headlessui/react';
 
 export interface LinkItemProps {
   href: string;

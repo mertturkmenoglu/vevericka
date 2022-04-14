@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '@utils/index';
-import translations from '../AppBar.i18n';
 import constants from '../AppBar.constants';
+import translations from '../AppBar.i18n';
 
 export interface AppBarLogoProps {}
 

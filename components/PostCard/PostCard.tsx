@@ -1,8 +1,8 @@
-import { FeedPost } from '@service/common/models/FeedPost';
 import clsx from 'clsx';
-import PostCardTitle from './PostCardTitle';
-import PostCardContent from './PostCardContent';
+import { FeedPost } from '@service/common/models/FeedPost';
 import PostCardActions from './PostCardActions';
+import PostCardContent from './PostCardContent';
+import PostCardTitle from './PostCardTitle';
 
 export interface PostCardProps {
   post: FeedPost;

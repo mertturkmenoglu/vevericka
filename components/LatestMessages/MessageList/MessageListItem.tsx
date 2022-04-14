@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import React, { useMemo } from 'react';
+import { useRouter } from 'next/router';
+import clsx from 'clsx';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 
 import { getDateLocaleFromRouterLocale } from '@utils/index';
-import { useRouter } from 'next/router';
 
 export interface MessageListItemProps {
   message: any;

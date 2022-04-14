@@ -1,16 +1,16 @@
 import { useContext, useMemo } from 'react';
+import { SunIcon } from '@heroicons/react/outline';
+import { useTranslation } from 'next-i18next';
+import { useTheme } from 'next-themes';
+import Cookies from 'universal-cookie';
 import { ApplicationContext } from '@context/ApplicationContext';
 import { LocalStorage, availableLanguages } from '@utils/index';
-import { useTheme } from 'next-themes';
-import { useTranslation } from 'next-i18next';
-import { SunIcon } from '@heroicons/react/outline';
-import Cookies from 'universal-cookie';
 import Tooltip from '@components/Tooltip';
-import constants from './LandingAppBar.constants';
 import AppIcon from './elements/AppIcon';
-import LandingCustomLink from './elements/LandingCustomLink';
-import ChangeThemeButton from './elements/ChangeLanguage/ChangeThemeButton';
 import ChangeLanguage from './elements/ChangeLanguage';
+import ChangeThemeButton from './elements/ChangeLanguage/ChangeThemeButton';
+import LandingCustomLink from './elements/LandingCustomLink';
+import constants from './LandingAppBar.constants';
 
 export interface LandingAppBarProps {}
 

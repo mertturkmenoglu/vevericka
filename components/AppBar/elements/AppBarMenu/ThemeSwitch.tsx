@@ -1,10 +1,10 @@
-import { Menu, Switch } from '@headlessui/react';
-import { LocalStorage } from '@utils/index';
-import clsx from 'clsx';
 import { useContext } from 'react';
-import { ApplicationContext } from '@context/ApplicationContext';
-import { useForceUpdate } from '@hooks/useForceUpdate';
+import { Menu, Switch } from '@headlessui/react';
+import clsx from 'clsx';
 import { useTheme } from 'next-themes';
+import { ApplicationContext } from '@context/ApplicationContext';
+import { LocalStorage } from '@utils/index';
+import { useForceUpdate } from '@hooks/useForceUpdate';
 
 export interface ThemeSwitchProps {
   text: string;

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
-import { appearanceMapping, sizeMapping } from './Avatar.variant';
 import { AvatarProps } from './Avatar.type';
+import { appearanceMapping, sizeMapping } from './Avatar.variant';
 
 const Avatar: React.FC<AvatarProps> = ({ appearance, label, size, className: cs, ...rest }) => {
   const calcAppearance = useMemo(() => appearanceMapping[appearance], [appearance]);

@@ -17,11 +17,11 @@ import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '@utils/index';
 import constants from '../../AppBar.constants';
 import translations from '../../AppBar.i18n';
-import MenuProfile from './MenuProfile';
-import LinkItem from './LinkItem';
-import ThemeSwitch from './ThemeSwitch';
 import ButtonItem from './ButtonItem';
 import Copyright from './Copyright';
+import LinkItem from './LinkItem';
+import MenuProfile from './MenuProfile';
+import ThemeSwitch from './ThemeSwitch';
 
 export interface MenuItemsProps {
   username: string;

@@ -1,15 +1,15 @@
+import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Dialog, Menu, RadioGroup, Transition } from '@headlessui/react';
 import { CheckIcon, TranslateIcon } from '@heroicons/react/outline';
-import { Fragment, useContext, useEffect, useMemo, useState } from 'react';
-import { ApplicationContext } from '@context/ApplicationContext';
-import { useTheme } from 'next-themes';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useTheme } from 'next-themes';
+import { ApplicationContext } from '@context/ApplicationContext';
 import { addResourceBundles, availableLanguages, LocalStorage } from '@utils/index';
 import constants from '../../AppBar.constants';
 import translations from '../../AppBar.i18n';
-import MenuItems from './MenuItems';
 import MenuIcon from './MenuIcon';
+import MenuItems from './MenuItems';
 
 export interface AppBarMenuProps {}
 

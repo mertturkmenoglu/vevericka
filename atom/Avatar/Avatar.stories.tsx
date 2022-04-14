@@ -1,5 +1,5 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import * as React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { AvatarAppearanceAsArray, AvatarSizeAsArray } from '../common';
 import Avatar from './Avatar';

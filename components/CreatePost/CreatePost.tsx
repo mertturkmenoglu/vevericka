@@ -1,6 +1,6 @@
 import React from 'react';
-import CreatePostTitle from './CreatePostTitle';
 import CreatePostAction from './CreatePostAction';
+import CreatePostTitle from './CreatePostTitle';
 
 export interface CreatePostProps {
   image: string;

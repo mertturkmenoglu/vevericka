@@ -1,20 +1,20 @@
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-import { IUser } from '@service/models/IUser';
-import { User } from '@service/User';
 import { useContext, useEffect, useMemo } from 'react';
-import { ApplicationContext } from '@context/ApplicationContext';
-import { useTheme } from 'next-themes';
 import Head from 'next/head';
-import AppBar from '@components/AppBar';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { initContext } from '@utils/initContext';
-import clsx from 'clsx';
-import { Profile } from '@service/common/models/Profile';
 import Link from 'next/link';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import clsx from 'clsx';
 import format from 'date-fns/format';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTheme } from 'next-themes';
+import { Profile } from '@service/common/models/Profile';
+import { IUser } from '@service/models/IUser';
+import { User } from '@service/User';
+import { ApplicationContext } from '@context/ApplicationContext';
+import { initContext } from '@utils/initContext';
+import AppBar from '@components/AppBar';
+import type { NextPage } from 'next';
 
 export interface UserPageProps {
   username: string;

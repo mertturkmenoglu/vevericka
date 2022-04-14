@@ -1,23 +1,23 @@
 import { useContext, useEffect } from 'react';
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import clsx from 'clsx';
+import { GetServerSideProps } from 'next';
 
 import { getSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTheme } from 'next-themes';
 
-import { User } from '@service/User';
 import { IUser } from '@service/models/IUser';
+import { User } from '@service/User';
 
 import { ApplicationContext } from '@context/ApplicationContext';
 import { initContext } from '@utils/index';
 
 import MessagesLayout from '@layouts/MessagesLayout';
 import AppBar from '@components/AppBar';
-import LatestMessages from '@components/LatestMessages';
 import ConversationPanel from '@components/ConversationPanel';
-import clsx from 'clsx';
+import LatestMessages from '@components/LatestMessages';
+import type { NextPage } from 'next';
 
 export interface MessagesPageProps {
   user: IUser;

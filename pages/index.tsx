@@ -1,20 +1,20 @@
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
+import * as React from 'react';
+import { useContext, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as React from 'react';
-import { useContext, useEffect } from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTheme } from 'next-themes';
+import Banner from '../atom/Banner';
 import LandingAppBar from '../components/LandingAppBar';
+import Seo from '../components/Seo';
 import { ApplicationContext } from '../context/ApplicationContext';
 import { LocalStorage } from '../utils/LocalStorage';
-import Seo from '../components/Seo';
-import Banner from '../atom/Banner';
+import type { NextPage } from 'next';
 
 export interface LandingPageProps {}
 

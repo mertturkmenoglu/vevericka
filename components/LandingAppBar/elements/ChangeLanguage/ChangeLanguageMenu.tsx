@@ -1,5 +1,5 @@
-import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { Menu, Transition } from '@headlessui/react';
 import { IAvailableLanguage } from '@utils/index';
 import ChangeLanguageMenuItem from './ChangeLanguageMenuItem';
 

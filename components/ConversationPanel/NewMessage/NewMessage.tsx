@@ -1,6 +1,6 @@
-import clsx from 'clsx';
 import React from 'react';
 import { ArrowRightIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 
 export interface NewMessageProps {}
 

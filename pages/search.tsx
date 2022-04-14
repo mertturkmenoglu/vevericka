@@ -1,11 +1,11 @@
-import type { NextPage } from 'next';
+import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Head from 'next/head';
 import { Hit } from '../components/Hit';
 import { Hits } from '../components/Hits';
 import { SearchBox } from '../components/SearchBox';
+import type { NextPage } from 'next';
 
 export interface SearchPageProps {}
 

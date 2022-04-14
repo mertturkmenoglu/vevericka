@@ -1,6 +1,6 @@
 import React from 'react';
-import { Menu } from '@headlessui/react';
 import Link from 'next/link';
+import { Menu } from '@headlessui/react';
 import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '@utils/index';
 import Avatar from '@atom/Avatar';

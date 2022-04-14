@@ -1,19 +1,19 @@
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { getSession } from 'next-auth/react';
-import { User } from '@service/User';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { IUser } from '@service/models/IUser';
 import { useContext, useEffect } from 'react';
+import Head from 'next/head';
+import clsx from 'clsx';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTheme } from 'next-themes';
+import { IUser } from '@service/models/IUser';
+import { User } from '@service/User';
 import { ApplicationContext } from '@context/ApplicationContext';
 import { initContext } from '@utils/index';
-import AppBar from '@components/AppBar';
-import clsx from 'clsx';
 import NotificationsLayout from '@layouts/NotificationsLayout';
+import AppBar from '@components/AppBar';
 import NotificationFeed from '@components/NotificationFeed';
 import NotificationOptions from '@components/NotificationOptions';
+import type { NextPage } from 'next';
 
 export interface NotificationsPageProps {
   user: IUser;

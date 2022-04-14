@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { IAvailableLanguage } from '@utils/index';
-import ChangeLanguageMenuButton from './ChangeLanguageMenuButton';
 import ChangeLanguageMenu from './ChangeLanguageMenu';
+import ChangeLanguageMenuButton from './ChangeLanguageMenuButton';
 
 export interface ChangeLanguageProps {
   altText: string;

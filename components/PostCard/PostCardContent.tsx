@@ -1,7 +1,7 @@
+import React, { Fragment, useMemo, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import React, { Fragment, useMemo, useState } from 'react';
 import { FeedPost } from '@service/common/models/FeedPost';
 import { getYoutubeIframe, preparePostText } from '@utils/index';
 

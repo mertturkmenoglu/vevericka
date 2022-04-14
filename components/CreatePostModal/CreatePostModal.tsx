@@ -1,11 +1,11 @@
-import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { CalendarIcon, LocationMarkerIcon, PhotographIcon, VideoCameraIcon, XIcon } from '@heroicons/react/outline';
 import { useTranslation } from 'next-i18next';
 import { addResourceBundles } from '@utils/index';
-import { CalendarIcon, LocationMarkerIcon, PhotographIcon, VideoCameraIcon, XIcon } from '@heroicons/react/outline';
 import Tooltip from '@components/Tooltip';
-import translations from './CreatePostModal.i18n';
 import constants from './CreatePostModal.constants';
+import translations from './CreatePostModal.i18n';
 
 export interface CreatePostModalProps {
   isOpen: boolean;

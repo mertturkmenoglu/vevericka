@@ -1,7 +1,7 @@
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import type { NextPage } from 'next';
 
 export interface SettingsPageProps {}
 

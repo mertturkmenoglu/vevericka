@@ -1,8 +1,8 @@
-import { getDateLocaleFromRouterLocale } from '@utils/index';
+import React, { useCallback, useMemo } from 'react';
+import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { useRouter } from 'next/router';
-import React, { useCallback, useMemo } from 'react';
+import { getDateLocaleFromRouterLocale } from '@utils/index';
 
 export interface MainContentProps {
   messages: any[];

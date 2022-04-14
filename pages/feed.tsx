@@ -1,30 +1,30 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import LoadingLayout from 'layouts/LoadingLayout';
+import { GetServerSideProps } from 'next';
 
 import { getSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTheme } from 'next-themes';
 import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
 
-import { FeedPost } from '@service/common/models';
 import { PaginationOrder, PaginationQuery, PaginatedResults, ApiError } from '@service/common';
-import { User } from '@service/User';
-import { PostApi } from '@service/post/PostApi';
+import { FeedPost } from '@service/common/models';
 import { IUser } from '@service/models/IUser';
+import { PostApi } from '@service/post/PostApi';
+import { User } from '@service/User';
 
 import { ApplicationContext } from '@context/ApplicationContext';
 import { initContext } from '@utils/index';
 
-import Explore from '@components/Explore';
-import LoadingLayout from 'layouts/LoadingLayout';
 import AppBar from '@components/AppBar';
 import CreatePost from '@components/CreatePost';
-import HomePageFeed from '@components/HomePageFeed';
-import ScrollToTopFab from '@components/ScrollToTopFab';
 import CreatePostModal from '@components/CreatePostModal';
+import Explore from '@components/Explore';
+import HomePageFeed from '@components/HomePageFeed';
 import MessagesMenu from '@components/MessagesMenu/MessagesMenu';
+import ScrollToTopFab from '@components/ScrollToTopFab';
+import type { NextPage } from 'next';
 
 export interface HomePageProps {
   user: IUser;

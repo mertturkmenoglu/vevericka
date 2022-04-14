@@ -1,6 +1,6 @@
 import { Children, useCallback, useEffect, useMemo, useState } from 'react';
-import clsx from 'clsx';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 import { useTranslation } from 'next-i18next';
 import AuthStepperStep, { AuthStepperStepProps } from './AuthStepperStep';
 

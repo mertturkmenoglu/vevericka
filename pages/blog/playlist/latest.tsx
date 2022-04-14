@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { GetServerSideProps } from 'next';
 import { Blog } from '../../../service/Blog';
 import { IPlaylist } from '../../../service/models/IPlaylist';
+import type { NextPage } from 'next';
 
 export interface LatestPlaylistPageProps {
   playlist: IPlaylist;

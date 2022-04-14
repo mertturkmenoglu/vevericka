@@ -1,7 +1,7 @@
+import { Fragment, useEffect, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import { Fragment, useEffect, useState } from 'react';
 
 export interface ScrollToTopFabProps {
   bottom: string;
