@@ -21,6 +21,7 @@ export class Auth {
 
   public static async login(email: string, password: string): Promise<ILoginResponse | null> {
     try {
+      console.log(process.env.NEXT_PUBLIC_SERVICE_URL);
       const response = await Auth.api.post<any, AxiosResponse<LoginResponseDto>, LoginRequestDto>('/login', {
         email,
         password,
