@@ -1,5 +1,5 @@
-import type { AppearanceType, SpacingType } from '../common';
 import { SpinnerAppearance } from '../Spinner';
+import type { AppearanceType, SpacingType } from '../common';
 
 export const spacingMapping: Record<SpacingType, string> = {
   compact: 'px-2 py-1 text-xs',
