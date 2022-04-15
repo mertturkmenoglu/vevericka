@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { DownloadIcon } from '@heroicons/react/outline';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Button from './Button';
 
 export default {
