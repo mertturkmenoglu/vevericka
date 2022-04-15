@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ArrowCircleDownIcon, ArrowCircleUpIcon, ChatAltIcon } from '@heroicons/react/outline';
+import { ChatAltIcon, ThumbDownIcon, ThumbUpIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import { useQueryClient } from 'react-query';
@@ -64,7 +64,7 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
     <div className="mt-4 flex w-full items-center justify-between">
       <div className="flex">
         <button className="flex items-center" onClick={likePost}>
-          <ArrowCircleUpIcon
+          <ThumbUpIcon
             className={clsx('h-4 w-4', 'text-midnight dark:text-white', {
               'text-primary dark:text-primary': post.likeStatus === LikeStatus.LIKED,
             })}
@@ -74,7 +74,7 @@ const PostCardActions: React.FC<PostCardActionsProps> = ({ post }) => {
           </span>
         </button>
         <button className="ml-4 flex items-center" onClick={dislikePost}>
-          <ArrowCircleDownIcon
+          <ThumbDownIcon
             className={clsx('h-4 w-4', 'text-midnight dark:text-white', {
               'text-primary dark:text-primary': post.likeStatus === LikeStatus.DISLIKED,
             })}
