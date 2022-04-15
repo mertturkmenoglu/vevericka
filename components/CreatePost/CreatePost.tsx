@@ -11,7 +11,7 @@ export interface CreatePostProps {
 
 const CreatePost: React.FC<CreatePostProps> = ({ image, name, username, openModal }) => {
   return (
-    <div className="group">
+    <div className="group rounded-lg">
       <div className="flex justify-between">
         <CreatePostTitle image={image} name={name} username={username} openModal={openModal} />
       </div>
