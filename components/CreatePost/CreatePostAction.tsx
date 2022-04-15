@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
@@ -7,6 +7,7 @@ import { useQueryClient } from 'react-query';
 import { PostApi } from '@service/post/PostApi';
 import { addResourceBundles } from '@utils/index';
 import Tooltip from '@components/Tooltip';
+import Button from '@atom/Button';
 import constants from './CreatePost.constants';
 import { translations } from './CreatePost.i18n';
 
@@ -16,14 +17,17 @@ const CreatePostAction: React.FC<CreatePostActionProps> = () => {
   const { t, i18n } = useTranslation(constants.I18N_NS);
   addResourceBundles(i18n, constants.I18N_NS, translations);
   const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const { data: session } = useSession();
   const queryClient = useQueryClient();
 
   const createPost = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (!session) {
+      setIsLoading(false);
       return;
     }
 
@@ -36,12 +40,14 @@ const CreatePostAction: React.FC<CreatePostActionProps> = () => {
     });
 
     if (!response) {
+      setIsLoading(false);
       return;
     }
 
     queryClient.invalidateQueries('feed');
     queryClient.refetchQueries('feed');
     setText('');
+    setIsLoading(false);
   };
 
   return (
@@ -75,9 +81,13 @@ const CreatePostAction: React.FC<CreatePostActionProps> = () => {
           </Tooltip>
         </div>
 
-        <button className="text-sm font-medium text-midnight dark:text-gray-400" onClick={createPost}>
-          {t('post')}
-        </button>
+        <Button
+          appearance="primary"
+          text={t('post')}
+          onClick={createPost}
+          loading={isLoading}
+          className="rounded-full py-1 text-sm"
+        />
       </div>
     </>
   );
