@@ -23,8 +23,9 @@ const FollowUserItem: React.FC<FollowUserItemProps> = ({ user }) => {
       className={clsx(
         'flex items-center justify-between',
         'px-2 py-1',
-        'hover:rounded-md hover:bg-primary hover:bg-opacity-10',
-        'focus:rounded-md focus:bg-primary focus:bg-opacity-10',
+        'rounded-md',
+        'transition duration-200 ease-in-out',
+        'bg-transparent hover:bg-paper-100 dark:hover:bg-paper-400',
       )}
     >
       <Link href={`/user/${user.username}`}>

@@ -30,16 +30,17 @@ const TagItem: React.FC<TagItemProps> = ({ tag }) => {
           'flex items-center justify-between',
           'w-full px-2 py-1',
           'text-midnight dark:text-gray-400',
-          'outline-primary',
-          'hover:rounded-full hover:bg-primary hover:bg-opacity-10',
-          'focus:rounded-full focus:bg-primary focus:bg-opacity-10',
+          'outline-midnight dark:outline-paper-100',
+          'rounded-full',
+          'transition duration-200 ease-in-out',
+          'hover:bg-paper-100 dark:hover:bg-paper-400',
         )}
       >
         <span className="text-sm">
           <span className="text-base font-bold text-primary">#</span>
-          <span className="ml-2 hover:underline focus:underline">{tag.tagName}</span>
+          <span className="ml-2">{tag.tagName}</span>
         </span>
-        <span className="text-xs hover:underline focus:underline">{postsCountText}</span>
+        <span className="text-xs">{postsCountText}</span>
       </a>
     </Link>
   );

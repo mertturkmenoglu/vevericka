@@ -19,7 +19,7 @@ const MoreButton: React.FC<MoreButtonProps> = () => {
         <span
           className={clsx(
             'rounded-full',
-            'bg-midnight text-white outline-primary',
+            'bg-midnight text-white outline-primary ',
             'py-1 px-4',
             'text-sm',
             'duration-100 ease-in-out hover:scale-[1.01]',
