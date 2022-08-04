@@ -21,7 +21,7 @@ function AppLogo({ variant, className }: AppLogoProps): JSX.Element {
           alt="Application icon"
         />
       )}
-      {showText && <div className={clsx('text-2xl font-light text-midnight dark:text-white')}>Vevericka</div>}
+      {showText && <div className={clsx('font-lato text-xl font-medium text-midnight dark:text-white')}>Vevericka</div>}
     </div>
   );
 }
