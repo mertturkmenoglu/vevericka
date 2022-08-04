@@ -1,13 +1,10 @@
 /*noinspection CssUnknownTarget*/
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
-@import 'app-bar.css';
-@import 'auth.css';
 
 .font-lato {
-    font-family: 'Lato', sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
