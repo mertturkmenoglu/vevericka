@@ -3,6 +3,7 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common", "languages"],
-    "/": ["landing"]
+    "/": ["landing"],
+    "/login": ["login", "auth"]
   }
 }

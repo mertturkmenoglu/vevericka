@@ -4,13 +4,17 @@
   "form": {
     "email": {
       "label": "Email",
-      "placeholder": "Email"
+      "placeholder": "Email",
+      "validation": {
+        "required": "Email is required"
+      }
     },
     "password": {
       "label": "Password",
       "placeholder": "Password",
-      "appendIconAltShow": "Show password",
-      "appendIconAltHide": "Hide password"
+      "validation": {
+        "required": "Password is required"
+      }
     },
     "button": {
       "text": "Login"

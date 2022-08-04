@@ -4,13 +4,17 @@
   "form": {
     "email": {
       "label": "E-posta",
-      "placeholder": "E-posta"
+      "placeholder": "E-posta",
+      "validation": {
+        "required": "E-posta adresi giriniz"
+      }
     },
     "password": {
       "label": "Şifre",
       "placeholder": "Şifre",
-      "appendIconAltShow": "Şifreyi göster",
-      "appendIconAltHide": "Şifreyi gizle"
+      "validation": {
+        "required": "Şifrenizi giriniz"
+      }
     },
     "button": {
       "text": "Giriş yap"
