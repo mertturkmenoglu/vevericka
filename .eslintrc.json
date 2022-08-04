@@ -1,91 +1,33 @@
 {
-  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "unused-imports"],
+  "extends": [
+    "airbnb-typescript",
+    "next",
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
     "project": "tsconfig.json",
-    "sourceType": "module"
-  },
-  "extends": ["plugin:prettier/recommended", "plugin:import/recommended", "plugin:import/typescript"],
-  "plugins": ["prettier", "cypress"],
-  "env": {
-    "cypress/globals": true
+    "tsconfigRootDir": "."
   },
   "rules": {
-    "no-console": "error",
-    "no-debugger": "error",
-    "indent": ["error", 2],
-    "quotes": [
-      "error",
-      "single",
-      {
-        "avoidEscape": true
-      }
-    ],
-    "semi": ["error", "always"],
+    "react/destructuring-assignment": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/require-default-props": "off",
     "@next/next/no-img-element": "off",
-    "comma-dangle": ["error", "always-multiline"],
-    "cypress/no-unnecessary-waiting": "off",
-    "import/order": [
-      "error",
-      {
-        "groups": ["builtin", "internal", "external", "parent", "type"],
-        "pathGroups": [
-          {
-            "pattern": "react",
-            "group": "builtin",
-            "position": "before"
-          },
-          {
-            "pattern": "next/**",
-            "group": "builtin"
-          },
-          {
-            "pattern": "~/**",
-            "group": "external"
-          },
-          {
-            "pattern": "@service/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@context/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@utils/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@layouts/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@components/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@atom/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@hooks/**",
-            "group": "external",
-            "position": "after"
-          }
-        ],
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        },
-        "pathGroupsExcludedImportTypes": ["builtin", "builtin", "type"]
-      }
-    ],
-    "import/no-unresolved": "off",
-    "import/no-named-as-default": "off"
+    "@typescript-eslint/no-unused-vars": "error",
+    "quotes": ["error", "single"],
+    "import/prefer-default-export": "off",
+    "unused-imports/no-unused-imports": "error",
+    "react/jsx-props-no-spreading": "off",
+    "unused-imports/no-unused-vars": ["error", { "argsIgnorePattern": "_" }],
+    "no-unused-vars": [2, { "args": "all", "argsIgnorePattern": "_" }],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "no-console": "off",
+    "no-underscore-dangle": "off"
   }
 }
