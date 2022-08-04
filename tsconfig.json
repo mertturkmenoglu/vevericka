@@ -37,7 +37,7 @@
       "@context/*": ["src/context/*"],
       "@hooks/*": ["src/ooks/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@service/*": ["src/service/*"],
+      "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],
       "@templates/*": ["src/templates/*"]
     },
