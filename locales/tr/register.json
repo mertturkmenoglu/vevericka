@@ -1,0 +1,41 @@
+{
+  "pageTitle": "Kaydol | Vevericka",
+  "formTitle": "Kaydol",
+  "form": {
+    "email": {
+      "label": "E-posta",
+      "placeholder": "E-posta"
+    },
+    "username": {
+      "label": "Kullanıcı Adı",
+      "placeholder": "Kullanıcı Adı"
+    },
+    "name": {
+      "label": "İsim",
+      "placeholder": "İsim"
+    },
+    "password": {
+      "label": "Şifre",
+      "placeholder": "Şifre",
+      "appendIconAltShow": "Şifreyi göster",
+      "appendIconAltHide": "Şifreyi gizle"
+    },
+    "betaCode": {
+      "label": "Beta Kodu",
+      "placeholder": "Beta Kodu"
+    },
+    "button": {
+      "text": "Kaydol"
+    },
+    "links": {
+      "login": {
+        "text": "Hesabınız var mı?",
+        "cta": "Giriş yapın"
+      },
+      "reset": {
+        "text": "Şifrenizi mi unuttunuz?",
+        "cta": "Sıfırlayın"
+      }
+    }
+  }
+}
