@@ -16,5 +16,10 @@
   },
   "banner": {
     "text": "Vevericka stands with Ukraine \uD83C\uDDFA\uD83C\uDDE6"
+  },
+  "appBar": {
+    "changeLanguage": "Change Language",
+    "changeTheme": "Change Theme",
+    "login": "Login"
   }
 }

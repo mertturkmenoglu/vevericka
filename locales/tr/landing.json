@@ -16,5 +16,10 @@
   },
   "banner": {
     "text": "Vevericka Ukrayna'nın yanında \uD83C\uDDFA\uD83C\uDDE6"
+  },
+  "appBar": {
+    "changeLanguage": "Dil Değiştir",
+    "changeTheme": "Tema Değiştir",
+    "login": "Giriş Yap"
   }
 }
