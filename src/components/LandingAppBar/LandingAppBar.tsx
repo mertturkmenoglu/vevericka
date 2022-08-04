@@ -16,7 +16,12 @@ function LandingAppBar({ className }: LandingAppBarProps): JSX.Element {
   const { t } = useTranslation('landing');
 
   return (
-    <nav className={clsx('flex items-center justify-between rounded-full px-8 py-4 dark:bg-neutral-800', className)}>
+    <nav
+      className={clsx(
+        'flex items-center justify-between rounded-full bg-paper-50 px-8 py-4 dark:bg-neutral-800',
+        className
+      )}
+    >
       <Link href="/">
         <a>
           <AppLogo variant="lockup" />
