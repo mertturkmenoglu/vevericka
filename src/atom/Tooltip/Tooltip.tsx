@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useTheme } from 'next-themes';
 import ReactTooltip from 'react-tooltip';
 import clsx from 'clsx';
@@ -8,9 +8,10 @@ export interface TooltipProps {
   position?: 'top' | 'bottom' | 'left' | 'right';
   effect?: 'solid' | 'float';
   className?: string;
+  children: React.ReactNode;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ children, text, position = 'top', effect = 'solid', className }) => {
+function Tooltip({ children, text, position = 'top', effect = 'solid', className }: TooltipProps): JSX.Element {
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const { theme: themeFromHook } = useTheme();
   const theme = useMemo(() => (themeFromHook === 'dark' ? 'dark' : 'light'), [themeFromHook]);
@@ -21,6 +22,8 @@ const Tooltip: React.FC<TooltipProps> = ({ children, text, position = 'top', eff
       data-tip={text}
       ref={tooltipRef}
       className={clsx('flex items-center', className)}
+      onMouseLeave={() => ReactTooltip.hide(tooltipRef.current ?? undefined)}
+      onBlur={() => ReactTooltip.hide(tooltipRef.current ?? undefined)}
     >
       {children}
       <ReactTooltip
@@ -31,6 +34,6 @@ const Tooltip: React.FC<TooltipProps> = ({ children, text, position = 'top', eff
       />
     </div>
   );
-};
+}
 
 export default Tooltip;
