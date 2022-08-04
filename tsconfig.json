@@ -35,7 +35,7 @@
       "@atom/*": ["src/atom/*"],
       "@components/*": ["src/components/*"],
       "@context/*": ["src/context/*"],
-      "@hooks/*": ["src/ooks/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
       "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],
@@ -43,7 +43,7 @@
     },
     "incremental": true
   },
-  "exclude": ["node_modules", ".next", "out"],
+  "exclude": ["node_modules", ".next", "out", "old"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
