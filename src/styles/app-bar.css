@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+  .app-bar-icon {
+    @apply w-12 h-12 text-primary ml-2 hover:bg-primary hover:bg-opacity-10 rounded-full p-2;
+  }
+}
