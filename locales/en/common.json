@@ -1,3 +1,26 @@
 {
-  "appName": "Vevericka"
+  "appName": "Vevericka",
+  "appBar": {
+    "menu": {
+      "profile": {
+        "viewYourProfile": "View your profile"
+      },
+      "explore": "Explore",
+      "bookmarks": "Bookmarks",
+      "settings": "Settings",
+      "darkMode": "Dark Mode",
+      "logout": "Logout",
+      "displayLanguage": "Display Language",
+      "help": "Help",
+      "contact": "Contact",
+      "report": "Report",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "status": "Status",
+      "languageDialog": {
+        "title": "Change Display Language",
+        "change": "Change"
+      }
+    }
+  }
 }
