@@ -1,0 +1,27 @@
+{
+  "pageTitle": "Şifre Sıfırlama | Vevericka",
+  "formTitle": "Şifre Sıfırlama",
+  "form": {
+    "email": {
+      "label": "E-posta",
+      "placeholder": "E-posta",
+      "validation": {
+        "required": "E-posta adresinizi giriniz"
+      }
+    },
+    "button": {
+      "text": "Sıfırla"
+    },
+    "genericErrorMessage": "Servis hazır değil",
+    "links": {
+      "login": {
+        "text": "Hesabınız var mı?",
+        "cta": "Giriş yapın"
+      },
+      "register": {
+        "text": "Yeni kullanıcı mısınız?",
+        "cta": "Kaydolun"
+      }
+    }
+  }
+}

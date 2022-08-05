@@ -5,6 +5,7 @@
     "*": ["common", "languages"],
     "/": ["landing"],
     "/login": ["login", "auth"],
-    "/register": ["register", "auth"]
+    "/register": ["register", "auth"],
+    "/reset": ["reset", "auth"]
   }
 }
