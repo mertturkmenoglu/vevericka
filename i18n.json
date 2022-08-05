@@ -4,6 +4,7 @@
   "pages": {
     "*": ["common", "languages"],
     "/": ["landing"],
-    "/login": ["login", "auth"]
+    "/login": ["login", "auth"],
+    "/register": ["register", "auth"]
   }
 }
