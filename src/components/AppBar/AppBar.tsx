@@ -18,6 +18,7 @@ function AppBar({ app = false, className }: AppBarProps): JSX.Element {
           'container mx-auto max-w-5xl': !app,
           'w-full': app,
         },
+        'rounded-none lg:rounded-full',
         'flex justify-between rounded-full bg-paper-50 px-8 py-2 dark:bg-midnight',
         className
       )}
