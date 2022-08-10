@@ -3,14 +3,14 @@ import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { Provider as JotaiProvider } from 'jotai';
 
 import '@styles/globals.css';
 import { ThemeProvider } from 'next-themes';
-import AppContextProvider from '@context/AppContext/AppContextProvider';
 
 function Application({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <AppContextProvider>
+    <JotaiProvider>
       <QueryClientProvider client={new QueryClient()}>
         <SessionProvider session={pageProps.session}>
           <ThemeProvider attribute="class">
@@ -19,7 +19,7 @@ function Application({ Component, pageProps }: AppProps): JSX.Element {
           </ThemeProvider>
         </SessionProvider>
       </QueryClientProvider>
-    </AppContextProvider>
+    </JotaiProvider>
   );
 }
 
