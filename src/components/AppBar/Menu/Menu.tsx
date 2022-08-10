@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import clsx from 'clsx';
 import { Dialog, Menu, RadioGroup, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon, TranslateIcon } from '@heroicons/react/outline';
@@ -6,7 +6,8 @@ import { useLanguages } from '@hooks/useLanguages';
 import setLanguage from 'next-translate/setLanguage';
 import useTranslation from 'next-translate/useTranslation';
 import MenuItems from './MenuItems';
-import { AppContext } from '@context/AppContext';
+import { useAtom } from 'jotai';
+import { userAtom } from '@context/jotai';
 
 export interface AppBarMenuProps {
   className?: string;
@@ -14,7 +15,7 @@ export interface AppBarMenuProps {
 
 function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
   const { t } = useTranslation('common');
-  const ctx = useContext(AppContext);
+  const [user] = useAtom(userAtom);
   const [isLanguageDialogOpen, setIsLanguageDialogOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const { langs } = useLanguages();
@@ -44,8 +45,8 @@ function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
               className="absolute -right-6 mt-6 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-700"
             >
               <MenuItems
-                username={ctx.user.username}
-                userImage={ctx.user.image}
+                username={user.username}
+                userImage={user.image}
                 toggleLanguageDialog={setIsLanguageDialogOpen}
               />
             </Menu.Items>
