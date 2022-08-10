@@ -1,11 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import type { NextPage } from 'next';
-import { AppBar } from '@components/AppBar';
-import { GetUserByUsernameResponse, UserApi } from '@services/user';
-import { AppContext } from '@context/AppContext';
+import { GetUserByUsernameResponse, UserApi } from '@services/index';
+import LoadingLayout from '@layouts/LoadingLayout';
+import { HomepageFeed, AppBar } from '@components/index';
+import { useUserImage } from '@hooks/index';
+import { useAtom } from 'jotai';
+import { userAtom } from '@context/jotai';
+import { useHomepageFeed } from '@components/HomepageFeed/useHomepageFeed';
 
 export interface FeedPageProps {
   user: GetUserByUsernameResponse;
@@ -13,19 +17,23 @@ export interface FeedPageProps {
   token: string;
 }
 
-const FeedPage: NextPage<FeedPageProps> = ({ user }) => {
-  const ctx = useContext(AppContext);
+const FeedPage: NextPage<FeedPageProps> = ({ user, token }) => {
+  const [, setAppUser] = useAtom(userAtom);
+  const userImage = useUserImage(user.image);
+  const { isLoading, isError, feedData, fetchNextPage, isFetchingNextPage } = useHomepageFeed({
+    token,
+    username: user.username,
+  });
 
   useEffect(() => {
-    ctx.setUser((prev) => ({
-      ...prev,
+    setAppUser({
       email: user.email,
       name: user.name,
-      image: user.image === 'profile.png' ? '/assets/profile.png' : user.image,
+      image: userImage,
       userId: user.id,
       username: user.username,
-    }));
-  });
+    });
+  }, [user, setAppUser, userImage]);
 
   return (
     <>
@@ -33,8 +41,29 @@ const FeedPage: NextPage<FeedPageProps> = ({ user }) => {
         <title>Vevericka</title>
       </Head>
       <header>
-        <AppBar className="mt-0 lg:mt-4" />
+        <AppBar
+          className="mt-0 rounded-none lg:mt-4"
+          width="medium"
+        />
       </header>
+      <main className="mx-auto max-w-5xl">
+        <LoadingLayout
+          isLoading={isLoading}
+          isError={isError}
+        >
+          {feedData && (
+            <div className="w-full md:w-2/3">
+              <HomepageFeed
+                feed={feedData.pages.map((page) => page.data).flat()}
+                isFetching={isFetchingNextPage}
+                onLoadMore={async () => {
+                  await fetchNextPage();
+                }}
+              />
+            </div>
+          )}
+        </LoadingLayout>
+      </main>
     </>
   );
 };
