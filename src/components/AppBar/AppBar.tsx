@@ -5,21 +5,28 @@ import { IconGroup } from './IconGroup';
 import { Menu } from './Menu';
 import Link from 'next/link';
 
+export type AppBarWidth = 'full' | 'large' | 'medium';
+
 export interface AppBarProps {
-  app?: boolean;
+  width?: AppBarWidth;
   className?: string;
 }
 
-function AppBar({ app = false, className }: AppBarProps): JSX.Element {
+function AppBar({ width = 'large', className }: AppBarProps): JSX.Element {
   return (
     <nav
       className={clsx(
         {
-          'container mx-auto max-w-5xl': !app,
-          'w-full': app,
+          'w-full': width === 'full',
+          'max-w-7xl': width === 'large',
+          'max-w-5xl': width === 'medium',
+          'container mx-auto': width !== 'full',
         },
-        'rounded-none lg:rounded-full',
-        'flex justify-between rounded-full bg-paper-50 px-8 py-2 dark:bg-midnight',
+        'rounded-none',
+        {
+          'lg:rounded-full': width !== 'full',
+        },
+        'flex justify-between bg-paper-50 px-8 py-2 dark:bg-midnight',
         className
       )}
     >
