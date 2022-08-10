@@ -68,7 +68,7 @@ export class PostApi {
 
   public async likePost(postId: number): AsyncApiResult<boolean> {
     try {
-      await this.api.post(`/${postId}/like`);
+      await this.api.post(`/post/${postId}/like`);
       return {
         data: true,
       };
