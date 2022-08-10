@@ -147,7 +147,7 @@ const RegisterPage: NextPage = () => {
             className="mt-4"
             label={t('form.betaCode.label')}
             type="text"
-            placeholder={t('form.password.placeholder')}
+            placeholder={t('form.betaCode.placeholder')}
             {...register('betaCode', { required: t('form.betaCode.validation.required') })}
             error={{
               message: errors.betaCode?.message,
