@@ -42,17 +42,17 @@ const FeedPage: NextPage<FeedPageProps> = ({ user, token }) => {
       </Head>
       <header>
         <AppBar
-          className="mt-0 rounded-none lg:mt-4"
-          width="medium"
+          className="mt-0 rounded-none md:mt-4"
+          width="small"
         />
       </header>
-      <main className="mx-auto max-w-5xl">
+      <main className="mx-auto flex max-w-5xl">
         <LoadingLayout
           isLoading={isLoading}
           isError={isError}
         >
           {feedData && (
-            <div className="w-full md:w-2/3">
+            <div className="mx-auto w-full md:w-2/3">
               <HomepageFeed
                 feed={feedData.pages.map((page) => page.data).flat()}
                 isFetching={isFetchingNextPage}
