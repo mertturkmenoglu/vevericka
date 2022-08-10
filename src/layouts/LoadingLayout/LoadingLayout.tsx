@@ -5,6 +5,7 @@ export interface LoadingLayoutProps {
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
+  children: React.ReactNode;
 }
 
 const LoadingLayout: React.FC<LoadingLayoutProps> = ({
@@ -24,7 +25,10 @@ const LoadingLayout: React.FC<LoadingLayoutProps> = ({
   if (isLoading) {
     return (
       <div className="mt-4 flex justify-center">
-        <Spinner appearance="accent" spacing="medium" />
+        <Spinner
+          appearance="accent"
+          spacing="medium"
+        />
       </div>
     );
   }
