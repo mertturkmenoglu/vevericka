@@ -28,7 +28,7 @@ function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
         >
           <Menu.Button className="m-0 flex items-center justify-center">
             <span className="sr-only">{t('appBar.menu.desc')}</span>
-            <ChevronDownIcon className="ml-2 h-12 w-12 rounded-full p-2 text-primary hover:bg-primary hover:bg-opacity-10" />
+            <ChevronDownIcon className="h-12 w-12 rounded-full p-2 text-primary hover:bg-primary hover:bg-opacity-10" />
           </Menu.Button>
           <Transition
             as={Fragment}
