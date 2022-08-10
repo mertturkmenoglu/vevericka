@@ -1,4 +1,4 @@
-import { createApi } from '@services/api';
+import { createApi } from '@services/index';
 import { AxiosInstance } from 'axios';
 import { GetUserByUsernameRequest, GetUserByUsernameResponse } from './dto';
 

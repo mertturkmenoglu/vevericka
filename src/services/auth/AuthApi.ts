@@ -1,4 +1,4 @@
-import { createApi } from '@services/api';
+import { createApi } from '@services/index';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { LoginRequest, LoginResponse, RegisterError, RegisterRequest, RegisterResponse } from './dto';
 
