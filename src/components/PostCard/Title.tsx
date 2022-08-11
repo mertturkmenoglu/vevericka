@@ -26,18 +26,19 @@ function Title({ post }: TitleProps): JSX.Element {
           />
         </a>
       </Link>
-      <Link href={`/user/${post.user.username}`}>
-        <a className="ml-2">
-          <div className="flex items-center">
-            <p className="text-xl hover:underline">{post.user.name}</p>
-            {post.user.verified && <BadgeCheckIcon className="ml-1 mt-1 h-4 w-4 text-primary" />}
-          </div>
 
-          <Link href={`/post/${post.id}`}>
-            <a className="text-xs text-slate-700 hover:underline dark:text-paper-200">{formattedDate}</a>
+      <div className="ml-4">
+        <div className="flex items-center">
+          <Link href={`/user/${post.user.username}`}>
+            <a className="text-2xl hover:underline">{post.user.name}</a>
           </Link>
-        </a>
-      </Link>
+          {post.user.verified && <BadgeCheckIcon className="ml-1 mt-1 h-4 w-4 text-primary" />}
+        </div>
+
+        <Link href={`/post/${post.id}`}>
+          <a className="text-sm text-slate-700 hover:underline dark:text-paper-200">{formattedDate}</a>
+        </Link>
+      </div>
     </div>
   );
 }
