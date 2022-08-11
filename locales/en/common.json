@@ -1,7 +1,15 @@
 {
   "appName": "Vevericka",
   "appBar": {
+    "icons": {
+      "tooltips": {
+        "search": "Search",
+        "messages": "Messages",
+        "notifications": "Notifications"
+      }
+    },
     "menu": {
+      "desc": "Application Menu",
       "profile": {
         "viewYourProfile": "View your profile"
       },
@@ -19,7 +27,8 @@
       "status": "Status",
       "languageDialog": {
         "title": "Change Display Language",
-        "change": "Change"
+        "change": "Change",
+        "languages": "Languages"
       }
     }
   }
