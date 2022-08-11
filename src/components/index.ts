@@ -6,3 +6,4 @@ export { PostCard } from './PostCard';
 export { LoginForm } from './LoginForm';
 export { RegisterForm } from './RegisterForm';
 export { ResetForm } from './ResetForm';
+export { MessageBox } from './MessageBox';
