@@ -5,7 +5,7 @@ import { getSession } from 'next-auth/react';
 import type { NextPage } from 'next';
 import { GetUserByUsernameResponse, UserApi } from '@services/index';
 import LoadingLayout from '@layouts/LoadingLayout';
-import { HomepageFeed, AppBar } from '@components/index';
+import { HomepageFeed, AppBar, MessageBox } from '@components/index';
 import { useUserImage } from '@hooks/index';
 import { useAtom } from 'jotai';
 import { userAtom } from '@context/jotai';
@@ -64,6 +64,8 @@ const FeedPage: NextPage<FeedPageProps> = ({ user, token }) => {
           )}
         </LoadingLayout>
       </main>
+
+      <MessageBox />
     </>
   );
 };
