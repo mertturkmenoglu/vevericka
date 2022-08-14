@@ -7,3 +7,4 @@ export * from './api';
 export * from './PaginationOrder';
 export * from './PaginationQuery';
 export * from './PaginatedResults';
+export * from './ContentfulMedia';
