@@ -45,31 +45,26 @@ const UserPage: NextPage<UserPageProps> = ({ user, username, currentUser }) => {
         />
       </header>
 
-      <main className={clsx('mx-4 mt-4 sm:mx-auto', 'rounded-md', ' bg-white dark:bg-neutral-800', 'max-w-3xl')}>
-        <div className="flex flex-col items-center justify-center rounded-md border-4 border-midnight p-16 pb-8">
-          <div className="flex flex-col items-center justify-center lg:flex-row">
-            <Avatar
-              src={userImage}
-              label="Profile Picture"
-              appearance="circle"
-              size="xxlarge"
-            />
-            <div className="mt-16 flex flex-col items-center lg:mt-0 lg:ml-32">
-              <div className="flex items-center">
-                <h1 className="mt-0 text-center text-4xl font-bold text-midnight">{user.name}</h1>
-                {user.verified && <BadgeCheckIcon className="ml-1 mt-1 h-6 w-6 text-primary" />}
-              </div>
-
-              <h2 className="mt-2 text-lg font-medium text-primary">@{user.username}</h2>
+      <main className={clsx('mx-4 mt-4 sm:mx-auto', 'max-w-3xl')}>
+        <div className="flex flex-col items-center justify-center border-b-2 border-midnight pb-8 dark:border-white lg:mt-8 lg:flex-row lg:justify-start lg:pb-0">
+          <Avatar
+            src={userImage}
+            label="Profile Picture"
+            appearance="circle"
+            size="xxlarge"
+          />
+          <div className="mt-8 flex flex-col items-center lg:mt-0 lg:ml-8 lg:items-start">
+            <div className="flex items-center">
+              <h1 className="mt-0 text-center text-4xl font-bold text-midnight dark:text-white">{user.name}</h1>
+              {user.verified && <BadgeCheckIcon className="ml-1 mt-1 h-6 w-6 text-primary" />}
             </div>
-          </div>
-          <div className="mt-8">
-            <p className="text-xl font-semibold italic text-midnight">{user.description}</p>
+
+            <h2 className="mt-2 text-lg font-medium text-primary">@{user.username}</h2>
           </div>
         </div>
 
         <div className="mx-auto mt-4 flex w-full">
-          <pre className="mx-auto w-full rounded-md border-4 border-midnight py-3 px-2 text-midnight">
+          <pre className="mx-auto w-full rounded-md border-4 border-midnight py-3 px-2 text-midnight dark:border-white dark:text-white">
             {JSON.stringify({ currentUser, user }, null, 2)}
           </pre>
         </div>
