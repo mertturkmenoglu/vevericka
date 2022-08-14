@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { createApi, AsyncApiResult, handleApiError, PaginationQuery, PaginatedResults } from '@services/index';
+import { createApi, handleApiError, PaginationQuery, PaginatedResults, ApiResult } from '@services/index';
 import { FeedPost, SinglePost } from './dto';
 
 export class PostApi {
@@ -9,7 +9,7 @@ export class PostApi {
     this.api = axiosInstance ? axiosInstance : createApi(token);
   }
 
-  public async getPostById(postId: number): AsyncApiResult<SinglePost> {
+  public async getPostById(postId: number): Promise<ApiResult<SinglePost>> {
     try {
       const response = await this.api.get<SinglePost>(`/post/${postId}`);
       return {
@@ -47,7 +47,7 @@ export class PostApi {
   public async getFeedByUsername(
     username: string,
     paginationQuery: PaginationQuery
-  ): AsyncApiResult<PaginatedResults<FeedPost[]>> {
+  ): Promise<ApiResult<PaginatedResults<FeedPost[]>>> {
     try {
       const response = await this.api.get<PaginatedResults<FeedPost[]>>(`/post/user/${username}/feed`, {
         params: {
@@ -66,7 +66,7 @@ export class PostApi {
     }
   }
 
-  public async likePost(postId: number): AsyncApiResult<boolean> {
+  public async likePost(postId: number): Promise<ApiResult<boolean>> {
     try {
       await this.api.post(`/post/${postId}/like`);
       return {
@@ -79,7 +79,7 @@ export class PostApi {
     }
   }
 
-  public async dislikePost(postId: number): AsyncApiResult<boolean> {
+  public async dislikePost(postId: number): Promise<ApiResult<boolean>> {
     try {
       await this.api.post(`/post/${postId}/dislike`);
       return {
@@ -92,7 +92,7 @@ export class PostApi {
     }
   }
 
-  public async likeNone(postId: number): AsyncApiResult<boolean> {
+  public async likeNone(postId: number): Promise<ApiResult<boolean>> {
     try {
       await this.api.post(`/post/${postId}/like-none`);
       return {

@@ -119,7 +119,7 @@ function Content({ post }: ContentProps): JSX.Element {
                     )}
 
                     <img
-                      src={post.images[selectedImageIndex]!.url}
+                      src={post.images[selectedImageIndex]?.url ?? ''}
                       alt=""
                       className="mx-auto my-auto w-10/12 object-contain"
                     />
