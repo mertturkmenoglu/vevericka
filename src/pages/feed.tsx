@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import type { NextPage } from 'next';
-import { GetUserByUsernameResponse, UserApi } from '@services/index';
+import { GetUserByUsernameResponse, UserApi } from '@services/user';
 import LoadingLayout from '@layouts/LoadingLayout';
 import { HomepageFeed, AppBar, MessageBox } from '@components/index';
 import { useUserImage } from '@hooks/index';
@@ -50,6 +50,7 @@ const FeedPage: NextPage<FeedPageProps> = ({ user, token }) => {
         <LoadingLayout
           isLoading={isLoading}
           isError={isError}
+          className="mx-auto"
         >
           {feedData && (
             <div className="mx-auto w-full md:w-2/3">
