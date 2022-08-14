@@ -12,7 +12,7 @@ export interface AuthLayoutProps {
   children: React.ReactNode;
 }
 
-const AuthLayout = ({ pageTitle, formTitle, children }: AuthLayoutProps) => {
+function AuthLayout({ pageTitle, formTitle, children }: AuthLayoutProps): JSX.Element {
   const { t } = useTranslation('auth');
 
   return (
@@ -50,6 +50,6 @@ const AuthLayout = ({ pageTitle, formTitle, children }: AuthLayoutProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default AuthLayout;
