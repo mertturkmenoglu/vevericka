@@ -18,7 +18,7 @@
     "allowUnreachableCode": false,
     "noFallthroughCasesInSwitch": true,
     "strictFunctionTypes": true,
-    "target": "ESNext",
+    "target": "ES5",
     "outDir": "out",
     "declaration": true,
     "sourceMap": true,
