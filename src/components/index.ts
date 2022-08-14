@@ -7,3 +7,4 @@ export { LoginForm } from './LoginForm';
 export { RegisterForm } from './RegisterForm';
 export { ResetForm } from './ResetForm';
 export { MessageBox } from './MessageBox';
+export { SearchSection } from './SearchSection';

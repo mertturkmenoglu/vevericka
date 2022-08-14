@@ -34,6 +34,8 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             'mt-1 py-2 text-sm font-medium text-midnight',
             'outline-none',
             'placeholder:text-sm placeholder:font-light',
+            'dark:placeholder:text-paper-400',
+            'dark:text-white',
             inputClassName
           )}
           {...props}
