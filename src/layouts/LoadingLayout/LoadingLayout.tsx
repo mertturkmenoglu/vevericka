@@ -1,22 +1,25 @@
 import React from 'react';
 import Spinner from 'src/atom/Spinner/Spinner';
+import clsx from 'clsx';
 
 export interface LoadingLayoutProps {
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
 const LoadingLayout: React.FC<LoadingLayoutProps> = ({
   isLoading,
   isError,
   children,
+  className,
   errorMessage = 'An error happened',
 }) => {
   if (isError) {
     return (
-      <div className="mt-4 flex justify-center">
+      <div className={clsx('mt-4 flex justify-center', className)}>
         <p>{errorMessage}</p>
       </div>
     );
@@ -24,7 +27,7 @@ const LoadingLayout: React.FC<LoadingLayoutProps> = ({
 
   if (isLoading) {
     return (
-      <div className="mt-4 flex justify-center">
+      <div className={clsx('mt-4 flex justify-center', className)}>
         <Spinner
           appearance="accent"
           spacing="medium"
