@@ -14,10 +14,6 @@
 
 * * *
 
-## Related Repositories
-
-* [Vevericka Backend Services](https://github.com/mertturkmenoglu/vevericka-backend)
-
 # Contributing
 
 * See the <a href="https://github.com/mertturkmenoglu/vevericka-web-client/blob/master/CONTRIBUTING.md">
