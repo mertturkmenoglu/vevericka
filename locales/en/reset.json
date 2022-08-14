@@ -1,0 +1,27 @@
+{
+  "pageTitle": "Reset | Vevericka",
+  "formTitle": "Password Reset",
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "Email",
+      "validation": {
+        "required": "Email is required"
+      }
+    },
+    "button": {
+      "text": "Reset"
+    },
+    "genericErrorMessage": "Not yet implemented",
+    "links": {
+      "login": {
+        "text": "Already have an account?",
+        "cta": "Login"
+      },
+      "register": {
+        "text": "New user?",
+        "cta": "Register"
+      }
+    }
+  }
+}

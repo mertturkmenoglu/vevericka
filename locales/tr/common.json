@@ -1,0 +1,26 @@
+{
+  "appName": "Vevericka",
+  "appBar": {
+    "menu": {
+      "profile": {
+        "viewYourProfile": "Profilinizi görüntüleyin"
+      },
+      "explore": "Keşfet",
+      "bookmarks": "Kaydedilenler",
+      "settings": "Ayarlar",
+      "darkMode": "Gece Modu",
+      "logout": "Çıkış Yap",
+      "displayLanguage": "Dil Değiştir",
+      "help": "Yardım",
+      "contact": "İletişim",
+      "report": "Şikayet",
+      "terms": "Kullanım Koşulları",
+      "privacy": "Gizlilik",
+      "status": "Durum",
+      "languageDialog": {
+        "title": "Dil Değiştir",
+        "change": "Değiştir"
+      }
+    }
+  }
+}

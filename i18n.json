@@ -1,0 +1,11 @@
+{
+  "locales": ["en", "tr"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common", "languages"],
+    "/": ["landing"],
+    "/login": ["login", "auth"],
+    "/register": ["register", "auth"],
+    "/reset": ["reset", "auth"]
+  }
+}

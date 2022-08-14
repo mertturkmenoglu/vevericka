@@ -1,0 +1,25 @@
+{
+  "title": "Vik! Vik! Vik!",
+  "content": "Sana doğruyu söyleyeceğim: Biz sincaplara bayılıyoruz. Konuşmayı ve paylaşmayı da seviyoruz. Peki neden bunları bir araya getirmiyoruz? Sincap temalı bir sosyal medya. Vaov. Di mi? Sen de var mısın? Yoksa daha çok vikleyip kafanı şişirmem mi lazım?",
+  "cta": "Giriş yap",
+  "login": "Giriş",
+  "register": "Kaydol",
+  "langDescription": "Dil değiştir",
+  "meta": {
+    "twitter": {
+      "imageAlt": "Vevericka Logo"
+    }
+  },
+  "themeIconAlt": {
+    "light": "Gece moduna geç",
+    "dark": "Gece modunu kapat"
+  },
+  "banner": {
+    "text": "Vevericka Ukrayna'nın yanında \uD83C\uDDFA\uD83C\uDDE6"
+  },
+  "appBar": {
+    "changeLanguage": "Dil Değiştir",
+    "changeTheme": "Tema Değiştir",
+    "login": "Giriş Yap"
+  }
+}

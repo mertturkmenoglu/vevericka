@@ -1,4 +1,9 @@
-const { i18n } = require('./next-i18next.config');
+const nextTranslate = require('next-translate');
+
+/* eslint-disable import/no-extraneous-dependencies */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const securityHeaders = [
   {
@@ -28,10 +33,15 @@ const securityHeaders = [
 ];
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+module.exports = withBundleAnalyzer(nextTranslate({
   reactStrictMode: true,
   poweredByHeader: false,
-  i18n,
+  swcMinify: false,
+  i18n: {
+    localeDetection: false,
+    locales: ['en-US', 'tr'],
+    defaultLocale: 'en-US',
+  },
   async headers() {
     return [
       {
@@ -41,4 +51,4 @@ module.exports = {
       },
     ];
   },
-};
+}));
