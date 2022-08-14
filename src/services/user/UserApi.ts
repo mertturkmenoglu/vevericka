@@ -17,4 +17,13 @@ export class UserApi {
       return null;
     }
   }
+
+  public async getProfileByUsername(username: string): Promise<GetUserByUsernameResponse | null> {
+    try {
+      const response = await this.api.get<GetUserByUsernameResponse>(`/user/${username}/profile`);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
 }
