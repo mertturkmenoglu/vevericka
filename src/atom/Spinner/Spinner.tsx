@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import type { SpinnerAppearance, SpinnerSpacing } from './Spinner.styles';
+import type { SpinnerAppearance, SpinnerSpacing } from '@atom/common';
 import { appearanceMapping, spacingMapping } from './Spinner.styles';
 
 export interface SpinnerAtomicProps {

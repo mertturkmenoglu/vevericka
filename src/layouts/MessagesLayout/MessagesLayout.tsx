@@ -3,6 +3,7 @@ import React from 'react';
 
 export interface MessagesLayoutProps {
   className?: string;
+  children: React.ReactNode;
 }
 
 const MessagesLayout: React.FC<MessagesLayoutProps> = ({ children, className }) => {
@@ -16,7 +17,7 @@ const MessagesLayout: React.FC<MessagesLayoutProps> = ({ children, className }) 
         'min-w-[768px]',
         '',
         '',
-        className,
+        className
       )}
     >
       {children}

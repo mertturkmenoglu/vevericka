@@ -3,6 +3,7 @@ import React from 'react';
 
 export interface NotificationsLayoutProps {
   className?: string;
+  children: React.ReactNode;
 }
 
 const NotificationsLayout: React.FC<NotificationsLayoutProps> = ({ children, className }) => {
@@ -16,7 +17,7 @@ const NotificationsLayout: React.FC<NotificationsLayoutProps> = ({ children, cla
         'min-w-[768px]',
         '',
         '',
-        className,
+        className
       )}
     >
       {children}
