@@ -50,6 +50,7 @@ function Content({ post }: ContentProps): JSX.Element {
                   'rounded-md object-cover'
                 )}
               />
+              <span className="sr-only">{postImage.id} Click to view</span>
             </button>
           ))}
         </div>

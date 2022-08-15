@@ -10,7 +10,7 @@ export interface SingleIconProps {
   className?: string;
 }
 
-function SingleIcon({ Icon, href, isMobileOnly }: SingleIconProps): JSX.Element {
+function SingleIcon({ Icon, href, isMobileOnly, tooltip }: SingleIconProps): JSX.Element {
   return (
     <Link href={href}>
       <a>
@@ -19,6 +19,7 @@ function SingleIcon({ Icon, href, isMobileOnly }: SingleIconProps): JSX.Element 
             'sm:hidden': isMobileOnly,
           })}
         />
+        <span className="sr-only">{tooltip}</span>
       </a>
     </Link>
   );
