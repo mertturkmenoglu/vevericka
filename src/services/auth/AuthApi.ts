@@ -9,20 +9,11 @@ export class AuthApi {
     this.api = axiosInstance ? axiosInstance : createApi();
   }
 
-  public async login(dto: LoginRequest): Promise<LoginResponse | null> {
+  public async login(dto: LoginRequest): Promise<AxiosResponse<LoginResponse> | null> {
     try {
       const response = await this.api.post<unknown, AxiosResponse<LoginResponse>, LoginRequest>('/auth/login', dto);
-
-      const { id, username, email: emailFromResponse, image } = response.data;
-      const token = response.headers.authorization;
-
-      return {
-        id,
-        username,
-        token: token || '',
-        image,
-        email: emailFromResponse,
-      };
+      console.log('login op', response.headers);
+      return response;
     } catch (e) {
       return null;
     }
