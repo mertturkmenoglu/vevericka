@@ -19,6 +19,7 @@ import { signOut } from 'next-auth/react';
 import MenuProfile from './MenuProfile';
 import ThemeSwitch from './ThemeSwitch';
 import ButtonItem from './ButtonItem';
+import { AuthApi } from '@services/auth';
 
 export interface MenuItemsProps {
   toggleLanguageDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,6 +62,8 @@ function MenuItems({ toggleLanguageDialog, className }: MenuItemsProps): JSX.Ele
         <ButtonItem
           text={t('appBar.menu.logout')}
           onClick={async () => {
+            const api = new AuthApi();
+            await api.logout();
             await signOut();
           }}
           icon={LogoutIcon}
