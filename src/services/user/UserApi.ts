@@ -5,8 +5,8 @@ import { GetUserByUsernameRequest, GetUserByUsernameResponse } from './dto';
 export class UserApi {
   private api: AxiosInstance;
 
-  constructor(token: string, axiosInstance?: AxiosInstance) {
-    this.api = axiosInstance ? axiosInstance : createApi(token);
+  constructor(axiosInstance?: AxiosInstance) {
+    this.api = axiosInstance ? axiosInstance : createApi();
   }
 
   public async getUserByUsername(dto: GetUserByUsernameRequest): Promise<GetUserByUsernameResponse | null> {
