@@ -42,4 +42,13 @@ export class AuthApi {
       };
     }
   }
+
+  public async logout(): Promise<boolean> {
+    try {
+      await this.api.post('/auth/logout');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }
