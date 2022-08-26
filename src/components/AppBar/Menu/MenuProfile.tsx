@@ -3,20 +3,20 @@ import { Menu } from '@headlessui/react';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link';
 import React from 'react';
+import { useAtom } from 'jotai';
+import { userAtom } from '@context/jotai';
+import { useUserImage } from '@hooks/useUserImage';
 
-export interface MenuProfileProps {
-  username: string;
-  userImage: string;
-}
-
-function MenuProfile({ username, userImage }: MenuProfileProps): JSX.Element {
+function MenuProfile(): JSX.Element {
+  const [user] = useAtom(userAtom);
+  const userImage = useUserImage(user.image);
   const { t, lang } = useTranslation('common');
 
   return (
     <Menu.Item>
       {() => (
         <Link
-          href={`/user/${username}`}
+          href={`/user/${user.username}`}
           locale={lang}
         >
           <a className="flex">
@@ -28,7 +28,7 @@ function MenuProfile({ username, userImage }: MenuProfileProps): JSX.Element {
               className="m-2"
             />
             <div className="mt-2 flex flex-col">
-              <span className="text-sm font-medium text-primary">@{username}</span>
+              <span className="text-sm font-medium text-primary">@{user.username}</span>
               <span className="text-xs font-light text-neutral-500 dark:text-neutral-400">
                 {t('appBar.menu.profile.viewYourProfile')}
               </span>

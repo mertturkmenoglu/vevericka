@@ -21,13 +21,11 @@ import ThemeSwitch from './ThemeSwitch';
 import ButtonItem from './ButtonItem';
 
 export interface MenuItemsProps {
-  username: string;
-  userImage: string;
   toggleLanguageDialog: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
 }
 
-function MenuItems({ username, userImage, toggleLanguageDialog, className }: MenuItemsProps): JSX.Element {
+function MenuItems({ toggleLanguageDialog, className }: MenuItemsProps): JSX.Element {
   const { t } = useTranslation('common');
   const year = useMemo(() => {
     return new Date().getFullYear();
@@ -36,10 +34,7 @@ function MenuItems({ username, userImage, toggleLanguageDialog, className }: Men
   return (
     <div className={clsx(className)}>
       <div className="px-2 py-1">
-        <MenuProfile
-          username={username}
-          userImage={userImage}
-        />
+        <MenuProfile />
       </div>
 
       <div className="px-2 py-1">
