@@ -1,39 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import type { NextPage } from 'next';
-import { GetUserByUsernameResponse, UserApi } from '@services/user';
 import LoadingLayout from '@layouts/LoadingLayout';
 import { HomepageFeed, AppBar, MessageBox } from '@components/index';
-import { useUserImage } from '@hooks/index';
-import { useAtom } from 'jotai';
-import { userAtom } from '@context/jotai';
+import { useAppUser } from '@hooks/index';
 import { useHomepageFeed } from '@components/HomepageFeed/useHomepageFeed';
 
 export interface FeedPageProps {
-  user: GetUserByUsernameResponse;
-  userId: number;
-  token: string;
+  username: string;
 }
 
-const FeedPage: NextPage<FeedPageProps> = ({ user, token }) => {
-  const [, setAppUser] = useAtom(userAtom);
-  const userImage = useUserImage(user.image);
-  const { isLoading, isError, feedData, fetchNextPage, isFetchingNextPage } = useHomepageFeed({
-    token,
-    username: user.username,
-  });
+const FeedPage: NextPage<FeedPageProps> = ({ username }) => {
+  useAppUser({ username });
 
-  useEffect(() => {
-    setAppUser({
-      email: user.email,
-      name: user.name,
-      image: userImage,
-      userId: user.id,
-      username: user.username,
-    });
-  }, [user, setAppUser, userImage]);
+  const { isLoading, isError, feedData, fetchNextPage, isFetchingNextPage } = useHomepageFeed({
+    username,
+  });
 
   return (
     <>
@@ -71,7 +55,7 @@ const FeedPage: NextPage<FeedPageProps> = ({ user, token }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<FeedPageProps> = async (context) => {
   const session = await getSession(context);
 
   if (!session || !session.user) {
@@ -83,24 +67,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const userApi = new UserApi(session.jwt);
-
-  const user = await userApi.getUserByUsername({ username: session.username });
-
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/error',
-        permanent: false,
-      },
-    };
-  }
-
   return {
     props: {
-      user,
-      userId: session.id as number,
-      token: session.jwt,
+      username: session.username,
     },
   };
 };
