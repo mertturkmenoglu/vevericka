@@ -5,8 +5,8 @@ import { FeedPost, SinglePost } from './dto';
 export class PostApi {
   private api: AxiosInstance;
 
-  constructor(token: string, axiosInstance?: AxiosInstance) {
-    this.api = axiosInstance ? axiosInstance : createApi(token);
+  constructor(axiosInstance?: AxiosInstance) {
+    this.api = axiosInstance ? axiosInstance : createApi();
   }
 
   public async getPostById(postId: number): Promise<ApiResult<SinglePost>> {
