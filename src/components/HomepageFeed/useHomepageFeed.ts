@@ -3,12 +3,11 @@ import { ApiError, FeedPost, PaginatedResults, PaginationOrder, PaginationQuery,
 import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
 
 export interface HomepageFeedOptions {
-  token: string;
   username: string;
 }
 
-export function useHomepageFeed({ token, username }: HomepageFeedOptions) {
-  const postApi = useRef(new PostApi(token)).current;
+export function useHomepageFeed({ username }: HomepageFeedOptions) {
+  const postApi = useRef(new PostApi()).current;
 
   const fetchFeed = async (context: QueryFunctionContext) => {
     const page = context.pageParam as number;
