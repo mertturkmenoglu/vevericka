@@ -1,62 +1,64 @@
-import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { AuthApi } from '@services/index';
+import { AuthApi } from '@services/auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export default NextAuth({
-  providers: [
-    CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-        email: {},
-        password: {},
-      },
-      async authorize(credentials) {
-        if (!credentials) {
-          return null;
+const nextAuthOptions = (_req: NextApiRequest, res: NextApiResponse): NextAuthOptions => {
+  return {
+    providers: [
+      CredentialsProvider({
+        name: 'Credentials',
+        credentials: {
+          email: {},
+          password: {},
+        },
+        async authorize(credentials) {
+          if (!credentials) {
+            return null;
+          }
+
+          const api = new AuthApi();
+          const response = await api.login({
+            email: credentials.email,
+            password: credentials.password,
+          });
+
+          if (!response) {
+            return null;
+          }
+
+          res.setHeader('Set-Cookie', response.headers['set-cookie'] ?? '');
+
+          return {
+            email: credentials.email,
+            username: response.data.username,
+          };
+        },
+      }),
+    ],
+    callbacks: {
+      jwt: ({ token, user }) => {
+        if (user) {
+          token.email = user?.email;
+          token.username = user?.username;
         }
 
-        const api = new AuthApi();
-        const response = await api.login({
-          email: credentials.email,
-          password: credentials.password,
-        });
-
-        if (!response) {
-          return null;
-        }
-
-        return {
-          email: credentials.email,
-          id: response.id,
-          username: response.username,
-          token: response.token,
-          image: response.image,
-        };
+        return token;
       },
-    }),
-  ],
-  callbacks: {
-    jwt: ({ token, user }) => {
-      if (user) {
-        token.email = user?.email;
-        token.id = user?.id;
-        token.username = user?.username;
-        token.jwt = user?.token;
-      }
+      session: ({ session, token }) => {
+        session.email = token.email || '';
+        session.username = token.username as string;
 
-      return token;
+        return session;
+      },
     },
-    session: ({ session, token }) => {
-      session.email = token.email || '';
-      session.id = token.id as number;
-      session.username = token.username as string;
-      session.jwt = token.jwt as string;
+    pages: {
+      signIn: '/login',
+    },
+    secret: process.env.JWT_SECRET,
+  };
+};
 
-      return session;
-    },
-  },
-  pages: {
-    signIn: '/login',
-  },
-  secret: process.env.JWT_SECRET,
-});
+export default (req: NextApiRequest, res: NextApiResponse) => {
+  return NextAuth(req, res, nextAuthOptions(req, res));
+};
