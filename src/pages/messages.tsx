@@ -1,35 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import type { NextPage } from 'next';
-import { GetUserByUsernameResponse, UserApi } from '@services/user';
 import { AppBar } from '@components/index';
-import { useUserImage } from '@hooks/index';
-import { useAtom } from 'jotai';
-import { userAtom } from '@context/jotai';
+import { useAppUser, useUserImage } from '@hooks/index';
 import { Avatar } from '@atom/Avatar';
 import { ChevronDownIcon, DotsVerticalIcon, PencilAltIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 
 export interface MessagesPageProps {
-  user: GetUserByUsernameResponse;
-  userId: number;
+  username: string;
 }
 
-const MessagesPage: NextPage<MessagesPageProps> = ({ user }) => {
-  const [, setAppUser] = useAtom(userAtom);
-  const userImage = useUserImage(user.image);
-
-  useEffect(() => {
-    setAppUser({
-      email: user.email,
-      name: user.name,
-      image: userImage,
-      userId: user.id,
-      username: user.username,
-    });
-  }, [user, setAppUser, userImage]);
+const MessagesPage: NextPage<MessagesPageProps> = ({ username }) => {
+  const { data } = useAppUser({ username });
+  const userImage = useUserImage(data?.image ?? '');
 
   return (
     <>
@@ -144,23 +130,9 @@ export const getServerSideProps: GetServerSideProps<MessagesPageProps> = async (
     };
   }
 
-  const userApi = new UserApi(session.jwt);
-
-  const user = await userApi.getUserByUsername({ username: session.username });
-
-  if (!user) {
-    return {
-      redirect: {
-        destination: '/error',
-        permanent: false,
-      },
-    };
-  }
-
   return {
     props: {
-      user,
-      userId: session.id as number,
+      username: session.username,
     },
   };
 };
