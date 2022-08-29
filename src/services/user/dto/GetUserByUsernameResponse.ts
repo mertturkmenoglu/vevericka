@@ -27,6 +27,14 @@ export interface GetUserByUsernameResponse {
 
   bannerImage: string;
 
+  isFollowedByThisUser: boolean;
+
+  isThisUser: boolean;
+
+  followersCount: number;
+
+  followingCount: number;
+
   // gender: GenderOptions;
 
   // genderOther: string | null;
