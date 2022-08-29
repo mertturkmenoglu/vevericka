@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -9,9 +9,19 @@ import '@styles/globals.css';
 import { ThemeProvider } from 'next-themes';
 
 function Application({ Component, pageProps }: AppProps): JSX.Element {
+  const queryClient = useRef(
+    new QueryClient({
+      defaultOptions: {
+        queries: {
+          cacheTime: Infinity,
+        },
+      },
+    })
+  );
+
   return (
     <JotaiProvider>
-      <QueryClientProvider client={new QueryClient()}>
+      <QueryClientProvider client={queryClient.current}>
         <SessionProvider session={pageProps.session}>
           <ThemeProvider attribute="class">
             <Component {...pageProps} />
