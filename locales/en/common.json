@@ -11,7 +11,8 @@
     "menu": {
       "desc": "Application Menu",
       "profile": {
-        "viewYourProfile": "View your profile"
+        "viewYourProfile": "View your profile",
+        "imageAlt": "Profile Picture"
       },
       "explore": "Explore",
       "bookmarks": "Bookmarks",

@@ -3,7 +3,8 @@
   "appBar": {
     "menu": {
       "profile": {
-        "viewYourProfile": "Profilinizi görüntüleyin"
+        "viewYourProfile": "Profilinizi görüntüleyin",
+        "imageAlt": "Profil Fotoğrafı"
       },
       "explore": "Keşfet",
       "bookmarks": "Kaydedilenler",
