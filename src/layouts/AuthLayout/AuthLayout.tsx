@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import useTranslation from 'next-translate/useTranslation';
-import { ArrowLeftIcon } from '@heroicons/react/solid';
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 
 export interface AuthLayoutProps {
   pageTitle: string;
