@@ -1,7 +1,7 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { TextField, Button } from '@atom/index';
-import { SearchIcon } from '@heroicons/react/outline';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export interface SearchInputs {
   searchTerm: string;
@@ -37,7 +37,7 @@ function SearchSection(): JSX.Element {
           className="mx-auto mt-8 rounded-full py-3.5 px-12 dark:bg-primary"
           spacing="large"
           loading={false}
-          prependIcon={<SearchIcon className="ml-4 h-6 w-6" />}
+          prependIcon={<MagnifyingGlassIcon className="ml-4 h-6 w-6" />}
           type="submit"
         />
       </form>

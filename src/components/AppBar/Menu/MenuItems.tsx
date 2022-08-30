@@ -7,14 +7,14 @@ import {
   BookmarkIcon,
   BookOpenIcon,
   CloudIcon,
-  CogIcon,
+  Cog8ToothIcon,
   FlagIcon,
   HashtagIcon,
   LockClosedIcon,
-  LogoutIcon,
+  ArrowRightOnRectangleIcon,
   QuestionMarkCircleIcon,
-  TranslateIcon,
-} from '@heroicons/react/outline';
+  LanguageIcon,
+} from '@heroicons/react/24/outline';
 import { signOut } from 'next-auth/react';
 import MenuProfile from './MenuProfile';
 import ThemeSwitch from './ThemeSwitch';
@@ -54,7 +54,7 @@ function MenuItems({ toggleLanguageDialog, className }: MenuItemsProps): JSX.Ele
         <LinkItem
           href="/settings"
           text={t('appBar.menu.settings')}
-          icon={CogIcon}
+          icon={Cog8ToothIcon}
         />
 
         <ThemeSwitch />
@@ -66,13 +66,13 @@ function MenuItems({ toggleLanguageDialog, className }: MenuItemsProps): JSX.Ele
             await api.logout();
             await signOut();
           }}
-          icon={LogoutIcon}
+          icon={ArrowRightOnRectangleIcon}
         />
 
         <ButtonItem
           text={t('appBar.menu.displayLanguage')}
           onClick={() => toggleLanguageDialog(true)}
-          icon={TranslateIcon}
+          icon={LanguageIcon}
         />
       </div>
 

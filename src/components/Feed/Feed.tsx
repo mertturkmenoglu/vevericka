@@ -6,13 +6,13 @@ import { FeedPost } from '@services/index';
 import { PostCard } from '@components/PostCard';
 import { useLoadMore } from './useLoadMore.hook';
 
-export interface HomePageFeedProps {
+export interface FeedProps {
   feed: FeedPost[];
   onLoadMore: () => Promise<void>;
   isFetching: boolean;
 }
 
-const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed, onLoadMore, isFetching }) => {
+function Feed({ feed, onLoadMore, isFetching }: FeedProps): JSX.Element {
   const { t } = useTranslation('feed');
   const isFeedEmpty = useMemo(() => feed.length === 0, [feed]);
 
@@ -48,6 +48,6 @@ const HomePageFeed: React.FC<HomePageFeedProps> = ({ feed, onLoadMore, isFetchin
       />
     </div>
   );
-};
+}
 
-export default HomePageFeed;
+export default Feed;

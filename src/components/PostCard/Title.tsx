@@ -1,5 +1,5 @@
 import { Avatar } from '@atom/index';
-import { BadgeCheckIcon } from '@heroicons/react/outline';
+import { CheckBadgeIcon } from '@heroicons/react/24/outline';
 import { useUserImage } from '@hooks/index';
 import { FeedPost } from '@services/post';
 import Link from 'next/link';
@@ -32,7 +32,7 @@ function Title({ post }: TitleProps): JSX.Element {
           <Link href={`/user/${post.user.username}`}>
             <a className="text-2xl hover:underline">{post.user.name}</a>
           </Link>
-          {post.user.verified && <BadgeCheckIcon className="ml-1 mt-1 h-4 w-4 text-primary" />}
+          {post.user.verified && <CheckBadgeIcon className="ml-1 mt-1 h-4 w-4 text-primary" />}
         </div>
 
         <Link href={`/post/${post.id}`}>

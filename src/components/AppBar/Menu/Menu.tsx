@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import clsx from 'clsx';
 import { Dialog, Menu, RadioGroup, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronDownIcon, TranslateIcon } from '@heroicons/react/outline';
+import { CheckIcon, ChevronDownIcon, LanguageIcon } from '@heroicons/react/24/outline';
 import { useLanguages } from '@hooks/useLanguages';
 import setLanguage from 'next-translate/setLanguage';
 import useTranslation from 'next-translate/useTranslation';
@@ -88,7 +88,7 @@ function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
                     as="h3"
                     className="text-deep-orange flex items-center text-lg font-medium leading-6"
                   >
-                    <TranslateIcon className="h-8 w-8" />
+                    <LanguageIcon className="h-8 w-8" />
                     <span className="ml-2">{t('appBar.menu.languageDialog.title')}</span>
                   </Dialog.Title>
                   <div className="mt-2">

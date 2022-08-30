@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import useTranslation from 'next-translate/useTranslation';
-import { BellIcon, MailIcon, SearchIcon } from '@heroicons/react/outline';
+import { BellIcon, EnvelopeIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import SingleIcon from './SingleIcon';
 
 export interface IconGroupProps {
@@ -13,7 +13,7 @@ function IconGroup({ className }: IconGroupProps): JSX.Element {
 
   const icons = [
     {
-      Icon: SearchIcon,
+      Icon: MagnifyingGlassIcon,
       href: '/search',
       isMobileOnly: false,
       tooltip: t('appBar.icons.tooltips.search'),
@@ -25,7 +25,7 @@ function IconGroup({ className }: IconGroupProps): JSX.Element {
       tooltip: t('appBar.icons.tooltips.notifications'),
     },
     {
-      Icon: MailIcon,
+      Icon: EnvelopeIcon,
       href: '/messages',
       isMobileOnly: false,
       tooltip: t('appBar.icons.tooltips.messages'),

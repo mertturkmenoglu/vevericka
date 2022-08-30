@@ -1,6 +1,6 @@
 import { Avatar } from '@atom/Avatar';
 import { Menu, Transition } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/outline';
+import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import React, { Fragment } from 'react';
 

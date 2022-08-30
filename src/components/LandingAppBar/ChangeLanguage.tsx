@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import setLanguage from 'next-translate/setLanguage';
 import { Menu, Transition } from '@headlessui/react';
-import { GlobeIcon } from '@heroicons/react/outline';
+import { LanguageIcon } from '@heroicons/react/24/outline';
 import { useLanguages } from '@hooks/index';
 import useTranslation from 'next-translate/useTranslation';
 import clsx from 'clsx';
@@ -18,7 +18,7 @@ function ChangeLanguage(): JSX.Element {
       <div className="flex items-center">
         <Menu.Button>
           <span className="sr-only">{t('appBar.changeLanguage')}</span>
-          <GlobeIcon className="h-8 w-8 text-midnight dark:text-white" />
+          <LanguageIcon className="h-8 w-8 text-midnight dark:text-white" />
         </Menu.Button>
       </div>
       <Transition

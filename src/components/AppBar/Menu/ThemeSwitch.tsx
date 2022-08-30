@@ -1,5 +1,5 @@
 import { Menu, Switch } from '@headlessui/react';
-import { SunIcon } from '@heroicons/react/outline';
+import { SunIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import useTranslation from 'next-translate/useTranslation';

@@ -1,5 +1,5 @@
-import { ChatAltIcon, ThumbDownIcon, ThumbUpIcon } from '@heroicons/react/outline';
-import { FeedPost, LikeStatus } from '@services/index';
+import { ChatBubbleBottomCenterIcon, ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/outline';
+import { FeedPost, LikeStatus } from '@services/post';
 import { getNumberFormatter } from '@utils/index';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -24,21 +24,21 @@ function Actions({ post }: ActionsProps): JSX.Element {
           count={numberFormatter.format(post._count.likes)}
           onClick={like}
           status={post.likeStatus === LikeStatus.LIKED}
-          icon={ThumbUpIcon}
+          icon={ArrowUpIcon}
         />
 
         <ActionButton
           count={numberFormatter.format(post._count.dislikes)}
           onClick={dislike}
           status={post.likeStatus === LikeStatus.DISLIKED}
-          icon={ThumbDownIcon}
+          icon={ArrowDownIcon}
           className="ml-4"
         />
       </div>
       <div className="flex items-center">
         <Link href={`/post/${post.id}`}>
           <a className="flex items-center">
-            <ChatAltIcon className="ml-4 h-8 w-8 text-primary" />
+            <ChatBubbleBottomCenterIcon className="ml-4 h-6 w-6 text-primary" />
             <span className="ml-1 text-midnight hover:underline dark:text-gray-400">
               {numberFormatter.format(post._count.comments)} <span className="sr-only">comments</span>
             </span>

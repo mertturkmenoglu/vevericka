@@ -3,7 +3,7 @@ import React, { Fragment, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { getYoutubeIframe, preparePostText } from '@utils/index';
 import { Dialog, Transition } from '@headlessui/react';
-import { ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 export interface ContentProps {
   post: FeedPost;
@@ -101,7 +101,7 @@ function Content({ post }: ContentProps): JSX.Element {
                 <div className="flex items-center justify-between">
                   <Dialog.Title className="text-center text-midnight dark:text-white">{post.content}</Dialog.Title>
                   <button onClick={() => setIsDialogOpen(false)}>
-                    <XIcon className="h-5 w-5 text-midnight dark:text-white" />
+                    <XMarkIcon className="h-5 w-5 text-midnight dark:text-white" />
                   </button>
                 </div>
 

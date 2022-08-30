@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, TextField } from '@atom/index';
-import { LockClosedIcon } from '@heroicons/react/outline';
+import { LockClosedIcon } from '@heroicons/react/24/outline';
 import { AuthLink } from '@components/index';
 import { useLoginForm } from './useLoginForm.hook';
 import useTranslation from 'next-translate/useTranslation';

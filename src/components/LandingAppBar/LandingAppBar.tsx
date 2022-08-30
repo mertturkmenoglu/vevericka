@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { SunIcon } from '@heroicons/react/outline';
+import { SunIcon } from '@heroicons/react/24/outline';
 import { Tooltip, AppLogo } from '@atom/index';
 import { useTheme } from 'next-themes';
 import useTranslation from 'next-translate/useTranslation';

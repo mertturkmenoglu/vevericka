@@ -6,7 +6,7 @@ export interface HomepageFeedOptions {
   username: string;
 }
 
-export function useHomepageFeed({ username }: HomepageFeedOptions) {
+export function useFeed({ username }: HomepageFeedOptions) {
   const postApi = useRef(new PostApi()).current;
 
   const fetchFeed = async (context: QueryFunctionContext) => {

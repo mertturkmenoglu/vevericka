@@ -16,7 +16,7 @@ function ActionButton({ onClick, status, count, icon: Icon, className }: ActionB
       onClick={onClick}
     >
       <Icon
-        className={clsx('h-8 w-8', 'text-midnight dark:text-white', {
+        className={clsx('h-6 w-6', 'text-midnight dark:text-white', {
           'text-primary dark:text-primary': status,
         })}
       />
