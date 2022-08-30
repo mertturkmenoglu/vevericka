@@ -6,7 +6,7 @@ import type { NextPage } from 'next';
 import { AppBar } from '@components/index';
 import { useAppUser, useUserImage } from '@hooks/index';
 import { Avatar } from '@atom/Avatar';
-import { ChevronDownIcon, DotsVerticalIcon, PencilAltIcon } from '@heroicons/react/outline';
+import { ChevronDownIcon, EllipsisVerticalIcon, PencilIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export interface MessagesPageProps {
@@ -43,7 +43,7 @@ const MessagesPage: NextPage<MessagesPageProps> = ({ username }) => {
               </div>
               <div className="flex items-center space-x-2">
                 <button className="rounded-full p-2 hover:bg-paper-200 hover:bg-opacity-10">
-                  <PencilAltIcon className="h-8 w-8 text-midnight dark:text-white" />
+                  <PencilIcon className="h-8 w-8 text-midnight dark:text-white" />
                 </button>
 
                 <button className="rounded-full p-2 hover:bg-paper-200 hover:bg-opacity-10">
@@ -104,7 +104,7 @@ const MessagesPage: NextPage<MessagesPageProps> = ({ username }) => {
 
               <div className="flex items-center">
                 <button className="flex items-center rounded-full p-2 hover:bg-paper-200 hover:bg-opacity-10">
-                  <DotsVerticalIcon className="h-6 w-6 text-midnight" />
+                  <EllipsisVerticalIcon className="h-6 w-6 text-midnight" />
                 </button>
               </div>
             </div>

@@ -4,9 +4,9 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import type { NextPage } from 'next';
 import LoadingLayout from '@layouts/LoadingLayout';
-import { HomepageFeed, AppBar, MessageBox } from '@components/index';
+import { Feed, AppBar, MessageBox } from '@components/index';
 import { useAppUser } from '@hooks/index';
-import { useHomepageFeed } from '@components/HomepageFeed/useHomepageFeed';
+import { useFeed } from '@components/Feed/useFeed';
 
 export interface FeedPageProps {
   username: string;
@@ -15,7 +15,7 @@ export interface FeedPageProps {
 const FeedPage: NextPage<FeedPageProps> = ({ username }) => {
   useAppUser({ username });
 
-  const { isLoading, isError, feedData, fetchNextPage, isFetchingNextPage } = useHomepageFeed({
+  const { isLoading, isError, feedData, fetchNextPage, isFetchingNextPage } = useFeed({
     username,
   });
 
@@ -38,7 +38,7 @@ const FeedPage: NextPage<FeedPageProps> = ({ username }) => {
         >
           {feedData && (
             <div className="mx-auto w-full md:w-2/3">
-              <HomepageFeed
+              <Feed
                 feed={feedData.pages.map((page) => page.data).flat()}
                 isFetching={isFetchingNextPage}
                 onLoadMore={async () => {
