@@ -3,10 +3,10 @@ import Head from 'next/head';
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import { AppBar, PostCard } from '@components/index';
+import { AppBar } from '@components/index';
 import { useAppUser, useUserImage } from '@hooks/index';
 import clsx from 'clsx';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { PencilIcon, CheckBadgeIcon } from '@heroicons/react/24/outline';
 import { Avatar } from '@atom/index';
 import { useQuery } from 'react-query';
 import { UserApi } from '@services/user';
@@ -15,6 +15,7 @@ import { Tab } from '@headlessui/react';
 import { PostApi } from '@services/post';
 import { PaginationOrder, PaginationQuery } from '@services/common';
 import Link from 'next/link';
+import { Feed } from '@components/Feed';
 
 export interface UserPageProps {
   currentUsername: string;
@@ -66,16 +67,21 @@ const UserPage: NextPage<UserPageProps> = ({ currentUsername, visitedUsername })
           isError={isError || isErrorPosts}
         >
           <div className="flex flex-col items-center justify-center pb-8 lg:mt-8 lg:flex-row lg:justify-start lg:pb-0">
-            <Avatar
-              src={userImage}
-              label="Profile Picture"
-              appearance="circle"
-              size="xxlarge"
-            />
+            <div className="group relative flex">
+              <Avatar
+                src={userImage}
+                label="Profile Picture"
+                appearance="circle"
+                size="xxlarge"
+              />
+              <button className="absolute right-1 bottom-1 hidden h-8 w-8 rounded-full bg-white p-2 text-primary transition duration-200 ease-in-out group-hover:flex">
+                <PencilIcon className="" />
+              </button>
+            </div>
             <div className="mt-8 flex flex-col items-center lg:mt-0 lg:ml-8 lg:items-start">
               <div className="flex items-center">
-                <h1 className="mt-0 text-center text-4xl font-bold text-midnight dark:text-white">{user.name}</h1>
-                {user.verified && <BadgeCheckIcon className="ml-1 mt-1 h-6 w-6 text-primary" />}
+                <h1 className="mt-0 text-center text-4xl font-normal text-midnight dark:text-white">{user.name}</h1>
+                {user.verified && <CheckBadgeIcon className="ml-1 mt-1 h-6 w-6 text-primary" />}
               </div>
 
               <h2 className="mt-2 text-lg font-medium text-primary">@{user.username}</h2>
@@ -103,14 +109,17 @@ const UserPage: NextPage<UserPageProps> = ({ currentUsername, visitedUsername })
 
           <div className="mx-auto mt-4 w-full">
             <Tab.Group>
-              <Tab.List className="flex space-x-1 rounded-xl bg-white p-1 dark:bg-midnight/90">
+              <Tab.List className="flex space-x-1 bg-white p-1 dark:bg-midnight/90">
                 {['Posts', 'About', 'Likes'].map((category) => (
                   <Tab
                     key={category}
                     className={({ selected }) =>
                       clsx(
                         'focus:none w-full py-2.5 text-sm font-medium leading-5 text-midnight dark:text-white',
-                        selected ? 'border-b-2 border-midnight dark:border-primary' : 'hover:hover:bg-midnight/5'
+                        'transition duration-200 ease-in-out',
+                        selected
+                          ? 'border-b-2 border-midnight dark:border-primary'
+                          : 'hover:bg-midnight/5 dark:hover:bg-neutral-700'
                       )
                     }
                   >
@@ -125,18 +134,11 @@ const UserPage: NextPage<UserPageProps> = ({ currentUsername, visitedUsername })
                     className={clsx('rounded-xl p-3')}
                   >
                     {tab === 'posts' && (
-                      <div className="space-y-2 divide-y-2 dark:divide-y-0">
-                        {posts?.data?.data.length === 0 ? (
-                          <div>Nothing to see here</div>
-                        ) : (
-                          posts?.data?.data.map((post) => (
-                            <PostCard
-                              post={post}
-                              key={post.id}
-                            />
-                          ))
-                        )}
-                      </div>
+                      <Feed
+                        feed={posts.data?.data ?? []}
+                        onLoadMore={async () => {}}
+                        isFetching={isLoadingPosts}
+                      />
                     )}
 
                     {tab === 'bio' && (
