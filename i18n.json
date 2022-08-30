@@ -6,6 +6,7 @@
     "/": ["landing"],
     "/login": ["login", "auth"],
     "/register": ["register", "auth"],
-    "/reset": ["reset", "auth"]
+    "/reset": ["reset", "auth"],
+    "/blog/playlist": ["common", "blog"]
   }
 }

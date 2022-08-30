@@ -61,8 +61,10 @@ const PlaylistPage: NextPage<PlaylistPageProps> = ({ playlist }) => {
         className={`hidden ${styles}`}
       />
       <main className="mx-8 mt-16 sm:container sm:mx-auto">
-        <Link href="/">
-          <a className="text-sm font-medium tracking-tighter text-midnight underline dark:text-white">Go to home</a>
+        <Link href="/blog/playlist">
+          <a className="text-sm font-medium tracking-tighter text-midnight underline dark:text-white">
+            Go back to blog
+          </a>
         </Link>
         <div className="flex flex-col items-center border-b-2 border-midnight pb-4 sm:flex-row">
           <img
