@@ -16,4 +16,27 @@ export class BlogApi {
       return null;
     }
   }
+
+  public async getAllPlaylists(): Promise<Playlist[]> {
+    try {
+      const res = await this.api.get<Playlist[]>('/blog/playlist/all');
+      return res.data;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  public async getPlaylist(year: number, month: number): Promise<Playlist | null> {
+    try {
+      const res = await this.api.get<Playlist>('/blog/playlist', {
+        params: {
+          year,
+          month,
+        },
+      });
+      return res.data;
+    } catch (e) {
+      return null;
+    }
+  }
 }
