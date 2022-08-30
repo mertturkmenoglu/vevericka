@@ -28,9 +28,10 @@ export class AuthApi {
       return response.data;
     } catch (e) {
       if (axios.isAxiosError(e) && e.response) {
+        const err = e as any;
         return {
-          message: e.response.data.message,
-          status: e.response.status,
+          message: err.response.data.message,
+          status: err.response.status,
           isError: true,
         };
       }

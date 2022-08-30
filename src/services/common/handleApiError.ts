@@ -3,10 +3,11 @@ import { ApiError, DefaultApiError } from '.';
 
 export function handleApiError(e: unknown): ApiError {
   if (axios.isAxiosError(e) && e.response) {
+    const err = e as any;
     return {
-      statusCode: e.response.status,
-      message: e.response.data.message,
-      error: e.message,
+      statusCode: err.response.status,
+      message: err.response.data.message,
+      error: err.message,
     };
   }
 
