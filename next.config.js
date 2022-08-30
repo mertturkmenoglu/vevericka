@@ -42,6 +42,9 @@ module.exports = withBundleAnalyzer(nextTranslate({
     locales: ['en-US', 'tr'],
     defaultLocale: 'en-US',
   },
+  images: {
+    domains: ['images.ctfassets.net']
+  },
   async headers() {
     return [
       {
