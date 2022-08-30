@@ -21,5 +21,10 @@
     "changeLanguage": "Dil Değiştir",
     "changeTheme": "Tema Değiştir",
     "login": "Giriş Yap"
+  },
+  "latestPosts": {
+    "title": "Vevericka'dan en son paylaşımlar",
+    "previous": "Önceki",
+    "next": "Sonraki"
   }
 }

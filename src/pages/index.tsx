@@ -84,7 +84,7 @@ const LandingPage: NextPage = () => {
           </Link>
 
           <div className="font-lato mt-16 w-full text-center text-3xl font-black text-slate-700">
-            <h2>Latest posts from our blog</h2>
+            <h2>{t('latestPosts.title')}</h2>
             <LoadingLayout
               isLoading={isLoading}
               isError={isError}
@@ -92,7 +92,7 @@ const LandingPage: NextPage = () => {
               <div className="flex items-center">
                 <button className="swiper-button-prev-unique">
                   <ChevronLeftIcon className="h-6 w-6 text-midnight" />
-                  <span className="sr-only">Previous</span>
+                  <span className="sr-only">{t('latestPosts.previous')}</span>
                 </button>
                 <Swiper
                   className="mt-8 flex items-center"
@@ -129,7 +129,7 @@ const LandingPage: NextPage = () => {
                 </Swiper>
                 <button className="swiper-button-next-unique">
                   <ChevronRightIcon className="h-6 w-6 text-midnight" />
-                  <span className="sr-only">Next</span>
+                  <span className="sr-only">{t('latestPosts.next')}</span>
                 </button>
               </div>
             </LoadingLayout>

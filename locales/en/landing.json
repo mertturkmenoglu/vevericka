@@ -21,5 +21,10 @@
     "changeLanguage": "Change Language",
     "changeTheme": "Change Theme",
     "login": "Login"
+  },
+  "latestPosts": {
+    "title": "Latest posts from our blog",
+    "previous": "Previous",
+    "next": "Next"
   }
 }
