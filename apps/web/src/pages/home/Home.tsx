@@ -1,11 +1,15 @@
 import { motion } from 'framer-motion';
 import { useAppStore } from '../../stores';
+import { useTranslation } from 'react-i18next';
 
 function Home(): JSX.Element {
+  const { t } = useTranslation();
+
   const username = useAppStore((state) => state.username);
   return (
     <div>
       <div>Home Page</div>
+      <div>{t('name')}</div>
       <div>{username}</div>
       <motion.div
         className="mx-32 mt-32 h-12 w-12 bg-amber-500"

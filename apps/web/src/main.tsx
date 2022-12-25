@@ -6,6 +6,8 @@ import { FeedPage, HomePage, LoginPage } from './pages';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
+import './i18n';
+
 const TanStackRouterDevtools = import.meta.env.PROD
   ? () => null // Render nothing in production
   : React.lazy(() =>
