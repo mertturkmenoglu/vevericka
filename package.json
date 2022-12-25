@@ -1,89 +1,15 @@
 {
   "name": "vevericka",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mertturkmenoglu/vevericka",
+  "author": "Mert Turkmenoglu <mertturkmenoglu99@gmail.com>",
+  "license": "MIT",
   "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "jest --watch",
-    "build:stats": "cross-env ANALYZE=true npm run build",
-    "build:types": "tsc --noEmit --pretty",
-    "clean": "rimraf .next out",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx . --fix",
-    "format": "prettier --write .",
-    "prepare": "husky install",
-    "cloc": "npx cloc .",
-    "test:unit": "jest --watchAll"
-  },
-  "dependencies": {
-    "@headlessui/react": "^1.4.2",
-    "@heroicons/react": "^2.0.8",
-    "@next/bundle-analyzer": "^12.1.6",
-    "axios": "^0.27.2",
-    "clsx": "^1.1.1",
-    "date-fns": "^2.28.0",
-    "jotai": "1.8.2",
-    "next": "12.2.5",
-    "next-auth": "^4.0.6",
-    "next-seo": "5.5.0",
-    "next-themes": "^0.2.0",
-    "next-translate": "1.5.0",
-    "query-string": "7.1.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hook-form": "7.34.2",
-    "react-query": "^3.34.19",
-    "react-toastify": "^9.0.8",
-    "react-tooltip": "^4.2.21",
-    "swiper": "^8.3.2",
-    "universal-cookie": "^4.0.4",
-    "validator": "^13.7.0"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@types/node": "18.7.14",
-    "@types/react": "18.0.17",
-    "@types/validator": "^13.7.1",
-    "@typescript-eslint/eslint-plugin": "^5.27.1",
-    "autoprefixer": "^10.4.0",
-    "axe-core": "^4.4.1",
-    "cross-env": "^7.0.3",
-    "eslint": "8.22.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-next": "12.2.5",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-typescript": "^3.5.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "6.6.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.1",
-    "jest": "^29.0.1",
-    "jest-environment-jsdom": "^29.0.1",
-    "lint-staged": "^13.0.0",
-    "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.5",
-    "prettier": "^2.5.1",
-    "prettier-plugin-tailwindcss": "^0.1.7",
-    "rimraf": "^3.0.2",
-    "tailwindcss": "^3.0.6",
-    "typescript": "4.8.2"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "prettier --write --ignore-unknown",
-      "eslint --fix"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn run lint-staged"
-    }
+    "web-dev": "yarn workspace web dev"
   }
 }
