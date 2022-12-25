@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createReactRouter, createRouteConfig, Outlet, RouterProvider } from '@tanstack/react-router';
 import './index.css';
-import { FeedPage, HomePage } from './pages';
+import { FeedPage, HomePage, LoginPage } from './pages';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -23,17 +23,22 @@ const rootRoute = createRouteConfig({
   ),
 });
 
-const homeRoute = rootRoute.createRoute({
-  path: '/',
-  component: HomePage,
-});
-
 const feedRoute = rootRoute.createRoute({
   path: '/feed',
   component: FeedPage,
 });
 
-const routeConfig = rootRoute.addChildren([homeRoute, feedRoute]);
+const homeRoute = rootRoute.createRoute({
+  path: '/',
+  component: HomePage,
+});
+
+const loginRoute = rootRoute.createRoute({
+  path: '/login',
+  component: LoginPage,
+});
+
+const routeConfig = rootRoute.addChildren([feedRoute, homeRoute, loginRoute]);
 
 const router = createReactRouter({ routeConfig });
 
