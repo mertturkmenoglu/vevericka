@@ -18,6 +18,7 @@ import { RecipesModule } from "./recipes/recipes.module";
       transformSchema: (schema) => upperDirectiveTransformer(schema, "upper"),
       installSubscriptionHandlers: true,
       playground: true,
+      introspection: true,
       debug: true,
       buildSchemaOptions: {
         directives: [
