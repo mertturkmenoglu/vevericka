@@ -6,10 +6,16 @@
   "author": "Mert Turkmenoglu <mertturkmenoglu99@gmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "apps/*"
+    ],
+    "nohoist": [
+      "**/@nestjs/**"
+    ]
+  },
   "scripts": {
-    "web-dev": "yarn workspace web dev"
+    "web-dev": "yarn workspace web dev",
+    "api-dev": "yarn workspace api start:dev"
   }
 }
