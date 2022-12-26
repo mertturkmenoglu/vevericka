@@ -1,0 +1,222 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Auth {
+  // Primary Key
+  email String @id
+  // Scalar Values
+  password String @db.VarChar(256)
+  // Relations
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @unique
+  // Meta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  // Primary Key
+  id Int @id @default(autoincrement())
+  // Scalar Values
+  username      String         @unique() @db.VarChar(32)
+  email         String         @unique() @db.VarChar(255)
+  name          String         @db.VarChar(64)
+  image         String         @default("profile.png") @db.VarChar(512)
+  job           String?        @db.VarChar(64)
+  twitterHandle String?        @db.VarChar(64)
+  school        String?        @db.VarChar(64)
+  birthDate     DateTime?
+  website       String?        @db.VarChar(255)
+  description   String?        @db.VarChar(255)
+  verified      Boolean        @default(false)
+  protected     Boolean        @default(false)
+  bannerImage   String         @default("banner.png")
+  gender        GenderOptions?
+  genderOther   String?        @db.VarChar(32)
+  city          String?        @db.VarChar(64)
+  country       String?        @db.VarChar(64)
+  // Relations
+  auth        Auth?
+  speaking    Speaking[]
+  wishToSpeak WishToSpeak[]
+  hobbies     Hobby[]
+  features    Feature[]
+  posts       Post[]        @relation(name: "UserPosts")
+  likes       Post[]        @relation(name: "UserLikes")
+  dislikes    Post[]        @relation(name: "UserDislikes")
+  comments    Comment[]     @relation(name: "UserComments")
+  followers   User[]        @relation("UserFollows")
+  following   User[]        @relation("UserFollows")
+  shorts      Short[]       @relation("UserShorts")
+  // Meta
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  // Indices
+  @@index(username)
+  @@index(email)
+}
+
+model Speaking {
+  id          Int         @id @default(autoincrement())
+  language    Language
+  proficiency Proficiency
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+}
+
+model WishToSpeak {
+  id       Int      @id @default(autoincrement())
+  language Language
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
+}
+
+model Hobby {
+  id     Int    @id @default(autoincrement())
+  hobby  String @db.VarChar(64)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
+
+model Feature {
+  id          Int    @id @default(autoincrement())
+  feature     String @db.VarChar(64)
+  description String @db.VarChar(255)
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+}
+
+model Post {
+  // Primary Key
+  id Int @id @default(autoincrement())
+  // Scalar Values
+  content String @db.VarChar(255)
+  // Relations
+  user     User        @relation(name: "UserPosts", fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
+  dislikes User[]      @relation(name: "UserDislikes")
+  likes    User[]      @relation(name: "UserLikes")
+  tags     Tag[]       @relation(name: "PostTags")
+  comments Comment[]   @relation(name: "PostComments")
+  images   PostImage[] @relation(name: "PostImages")
+  videos   PostVideo[] @relation(name: "PostVideos")
+  // Meta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Short {
+  // Primary Key
+  id Int @id @default(autoincrement())
+  // Scalar Values
+  url String @db.VarChar(255)
+  // Relations
+  user     User        @relation(name: "UserShorts", fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
+  // Meta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  // Primary Key
+  id Int @id @default(autoincrement())
+  // Scalar Values
+  content String @db.VarChar(255)
+  // Relations
+  user   User @relation(name: "UserComments", fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  post   Post @relation(name: "PostComments", fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+  // Meta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  // Primary Key
+  id Int @id @default(autoincrement())
+  // Scalar Values
+  tagName String @unique @db.VarChar(254)
+  // Relations
+  posts Post[] @relation(name: "PostTags")
+  // Meta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Indices
+  @@index(tagName)
+}
+
+model PostImage {
+  // Primary Key
+  id Int @id @default(autoincrement())
+  // Scalar Values
+  url String
+  // Relations
+  post   Post @relation(name: "PostImages", fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+  // Meta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostVideo {
+  // Primary Key
+  id Int @id @default(autoincrement())
+  // Scalar Values
+  url String
+  // Relations
+  post   Post @relation(name: "PostVideos", fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+  // Meta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+///
+/// ENUMS
+///
+
+enum GenderOptions {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Language {
+  ZH
+  ES
+  EN
+  PT
+  RU
+  JA
+  TR
+  KO
+  FR
+  DE
+  IT
+  AR
+  ID
+  PL
+  RO
+  NL
+  KU
+  EL
+  HU
+  CS
+}
+
+enum Proficiency {
+  ELEMENTARY
+  INTERMEDIATE
+  PROFESSIONAL
+  NATIVE
+}
