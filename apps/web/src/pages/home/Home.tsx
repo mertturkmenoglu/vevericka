@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion';
 import { useAppStore } from '../../stores';
 import { useTranslation } from 'react-i18next';
-import { LandingAppBar } from '../../components';
+import { Footer, LandingAppBar } from '../../components';
 
 function Home(): JSX.Element {
   const { t } = useTranslation();
 
   const username = useAppStore((state) => state.username);
   return (
-    <div>
+    <div className="relative h-screen">
       <LandingAppBar className="mt-8" />
       <div>Home Page</div>
       <div>{t('name')}</div>
@@ -28,6 +28,7 @@ function Home(): JSX.Element {
           repeatDelay: 1,
         }}
       />
+      <Footer className="absolute bottom-0 left-0 right-0" />
     </div>
   );
 }
