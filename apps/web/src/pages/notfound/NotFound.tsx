@@ -1,12 +1,12 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
 
 function NotFound(): JSX.Element {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
-      <img
-        src="/squirrel.svg"
-        className="h-12 w-12"
-        alt="App logo"
+      <SquirrelLogo
+        className="h-12 w-12 text-berry"
+        viewBox="0 0 512 512"
       />
       <p className="mt-8 text-lg font-medium text-berry">404</p>
       <h2 className="mt-2 text-4xl font-bold">Not Found</h2>

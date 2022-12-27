@@ -30,7 +30,7 @@ function AuthButton({ provider, onClick }: AuthButtonProps): JSX.Element {
   return (
     <button
       className={clsx(
-        'flex items-center justify-center rounded bg-black py-1.5 px-8 text-white hover:bg-opacity-90',
+        'flex items-center justify-center rounded bg-midnight py-1.5 px-8 text-white hover:bg-opacity-90',
         'w-full focus:outline-2 focus:outline-offset-2 focus:outline-amber-500'
       )}
       onClick={onClick}
