@@ -19,19 +19,19 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
       <div className={clsx('flex flex-col', className)}>
         <label
           htmlFor={id}
-          className={clsx('text-midnight block text-sm dark:text-white', labelClassName)}
+          className={clsx('block text-sm text-midnight dark:text-white', labelClassName)}
         >
           {label}
         </label>
         <input
           id={id}
           className={clsx(
-            'border-midnight border-b dark:border-white dark:px-1',
+            'border-b border-midnight dark:border-white dark:px-1',
             {
               'border-red-500': error?.type,
               'focus:border-primary': !error?.type,
             },
-            'text-midnight mt-1 py-2 text-sm font-medium',
+            'mt-1 py-2 text-sm font-medium text-midnight',
             'outline-none',
             'placeholder:text-sm placeholder:font-light',
             'dark:placeholder:text-paper-400',
