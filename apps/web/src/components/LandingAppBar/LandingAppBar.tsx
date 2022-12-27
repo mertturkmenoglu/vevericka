@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
 
 export interface LandingAppBarProps {
   className?: string;
@@ -13,10 +14,9 @@ function LandingAppBar({ className }: LandingAppBarProps): JSX.Element {
       )}
     >
       <div className="flex items-center space-x-8">
-        <img
-          src="/squirrel.svg"
-          className="h-10 w-10"
-          alt="App logo"
+        <SquirrelLogo
+          className="h-10 w-10 text-berry"
+          viewBox="0 0 512 512"
         />
         <h2 className="hidden text-lg text-midnight sm:flex">Vevericka</h2>
       </div>
