@@ -1,5 +1,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
+import { ReactComponent as Squirrel } from '../../assets/squirrel.svg';
 
 export interface LandingHeroProps {
   className?: string;
@@ -8,7 +10,20 @@ export interface LandingHeroProps {
 function LandingHero({ className }: LandingHeroProps): JSX.Element {
   return (
     <div className={clsx('mx-8 mt-16 text-center sm:mt-32 sm:text-lg', className)}>
-      <h2 className="text-2xl font-bold sm:text-5xl">We are the squirrels who say Vik!</h2>
+      <div className="mx-auto w-fit">
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1, type: 'keyframes' }}
+        >
+          <Squirrel
+            className="h-24 w-24 text-berry sm:h-36 sm:w-36"
+            viewBox="0 0 512 512"
+          />
+        </motion.div>
+      </div>
+
+      <h2 className="mt-8 text-2xl font-bold sm:mt-32 sm:text-5xl">We are the squirrels who say Vik!</h2>
       <div className="mt-8 space-y-4 sm:mt-16 sm:space-y-0">
         <p>Ok, I'm going to tell you the truth. We are nuts about squirrels.</p>
         <p>
