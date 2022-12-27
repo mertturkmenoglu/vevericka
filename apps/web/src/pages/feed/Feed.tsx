@@ -1,8 +1,11 @@
+import { AppBar } from '../../components';
+
 function Feed(): JSX.Element {
   return (
-    <div>
+    <main>
+      <AppBar className="mx-auto mt-4" />
       <div>Feed</div>
-    </div>
+    </main>
   );
 }
 
