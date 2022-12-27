@@ -12,6 +12,9 @@ module.exports = {
       },
       fontFamily: {
         sans: ["\"Open Sans\""]
+      },
+      screens: {
+        sd: "896px"
       }
     }
   },
