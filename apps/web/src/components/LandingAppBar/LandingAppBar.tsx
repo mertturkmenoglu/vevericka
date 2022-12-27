@@ -23,15 +23,15 @@ function LandingAppBar({ className }: LandingAppBarProps): JSX.Element {
       <div className="flex items-center space-x-4">
         <a
           href="/login"
-          className="rounded-full border-2 border-amber-500 py-1.5 px-4 text-sm font-medium text-amber-500 transition-all duration-500 ease-in-out hover:bg-amber-50"
+          className="rounded-full py-1.5 px-4 text-sm font-medium text-amber-500 transition-all duration-500 ease-in-out hover:bg-amber-500 hover:text-amber-50"
         >
-          Get Started
+          Login
         </a>
         <a
           href="/login"
           className="rounded-full bg-amber-500 py-1.5 px-4 text-sm font-medium text-amber-50"
         >
-          Login
+          Get Started
         </a>
       </div>
     </nav>
