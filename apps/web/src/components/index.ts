@@ -1,4 +1,5 @@
 export * from './AuthButton';
+export * from './Banner';
 export * from './Button';
 export * from './Footer';
 export * from './LandingAppBar';
