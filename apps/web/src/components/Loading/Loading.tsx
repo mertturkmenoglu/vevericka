@@ -8,7 +8,7 @@ export interface LoadingProps {
 function Loading({ className }: LoadingProps): JSX.Element {
   return (
     <motion.div
-      className={clsx('h-12 w-12 bg-amber-500', className)}
+      className={clsx('h-12 w-12 bg-berry', className)}
       animate={{
         scale: [1, 2, 2, 1, 1],
         rotate: [0, 0, 180, 180, 0],
