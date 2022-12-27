@@ -9,6 +9,9 @@ module.exports = {
       colors: {
         berry: "#be185d",
         midnight: "#1a1a1a"
+      },
+      fontFamily: {
+        sans: ["\"Open Sans\""]
       }
     }
   },
