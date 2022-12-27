@@ -1,11 +1,16 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        berry: "#be185d",
+        midnight: "#1a1a1a"
+      }
+    }
   },
-  plugins: [],
-}
+  plugins: []
+};
