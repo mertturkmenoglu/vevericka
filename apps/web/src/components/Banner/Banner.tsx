@@ -20,7 +20,7 @@ function Banner({ text, cta, isOpen, setIsOpen, className, canDismiss = false }:
   }
 
   return (
-    <div className={clsx('relative flex items-center justify-center bg-black py-1 px-8 text-white', className)}>
+    <div className={clsx('relative flex w-full items-center justify-center bg-black py-1 px-8 text-white', className)}>
       <div className="">{text}</div>
       {cta && (
         <a
