@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useAppStore } from '../../stores';
 import { useTranslation } from 'react-i18next';
+import { LandingAppBar } from '../../components';
 
 function Home(): JSX.Element {
   const { t } = useTranslation();
@@ -8,6 +9,7 @@ function Home(): JSX.Element {
   const username = useAppStore((state) => state.username);
   return (
     <div>
+      <LandingAppBar className="mt-8" />
       <div>Home Page</div>
       <div>{t('name')}</div>
       <div>{username}</div>
