@@ -3,7 +3,7 @@ import { AppBar } from '../../components';
 function Feed(): JSX.Element {
   return (
     <main>
-      <AppBar className="mx-auto mt-4" />
+      <AppBar className="mx-auto sm:mt-4" />
       <div>Feed</div>
     </main>
   );

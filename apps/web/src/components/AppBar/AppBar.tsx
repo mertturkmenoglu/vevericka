@@ -1,6 +1,6 @@
 import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
 import clsx from 'clsx';
-import { BellIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { BellIcon, EnvelopeIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Menu } from '../AppBarMenu';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ export interface AppBarProps {
 
 function AppBar({ className }: AppBarProps): JSX.Element {
   return (
-    <header className={clsx('container rounded-full bg-zinc-100 py-2 px-8', className)}>
+    <header className={clsx('container bg-zinc-100 py-2 px-8 sm:rounded-full', className)}>
       <nav className="flex items-center justify-between">
         <Link
           to="/"
@@ -20,10 +20,17 @@ function AppBar({ className }: AppBarProps): JSX.Element {
             className="h-10 w-10 text-berry"
             viewBox="0 0 512 512"
           />
-          <h2 className="text-lg font-normal">Vevericka</h2>
+          <h2 className="hidden text-lg font-normal sm:flex">Vevericka</h2>
         </Link>
 
         <div className="flex items-center space-x-4">
+          <Link
+            to="/search"
+            className="rounded-full p-2 hover:bg-berry hover:bg-opacity-10"
+          >
+            <MagnifyingGlassIcon className="h-8 w-8 text-berry" />
+          </Link>
+
           <Link
             to="/notifications"
             className="rounded-full p-2 hover:bg-berry hover:bg-opacity-10"
