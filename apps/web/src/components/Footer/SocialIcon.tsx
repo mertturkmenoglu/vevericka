@@ -1,4 +1,5 @@
 import type { Icon as IconType } from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
 
 export interface SocialIconProps {
   href: string;
@@ -8,12 +9,12 @@ export interface SocialIconProps {
 function SocialIcon({ href, icon: Icon }: SocialIconProps): JSX.Element {
   return (
     <li>
-      <a href={href}>
+      <Link to={href}>
         <Icon
           size={16}
           color="#666"
         />
-      </a>
+      </Link>
     </li>
   );
 }

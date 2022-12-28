@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export interface NavigationItemProps {
   href: string;
   text: string;
@@ -6,12 +8,12 @@ export interface NavigationItemProps {
 function NavigationItem({ href, text }: NavigationItemProps): JSX.Element {
   return (
     <li>
-      <a
-        href={href}
+      <Link
+        to={href}
         className="text-sm text-gray-600 hover:underline"
       >
         {text}
-      </a>
+      </Link>
     </li>
   );
 }

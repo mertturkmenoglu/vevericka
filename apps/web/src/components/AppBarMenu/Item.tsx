@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Menu } from '@headlessui/react';
+import { Link } from 'react-router-dom';
 
 export interface ItemProps {
   text: string;
@@ -9,7 +10,7 @@ export interface ItemProps {
   icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
 }
 
-function Item({ as, href, text, onClick, icon: Icon }: ItemProps): JSX.Element {
+function Item({ as, href = '/', text, onClick, icon: Icon }: ItemProps): JSX.Element {
   const content = (
     <>
       <Icon className="h-5 w-5 text-berry" />
@@ -22,12 +23,12 @@ function Item({ as, href, text, onClick, icon: Icon }: ItemProps): JSX.Element {
   const body = useMemo(() => {
     if (as === 'link') {
       return (
-        <a
-          href={href}
+        <Link
+          to={href}
           className={className}
         >
           {content}
-        </a>
+        </Link>
       );
     }
 

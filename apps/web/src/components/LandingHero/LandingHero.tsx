@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { ReactComponent as Squirrel } from '../../assets/squirrel.svg';
+import { Link } from 'react-router-dom';
 
 export interface LandingHeroProps {
   className?: string;
@@ -32,8 +33,8 @@ function LandingHero({ className }: LandingHeroProps): JSX.Element {
 
         <p>Oh god, sounds great! Right? You in? Or should I vik more and try to convince you?</p>
       </div>
-      <a
-        href="/login"
+      <Link
+        to="/login"
         className={clsx(
           'mx-auto mt-4 flex w-fit items-center justify-center rounded-full bg-midnight py-1 px-4 text-white',
           'sm:mt-16 sm:py-2 sm:px-8',
@@ -42,7 +43,7 @@ function LandingHero({ className }: LandingHeroProps): JSX.Element {
       >
         <span className="text-base">Get Started</span>
         <ArrowRightIcon className="ml-2 h-4 w-4 animate-pulse" />
-      </a>
+      </Link>
     </div>
   );
 }

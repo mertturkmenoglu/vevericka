@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { AuthButton } from '../AuthButton';
 import { Loading } from '../Loading';
+import { Link } from 'react-router-dom';
 
 function LoginForm(): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,12 +32,12 @@ function LoginForm(): JSX.Element {
       <div className="mt-4 w-full text-center text-sm text-midnight">
         <p>
           Need help?{' '}
-          <a
-            href="/help/login"
+          <Link
+            to="/help/login"
             className="font-semibold underline"
           >
             Check our help page
-          </a>
+          </Link>
         </p>
       </div>
       {isLoading && <Loading className="mt-16" />}

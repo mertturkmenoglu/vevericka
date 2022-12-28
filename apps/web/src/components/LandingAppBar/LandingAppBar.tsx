@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
+import { Link } from 'react-router-dom';
 
 export interface LandingAppBarProps {
   className?: string;
@@ -21,18 +22,18 @@ function LandingAppBar({ className }: LandingAppBarProps): JSX.Element {
         <h2 className="hidden text-lg text-midnight sm:flex">Vevericka</h2>
       </div>
       <div className="flex items-center space-x-4">
-        <a
-          href="/login"
+        <Link
+          to="/login"
           className="rounded-full py-1.5 px-4 text-sm font-medium text-midnight transition-all duration-500 ease-in-out hover:bg-berry hover:bg-opacity-60 hover:text-white"
         >
           Login
-        </a>
-        <a
-          href="/login"
+        </Link>
+        <Link
+          to="/login"
           className="rounded-full bg-berry py-1.5 px-4 text-sm font-medium text-white"
         >
           Get Started
-        </a>
+        </Link>
       </div>
     </nav>
   );
