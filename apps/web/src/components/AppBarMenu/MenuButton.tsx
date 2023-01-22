@@ -9,7 +9,7 @@ function MenuButton(): JSX.Element {
         alt="User image"
         placeholderSrc="/user.jpg"
         placeholderAlt="Loading"
-        className="min-h-10 min-w-10 h-10 w-10 rounded-full border border-2 border-berry"
+        className="min-h-10 min-w-10 h-10 w-10 rounded-full border-2 border-berry"
       />
     </Menu.Button>
   );
