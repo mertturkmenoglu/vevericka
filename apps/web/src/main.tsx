@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import './i18n';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { SearchPage } from './pages/search';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/search',
+    element: <SearchPage />,
   },
   {
     path: '/settings',
