@@ -18,7 +18,7 @@ function Item({ as, href = '/', text, onClick, icon: Icon }: ItemProps): JSX.Ele
     </>
   );
 
-  const className = 'my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-midnight group transition-all';
+  const className = 'my-1 flex w-full items-center rounded-md px-2 py-1 hover:bg-midnight group transition-all';
 
   const body = useMemo(() => {
     if (as === 'link') {
