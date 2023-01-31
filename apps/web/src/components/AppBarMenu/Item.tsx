@@ -13,12 +13,12 @@ export interface ItemProps {
 function Item({ as, href = '/', text, onClick, icon: Icon }: ItemProps): JSX.Element {
   const content = (
     <>
-      <Icon className="h-5 w-5 text-berry" />
-      <span className="ml-2 text-sm font-medium text-midnight">{text}</span>
+      <Icon className="h-5 w-5 text-midnight group-hover:text-white" />
+      <span className="ml-2 text-sm font-medium text-midnight group-hover:text-white">{text}</span>
     </>
   );
 
-  const className = 'my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-berry hover:bg-opacity-10';
+  const className = 'my-1 flex w-full items-center rounded-full px-2 py-1 hover:bg-midnight group transition-all';
 
   const body = useMemo(() => {
     if (as === 'link') {
