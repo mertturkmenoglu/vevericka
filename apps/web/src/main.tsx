@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { FeedPage, HomePage, LoginPage, NotFoundPage, SettingsPage } from './pages';
+import { FeedPage, HomePage, LoginPage, NotFoundPage, SettingsPage, NotificationsPage } from './pages';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -22,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/notifications',
+    element: <NotificationsPage />,
   },
   {
     path: '/search',
