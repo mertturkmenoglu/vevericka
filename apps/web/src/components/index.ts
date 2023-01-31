@@ -10,4 +10,5 @@ export * from './LandingHero';
 export * from './LazyImage';
 export * from './Loading';
 export * from './LoginForm';
+export * from './PostCard';
 export * from './TextField';

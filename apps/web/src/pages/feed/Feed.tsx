@@ -1,10 +1,19 @@
-import { AppBar } from '../../components';
+import { AppBar, PostCard } from '../../components';
 
 function Feed(): JSX.Element {
   return (
-    <main>
-      <AppBar className="mx-auto sm:mt-4" />
-      <div>Feed</div>
+    <main className="container mx-auto">
+      <AppBar className="sm:mt-4" />
+      <div className="mt-16 ml-32 max-w-[640px] space-y-8">
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+      </div>
     </main>
   );
 }
