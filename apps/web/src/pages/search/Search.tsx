@@ -10,16 +10,16 @@ function Settings(): JSX.Element {
   return (
     <main className="container mx-auto">
       <AppBar className="sm:mt-4" />
-      <div className="mt-4 flex w-full justify-between rounded p-2">
+      <div className="mt-16 flex w-full justify-center space-x-4">
         <input
           type="text"
-          className="w-10/12 rounded-full border border-midnight/30 py-2 px-4 placeholder:text-midnight/30"
+          className="w-1/3 rounded-md border border-midnight/30 py-2 px-4 placeholder:text-midnight/30"
           value={userQuery}
           placeholder="Type anything to search"
           onChange={(e) => setUserQuery(e.target.value)}
         />
         <button
-          className="w-48 rounded-full bg-midnight py-2 text-white"
+          className="w-48 rounded-md bg-midnight py-2 text-white"
           onClick={() => {
             if (userQuery === '') {
               searchParams.delete('q');
