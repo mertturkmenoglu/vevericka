@@ -4,6 +4,21 @@
 
 directive @upper on FIELD_DEFINITION
 
+"""C"""
+type C {
+  id: Float!
+}
+
+"""post"""
+type Post {
+  id: Float!
+  content: String!
+  userId: Float!
+  comments: [C!]!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
 """recipe """
 type Recipe {
   id: ID!
@@ -17,13 +32,20 @@ type Recipe {
 scalar Date
 
 type Query {
+  getPost(id: String!): Post!
+  getPosts: [Post!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
 }
 
 type Mutation {
-  addRecipe(newRecipeData: NewRecipeInput!): Recipe!
+  createPost(newPostData: NewPostInput!): Post!
   removeRecipe(id: String!): Boolean!
+  addRecipe(newRecipeData: NewRecipeInput!): Recipe!
+}
+
+input NewPostInput {
+  content: String!
 }
 
 input NewRecipeInput {
