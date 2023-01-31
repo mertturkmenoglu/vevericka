@@ -63,7 +63,7 @@ function Footer({ className }: FooterProps): JSX.Element {
       </div>
 
       <div className="mt-8">
-        <p className="text-xs text-gray-600">&copy; 2022 Vevericka. All rights reserved.</p>
+        <p className="text-xs text-gray-600">&copy; {new Date().getFullYear()} Vevericka. All rights reserved.</p>
       </div>
     </footer>
   );
