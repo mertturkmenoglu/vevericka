@@ -1,13 +1,8 @@
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  ChatBubbleBottomCenterIcon,
-  EllipsisHorizontalIcon,
-  ShareIcon,
-} from '@heroicons/react/24/outline';
+import { ArrowDownIcon, ArrowUpIcon, ChatBubbleBottomCenterIcon, ShareIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { LazyImage } from '../LazyImage';
+import MoreMenu from './MoreMenu';
 
 const images = [
   'https://fastly.picsum.photos/id/676/200/200.jpg?hmac=hgeMQEIK4Mn27Q2oLRWjXo1rgxwTbk1CnJE954h_HyM',
@@ -103,10 +98,7 @@ function PostCard(): JSX.Element {
               <span className="text-sm text-midnight">Share</span>
             </button>
 
-            <button className="flex items-center space-x-2 rounded-md py-1 px-2 hover:bg-midnight/10">
-              <EllipsisHorizontalIcon className="h-5 w-5 text-midnight" />
-              <span className="text-sm text-midnight">More</span>
-            </button>
+            <MoreMenu />
           </div>
         </div>
       </div>

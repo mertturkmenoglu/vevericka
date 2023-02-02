@@ -16,7 +16,7 @@ function Feed(): JSX.Element {
           <PostCard />
           <PostCard />
         </div>
-        <aside className="flex w-1/2 flex-col items-end">
+        <aside className="sticky top-8 flex w-1/2 flex-col items-end">
           <ExploreCard className="w-3/4" />
           <Footer className="w-3/4" />
         </aside>
