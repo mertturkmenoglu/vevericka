@@ -1,13 +1,14 @@
 import clsx from 'clsx';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { useRef, useState } from 'react';
 import { LazyImage } from '../LazyImage';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, A11y } from 'swiper';
+import TSwiper, { Navigation, A11y } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 const stories = [
   {
@@ -57,11 +58,21 @@ const stories = [
 ];
 
 function Stories(): JSX.Element {
+  const swiperRef = useRef<TSwiper | null>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
   return (
     <div className="flex items-center space-x-4">
-      <button id="stories-prev">
-        <ChevronLeftIcon className="h-5 w-5 text-midnight" />
+      <button
+        id="stories-prev"
+        className="text-midnight disabled:text-midnight/50"
+        disabled={isBeginning}
+        onClick={() => swiperRef.current?.slidePrev()}
+      >
+        <ChevronLeftIcon className="h-5 w-5 " />
       </button>
+
       <Swiper
         spaceBetween={8}
         slidesPerView={6}
@@ -71,10 +82,22 @@ function Stories(): JSX.Element {
           nextEl: '.stories-next',
         }}
         className="py-8"
+        onInit={(swiper) => {
+          swiperRef.current = swiper;
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
+        }}
+        onSlideChange={(swiper) => {
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
+        }}
       >
-        {stories.map((story) => (
-          <button>
-            <SwiperSlide className="py-4 px-2">
+        {stories.map((story, index) => (
+          <SwiperSlide
+            className="py-4 px-2"
+            key={story.thumbnail + index}
+          >
+            <button>
               <LazyImage
                 src={story.thumbnail}
                 alt="User image"
@@ -84,13 +107,18 @@ function Stories(): JSX.Element {
                   'ring-2 ring-berry ring-offset-2': !story.visited,
                 })}
               />
-            </SwiperSlide>
-          </button>
+            </button>
+          </SwiperSlide>
         ))}
       </Swiper>
 
-      <button id="stories-next">
-        <ChevronRightIcon className="h-5 w-5 text-midnight" />
+      <button
+        id="stories-next"
+        className="text-midnight disabled:text-midnight/50"
+        onClick={() => swiperRef.current?.slideNext()}
+        disabled={isEnd}
+      >
+        <ChevronRightIcon className="h-5 w-5" />
       </button>
     </div>
   );
