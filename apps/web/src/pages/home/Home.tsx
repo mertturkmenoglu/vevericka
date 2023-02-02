@@ -16,7 +16,7 @@ function Home(): JSX.Element {
 
       <LandingHero />
 
-      <Footer className="absolute bottom-0 left-0 right-0" />
+      <Footer className="absolute bottom-0 left-0 right-0 mx-auto" />
     </div>
   );
 }

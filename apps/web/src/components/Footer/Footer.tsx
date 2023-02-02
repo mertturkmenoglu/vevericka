@@ -9,7 +9,7 @@ export interface FooterProps {
 
 function Footer({ className }: FooterProps): JSX.Element {
   return (
-    <footer className={clsx('container mx-auto mb-8 flex flex-col items-center', className)}>
+    <footer className={clsx('container flex flex-col items-center py-8', className)}>
       <nav>
         <ul className="flex space-x-8">
           <NavigationItem

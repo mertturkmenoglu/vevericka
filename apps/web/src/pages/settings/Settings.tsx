@@ -10,7 +10,7 @@ function Settings(): JSX.Element {
           <Content />
         </div>
       </main>
-      <Footer className="absolute bottom-0 right-0 left-0" />
+      <Footer className="absolute bottom-0 right-0 left-0 mx-auto" />
     </div>
   );
 }
