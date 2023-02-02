@@ -4,6 +4,7 @@ export * from './AppBarMenu';
 export * from './AuthButton';
 export * from './Banner';
 export * from './Button';
+export * from './ExploreCard';
 export * from './Footer';
 export * from './LandingAppBar';
 export * from './LandingHero';
