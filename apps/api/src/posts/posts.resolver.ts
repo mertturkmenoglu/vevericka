@@ -8,7 +8,7 @@ import { PostsService } from "./posts.service";
 export class PostsResolver {
   constructor(private readonly postsService: PostsService) {}
 
-  @Query((returns) => Post)
+  @Query(() => Post)
   async getPost(@Args("id") id: string): Promise<Post> {
     const post = await this.postsService.findOneById(id);
     if (!post) {
@@ -17,12 +17,12 @@ export class PostsResolver {
     return post;
   }
 
-  @Query((returns) => [Post])
+  @Query(() => [Post])
   getPosts(): Promise<Post[]> {
     return this.postsService.findAll();
   }
 
-  @Mutation((returns) => Post)
+  @Mutation(() => Post)
   async createPost(
     @Args("newPostData") newPostData: NewPostInput
   ): Promise<Post> {
@@ -30,7 +30,7 @@ export class PostsResolver {
     return post;
   }
 
-  @Mutation((returns) => Boolean)
+  @Mutation(() => Boolean)
   async removeRecipe(@Args("id") id: string) {
     return this.postsService.remove(id);
   }
