@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import { AuthButton } from '../AuthButton';
 import { Loading } from '../Loading';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginForm(): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
+  const [, startTransition] = useTransition();
+  const navigate = useNavigate();
+
+  const onAuthButtonClick = () => {
+    startTransition(() => {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate('/feed');
+      }, 3000);
+    });
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -13,17 +25,17 @@ function LoginForm(): JSX.Element {
       <div className="mt-16 flex w-full flex-col space-y-4">
         <AuthButton
           provider="google"
-          onClick={() => setIsLoading(true)}
+          onClick={() => onAuthButtonClick()}
         />
 
         <AuthButton
           provider="github"
-          onClick={() => setIsLoading(true)}
+          onClick={() => onAuthButtonClick()}
         />
 
         <AuthButton
           provider="discord"
-          onClick={() => setIsLoading(true)}
+          onClick={() => onAuthButtonClick()}
         />
       </div>
 
