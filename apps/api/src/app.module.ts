@@ -6,6 +6,7 @@ import { DirectiveLocation, GraphQLDirective } from "graphql";
 import { upperDirectiveTransformer } from "./common/directives/upper-case.directive";
 import { PostsModule } from "./posts/posts.module";
 import { RecipesModule } from "./recipes/recipes.module";
+import { UsersModule } from "./users/users.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { RecipesModule } from "./recipes/recipes.module";
     }),
     PostsModule,
     RecipesModule,
+    UsersModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: "schema.gql",

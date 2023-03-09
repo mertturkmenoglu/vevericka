@@ -28,6 +28,30 @@ type Recipe {
   title: String!
 }
 
+"""user"""
+type User {
+  id: Float!
+  username: String!
+  email: String!
+  name: String!
+  image: String!
+  job: String
+  twitterHandle: String
+  school: String
+  birthDate: Date
+  website: String
+  description: String
+  verified: Boolean!
+  protected: Boolean!
+  bannerImage: String!
+  gender: String
+  genderOther: String
+  city: String
+  country: String
+  createdAt: Date!
+  updatedAt: Date!
+}
+
 """Date custom scalar type"""
 scalar Date
 
@@ -36,6 +60,8 @@ type Query {
   getPosts: [Post!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
+  user(id: String!): User!
+  users: [User!]!
 }
 
 type Mutation {
