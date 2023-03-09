@@ -15,6 +15,8 @@ import {
   EnvelopeIcon,
   GlobeAltIcon,
 } from '@heroicons/react/24/outline';
+import AccountContainer from '../containers/account';
+import ProfileContainer from '../containers/profile';
 
 const categories = [
   {
@@ -84,8 +86,6 @@ function Content(): JSX.Element {
     }));
   };
 
-  const n = 5;
-
   return (
     <Tab.Group
       vertical
@@ -112,13 +112,9 @@ function Content(): JSX.Element {
           >
             <h2 className="mb-2 text-2xl font-bold text-midnight">{category.name}</h2>
             <hr />
-            {new Array(n).fill(0).map((_, index) => (
-              <div key={index}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium amet aperiam, molestias tempora
-                dolores quibusdam similique rerum vel culpa optio sapiente eaque inventore accusamus ipsam perferendis
-                explicabo provident. Provident, doloremque.
-              </div>
-            ))}
+
+            {category.name === 'Account' && <AccountContainer />}
+            {category.name === 'Profile' && <ProfileContainer />}
           </Tab.Panel>
         ))}
       </Tab.Panels>
