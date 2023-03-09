@@ -46,7 +46,7 @@ function MoreMenu(): JSX.Element {
           className="absolute right-0 z-50 mt-2 flex w-32 origin-top-right flex-col space-y-2 rounded bg-white p-2 shadow ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
           {items.map((item) => (
-            <Menu.Item>
+            <Menu.Item key={item.action}>
               {({ active }) => (
                 <Link
                   className={clsx('flex items-center rounded px-2 py-1 text-midnight transition-all duration-200', {
