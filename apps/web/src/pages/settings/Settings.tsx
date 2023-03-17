@@ -1,15 +1,13 @@
-import { AppBar, Footer } from '../../components';
+import { Footer } from '../../components';
+import { MainLayout } from '../../layouts';
 import Content from './components/Content';
 
 function Settings(): JSX.Element {
   return (
     <div className="relative min-h-screen">
-      <main className="container mx-auto">
-        <AppBar className="sm:mt-4" />
-        <div className="mt-4 flex rounded">
-          <Content />
-        </div>
-      </main>
+      <MainLayout>
+        <Content />
+      </MainLayout>
       <Footer className="absolute bottom-0 right-0 left-0 mx-auto" />
     </div>
   );

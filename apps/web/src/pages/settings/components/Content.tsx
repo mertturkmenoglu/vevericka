@@ -1,90 +1,10 @@
 import { Tab } from '@headlessui/react';
-import clsx from 'clsx';
-import { useSearchParams } from 'react-router-dom';
-import { useMemo } from 'react';
-import SidebarItem from './SidebarItem';
-import {
-  UserIcon,
-  IdentificationIcon,
-  KeyIcon,
-  QuestionMarkCircleIcon,
-  LockClosedIcon,
-  ComputerDesktopIcon,
-  BellIcon,
-  CloudIcon,
-  EnvelopeIcon,
-  GlobeAltIcon,
-} from '@heroicons/react/24/outline';
-import AccountContainer from '../containers/account';
-import ProfileContainer from '../containers/profile';
-
-const categories = [
-  {
-    key: 'account',
-    name: 'Account',
-    icon: UserIcon,
-  },
-  {
-    key: 'profile',
-    name: 'Profile',
-    icon: IdentificationIcon,
-  },
-  {
-    key: 'display',
-    name: 'Display',
-    icon: ComputerDesktopIcon,
-  },
-  {
-    key: 'language',
-    name: 'Language',
-    icon: GlobeAltIcon,
-  },
-  {
-    key: 'notifications',
-    name: 'Notifications',
-    icon: BellIcon,
-  },
-  {
-    key: 'email',
-    name: 'Email Settings',
-    icon: EnvelopeIcon,
-  },
-  {
-    key: 'password-and-security',
-    name: 'Password and Security',
-    icon: KeyIcon,
-  },
-  {
-    key: 'privacy',
-    name: 'Privacy',
-    icon: LockClosedIcon,
-  },
-  {
-    key: 'your-data',
-    name: 'Your Data',
-    icon: CloudIcon,
-  },
-  {
-    key: 'help',
-    name: 'Help',
-    icon: QuestionMarkCircleIcon,
-  },
-];
+import { useTabs } from '../hooks/useTabs';
+import TabList from './TabList';
+import TabPanels from './TabPanels';
 
 function Content(): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const activeTab = searchParams.get('tab') ?? 'account';
-
-  const defaultTabIndex = useMemo(() => {
-    return categories.findIndex((category) => category.key === activeTab);
-  }, [activeTab]);
-
-  const onTabChange = (index: number) => {
-    setSearchParams((prev) => ({
-      ...prev,
-      tab: categories[index].key,
-    }));
-  };
+  const { defaultTabIndex, onTabChange } = useTabs();
 
   return (
     <Tab.Group
@@ -92,32 +12,8 @@ function Content(): JSX.Element {
       defaultIndex={defaultTabIndex}
       onChange={onTabChange}
     >
-      <Tab.List className="h-fit w-96 space-y-1 rounded border border-gray-400 bg-white p-6">
-        {categories.map(({ name, icon }) => (
-          <SidebarItem
-            key={name}
-            name={name}
-            icon={icon}
-          />
-        ))}
-      </Tab.List>
-      <Tab.Panels className="ml-8 w-full">
-        {categories.map((category) => (
-          <Tab.Panel
-            key={category.name}
-            className={clsx(
-              'rounded-xl bg-white',
-              'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-            )}
-          >
-            <h2 className="mb-2 text-2xl font-bold text-midnight">{category.name}</h2>
-            <hr />
-
-            {category.name === 'Account' && <AccountContainer />}
-            {category.name === 'Profile' && <ProfileContainer />}
-          </Tab.Panel>
-        ))}
-      </Tab.Panels>
+      <TabList />
+      <TabPanels />
     </Tab.Group>
   );
 }

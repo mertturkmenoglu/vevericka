@@ -1,6 +1,6 @@
-import { AppBar } from '../../components';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
+import { MainLayout } from '../../layouts';
 
 function Settings(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -8,8 +8,7 @@ function Settings(): JSX.Element {
   const [userQuery, setUserQuery] = useState(queryFromUrl);
 
   return (
-    <main className="container mx-auto">
-      <AppBar className="sm:mt-4" />
+    <MainLayout>
       <div className="mt-16 flex w-full justify-center space-x-4">
         <input
           type="text"
@@ -33,7 +32,7 @@ function Settings(): JSX.Element {
           Search
         </button>
       </div>
-    </main>
+    </MainLayout>
   );
 }
 
