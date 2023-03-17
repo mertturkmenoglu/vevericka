@@ -18,13 +18,15 @@ export class PostsService {
       },
       include: {
         comments: true,
+        user: true,
       },
     });
   }
 
   async findAll(): Promise<Post[]> {
+    const a = await this.prisma.user.findFirst()
     const res = await this.prisma.post.findMany({
-      include: { comments: true },
+      include: { comments: true, user: true },
     });
     return res;
   }

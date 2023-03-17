@@ -1,4 +1,5 @@
 import { Field, ObjectType } from "@nestjs/graphql";
+import { User } from "../../users/models/user.model";
 
 @ObjectType({ description: "C" })
 class C {
@@ -14,8 +15,8 @@ export class Post {
   @Field()
   content: string;
 
-  @Field()
-  userId: number;
+  @Field(() => User)
+  user: User;
 
   @Field((type) => [C])
   comments: C[];
