@@ -3,3 +3,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  button,
+  a {
+    @apply focus:outline-2 focus:outline-offset-2 focus:outline-amber-500;
+  }
+}
