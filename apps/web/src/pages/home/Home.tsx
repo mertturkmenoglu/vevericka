@@ -1,8 +1,10 @@
 import { Banner, Footer, LandingAppBar, LandingHero } from '../../components';
 import { useState } from 'react';
+import { useFlags } from '../../hooks';
 
 function Home(): JSX.Element {
   const [isBannerOpen, setIsBannerOpen] = useState(true);
+  const { landingAppBar } = useFlags();
 
   return (
     <div className="relative flex h-screen flex-col items-center">
@@ -12,7 +14,7 @@ function Home(): JSX.Element {
         setIsOpen={setIsBannerOpen}
       />
 
-      <LandingAppBar className="mt-4" />
+      {landingAppBar && <LandingAppBar className="mt-4" />}
 
       <LandingHero />
 
