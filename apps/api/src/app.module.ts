@@ -3,7 +3,9 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { DirectiveLocation, GraphQLDirective } from "graphql";
+import { AuthModule } from "./auth/auth.module";
 import { upperDirectiveTransformer } from "./common/directives/upper-case.directive";
+import { ExploreModule } from "./explore/explore.module";
 import { FeedModule } from "./feed/feed.module";
 import { PostsModule } from "./posts/posts.module";
 import { RecipesModule } from "./recipes/recipes.module";
@@ -11,6 +13,7 @@ import { UsersModule } from "./users/users.module";
 
 @Module({
   imports: [
+    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -18,6 +21,7 @@ import { UsersModule } from "./users/users.module";
     RecipesModule,
     UsersModule,
     FeedModule,
+    ExploreModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: "schema.gql",
