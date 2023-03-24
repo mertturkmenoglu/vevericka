@@ -43,6 +43,15 @@ type Post {
   updatedAt: Date!
 }
 
+"""tag"""
+type Tag {
+  id: Float!
+  tagName: String!
+  posts: [Post!]!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
 """feed"""
 type Feed {
   posts: [Post!]!
@@ -68,6 +77,7 @@ type Query {
   user(id: String!): User!
   users: [User!]!
   feed(id: Float!, skip: Int! = 0, take: Int! = 25): Feed!
+  tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
 }
 
 type Mutation {
