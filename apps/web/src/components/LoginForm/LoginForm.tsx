@@ -1,42 +1,20 @@
-import { useState, useTransition } from 'react';
-
 import { AuthButton } from '../AuthButton';
-import { Loading } from '../Loading';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function LoginForm(): JSX.Element {
-  const [isLoading, setIsLoading] = useState(false);
-  const [, startTransition] = useTransition();
-  const navigate = useNavigate();
-
-  const onAuthButtonClick = () => {
-    startTransition(() => {
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        navigate('/feed');
-      }, 3000);
-    });
-  };
-
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl font-bold">Login in to Vevericka</h2>
       <div className="mt-16 flex w-full flex-col space-y-4">
-        <AuthButton
-          provider="google"
-          onClick={() => onAuthButtonClick()}
-        />
+        <AuthButton provider="google" />
 
-        <AuthButton
-          provider="github"
-          onClick={() => onAuthButtonClick()}
-        />
+        <AuthButton provider="twitter" />
 
-        <AuthButton
-          provider="discord"
-          onClick={() => onAuthButtonClick()}
-        />
+        <AuthButton provider="discord" />
+
+        <AuthButton provider="spotify" />
+
+        <AuthButton provider="github" />
       </div>
 
       <hr className="mt-8 w-full border border-midnight border-opacity-70" />
@@ -52,7 +30,6 @@ function LoginForm(): JSX.Element {
           </Link>
         </p>
       </div>
-      {isLoading && <Loading className="mt-16" />}
     </div>
   );
 }
