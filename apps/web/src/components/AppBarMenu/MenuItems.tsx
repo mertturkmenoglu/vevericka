@@ -56,7 +56,17 @@ function MenuItems({ className }: MenuItemsProps): JSX.Element {
         <Item
           as="button"
           text="Logout"
-          onClick={async () => {}}
+          onClick={async () => {
+            // TODO: Fix cookie clearing bug
+            await fetch('http://localhost:3000/oauth/logout', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+            window.location.href = '/';
+          }}
           icon={ArrowRightOnRectangleIcon}
         />
       </div>
