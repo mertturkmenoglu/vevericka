@@ -3,8 +3,8 @@ import { GenderOptions } from "@prisma/client";
 
 @ObjectType({ description: "user" })
 export class User {
-  @Field((type) => Number)
-  id: number;
+  @Field()
+  id: string;
 
   @Field()
   username: string;

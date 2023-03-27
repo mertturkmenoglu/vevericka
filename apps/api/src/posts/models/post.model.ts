@@ -3,14 +3,14 @@ import { User } from "../../users/models/user.model";
 
 @ObjectType({ description: "C" })
 class C {
-  @Field((type) => Number)
-  id: number;
+  @Field()
+  id: string;
 }
 
 @ObjectType({ description: "post" })
 export class Post {
-  @Field((type) => Number)
-  id: number;
+  @Field()
+  id: string;
 
   @Field()
   content: string;

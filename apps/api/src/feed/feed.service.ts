@@ -7,7 +7,7 @@ import { Feed } from "./models/feed.model";
 export class FeedService {
   constructor(private prisma: PrismaService) {}
 
-  private async getFriendsIds(id: number): Promise<number[]> {
+  private async getFriendsIds(id: string): Promise<string[]> {
     const res = await this.prisma.user.findFirstOrThrow({
       where: {
         id,
@@ -23,7 +23,7 @@ export class FeedService {
     return res.following.map((it) => it.id);
   }
 
-  async getUserFeed(id: number, pagination: PaginationArgs): Promise<Feed> {
+  async getUserFeed(id: string, pagination: PaginationArgs): Promise<Feed> {
     const followingIds = await this.getFriendsIds(id);
     const res = await this.prisma.post.findMany({
       where: {

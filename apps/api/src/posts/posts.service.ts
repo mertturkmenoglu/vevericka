@@ -14,7 +14,7 @@ export class PostsService {
   async findOneById(id: string): Promise<Post> {
     return this.prisma.post.findUnique({
       where: {
-        id: parseInt(id),
+        id,
       },
       include: {
         comments: true,
@@ -24,7 +24,7 @@ export class PostsService {
   }
 
   async findAll(): Promise<Post[]> {
-    const a = await this.prisma.user.findFirst()
+    const a = await this.prisma.user.findFirst();
     const res = await this.prisma.post.findMany({
       include: { comments: true, user: true },
     });

@@ -4,7 +4,7 @@ import { Post } from "../../posts/models/post.model";
 @ObjectType({ description: "tag" })
 export class Tag {
   @Field()
-  id: number;
+  id: string;
 
   @Field()
   tagName: string;

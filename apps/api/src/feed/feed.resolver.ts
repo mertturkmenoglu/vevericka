@@ -10,7 +10,7 @@ export class FeedResolver {
 
   @Query(() => Feed)
   async feed(
-    @Args("id") id: number,
+    @Args("id") id: string,
     @Args() pagination: PaginationArgs
   ): Promise<Feed> {
     const feed = await this.feedService.getUserFeed(id, pagination);
