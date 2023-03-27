@@ -1,7 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { Profile } from "passport-spotify";
+import { Profile } from "passport";
 import { PrismaService } from "src/prisma/prisma.service";
+import { JwtPayload } from "./types/jwt-payload.type";
+import { OAuthType } from "./types/oauth.type";
 
 @Injectable()
 export class AuthService {
@@ -10,13 +12,15 @@ export class AuthService {
     private readonly prisma: PrismaService
   ) {}
 
-  login(user: Profile) {
-    const payload = {
-      name: user.username,
+  login(user: Profile): string {
+    const payload: JwtPayload = {
       sub: user.id,
+      email: user.emails[0].value,
+      image: user.photos[0].value,
+      type: user.provider as OAuthType,
     };
 
-    return this.jwtService.sign(payload);
+    return `Bearer ${this.jwtService.sign(payload)}`;
   }
 
   async findUserById(id: string) {
