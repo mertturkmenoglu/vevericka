@@ -9,6 +9,7 @@ import './i18n';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { SearchPage } from './pages/search';
 import { GuestRoute, ProtectedRoute } from './components';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 const router = createBrowserRouter([
   {
@@ -71,12 +72,18 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
+const apolloClient = new ApolloClient({
+  uri: import.meta.env.VITE_BASE_URL + '/graphql',
+  cache: new InMemoryCache(),
+});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools />
+      <ApolloProvider client={apolloClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools />
+      </ApolloProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );
