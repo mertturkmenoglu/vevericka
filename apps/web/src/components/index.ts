@@ -2,6 +2,7 @@ export * from './Alert';
 export * from './AppBar';
 export * from './AppBarMenu';
 export * from './AuthButton';
+export * from './AuthGuards';
 export * from './Banner';
 export * from './Button';
 export * from './ExploreCard';
