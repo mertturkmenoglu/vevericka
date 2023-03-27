@@ -90,7 +90,7 @@ export class AuthController {
     const token = this.authService.login(user);
     return res
       .cookie("jwt-access", token, {
-        httpOnly: true,
+        httpOnly: process.env.NODE_ENV !== "development",
         secure: process.env.NODE_ENV !== "development",
         maxAge: 1000 * 60 * 60 * 24 * 7,
         path: "/",
