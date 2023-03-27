@@ -8,36 +8,65 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './i18n';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { SearchPage } from './pages/search';
+import { GuestRoute, ProtectedRoute } from './components';
 
 const router = createBrowserRouter([
   {
     path: '/feed',
-    element: <FeedPage />,
+    element: (
+      <ProtectedRoute>
+        <FeedPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/',
-    element: <HomePage />,
+    element: (
+      <GuestRoute>
+        <HomePage />
+      </GuestRoute>
+    ),
     errorElement: <NotFoundPage />,
   },
   {
     path: '/login',
-    element: <LoginPage />,
+    element: (
+      <GuestRoute>
+        <LoginPage />
+      </GuestRoute>
+    ),
   },
   {
     path: '/messages',
-    element: <MessagesPage />,
+    element: (
+      <ProtectedRoute>
+        <MessagesPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/notifications',
-    element: <NotificationsPage />,
+    element: (
+      <ProtectedRoute>
+        <NotificationsPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/search',
-    element: <SearchPage />,
+    element: (
+      <ProtectedRoute>
+        <SearchPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/settings',
-    element: <SettingsPage />,
+    element: (
+      <ProtectedRoute>
+        <SettingsPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 
