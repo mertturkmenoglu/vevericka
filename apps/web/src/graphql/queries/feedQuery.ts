@@ -7,12 +7,7 @@ export const feedQueryDocument = graphql(/* GraphQL */ `
         id
         content
         user {
-          id
-          username
-          email
-          name
-          image
-          verified
+          ...UserFragment
         }
         createdAt
         updatedAt
