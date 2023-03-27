@@ -7,10 +7,8 @@ export interface GuestRouteProps {
 
 function GuestRoute({ children }: GuestRouteProps) {
   const [isAuthenticated] = useAuth();
-  console.log(isAuthenticated);
   if (isAuthenticated) {
-    console.log('redirecting');
-    return <Navigate to="/" />;
+    return <Navigate to="/feed" />;
   }
   return <>{children}</>;
 }
