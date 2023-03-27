@@ -83,11 +83,14 @@ export class AuthController {
     return this.addCookieAndRedirect(req, res);
   }
 
-  private addCookieAndRedirect(@Req() req: Request, @Res() res: Response) {
+  private async addCookieAndRedirect(
+    @Req() req: Request,
+    @Res() res: Response
+  ) {
     const BASE = this.configService.get<string>("WEB_CLIENT_URL");
     const webClientRedirectUrl = `${BASE}/feed`;
     const user: Profile = req.user as Profile;
-    const token = this.authService.login(user);
+    const token = await this.authService.login(user);
     return res
       .cookie("jwt-access", token, {
         httpOnly: process.env.NODE_ENV !== "development",
