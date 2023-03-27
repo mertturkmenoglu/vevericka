@@ -5,24 +5,35 @@ generator client {
 datasource db {
   provider      = "mysql"
   url           = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+enum AuthProvider {
+  GOOGLE
+  TWITTER
+  GITHUB
+  DISCORD
+  SPOTIFY
 }
 
 model Auth {
-  // Primary Key
-  email String @id
-  // Scalar Values
-  password String @db.VarChar(256)
+  email String
+  type AuthProvider
+
   // Relations
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int  @unique
+  userId String  @unique
+
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@id([email, type])
 }
 
 model User {
   // Primary Key
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   // Scalar Values
   username      String         @unique() @db.VarChar(32)
   email         String         @unique() @db.VarChar(255)
@@ -63,43 +74,43 @@ model User {
 }
 
 model Speaking {
-  id          Int         @id @default(autoincrement())
+  id          String         @id @default(uuid())
   language    Language
   proficiency Proficiency
   user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      Int
+  userId      String
 }
 
 model WishToSpeak {
-  id       Int      @id @default(autoincrement())
+  id       String         @id @default(uuid())
   language Language
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   Int
+  userId   String
 }
 
 model Hobby {
-  id     Int    @id @default(autoincrement())
+  id     String         @id @default(uuid())
   hobby  String @db.VarChar(64)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+  userId String
 }
 
 model Feature {
-  id          Int    @id @default(autoincrement())
+  id          String         @id @default(uuid())
   feature     String @db.VarChar(64)
   description String @db.VarChar(255)
   user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      Int
+  userId      String
 }
 
 model Post {
   // Primary Key
-  id Int @id @default(autoincrement())
+  id String         @id @default(uuid())
   // Scalar Values
   content String @db.VarChar(255)
   // Relations
   user     User        @relation(name: "UserPosts", fields: [userId], references: [id], onDelete: Cascade)
-  userId   Int
+  userId   String
   dislikes User[]      @relation(name: "UserDislikes")
   likes    User[]      @relation(name: "UserLikes")
   tags     Tag[]       @relation(name: "PostTags")
@@ -113,12 +124,12 @@ model Post {
 
 model Short {
   // Primary Key
-  id Int @id @default(autoincrement())
+  id String         @id @default(uuid())
   // Scalar Values
   url String @db.VarChar(255)
   // Relations
   user     User        @relation(name: "UserShorts", fields: [userId], references: [id], onDelete: Cascade)
-  userId   Int
+  userId   String
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -126,14 +137,14 @@ model Short {
 
 model Comment {
   // Primary Key
-  id Int @id @default(autoincrement())
+  id String         @id @default(uuid())
   // Scalar Values
   content String @db.VarChar(255)
   // Relations
   user   User @relation(name: "UserComments", fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+  userId String
   post   Post @relation(name: "PostComments", fields: [postId], references: [id], onDelete: Cascade)
-  postId Int
+  postId String
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -141,7 +152,7 @@ model Comment {
 
 model Tag {
   // Primary Key
-  id Int @id @default(autoincrement())
+  id String         @id @default(uuid())
   // Scalar Values
   tagName String @unique @db.VarChar(254)
   // Relations
@@ -160,7 +171,7 @@ model PostImage {
   url String
   // Relations
   post   Post @relation(name: "PostImages", fields: [postId], references: [id], onDelete: Cascade)
-  postId Int
+  postId String
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -173,7 +184,7 @@ model PostVideo {
   url String
   // Relations
   post   Post @relation(name: "PostVideos", fields: [postId], references: [id], onDelete: Cascade)
-  postId Int
+  postId String
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
