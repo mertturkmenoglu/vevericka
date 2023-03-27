@@ -7,12 +7,6 @@ export class User {
   id: string;
 
   @Field()
-  username: string;
-
-  @Field()
-  email: string;
-
-  @Field()
   name: string;
 
   @Field()
