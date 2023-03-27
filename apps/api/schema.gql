@@ -74,6 +74,7 @@ type Query {
   posts: [Post!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
+  me: User!
   user(id: String!): User!
   users: [User!]!
   feed(id: Float!, skip: Int! = 0, take: Int! = 25): Feed!
