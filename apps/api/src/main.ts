@@ -24,8 +24,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const PORT = process.env.PORT ?? 3000;
   await app.listen(PORT);
-  const prismaService = app.get(PrismaService);
-  await prismaService.enableShutdownHooks(app);
+
+  if (process.env.NODE_ENV !== "development") {
+    const prismaService = app.get(PrismaService);
+    await prismaService.enableShutdownHooks(app);
+  }
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 
