@@ -1,4 +1,5 @@
 import { Field, ObjectType } from "@nestjs/graphql";
+import { Count } from "src/common/models/count.model";
 import { Tag } from "src/explore/models/tag.model";
 import { User } from "../../users/models/user.model";
 import { PostImage } from "./post-image.model";
@@ -23,6 +24,9 @@ export class Post {
 
   @Field(() => [PostVideo])
   videos: PostVideo[];
+
+  @Field(() => Count)
+  _count: Count;
 
   @Field()
   createdAt: Date;
