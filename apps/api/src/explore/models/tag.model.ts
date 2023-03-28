@@ -9,9 +9,6 @@ export class Tag {
   @Field()
   tagName: string;
 
-  @Field(() => [Post])
-  posts: Post[];
-
   @Field()
   createdAt: Date;
 
