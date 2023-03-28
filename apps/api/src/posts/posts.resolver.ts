@@ -1,8 +1,11 @@
-import { NotFoundException } from "@nestjs/common";
-import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
+import { NotFoundException, UseGuards } from "@nestjs/common";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { JwtAuthGuard } from "src/auth/guards";
 import { NewPostInput } from "./dto/new-post.input";
 import { Post } from "./models/post.model";
 import { PostsService } from "./posts.service";
+import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
+import { CurrentUser } from "src/common/types/current-user.type";
 
 @Resolver(() => Post)
 export class PostsResolver {
@@ -23,10 +26,15 @@ export class PostsResolver {
   }
 
   @Mutation(() => Post)
+  @UseGuards(JwtAuthGuard)
   async createPost(
+    @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("newPostData") newPostData: NewPostInput
   ): Promise<Post> {
-    const post = await this.postsService.create(newPostData);
+    const post = await this.postsService.create(
+      currentUser.user.id,
+      newPostData
+    );
     return post;
   }
 }

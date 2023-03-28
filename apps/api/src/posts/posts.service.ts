@@ -7,8 +7,39 @@ import { Post } from "./models/post.model";
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: NewPostInput): Promise<Post> {
-    return {} as any;
+  async create(userId: string, data: NewPostInput): Promise<Post> {
+    const post = await this.prisma.post.create({
+      data: {
+        content: data.content,
+        images: {
+          createMany: {
+            data: data.imageUrls.map((url) => ({
+              url,
+            })),
+          },
+        },
+        videos: {
+          createMany: {
+            data: data.videoUrls.map((url) => ({
+              url,
+            })),
+          },
+        },
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        images: true,
+        tags: true,
+        videos: true,
+        user: true,
+      },
+    });
+
+    return post;
   }
 
   async findOneById(id: string): Promise<Post> {
