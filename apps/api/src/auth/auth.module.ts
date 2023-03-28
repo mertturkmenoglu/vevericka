@@ -21,6 +21,9 @@ import { PrismaModule } from "src/prisma/prisma.module";
     JwtModule.registerAsync({
       useFactory: async () => {
         return {
+          verifyOptions: {
+            ignoreExpiration: process.env.NODE_ENV === "development",
+          },
           secret: process.env.JWT_SECRET,
           signOptions: {
             expiresIn: "3600s",
