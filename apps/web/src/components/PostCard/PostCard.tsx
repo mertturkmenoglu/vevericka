@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FragmentType, useFragment } from '../../generated';
 import { postFragmentDocument, userFragmentDocument } from '../../graphql';
 import { countFragmentDocument } from '../../graphql/fragments/countFragment';
+import { getPostContent } from '../../lib';
 import { LazyImage } from '../LazyImage';
 import MoreMenu from './MoreMenu';
 
@@ -26,7 +27,7 @@ function PostCard(props: PostCardProps): JSX.Element {
   return (
     <article className="flex items-start space-x-2">
       <Link
-        to={`/p/${post.id}`}
+        to={`/u/${user.id}`}
         className="w-1/12"
       >
         <LazyImage
@@ -47,14 +48,16 @@ function PostCard(props: PostCardProps): JSX.Element {
             {user.name}
           </Link>
           <Link
-            to={'#'}
+            to={`/p/${post.id}`}
             className="text-xs text-neutral-600 hover:underline"
           >
             2h
           </Link>
         </div>
 
-        <p className="text-sm font-normal tracking-tighter sm:text-base sm:tracking-normal">{post.content}</p>
+        <p className="text-sm font-normal tracking-tighter sm:text-base sm:tracking-normal">
+          {getPostContent(post.content)}
+        </p>
 
         {post.images.length > 0 && (
           <div
