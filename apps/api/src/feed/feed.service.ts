@@ -31,6 +31,9 @@ export class FeedService {
           in: [...followingIds, id],
         },
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         user: true,
         images: true,
