@@ -1,6 +1,9 @@
 import { ArrowDownIcon, ArrowUpIcon, ChatBubbleBottomCenterIcon, ShareIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { FragmentType, useFragment } from '../../generated';
+import { postFragmentDocument, userFragmentDocument } from '../../graphql';
+import { countFragmentDocument } from '../../graphql/fragments/countFragment';
 import { LazyImage } from '../LazyImage';
 import MoreMenu from './MoreMenu';
 
@@ -11,15 +14,23 @@ const images = [
   'https://fastly.picsum.photos/id/74/1000/1000.jpg?hmac=qyw_GbDDT5ax1EE8yALr-sc0E7PyJyLByU4xUdyfRHA',
 ];
 
-function PostCard(): JSX.Element {
+export interface PostCardProps {
+  post: FragmentType<typeof postFragmentDocument>;
+}
+
+function PostCard(props: PostCardProps): JSX.Element {
+  const post = useFragment(postFragmentDocument, props.post);
+  const user = useFragment(userFragmentDocument, post.user);
+  const count = useFragment(countFragmentDocument, post._count);
+
   return (
     <article className="flex items-start space-x-2">
       <Link
-        to={'#'}
+        to={`/p/${post.id}`}
         className="w-1/12"
       >
         <LazyImage
-          src="https://github.com/mertturkmenoglu.png"
+          src={user.image}
           alt="User image"
           placeholderSrc="/user.jpg"
           placeholderAlt="Loading"
@@ -30,12 +41,11 @@ function PostCard(): JSX.Element {
       <div className="w-11/12">
         <div className="flex items-baseline space-x-2">
           <Link
-            to={'#'}
+            to={`/u/${user.id}`}
             className="font-medium text-midnight hover:underline"
           >
-            Mert Turkmenoglu
+            {user.name}
           </Link>
-          <p className="text-xs text-neutral-600">@capreaee</p>
           <Link
             to={'#'}
             className="text-xs text-neutral-600 hover:underline"
@@ -44,24 +54,20 @@ function PostCard(): JSX.Element {
           </Link>
         </div>
 
-        <p className="text-sm font-normal tracking-tighter sm:text-base sm:tracking-normal">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis et dolor. Minus quos itaque
-          doloribus beatae porro, quisquam voluptas dolorem architecto magnam. Ad, odit provident possimus laudantium
-          earum consequatur!
-        </p>
+        <p className="text-sm font-normal tracking-tighter sm:text-base sm:tracking-normal">{post.content}</p>
 
-        {images.length > 0 && Math.random() > 0.5 && (
+        {post.images.length > 0 && (
           <div
-            className={clsx('mt-4 grid gap-2', {
+            className={clsx('my-4 grid gap-2', {
               'mx-auto grid-cols-1': images.length === 1,
               'grid-cols-2': images.length === 2 || images.length === 4,
               'grid-cols-3': images.length === 3,
             })}
           >
-            {images.map((image) => (
-              <button key={image}>
+            {post.images.map((image) => (
+              <button key={image.id}>
                 <LazyImage
-                  src={image}
+                  src={image.url}
                   alt="User image"
                   placeholderSrc="/user.jpg"
                   placeholderAlt="Loading"
@@ -75,20 +81,20 @@ function PostCard(): JSX.Element {
           </div>
         )}
 
-        <div className="mt-4 flex items-center justify-between">
+        <div className=" flex items-center justify-between">
           <div className="flex items-center space-x-6">
-            <button className="flex items-center space-x-1 rounded-md py-1 px-2 text-berry hover:bg-midnight/10">
+            <button className="flex items-center space-x-1 rounded-md py-1 pr-2 text-berry hover:bg-midnight/10">
               <ArrowUpIcon className="h-5 w-5" />
-              <span className="text-sm">42</span>
+              <span className="text-sm">{count.likes}</span>
             </button>
             <button className="flex items-center space-x-1 rounded-md py-1 px-2 hover:bg-midnight/10">
               <ArrowDownIcon className="h-5 w-5 text-midnight" />
-              <span className="text-sm text-midnight">10</span>
+              <span className="text-sm text-midnight">{count.dislikes}</span>
             </button>
 
             <button className="flex items-center space-x-1 rounded-md py-1 px-2 hover:bg-midnight/10">
               <ChatBubbleBottomCenterIcon className="h-5 w-5 text-midnight" />
-              <span className="text-sm text-midnight">5</span>
+              <span className="text-sm text-midnight">{count.comments}</span>
             </button>
           </div>
 
