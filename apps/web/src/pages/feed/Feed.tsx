@@ -6,7 +6,6 @@ import { MainLayout } from '../../layouts';
 function Feed(): JSX.Element {
   const { data } = useQuery(feedQueryDocument, {
     variables: {
-      id: 1,
       skip: 0,
       take: 10,
     },
