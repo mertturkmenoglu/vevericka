@@ -90,7 +90,6 @@ scalar Date
 
 type Query {
   post(id: String!): Post!
-  posts: [Post!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
   me: User!
@@ -101,6 +100,7 @@ type Query {
 
 type Mutation {
   createPost(newPostData: NewPostInput!): Post!
+  deletePost(id: String!): Post
   addRecipe(newRecipeData: NewRecipeInput!): Recipe!
   removeRecipe(id: String!): Boolean!
 }

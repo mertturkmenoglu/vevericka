@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { NewPostInput } from "./dto/new-post.input";
 import { Post } from "./models/post.model";
+import { postsInclude } from "./posts.type";
 
 @Injectable()
 export class PostsService {
@@ -42,18 +43,7 @@ export class PostsService {
         },
       },
       include: {
-        images: true,
-        tags: true,
-        videos: true,
-        user: true,
-        _count: {
-          select: {
-            comments: true,
-            dislikes: true,
-            likes: true,
-            tags: true,
-          },
-        },
+        ...postsInclude,
       },
     });
 
@@ -66,44 +56,22 @@ export class PostsService {
         id,
       },
       include: {
-        user: true,
-        images: true,
-        tags: true,
-        videos: true,
-        _count: {
-          select: {
-            comments: true,
-            dislikes: true,
-            likes: true,
-            tags: true,
-          },
-        },
+        ...postsInclude,
       },
     });
   }
 
-  async findAll(): Promise<Post[]> {
-    const res = await this.prisma.post.findMany({
+  async remove(id: string): Promise<Post | null> {
+    const post = await this.prisma.post.delete({
+      where: {
+        id,
+      },
       include: {
-        user: true,
-        images: true,
-        tags: true,
-        videos: true,
-        _count: {
-          select: {
-            comments: true,
-            dislikes: true,
-            likes: true,
-            tags: true,
-          },
-        },
+        ...postsInclude,
       },
     });
-    return res;
-  }
 
-  async remove(id: string): Promise<boolean> {
-    return true;
+    return post;
   }
 
   private prepareTags(content: string): string[] {

@@ -20,11 +20,6 @@ export class PostsResolver {
     return post;
   }
 
-  @Query(() => [Post])
-  posts(): Promise<Post[]> {
-    return this.postsService.findAll();
-  }
-
   @Mutation(() => Post)
   @UseGuards(JwtAuthGuard)
   async createPost(
@@ -35,6 +30,18 @@ export class PostsResolver {
       currentUser.user.id,
       newPostData
     );
+    return post;
+  }
+
+  @Mutation(() => Post, { nullable: true })
+  @UseGuards(JwtAuthGuard)
+  async deletePost(@Args("id") id: string): Promise<Post> {
+    const post = await this.postsService.remove(id);
+
+    if (!post) {
+      throw new NotFoundException(id);
+    }
+
     return post;
   }
 }
