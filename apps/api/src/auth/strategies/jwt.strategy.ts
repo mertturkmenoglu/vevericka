@@ -4,13 +4,15 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 import { AuthService } from "../auth.service";
 import { JwtPayload } from "../types/jwt-payload.type";
 import { Request } from "express";
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
   constructor(private readonly authService: AuthService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request: Request) => {
-          return request?.cookies?.["jwt-access"];
+          const token = request?.cookies?.["jwt-access"]?.split(" ")?.[1] ?? "";
+          return token;
         },
         ExtractJwt.fromAuthHeaderAsBearerToken(),
       ]),
@@ -20,6 +22,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
   }
 
   async validate(payload: JwtPayload) {
-    return this.authService.findUserById(payload.sub);
+    return this.authService.findUserById(payload.id);
   }
 }
