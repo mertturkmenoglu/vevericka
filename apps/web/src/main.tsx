@@ -75,6 +75,7 @@ const queryClient = new QueryClient();
 const apolloClient = new ApolloClient({
   uri: import.meta.env.VITE_BASE_URL + '/graphql',
   cache: new InMemoryCache(),
+  credentials: 'include',
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
