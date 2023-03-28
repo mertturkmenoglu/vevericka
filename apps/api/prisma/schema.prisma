@@ -74,6 +74,8 @@ model Speaking {
   proficiency Proficiency
   user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+
+  @@index([userId])
 }
 
 model WishToSpeak {
@@ -81,6 +83,8 @@ model WishToSpeak {
   language Language
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String
+
+  @@index([userId])
 }
 
 model Hobby {
@@ -88,6 +92,8 @@ model Hobby {
   hobby  String @db.VarChar(64)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+
+  @@index([userId])
 }
 
 model Feature {
@@ -96,6 +102,8 @@ model Feature {
   description String @db.VarChar(255)
   user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+
+  @@index([userId])
 }
 
 model Post {
@@ -115,6 +123,8 @@ model Post {
   // Meta
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+
+  @@index([userId])
 }
 
 model Short {
@@ -128,6 +138,8 @@ model Short {
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model Comment {
@@ -143,6 +155,9 @@ model Comment {
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([postId])
 }
 
 model Tag {
@@ -162,7 +177,7 @@ model Tag {
 
 model PostImage {
   // Primary Key
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   // Scalar Values
   url       String
   // Relations
@@ -171,11 +186,13 @@ model PostImage {
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([postId])
 }
 
 model PostVideo {
   // Primary Key
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   // Scalar Values
   url       String
   // Relations
@@ -184,6 +201,8 @@ model PostVideo {
   // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([postId])
 }
 
 ///
