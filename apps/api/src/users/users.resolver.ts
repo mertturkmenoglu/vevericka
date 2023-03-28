@@ -18,6 +18,7 @@ export class UsersResolver {
   }
 
   @Query(() => User)
+  @UseGuards(JwtAuthGuard)
   async user(@Args("id") id: string): Promise<User> {
     const post = await this.usersService.findOneById(id);
     if (!post) {
