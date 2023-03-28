@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  fragment UserFragment on User {\n    id\n    name\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    genderOther\n    city\n    country\n    createdAt\n    updatedAt\n  }\n": types.UserFragmentFragmentDoc,
-    "\n  query feedQuery($id: String!, $skip: Int, $take: Int) {\n    feed(id: $id, skip: $skip, take: $take) {\n      posts {\n        id\n        content\n        user {\n          ...UserFragment\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.FeedQueryDocument,
+    "\n  query feedQuery($skip: Int, $take: Int) {\n    feed(skip: $skip, take: $take) {\n      posts {\n        id\n        content\n        user {\n          ...UserFragment\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n": types.FeedQueryDocument,
 };
 
 /**
@@ -38,7 +38,7 @@ export function graphql(source: "\n  fragment UserFragment on User {\n    id\n  
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query feedQuery($id: String!, $skip: Int, $take: Int) {\n    feed(id: $id, skip: $skip, take: $take) {\n      posts {\n        id\n        content\n        user {\n          ...UserFragment\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query feedQuery($id: String!, $skip: Int, $take: Int) {\n    feed(id: $id, skip: $skip, take: $take) {\n      posts {\n        id\n        content\n        user {\n          ...UserFragment\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query feedQuery($skip: Int, $take: Int) {\n    feed(skip: $skip, take: $take) {\n      posts {\n        id\n        content\n        user {\n          ...UserFragment\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query feedQuery($skip: Int, $take: Int) {\n    feed(skip: $skip, take: $take) {\n      posts {\n        id\n        content\n        user {\n          ...UserFragment\n        }\n        createdAt\n        updatedAt\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
