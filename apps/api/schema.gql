@@ -4,6 +4,14 @@
 
 directive @upper on FIELD_DEFINITION
 
+"""tag"""
+type Tag {
+  id: String!
+  tagName: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
 """user"""
 type User {
   id: String!
@@ -26,9 +34,22 @@ type User {
   updatedAt: Date!
 }
 
-"""C"""
-type C {
+"""PostImage"""
+type PostImage {
   id: String!
+  url: String!
+  postId: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+"""PostVideo"""
+type PostVideo {
+  id: String!
+  url: String!
+  postId: String!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 """post"""
@@ -36,16 +57,9 @@ type Post {
   id: String!
   content: String!
   user: User!
-  comments: [C!]!
-  createdAt: Date!
-  updatedAt: Date!
-}
-
-"""tag"""
-type Tag {
-  id: String!
-  tagName: String!
-  posts: [Post!]!
+  tags: [Tag!]!
+  images: [PostImage!]!
+  videos: [PostVideo!]!
   createdAt: Date!
   updatedAt: Date!
 }
@@ -75,7 +89,7 @@ type Query {
   me: User!
   user(id: String!): User!
   users: [User!]!
-  feed(id: String!, skip: Int! = 0, take: Int! = 25): Feed!
+  feed(skip: Int! = 0, take: Int! = 25): Feed!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
 }
 
@@ -87,6 +101,8 @@ type Mutation {
 
 input NewPostInput {
   content: String!
+  imageUrls: [String!]!
+  videoUrls: [String!]!
 }
 
 input NewRecipeInput {
