@@ -39,6 +39,14 @@ export class FeedService {
         images: true,
         tags: true,
         videos: true,
+        _count: {
+          select: {
+            comments: true,
+            dislikes: true,
+            likes: true,
+            tags: true,
+          },
+        },
       },
       skip: pagination.skip,
       take: pagination.take,
