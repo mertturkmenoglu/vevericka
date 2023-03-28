@@ -12,6 +12,14 @@ type Tag {
   updatedAt: Date!
 }
 
+"""Count"""
+type Count {
+  dislikes: Float!
+  likes: Float!
+  tags: Float!
+  comments: Float!
+}
+
 """user"""
 type User {
   id: String!
@@ -60,6 +68,7 @@ type Post {
   tags: [Tag!]!
   images: [PostImage!]!
   videos: [PostVideo!]!
+  _count: Count!
   createdAt: Date!
   updatedAt: Date!
 }
