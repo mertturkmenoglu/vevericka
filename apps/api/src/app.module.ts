@@ -30,6 +30,13 @@ import { UsersModule } from "./users/users.module";
       playground: true,
       introspection: true,
       debug: true,
+      cors: {
+        origin: "http://localhost:5173",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+        credentials: true,
+      },
       buildSchemaOptions: {
         directives: [
           new GraphQLDirective({
