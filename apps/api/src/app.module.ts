@@ -2,7 +2,6 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
-import { DirectiveLocation, GraphQLDirective } from "graphql";
 import { AuthModule } from "./auth/auth.module";
 import { ExploreModule } from "./explore/explore.module";
 import { FeedModule } from "./feed/feed.module";
