@@ -1,11 +1,8 @@
 import { Field, ObjectType } from "@nestjs/graphql";
+import { Tag } from "src/explore/models/tag.model";
 import { User } from "../../users/models/user.model";
-
-@ObjectType({ description: "C" })
-class C {
-  @Field()
-  id: string;
-}
+import { PostImage } from "./post-image.model";
+import { PostVideo } from "./post-video.model";
 
 @ObjectType({ description: "post" })
 export class Post {
@@ -18,8 +15,14 @@ export class Post {
   @Field(() => User)
   user: User;
 
-  @Field((type) => [C])
-  comments: C[];
+  @Field(() => [Tag])
+  tags: Tag[];
+
+  @Field(() => [PostImage])
+  images: PostImage[];
+
+  @Field(() => [PostVideo])
+  videos: PostVideo[];
 
   @Field()
   createdAt: Date;
