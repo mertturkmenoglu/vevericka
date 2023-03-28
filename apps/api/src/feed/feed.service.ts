@@ -32,8 +32,10 @@ export class FeedService {
         },
       },
       include: {
-        comments: true,
         user: true,
+        images: true,
+        tags: true,
+        videos: true,
       },
       skip: pagination.skip,
       take: pagination.take,
