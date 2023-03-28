@@ -17,16 +17,17 @@ export class PostsService {
         id,
       },
       include: {
-        comments: true,
         user: true,
+        images: true,
+        tags: true,
+        videos: true,
       },
     });
   }
 
   async findAll(): Promise<Post[]> {
-    const a = await this.prisma.user.findFirst();
     const res = await this.prisma.post.findMany({
-      include: { comments: true, user: true },
+      include: { user: true, images: true, tags: true, videos: true },
     });
     return res;
   }
