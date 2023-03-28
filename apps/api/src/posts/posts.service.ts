@@ -50,6 +50,81 @@ export class PostsService {
     return post;
   }
 
+  async likePost(userId: string, postId: string): Promise<Post> {
+    const post = await this.prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likes: {
+          connect: {
+            id: userId,
+          },
+        },
+        dislikes: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        ...postsInclude,
+      },
+    });
+
+    return post;
+  }
+
+  async dislikePost(userId: string, postId: string): Promise<Post> {
+    const post = await this.prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likes: {
+          disconnect: {
+            id: userId,
+          },
+        },
+        dislikes: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        ...postsInclude,
+      },
+    });
+
+    return post;
+  }
+
+  async removeVote(userId: string, postId: string): Promise<Post> {
+    const post = await this.prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likes: {
+          disconnect: {
+            id: userId,
+          },
+        },
+        dislikes: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        ...postsInclude,
+      },
+    });
+
+    return post;
+  }
+
   async findOneById(id: string): Promise<Post> {
     return this.prisma.post.findUnique({
       where: {

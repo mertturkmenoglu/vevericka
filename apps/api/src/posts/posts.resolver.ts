@@ -6,6 +6,7 @@ import { Post } from "./models/post.model";
 import { PostsService } from "./posts.service";
 import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
 import { CurrentUser } from "src/common/types/current-user.type";
+import { Vote } from "./dto/vote-post.input";
 
 @Resolver(() => Post)
 export class PostsResolver {
@@ -31,6 +32,22 @@ export class PostsResolver {
       newPostData
     );
     return post;
+  }
+
+  @Mutation(() => Post)
+  @UseGuards(JwtAuthGuard)
+  async votePost(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("id") id: string,
+    @Args("vote") vote: Vote
+  ): Promise<Post> {
+    if (vote === "like") {
+      return this.postsService.likePost(currentUser.user.id, id);
+    } else if (vote === "dislike") {
+      return this.postsService.dislikePost(currentUser.user.id, id);
+    } else {
+      return this.postsService.removeVote(currentUser.user.id, id);
+    }
   }
 
   @Mutation(() => Post, { nullable: true })
