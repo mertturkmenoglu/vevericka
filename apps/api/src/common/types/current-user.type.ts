@@ -1,7 +1,7 @@
 export interface CurrentUser {
   email: string;
   user: {
-    id: number;
+    id: string;
     username: string;
     email: string;
     name: string;
