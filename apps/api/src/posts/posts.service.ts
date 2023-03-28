@@ -8,9 +8,19 @@ export class PostsService {
   constructor(private prisma: PrismaService) {}
 
   async create(userId: string, data: NewPostInput): Promise<Post> {
+    const tags = this.prepareTags(data.content);
+
+    await this.prisma.tag.createMany({
+      data: tags.map((tag) => ({ tagName: tag })),
+      skipDuplicates: true,
+    });
+
     const post = await this.prisma.post.create({
       data: {
         content: data.content,
+        tags: {
+          connect: tags.map((tag) => ({ tagName: tag })),
+        },
         images: {
           createMany: {
             data: data.imageUrls.map((url) => ({
@@ -36,6 +46,14 @@ export class PostsService {
         tags: true,
         videos: true,
         user: true,
+        _count: {
+          select: {
+            comments: true,
+            dislikes: true,
+            likes: true,
+            tags: true,
+          },
+        },
       },
     });
 
@@ -52,18 +70,45 @@ export class PostsService {
         images: true,
         tags: true,
         videos: true,
+        _count: {
+          select: {
+            comments: true,
+            dislikes: true,
+            likes: true,
+            tags: true,
+          },
+        },
       },
     });
   }
 
   async findAll(): Promise<Post[]> {
     const res = await this.prisma.post.findMany({
-      include: { user: true, images: true, tags: true, videos: true },
+      include: {
+        user: true,
+        images: true,
+        tags: true,
+        videos: true,
+        _count: {
+          select: {
+            comments: true,
+            dislikes: true,
+            likes: true,
+            tags: true,
+          },
+        },
+      },
     });
     return res;
   }
 
   async remove(id: string): Promise<boolean> {
     return true;
+  }
+
+  private prepareTags(content: string): string[] {
+    const hashtagRegex = /#[-A-Z0-9_]+/gi;
+    const tags = content.match(hashtagRegex);
+    return tags || [];
   }
 }
