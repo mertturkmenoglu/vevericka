@@ -4,6 +4,9 @@ export const postFragmentDocument = graphql(/* GraphQL */ `
   fragment PostFragment on Post {
     id
     content
+    _count {
+      ...CountFragment
+    }
     tags {
       id
       tagName

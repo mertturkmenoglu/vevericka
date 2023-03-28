@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  fragment PostFragment on Post {\n    id\n    content\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n    user {\n      ...UserFragment\n    }\n  }\n": types.PostFragmentFragmentDoc,
+    "\n  fragment CountFragment on Count {\n    dislikes\n    likes\n    tags\n    comments\n  }\n": types.CountFragmentFragmentDoc,
+    "\n  fragment PostFragment on Post {\n    id\n    content\n    _count {\n      ...CountFragment\n    }\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n    user {\n      ...UserFragment\n    }\n  }\n": types.PostFragmentFragmentDoc,
     "\n  fragment UserFragment on User {\n    id\n    name\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    genderOther\n    city\n    country\n    createdAt\n    updatedAt\n  }\n": types.UserFragmentFragmentDoc,
     "\n  query feedQuery($skip: Int, $take: Int) {\n    feed(skip: $skip, take: $take) {\n      posts {\n        ...PostFragment\n      }\n    }\n  }\n": types.FeedQueryDocument,
     "\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n": types.MeDocument,
@@ -36,7 +37,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment PostFragment on Post {\n    id\n    content\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n    user {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  fragment PostFragment on Post {\n    id\n    content\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n    user {\n      ...UserFragment\n    }\n  }\n"];
+export function graphql(source: "\n  fragment CountFragment on Count {\n    dislikes\n    likes\n    tags\n    comments\n  }\n"): (typeof documents)["\n  fragment CountFragment on Count {\n    dislikes\n    likes\n    tags\n    comments\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment PostFragment on Post {\n    id\n    content\n    _count {\n      ...CountFragment\n    }\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n    user {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  fragment PostFragment on Post {\n    id\n    content\n    _count {\n      ...CountFragment\n    }\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    createdAt\n    updatedAt\n    user {\n      ...UserFragment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
