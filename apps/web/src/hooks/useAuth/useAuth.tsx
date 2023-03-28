@@ -1,11 +1,21 @@
-import { useState } from 'react';
-import Cookies from 'universal-cookie';
+import { useQuery } from '@apollo/client';
+import { useMemo } from 'react';
+import { meQueryDocument } from '../../graphql/queries/meQuery';
 
 export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const cookies = new Cookies();
-    return !!cookies.get('jwt-access');
-  });
+  const { data, loading, error } = useQuery(meQueryDocument);
 
-  return [isAuthenticated, setIsAuthenticated];
+  const isAuthenticated = useMemo(() => {
+    if (loading) return false;
+    if (error) return false;
+    if (!data) return false;
+    return true;
+  }, [data, loading, error]);
+
+  return {
+    data,
+    isAuthenticated,
+    loading,
+    error,
+  };
 };
