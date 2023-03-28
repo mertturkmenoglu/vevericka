@@ -2,24 +2,19 @@ import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { PrismaService } from "./prisma/prisma.service";
+import * as cookieParser from "cookie-parser";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: (origin, callback) => {
-      if (process.env.NODE_ENV === "development") {
-        callback(null, true);
-        return;
-      }
-      const prodRegex = "^https:\\/\\/vevericka\\.vercel\\.app$";
-      const isValid = new RegExp(prodRegex, "i").test(origin);
-      callback(null, isValid);
-    },
+    origin: "http://localhost:5173",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
     credentials: true,
   });
+
+  app.use(cookieParser());
 
   app.useGlobalPipes(new ValidationPipe());
   const PORT = process.env.PORT ?? 3000;
