@@ -1,3 +1,4 @@
+export * from './Accordion';
 export * from './Alert';
 export * from './AppBar';
 export * from './AppBarMenu';
