@@ -55,9 +55,9 @@ function PostCard(props: PostCardProps): JSX.Element {
           </Link>
         </div>
 
-        <p className="text-sm font-normal tracking-tighter sm:text-base sm:tracking-normal">
+        <div className="text-sm font-normal tracking-tighter sm:text-base sm:tracking-normal">
           {getPostContent(post.content)}
-        </p>
+        </div>
 
         {post.images.length > 0 && (
           <div
