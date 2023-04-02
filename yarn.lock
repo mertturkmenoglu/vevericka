@@ -2749,6 +2749,11 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@msgpack/msgpack@^2.7.2":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@msgpack/msgpack/-/msgpack-2.8.0.tgz#4210deb771ee3912964f14a15ddfb5ff877e70b9"
+  integrity sha512-h9u4u/jiIRKbq25PM+zymTyW6bhTzELvOoUd+AvYriWOAKpLGnIamaET3pnHYoI5iYphAHBI4ayx0MehR+VVPQ==
+
 "@nestjs/apollo@^10.1.7":
   version "10.1.7"
   resolved "https://registry.npmjs.org/@nestjs/apollo/-/apollo-10.1.7.tgz"
@@ -2936,10 +2941,19 @@
     consola "^2.15.0"
     node-fetch "^2.6.1"
 
-"@orama/orama@^1.0.0-beta.7":
+"@orama/orama@1.0.0-beta.7", "@orama/orama@^1.0.0-beta.7":
   version "1.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/@orama/orama/-/orama-1.0.0-beta.7.tgz#3e38c56eb2b45371a4af6f64c1a88a395a5242c3"
   integrity sha512-Ri4390vHAugZID61bUAF/nxrnmFsEz/IIAnuKBpyRqfD82SN7Kyoq4q7AUI+lnqoWhH4BB8bq1H5sha3AT6EsQ==
+
+"@orama/plugin-data-persistence@^1.0.0-beta.7":
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@orama/plugin-data-persistence/-/plugin-data-persistence-1.0.0-beta.7.tgz#010885143c2953fa9447aa4714830aef6b37c7e9"
+  integrity sha512-l+MTpqDTQhGeECrsLuLnV8bo9oxUk4S01bLnx5BVg6h1AJ/DIbiBd6DsFCH1CfhLSS9MXorda4CkCVcHjLksXg==
+  dependencies:
+    "@msgpack/msgpack" "^2.7.2"
+    "@orama/orama" "1.0.0-beta.7"
+    dpack "^0.6.22"
 
 "@parcel/watcher@^2.1.0":
   version "2.1.0"
@@ -3010,22 +3024,22 @@
   resolved "https://registry.npmjs.org/@polka/url/-/url-1.0.0-next.21.tgz"
   integrity sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==
 
-"@prisma/client@^4.8.0":
-  version "4.8.0"
-  resolved "https://registry.npmjs.org/@prisma/client/-/client-4.8.0.tgz"
-  integrity sha512-Y1riB0p2W52kh3zgssP/YAhln3RjBFcJy3uwEiyjmU+TQYh6QTZDRFBo3JtBWuq2FyMOl1Rye8jxzUP+n0l5Cg==
+"@prisma/client@^4.12.0":
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-4.12.0.tgz#119b692888b1fe0fd3305c7d0e0ac48520aa6839"
+  integrity sha512-j9/ighfWwux97J2dS15nqhl60tYoH8V0IuSsgZDb6bCFcQD3fXbXmxjYC8GHhIgOk3lB7Pq+8CwElz2MiDpsSg==
   dependencies:
-    "@prisma/engines-version" "4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe"
+    "@prisma/engines-version" "4.12.0-67.659ef412370fa3b41cd7bf6e94587c1dfb7f67e7"
 
-"@prisma/engines-version@4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe":
-  version "4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe"
-  resolved "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe.tgz"
-  integrity sha512-MHSOSexomRMom8QN4t7bu87wPPD+pa+hW9+71JnVcF3DqyyO/ycCLhRL1we3EojRpZxKvuyGho2REQsMCvxcJw==
+"@prisma/engines-version@4.12.0-67.659ef412370fa3b41cd7bf6e94587c1dfb7f67e7":
+  version "4.12.0-67.659ef412370fa3b41cd7bf6e94587c1dfb7f67e7"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-4.12.0-67.659ef412370fa3b41cd7bf6e94587c1dfb7f67e7.tgz#51a1cc5c886564b542acde64a873645d0dee2566"
+  integrity sha512-JIHNj5jlXb9mcaJwakM0vpgRYJIAurxTUqM0iX0tfEQA5XLZ9ONkIckkhuAKdAzocZ+80GYg7QSsfpjg7OxbOA==
 
-"@prisma/engines@4.8.0":
-  version "4.8.0"
-  resolved "https://registry.npmjs.org/@prisma/engines/-/engines-4.8.0.tgz"
-  integrity sha512-A1Asn2rxZMlLAj1HTyfaCv0VQrLUv034jVay05QlqZg1qiHPeA3/pGTfNMijbsMYCsGVxfWEJuaZZuNxXGMCrA==
+"@prisma/engines@4.12.0":
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-4.12.0.tgz#68d99078b70b2d9c339d0e8cbf2e99f00b72aa8c"
+  integrity sha512-0alKtnxhNB5hYU+ymESBlGI4b9XrGGSdv7Ud+8TE/fBNOEhIud0XQsAR+TrvUZgS4na5czubiMsODw0TUrgkIA==
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -7827,6 +7841,11 @@ dotenv@^8.0.0:
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-8.6.0.tgz"
   integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
 
+dpack@^0.6.22:
+  version "0.6.22"
+  resolved "https://registry.yarnpkg.com/dpack/-/dpack-0.6.22.tgz#e1c863e0145d6670d92380db1dfa93a4cf97d252"
+  integrity sha512-WGPNlW2OAE7Bj0eODMpAHUcEqxrlg01e9OFZDxQodminIgC194/cRHT7K04Z1j7AUEWTeeplYGrIv/xRdwU9Hg==
+
 dset@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/dset/-/dset-3.1.2.tgz#89c436ca6450398396dc6538ea00abc0c54cd45a"
@@ -9399,6 +9418,11 @@ graphql-tag@2.12.6, graphql-tag@^2.11.0, graphql-tag@^2.12.6:
   integrity sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==
   dependencies:
     tslib "^2.1.0"
+
+graphql-type-json@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.3.2.tgz#f53a851dbfe07bd1c8157d24150064baab41e115"
+  integrity sha512-J+vjof74oMlCWXSvt0DOf2APEdZOCdubEvGDUAlqH//VBYcOYsGgRW7Xzorr44LvkjiuvecWc8fChxuZZbChtg==
 
 graphql-ws@5.12.0:
   version "5.12.0"
@@ -13088,12 +13112,12 @@ pretty-hrtime@^1.0.3:
   resolved "https://registry.npmjs.org/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz"
   integrity sha512-66hKPCr+72mlfiSjlEB1+45IjXSqvVAIy6mocupoww4tBFE9R9IhwwUGoI4G++Tc9Aq+2rxOt0RFU6gPcrte0A==
 
-prisma@^4.8.0:
-  version "4.8.0"
-  resolved "https://registry.npmjs.org/prisma/-/prisma-4.8.0.tgz"
-  integrity sha512-DWIhxvxt8f4h6MDd35mz7BJff+fu7HItW3WPDIEpCR3RzcOWyiHBbLQW5/DOgmf+pRLTjwXQob7kuTZVYUAw5w==
+prisma@^4.12.0:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-4.12.0.tgz#1080eda951928cb3b0274ad29da9ae4f93143d68"
+  integrity sha512-xqVper4mbwl32BWzLpdznHAYvYDWQQWK2tBfXjdUD397XaveRyAP7SkBZ6kFlIg8kKayF4hvuaVtYwXd9BodAg==
   dependencies:
-    "@prisma/engines" "4.8.0"
+    "@prisma/engines" "4.12.0"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -15371,10 +15395,15 @@ typescript@4.8.4:
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.8.4.tgz"
   integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
 
-typescript@^4.9.3, typescript@^4.9.4:
+typescript@^4.9.3:
   version "4.9.4"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.4.tgz"
   integrity sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==
+
+typescript@^5.1.0-dev.20230402:
+  version "5.1.0-dev.20230402"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.0-dev.20230402.tgz#16b098c94cb05fd7232e1f09583b25c42f83b84f"
+  integrity sha512-YivJhKi6iTmS5qfkSuv/p1NYZtlQLexIHIF25kXxYkpjcs6jEtbLEctviQYTrzGVMq+R0QCTRW5EQtp+NLwtnA==
 
 ua-parser-js@^0.7.30:
   version "0.7.34"
