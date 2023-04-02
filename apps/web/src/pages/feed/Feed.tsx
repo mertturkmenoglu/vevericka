@@ -20,13 +20,15 @@ function Feed(): JSX.Element {
           loading={loading}
           error={error}
         >
-          {data &&
-            data.feed.posts.map((post, index) => (
-              <PostCard
-                key={index}
-                post={post}
-              />
-            ))}
+          <div className="divide-y-2 [&>*]:p-4">
+            {data &&
+              data.feed.posts.map((post, index) => (
+                <PostCard
+                  key={index}
+                  post={post}
+                />
+              ))}
+          </div>
         </LoadingLayout>
       </div>
       <aside className="sticky top-8 flex w-1/2 flex-col items-end">
