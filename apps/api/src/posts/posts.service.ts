@@ -3,10 +3,11 @@ import { PrismaService } from "../prisma/prisma.service";
 import { NewPostInput } from "./dto/new-post.input";
 import { Post } from "./models/post.model";
 import { postsInclude } from "./posts.type";
+import { OramaService } from "src/orama/orama.service";
 
 @Injectable()
 export class PostsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private orama: OramaService) {}
 
   async create(userId: string, data: NewPostInput): Promise<Post> {
     const tags = this.prepareTags(data.content);
@@ -46,6 +47,8 @@ export class PostsService {
         ...postsInclude,
       },
     });
+
+    await this.orama.onPostCreated(post);
 
     return post;
   }
