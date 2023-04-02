@@ -82,7 +82,29 @@ type Recipe {
   description: String
   creationDate: Date!
   ingredients: [String!]!
-  title: String!
+}
+
+type PostDocument {
+  id: String!
+  content: String!
+  name: String!
+}
+
+type Result {
+  id: String!
+  score: Float!
+  document: PostDocument!
+}
+
+type ElapsedTime {
+  raw: Float!
+  formatted: String!
+}
+
+type Results {
+  count: Float!
+  hits: [Result!]!
+  elapsed: ElapsedTime!
 }
 
 """Date custom scalar type"""
@@ -96,6 +118,7 @@ type Query {
   user(id: String!): User!
   feed(skip: Int! = 0, take: Int! = 25): Feed!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
+  searchPosts(term: String!): Results!
 }
 
 type Mutation {
