@@ -8,6 +8,7 @@ import { FeedModule } from "./feed/feed.module";
 import { PostsModule } from "./posts/posts.module";
 import { RecipesModule } from "./recipes/recipes.module";
 import { UsersModule } from "./users/users.module";
+import { SearchModule } from "./search/search.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from "./users/users.module";
     UsersModule,
     FeedModule,
     ExploreModule,
+    SearchModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: "schema.gql",
