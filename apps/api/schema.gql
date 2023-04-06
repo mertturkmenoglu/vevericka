@@ -84,6 +84,11 @@ type Recipe {
   ingredients: [String!]!
 }
 
+type LastSeen {
+  id: String!
+  date: String!
+}
+
 type PostDocument {
   id: String!
   content: String!
@@ -127,6 +132,7 @@ type Mutation {
   deletePost(id: String!): Post
   addRecipe(newRecipeData: NewRecipeInput!): Recipe!
   removeRecipe(id: String!): Boolean!
+  updateLastSeen: String!
 }
 
 input NewPostInput {
@@ -143,4 +149,5 @@ input NewRecipeInput {
 
 type Subscription {
   recipeAdded: Recipe!
+  lastSeen: LastSeen!
 }
