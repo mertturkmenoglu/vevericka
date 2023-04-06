@@ -25,9 +25,13 @@ import { SearchModule } from "./search/search.module";
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: "schema.gql",
-      installSubscriptionHandlers: true,
+      subscriptions: {
+        "graphql-ws": true,
+        "subscriptions-transport-ws": true,
+      },
       playground: true,
       introspection: true,
+      stopOnTerminationSignals: false,
       debug: true,
       cors: {
         origin: "http://localhost:5173",
