@@ -1,28 +1,13 @@
-import { z } from 'zod';
 import { MainLayout } from '../../layouts';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { TextField } from '../../components';
-import { ChartBarIcon, PhotoIcon, VideoCameraIcon } from '@heroicons/react/24/outline';
-
-const schema = z.object({
-  text: z.string().min(1, 'Cannot leave blank').max(250, 'Too long'),
-});
-
-type FormValues = z.infer<typeof schema>;
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { useCreatePostForm } from './hooks/useCreatePostForm';
+import MetaButton from './components/MetaButton';
+import CreateButton from './components/CreateButton';
 
 function Create(): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
-  });
-
-  const onSubmit = (data: FormValues) => {
-    console.log({ data });
-  };
+  const { register, handleSubmit, onSubmit, errors, loading } = useCreatePostForm();
 
   return (
     <MainLayout>
@@ -45,27 +30,15 @@ function Create(): JSX.Element {
 
           <div className="mt-4 flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <button className="rounded bg-midnight p-2 transition ease-in-out hover:bg-midnight/90">
-                <PhotoIcon className="h-4 w-4 text-white" />
-              </button>
-
-              <button className="rounded bg-midnight p-2 transition ease-in-out hover:bg-midnight/90">
-                <VideoCameraIcon className="h-4 w-4 text-white" />
-              </button>
-
-              <button className="rounded bg-midnight p-2 transition ease-in-out hover:bg-midnight/90">
-                <ChartBarIcon className="h-4 w-4 text-white" />
-              </button>
+              <MetaButton type="image" />
+              <MetaButton type="video" />
+              <MetaButton type="poll" />
             </div>
-            <button
-              type="submit"
-              className="w-min rounded bg-midnight px-4 py-1 text-white transition ease-in-out hover:bg-midnight/90"
-            >
-              Create
-            </button>
+            <CreateButton loading={loading} />
           </div>
         </form>
       </div>
+      <ToastContainer />
     </MainLayout>
   );
 }
