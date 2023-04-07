@@ -8,10 +8,10 @@ export interface MainLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
 
 function MainLayout({ mainClassName, appBarClassName, className, children, ...props }: MainLayoutProps): JSX.Element {
   return (
-    <main className={clsx('mx-auto max-w-5xl', mainClassName)}>
-      <AppBar className={clsx('sm:mt-4', appBarClassName)} />
+    <main className={clsx('mx-auto', mainClassName)}>
+      <AppBar className={clsx('py-2 px-8', appBarClassName)} />
       <div
-        className={clsx('mt-8 flex w-full items-start justify-between', className)}
+        className={clsx('mx-auto mt-8 flex max-w-5xl items-start justify-between', className)}
         {...props}
       >
         {children}
