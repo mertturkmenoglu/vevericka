@@ -14,5 +14,6 @@ export * from './LazyImage';
 export * from './Loading';
 export * from './LoginForm';
 export * from './PostCard';
+export * from './Spinner';
 export * from './Stories';
 export * from './TextField';
