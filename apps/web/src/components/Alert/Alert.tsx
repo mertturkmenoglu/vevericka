@@ -10,7 +10,7 @@ import clsx from 'clsx';
 
 export const AlertTypeArray = ['warning', 'error', 'success', 'info'] as const;
 
-export type AlertType = typeof AlertTypeArray[number];
+export type AlertType = (typeof AlertTypeArray)[number];
 
 type ColorableProperties = 'background' | 'text' | 'accentBorder';
 
