@@ -1,19 +1,21 @@
-import { MagnifyingGlassIcon, BellIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, BellIcon, EnvelopeIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
 export interface AppBarIconProps {
-  type: 'search' | 'notifications' | 'messages';
+  type: 'create' | 'search' | 'notifications' | 'messages';
 }
 
 export type AppBarIconType = AppBarIconProps['type'];
 
 const iconMapping = {
+  create: PlusIcon,
   search: MagnifyingGlassIcon,
   notifications: BellIcon,
   messages: EnvelopeIcon,
 } as const satisfies Record<AppBarIconType, TwIcon>;
 
 const toMapping = {
+  create: '/create',
   search: '/search',
   notifications: '/notifications',
   messages: '/messages',

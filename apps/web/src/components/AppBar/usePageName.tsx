@@ -4,6 +4,10 @@ export function usePageName(): string {
   const location = useLocation();
   const pathname = location.pathname.split('/')[1];
 
+  if (pathname === 'create') {
+    return 'New Post';
+  }
+
   if (pathname === 'search') {
     return 'Search';
   }

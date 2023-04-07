@@ -28,6 +28,7 @@ function AppBar({ className }: AppBarProps): JSX.Element {
         </div>
 
         <div className="flex items-center space-x-2">
+          <AppBarIcon type="create" />
           <AppBarIcon type="search" />
 
           <AppBarIcon type="notifications" />
