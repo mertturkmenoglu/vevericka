@@ -10,7 +10,8 @@ import clsx from 'clsx';
 
 export const AlertTypeArray = ['warning', 'error', 'success', 'info'] as const;
 
-export type AlertType = (typeof AlertTypeArray)[number];
+// eslint-disable-next-line prettier/prettier
+export type AlertType = typeof AlertTypeArray[number];
 
 type ColorableProperties = 'background' | 'text' | 'accentBorder';
 
