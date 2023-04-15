@@ -1,4 +1,4 @@
-import { ArrowDownIcon, ArrowUpIcon, ChatBubbleBottomCenterIcon, ShareIcon } from '@heroicons/react/24/outline';
+import { ArrowDownIcon, ArrowUpIcon, ArrowUpTrayIcon, ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { FragmentType, useFragment } from '../../generated';
@@ -19,7 +19,12 @@ function PostCard(props: PostCardProps): JSX.Element {
   const count = useFragment(countFragmentDocument, post._count);
 
   return (
-    <article className="flex items-start space-x-2">
+    <article
+      className="flex items-start space-x-2"
+      style={{
+        fontFamily: 'Roboto, sans-serif',
+      }}
+    >
       <Link
         to={`/u/${user.id}`}
         className="w-1/12"
@@ -29,15 +34,15 @@ function PostCard(props: PostCardProps): JSX.Element {
           alt="User image"
           placeholderSrc="/user.jpg"
           placeholderAlt="Loading"
-          className="min-h-10 min-w-10 aspect-square h-10 w-10 rounded-md"
+          className="min-h-10 min-w-10 aspect-square h-10 w-10 rounded-full"
         />
       </Link>
 
-      <div className="w-11/12">
+      <div className="w-10/12">
         <div className="flex items-baseline space-x-1">
           <Link
             to={`/u/${user.id}`}
-            className="text-xl font-normal tracking-wide text-midnight hover:underline"
+            className="text-sm font-semibold tracking-wide text-midnight hover:underline"
           >
             {user.name}
           </Link>
@@ -49,7 +54,7 @@ function PostCard(props: PostCardProps): JSX.Element {
           </Link>
         </div>
 
-        <div className="text-sm font-light tracking-tighter sm:text-base sm:tracking-normal">
+        <div className="text-xs font-light tracking-tighter sm:text-base sm:tracking-normal">
           {getPostContent(post.content)}
         </div>
 
@@ -78,34 +83,32 @@ function PostCard(props: PostCardProps): JSX.Element {
           </div>
         )}
 
-        <div className=" flex items-center justify-between">
-          <div className="flex items-center space-x-6">
-            <ActionButton
-              icon={ArrowUpIcon}
-              text={count.likes}
-              state="active"
-            />
+        <div className="-ml-2 mt-1 flex items-center justify-between">
+          <ActionButton
+            icon={ArrowUpIcon}
+            text={count.likes}
+            state="active"
+          />
 
-            <ActionButton
-              icon={ArrowDownIcon}
-              text={count.dislikes}
-            />
+          <ActionButton
+            icon={ArrowDownIcon}
+            text={count.dislikes}
+          />
 
-            <ActionButton
-              icon={ChatBubbleBottomCenterIcon}
-              text={count.comments}
-            />
-          </div>
+          <ActionButton
+            icon={ChatBubbleBottomCenterIcon}
+            text={count.comments}
+          />
 
-          <div className="flex items-center space-x-4">
-            <ActionButton
-              icon={ShareIcon}
-              text="Share"
-            />
-
-            <MoreMenu />
-          </div>
+          <ActionButton
+            icon={ArrowUpTrayIcon}
+            text={count.comments}
+          />
         </div>
+      </div>
+
+      <div className="w-1/12">
+        <MoreMenu />
       </div>
     </article>
   );
