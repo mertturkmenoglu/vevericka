@@ -40,22 +40,22 @@ function PostCard(props: PostCardProps): JSX.Element {
       </Link>
 
       <div className="w-11/12">
-        <div className="flex items-baseline space-x-2">
+        <div className="flex items-baseline space-x-1">
           <Link
             to={`/u/${user.id}`}
-            className="font-medium text-midnight hover:underline"
+            className="text-xl font-normal tracking-wide text-midnight hover:underline"
           >
             {user.name}
           </Link>
           <Link
             to={`/p/${post.id}`}
-            className="text-xs text-neutral-600 hover:underline"
+            className="text-xs tracking-tighter text-neutral-600 hover:underline"
           >
             2h
           </Link>
         </div>
 
-        <div className="text-sm font-normal tracking-tighter sm:text-base sm:tracking-normal">
+        <div className="text-sm font-light tracking-tighter sm:text-base sm:tracking-normal">
           {getPostContent(post.content)}
         </div>
 
