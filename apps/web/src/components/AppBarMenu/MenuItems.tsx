@@ -16,18 +16,24 @@ import {
 } from '@heroicons/react/24/outline';
 import Item from './Item';
 import Copyright from './Copyright';
+import { useFragment } from '../../generated';
+import { MeQuery } from '../../generated/graphql';
+import { userFragmentDocument } from '../../graphql';
 
 export interface MenuItemsProps {
   className?: string;
+  userData: MeQuery;
 }
 
-function MenuItems({ className }: MenuItemsProps): JSX.Element {
+function MenuItems({ className, userData }: MenuItemsProps): JSX.Element {
+  const me = useFragment(userFragmentDocument, userData.me);
+
   return (
     <div className={clsx(className)}>
       <div className="px-2 py-1">
         <Item
           as="link"
-          href="/u"
+          href={`/u/${me.id}`}
           text="Profile"
           icon={UserIcon}
         />
