@@ -3,7 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
-import { createPostDocument } from '../../../graphql';
+import { createPostDocument, feedQueryDocument } from '../../../graphql';
+import { client } from '../../../apollo';
 
 const schema = z.object({
   text: z.string().min(1, 'Cannot leave blank').max(250, 'Too long'),
@@ -48,6 +49,10 @@ export function useCreatePostForm() {
         autoClose: 5000,
       });
       setValue('text', '');
+
+      await client.refetchQueries({
+        include: [feedQueryDocument],
+      });
     }
   };
 
