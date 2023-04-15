@@ -8,7 +8,7 @@ export const getYoutubeIframe = (text: string): JSX.Element | null => {
         <iframe
           title="youtube"
           src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
-          className="aspect-video w-full"
+          className="mt-2 aspect-video w-full rounded"
           // width="560"
           // height="315"
           frameBorder="0"
