@@ -33,7 +33,7 @@ interface Props {
 
 function ExploreCard({ className }: Props): JSX.Element {
   return (
-    <article className={clsx('rounded bg-neutral-600/10 py-4 px-6', className)}>
+    <article className={clsx('rounded bg-neutral-100 py-4 px-6', className)}>
       <h2 className="text-xl font-normal text-midnight">Explore Vevericka</h2>
 
       <hr className="mt-1 rounded border border-midnight/10" />
