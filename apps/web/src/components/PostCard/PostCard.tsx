@@ -8,6 +8,9 @@ import { getPostContent } from '../../lib';
 import { LazyImage } from '../LazyImage';
 import MoreMenu from './MoreMenu';
 import ActionButton from './ActionButton';
+import { differenceInMonths, format, formatDistanceToNowStrict } from 'date-fns';
+import { enUS } from 'date-fns/locale';
+import { useMemo } from 'react';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
@@ -17,6 +20,18 @@ function PostCard(props: PostCardProps): JSX.Element {
   const post = useFragment(postFragmentDocument, props.post);
   const user = useFragment(userFragmentDocument, post.user);
   const count = useFragment(countFragmentDocument, post._count);
+
+  const formattedDate = useMemo(() => {
+    const currentDate = new Date();
+    const postDate = new Date(post.createdAt);
+
+    if (differenceInMonths(currentDate, postDate) > 1) {
+      const formatString = differenceInMonths(currentDate, postDate) > 12 ? 'MMM d, yyyy' : 'MMM d';
+      return format(postDate, formatString);
+    }
+
+    return formatDistanceToNowStrict(new Date(post.createdAt), { locale: enUS, addSuffix: true });
+  }, [post.createdAt]);
 
   return (
     <article
@@ -50,7 +65,7 @@ function PostCard(props: PostCardProps): JSX.Element {
             to={`/p/${post.id}`}
             className="text-xs tracking-tighter text-neutral-600 hover:underline"
           >
-            2h
+            {formattedDate}
           </Link>
         </div>
 
