@@ -32,12 +32,12 @@ function AppBarIcon({ type }: AppBarIconProps): JSX.Element {
   return (
     <Link
       to={to}
-      className={clsx('flex items-center border border-midnight/20 p-2 hover:bg-midnight/5', {
-        rounded: flags.appBarV2,
-        'rounded-full': !flags.appBarV2,
+      className={clsx('flex items-center  p-2 transition ease-in-out hover:bg-midnight/5', {
+        'rounded border border-midnight/20': flags.appBarV2,
+        'group rounded-full hover:bg-berry/10': !flags.appBarV2,
       })}
     >
-      <Icon className="h-5 w-5 text-midnight" />
+      <Icon className="h-5 w-5 text-midnight group-hover:text-berry" />
     </Link>
   );
 }
