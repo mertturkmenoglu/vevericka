@@ -20,6 +20,7 @@ const documents = {
     "\n  mutation UpdateLastSeen {\n    updateLastSeen\n  }\n": types.UpdateLastSeenDocument,
     "\n  query feedQuery($skip: Int, $take: Int) {\n    feed(skip: $skip, take: $take) {\n      posts {\n        ...PostFragment\n      }\n    }\n  }\n": types.FeedQueryDocument,
     "\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n": types.MeDocument,
+    "\n  query GetUserById($id: String!) {\n    user(id: $id) {\n      ...UserFragment\n    }\n  }\n": types.GetUserByIdDocument,
 };
 
 /**
@@ -64,6 +65,10 @@ export function graphql(source: "\n  query feedQuery($skip: Int, $take: Int) {\n
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetUserById($id: String!) {\n    user(id: $id) {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  query GetUserById($id: String!) {\n    user(id: $id) {\n      ...UserFragment\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
