@@ -13,7 +13,7 @@ import {
 } from './pages';
 import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
-import { meQueryDocument } from './graphql/queries/meQuery';
+import { userQueryDocument } from './graphql';
 
 export const router = createBrowserRouter([
   {
@@ -83,9 +83,18 @@ export const router = createBrowserRouter([
   },
   {
     path: '/u/:id',
-    loader: async () => {
+    loader: async ({ params }) => {
+      const { id } = params;
+
+      if (!id) {
+        throw new Error('User ID is required');
+      }
+
       const { data } = await client.query({
-        query: meQueryDocument,
+        query: userQueryDocument,
+        variables: {
+          id,
+        },
       });
 
       return data;
