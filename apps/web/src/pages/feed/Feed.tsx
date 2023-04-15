@@ -22,7 +22,7 @@ function Feed(): JSX.Element {
           loading={loading}
           error={error}
         >
-          <div className="divide-y-2 [&>*]:py-4">
+          <div className="divide-y-2 divide-neutral-100 [&>*]:py-2">
             {data &&
               data.feed.posts.map((post, index) => (
                 <PostCard
