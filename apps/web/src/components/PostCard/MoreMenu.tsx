@@ -1,14 +1,26 @@
 import { Menu, Transition } from '@headlessui/react';
-import { EllipsisVerticalIcon, FlagIcon, NoSymbolIcon, ShareIcon, UserMinusIcon } from '@heroicons/react/24/outline';
+import {
+  BookmarkIcon,
+  EllipsisVerticalIcon,
+  FlagIcon,
+  NoSymbolIcon,
+  PaperAirplaneIcon,
+  UserMinusIcon,
+} from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 const items = [
   {
-    action: 'Share',
+    action: 'Bookmark',
     url: '#',
-    icon: ShareIcon,
+    icon: BookmarkIcon,
+  },
+  {
+    action: 'Send via DM',
+    url: '#',
+    icon: PaperAirplaneIcon,
   },
   {
     action: 'Unfollow',
@@ -47,7 +59,7 @@ function MoreMenu(): JSX.Element {
       >
         <Menu.Items
           static
-          className="absolute right-0 z-50 mt-2 flex w-32 origin-top-right flex-col space-y-2 rounded bg-white p-2 shadow ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="absolute right-0 z-50 mt-2 flex w-40 origin-top-right flex-col space-y-2 rounded bg-white p-2 shadow ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
           {items.map((item) => (
             <Menu.Item key={item.action}>
