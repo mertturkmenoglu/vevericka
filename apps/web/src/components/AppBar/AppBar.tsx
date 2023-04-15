@@ -4,6 +4,7 @@ import { Menu } from '../AppBarMenu';
 import { Link } from 'react-router-dom';
 import AppBarIcon from './AppBarIcon';
 import { usePageName } from './usePageName';
+import { useFlags } from '../../hooks';
 
 export interface AppBarProps {
   className?: string;
@@ -11,8 +12,17 @@ export interface AppBarProps {
 
 function AppBar({ className }: AppBarProps): JSX.Element {
   const pageName = usePageName();
+  const flags = useFlags();
+
   return (
-    <header className={clsx('border-b border-midnight/20 bg-zinc-50', className)}>
+    <header
+      className={clsx(
+        {
+          'border-b border-midnight/20 bg-zinc-50': flags.appBarV2,
+        },
+        className
+      )}
+    >
       <nav className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link to="/">
