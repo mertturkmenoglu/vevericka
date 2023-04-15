@@ -7,13 +7,7 @@ import { countFragmentDocument } from '../../graphql/fragments/countFragment';
 import { getPostContent } from '../../lib';
 import { LazyImage } from '../LazyImage';
 import MoreMenu from './MoreMenu';
-
-const images = [
-  'https://fastly.picsum.photos/id/676/200/200.jpg?hmac=hgeMQEIK4Mn27Q2oLRWjXo1rgxwTbk1CnJE954h_HyM',
-  'https://fastly.picsum.photos/id/822/2000/2000.jpg?hmac=Biy6RuHUnRpLPDvrJEKXHcNwp3SFb8opiBBQRx5WWRc',
-  'https://fastly.picsum.photos/id/883/2000/2000.jpg?hmac=95xD0COVnXluo3kG8Rx0BQy4UojFiOPJ2hoanxJtWlM',
-  'https://fastly.picsum.photos/id/74/1000/1000.jpg?hmac=qyw_GbDDT5ax1EE8yALr-sc0E7PyJyLByU4xUdyfRHA',
-];
+import ActionButton from './ActionButton';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
@@ -62,9 +56,9 @@ function PostCard(props: PostCardProps): JSX.Element {
         {post.images.length > 0 && (
           <div
             className={clsx('my-4 grid gap-2', {
-              'mx-auto grid-cols-1': images.length === 1,
-              'grid-cols-2': images.length === 2 || images.length === 4,
-              'grid-cols-3': images.length === 3,
+              'mx-auto grid-cols-1': post.images.length === 1,
+              'grid-cols-2': post.images.length === 2 || post.images.length === 4,
+              'grid-cols-3': post.images.length === 3,
             })}
           >
             {post.images.map((image) => (
@@ -75,8 +69,8 @@ function PostCard(props: PostCardProps): JSX.Element {
                   placeholderSrc="/user.jpg"
                   placeholderAlt="Loading"
                   className={clsx('h-full w-full rounded-md object-cover', {
-                    'aspect-square': images.length !== 1,
-                    'aspect-video': images.length === 1,
+                    'aspect-square': post.images.length !== 1,
+                    'aspect-video': post.images.length === 1,
                   })}
                 />
               </button>
@@ -86,26 +80,28 @@ function PostCard(props: PostCardProps): JSX.Element {
 
         <div className=" flex items-center justify-between">
           <div className="flex items-center space-x-6">
-            <button className="flex items-center space-x-1 rounded-md py-1 pr-2 text-berry hover:bg-midnight/10">
-              <ArrowUpIcon className="h-5 w-5" />
-              <span className="text-sm">{count.likes}</span>
-            </button>
-            <button className="flex items-center space-x-1 rounded-md py-1 px-2 hover:bg-midnight/10">
-              <ArrowDownIcon className="h-5 w-5 text-midnight" />
-              <span className="text-sm text-midnight">{count.dislikes}</span>
-            </button>
+            <ActionButton
+              icon={ArrowUpIcon}
+              text={count.likes}
+              state="active"
+            />
 
-            <button className="flex items-center space-x-1 rounded-md py-1 px-2 hover:bg-midnight/10">
-              <ChatBubbleBottomCenterIcon className="h-5 w-5 text-midnight" />
-              <span className="text-sm text-midnight">{count.comments}</span>
-            </button>
+            <ActionButton
+              icon={ArrowDownIcon}
+              text={count.dislikes}
+            />
+
+            <ActionButton
+              icon={ChatBubbleBottomCenterIcon}
+              text={count.comments}
+            />
           </div>
 
           <div className="flex items-center space-x-4">
-            <button className="flex items-center space-x-2 rounded-md py-1 px-2 hover:bg-midnight/10">
-              <ShareIcon className="h-5 w-5 text-midnight" />
-              <span className="text-sm text-midnight">Share</span>
-            </button>
+            <ActionButton
+              icon={ShareIcon}
+              text="Share"
+            />
 
             <MoreMenu />
           </div>
