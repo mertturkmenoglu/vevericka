@@ -9,8 +9,11 @@ import {
   NotificationsPage,
   MessagesPage,
   CreatePage,
+  UserPage,
 } from './pages';
 import { createBrowserRouter } from 'react-router-dom';
+import { client } from './apollo';
+import { meQueryDocument } from './graphql/queries/meQuery';
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +78,21 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <CreatePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/u/:id',
+    loader: async () => {
+      const { data } = await client.query({
+        query: meQueryDocument,
+      });
+
+      return data;
+    },
+    element: (
+      <ProtectedRoute>
+        <UserPage />
       </ProtectedRoute>
     ),
   },
