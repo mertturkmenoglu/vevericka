@@ -1,10 +1,15 @@
 import { Menu, Transition } from '@headlessui/react';
-import { EllipsisHorizontalIcon, FlagIcon, NoSymbolIcon, UserMinusIcon } from '@heroicons/react/24/outline';
+import { EllipsisVerticalIcon, FlagIcon, NoSymbolIcon, ShareIcon, UserMinusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 const items = [
+  {
+    action: 'Share',
+    url: '#',
+    icon: ShareIcon,
+  },
   {
     action: 'Unfollow',
     url: '#',
@@ -28,9 +33,8 @@ function MoreMenu(): JSX.Element {
       as="div"
       className="relative inline-block w-min text-left"
     >
-      <Menu.Button className="flex items-center space-x-2 rounded-md py-1 px-2 hover:bg-midnight/10">
-        <EllipsisHorizontalIcon className="h-5 w-5 text-midnight" />
-        <span className="text-sm text-midnight">More</span>
+      <Menu.Button className="group flex items-center space-x-2 rounded-full py-2 px-2 transition ease-in-out hover:bg-berry/10">
+        <EllipsisVerticalIcon className="h-5 w-5 text-midnight group-hover:text-berry" />
       </Menu.Button>
       <Transition
         as={Fragment}
@@ -49,8 +53,9 @@ function MoreMenu(): JSX.Element {
             <Menu.Item key={item.action}>
               {({ active }) => (
                 <Link
-                  className={clsx('flex items-center rounded px-2 py-1 text-midnight transition-all duration-200', {
+                  className={clsx('flex items-center rounded px-2 py-1 transition-all duration-200', {
                     'bg-midnight text-white': active,
+                    'text-midnight': !active,
                   })}
                   to={item.url}
                 >
