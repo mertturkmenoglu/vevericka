@@ -11,7 +11,7 @@ module.exports = {
         midnight: "#1a1a1a"
       },
       fontFamily: {
-        sans: ["\"Open Sans\""]
+        sans: ["\"Jost\""]
       },
       screens: {
         sd: "896px"
