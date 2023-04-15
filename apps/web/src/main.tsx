@@ -6,15 +6,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import './i18n';
 import { RouterProvider } from 'react-router-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
+import { client as apolloClient } from './apollo';
 import { router } from './router';
 
 const queryClient = new QueryClient();
-const apolloClient = new ApolloClient({
-  uri: import.meta.env.VITE_BASE_URL + '/graphql',
-  cache: new InMemoryCache(),
-  credentials: 'include',
-});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
