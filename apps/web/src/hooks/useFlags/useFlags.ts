@@ -5,6 +5,7 @@ export function useFlags() {
     return {
       landingAppBar: true,
       stories: false,
+      appBarV2: false,
     };
   }, []);
   return data;
