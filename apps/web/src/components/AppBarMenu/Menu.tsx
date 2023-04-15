@@ -34,7 +34,7 @@ function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
         >
           <Menu.Items
             static
-            className="absolute -right-8 z-50 mt-4 w-48 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none"
+            className="absolute right-0 z-50 mt-4 w-48 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none"
           >
             <MenuItems
               className="divide-y"
