@@ -34,7 +34,7 @@ interface Props {
 function ExploreCard({ className }: Props): JSX.Element {
   return (
     <article className={clsx('rounded bg-neutral-600/10 py-4 px-6', className)}>
-      <h2 className="text-xl font-semibold text-midnight">Explore Vevericka</h2>
+      <h2 className="text-xl font-normal text-midnight">Explore Vevericka</h2>
 
       <hr className="mt-1 rounded border border-midnight/10" />
 
@@ -47,12 +47,12 @@ function ExploreCard({ className }: Props): JSX.Element {
           >
             <div>
               <div>
-                <span className="font-bold">#</span>
-                <span className="ml-1 font-semibold">{it.tag}</span>
+                <span className="text-lg font-light text-berry">#</span>
+                <span className="ml-2 text-lg">{it.tag}</span>
               </div>
-              <div className="ml-3.5 flex items-baseline text-sm">
-                <span className="font-semibold">{it.count}</span>
-                <span className="ml-1">posts</span>
+              <div className="ml-[18px] flex items-baseline text-sm">
+                <span className="font-normal">{it.count}</span>
+                <span className="ml-1 font-light">posts</span>
               </div>
             </div>
 
