@@ -3,13 +3,12 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import eslint from 'vite-plugin-eslint';
 import svgr from 'vite-plugin-svgr';
 import codegen from 'vite-plugin-graphql-codegen';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), eslint({ exclude: ['./src/generated'] }), svgr(), codegen()],
+  plugins: [react(), svgr(), codegen()],
   test: {
     globals: true,
     environment: 'jsdom',

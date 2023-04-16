@@ -82,6 +82,7 @@ type Recipe {
   description: String
   creationDate: Date!
   ingredients: [String!]!
+  title: String!
 }
 
 type LastSeen {
