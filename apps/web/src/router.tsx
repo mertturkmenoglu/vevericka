@@ -15,11 +15,22 @@ import {
 } from './pages';
 import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
-import { profileDataQueryDocument } from './graphql';
+import { bookmarksQueryDocument, profileDataQueryDocument } from './graphql';
 
 export const router = createBrowserRouter([
   {
     path: '/bookmarks',
+    loader: async () => {
+      const { data } = await client.query({
+        query: bookmarksQueryDocument,
+        variables: {
+          skip: 0,
+          take: 50,
+        },
+      });
+
+      return data;
+    },
     element: (
       <ProtectedRoute>
         <BookmarksPage />

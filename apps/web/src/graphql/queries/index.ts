@@ -3,3 +3,4 @@ export * from './userQuery';
 export * from './meQuery';
 export * from './profileQuery';
 export * from './profileDataQuery';
+export * from './bookmarksQuery';
