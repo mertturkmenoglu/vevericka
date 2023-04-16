@@ -7,7 +7,7 @@ export interface ItemProps {
   as: 'button' | 'link';
   href?: string;
   onClick?: () => void | Promise<void>;
-  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+  icon: TwIcon;
 }
 
 function Item({ as, href = '/', text, onClick, icon: Icon }: ItemProps): JSX.Element {
@@ -18,7 +18,7 @@ function Item({ as, href = '/', text, onClick, icon: Icon }: ItemProps): JSX.Ele
     </>
   );
 
-  const className = 'my-1 flex w-full items-center rounded-md px-2 py-1 hover:bg-midnight group transition-all';
+  const className = 'my-1 flex w-full items-center rounded px-2 py-1 hover:bg-midnight group transition-all';
 
   const body = useMemo(() => {
     if (as === 'link') {

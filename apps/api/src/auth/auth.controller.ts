@@ -22,15 +22,8 @@ export class AuthController {
   @Post("logout")
   @UseGuards(JwtAuthGuard)
   logout(@Res() res: Response) {
-    // TODO: Fix cookie remove bug
-    return res
-      .cookie("jwt-access", "", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== "development",
-        maxAge: 1,
-        path: "/",
-      })
-      .redirect(this.configService.get<string>("WEB_CLIENT_URL"));
+    res.clearCookie("jwt-access");
+    return res.json({ message: "Logged out" });
   }
 
   @Get("google")

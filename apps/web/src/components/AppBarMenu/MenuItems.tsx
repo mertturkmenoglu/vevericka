@@ -69,9 +69,10 @@ function MenuItems({ className, userData }: MenuItemsProps): JSX.Element {
               headers: {
                 'Content-Type': 'application/json',
               },
+              credentials: 'include',
             });
 
-            window.location.href = '/';
+            window.location.reload();
           }}
           icon={ArrowRightOnRectangleIcon}
         />
