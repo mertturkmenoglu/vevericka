@@ -1,12 +1,12 @@
-import create from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { create } from 'zustand';
+import { UserFragmentFragment } from '../generated/graphql';
 
 interface AppStoreState {
-  username: string;
+  user: UserFragmentFragment | null;
+  setUser: (user: UserFragmentFragment) => void;
 }
 
-export const useAppStore = create<AppStoreState>()(
-  devtools(() => ({
-    username: 'John Doe',
-  }))
-);
+export const useAppStore = create<AppStoreState>((set) => ({
+  user: null,
+  setUser: (user: UserFragmentFragment) => set({ user }),
+}));
