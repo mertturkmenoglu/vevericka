@@ -1,14 +1,15 @@
 import { useLoaderData } from 'react-router-dom';
 import { MainLayout } from '../../layouts';
-import { GetProfileByIdQuery } from '../../generated/graphql';
+import { GetProfileDataQuery } from '../../generated/graphql';
+import { LazyImage, PostCard } from '../../components';
+import { CheckBadgeIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useFragment } from '../../generated';
-import { profileFragmentDocument } from '../../graphql';
-import { LazyImage } from '../../components';
-import { BeakerIcon, CheckBadgeIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { postFragmentDocument, profileFragmentDocument } from '../../graphql';
 
 function User(): JSX.Element {
-  const data = useLoaderData() as GetProfileByIdQuery;
+  const data = useLoaderData() as GetProfileDataQuery;
   const user = useFragment(profileFragmentDocument, data.profile);
+  const posts = useFragment(postFragmentDocument, data.posts);
 
   return (
     <MainLayout>
@@ -56,10 +57,14 @@ function User(): JSX.Element {
           </div>
         </div>
 
-        <div className="mt-32 flex w-full items-center justify-center text-4xl">
-          <div className="flex items-end space-x-4">
-            <BeakerIcon className="h-10 w-10 text-midnight" />
-            <span className="mt-2 block">WIP</span>
+        <div className="mx-auto mt-8 flex w-1/2">
+          <div className="divide-y-2 divide-neutral-100 [&>*]:py-2">
+            {posts.map((post, index) => (
+              <PostCard
+                key={index}
+                post={post as any}
+              />
+            ))}
           </div>
         </div>
       </div>

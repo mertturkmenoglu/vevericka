@@ -15,7 +15,7 @@ import {
 } from './pages';
 import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
-import { profileQueryDocument } from './graphql';
+import { profileDataQueryDocument } from './graphql';
 
 export const router = createBrowserRouter([
   {
@@ -109,9 +109,11 @@ export const router = createBrowserRouter([
       }
 
       const { data } = await client.query({
-        query: profileQueryDocument,
+        query: profileDataQueryDocument,
         variables: {
           id,
+          skip: 0,
+          take: 50,
         },
       });
 

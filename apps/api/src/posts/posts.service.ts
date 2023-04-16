@@ -4,6 +4,7 @@ import { NewPostInput } from "./dto/new-post.input";
 import { Post } from "./models/post.model";
 import { postsInclude } from "./posts.type";
 import { OramaService } from "src/orama/orama.service";
+import { PaginationArgs } from "src/common/args/pagination.args";
 
 @Injectable()
 export class PostsService {
@@ -150,6 +151,25 @@ export class PostsService {
     });
 
     return post;
+  }
+
+  async getPostsByUserId(
+    userId: string,
+    pagination: PaginationArgs
+  ): Promise<Post[]> {
+    return this.prisma.post.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        ...postsInclude,
+      },
+      skip: pagination.skip,
+      take: pagination.take,
+    });
   }
 
   private prepareTags(content: string): string[] {

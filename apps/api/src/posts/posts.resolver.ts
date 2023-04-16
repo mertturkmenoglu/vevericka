@@ -7,6 +7,7 @@ import { PostsService } from "./posts.service";
 import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
 import { CurrentUser } from "src/common/types/current-user.type";
 import { Vote } from "./dto/vote-post.input";
+import { PaginationArgs } from "src/common/args/pagination.args";
 
 @Resolver(() => Post)
 export class PostsResolver {
@@ -19,6 +20,15 @@ export class PostsResolver {
       throw new NotFoundException(id);
     }
     return post;
+  }
+
+  @Query(() => [Post])
+  async posts(
+    @Args("id") id: string,
+    @Args() pagination: PaginationArgs
+  ): Promise<Post[]> {
+    const posts = await this.postsService.getPostsByUserId(id, pagination);
+    return posts;
   }
 
   @Mutation(() => Post)
