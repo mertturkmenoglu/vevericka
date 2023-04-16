@@ -10,12 +10,21 @@ import {
   MessagesPage,
   CreatePage,
   UserPage,
+  BookmarksPage,
 } from './pages';
 import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
 import { userQueryDocument } from './graphql';
 
 export const router = createBrowserRouter([
+  {
+    path: '/bookmarks',
+    element: (
+      <ProtectedRoute>
+        <BookmarksPage />
+      </ProtectedRoute>
+    ),
+  },
   {
     path: '/feed',
     element: (
