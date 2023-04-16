@@ -11,6 +11,7 @@ import {
   CreatePage,
   UserPage,
   BookmarksPage,
+  ExplorePage,
 } from './pages';
 import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
@@ -22,6 +23,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <BookmarksPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/explore',
+    element: (
+      <ProtectedRoute>
+        <ExplorePage />
       </ProtectedRoute>
     ),
   },
