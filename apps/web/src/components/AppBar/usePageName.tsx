@@ -24,5 +24,16 @@ export function usePageName(): string {
     return 'Settings';
   }
 
+  if (pathname === 'u') {
+    return 'User Details';
+  }
+
+  if (pathname === 'bookmarks') {
+    return 'Bookmarks';
+  }
+
+  if (pathname === 'explore') {
+    return 'Explore';
+  }
   return 'Vevericka';
 }

@@ -6,6 +6,7 @@ import { CheckBadgeIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useFragment } from '../../generated';
 import { postFragmentDocument, profileFragmentDocument } from '../../graphql';
 import { useAppStore } from '../../stores';
+import { useEffect } from 'react';
 
 function User(): JSX.Element {
   const appUser = useAppStore((state) => state.user);
@@ -14,6 +15,13 @@ function User(): JSX.Element {
   const posts = useFragment(postFragmentDocument, data.posts);
 
   const isThisUser = appUser?.id === user.id;
+
+  useEffect(() => {
+    const el = document.getElementById('app-bar-page-name');
+    if (el) {
+      el.innerText = user.name;
+    }
+  }, [user]);
 
   return (
     <MainLayout>
