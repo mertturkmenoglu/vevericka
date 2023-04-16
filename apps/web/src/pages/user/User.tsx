@@ -6,7 +6,7 @@ import { CheckBadgeIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useFragment } from '../../generated';
 import { postFragmentDocument, profileFragmentDocument } from '../../graphql';
 import { useAppStore } from '../../stores';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 function User(): JSX.Element {
   const appUser = useAppStore((state) => state.user);
@@ -23,15 +23,24 @@ function User(): JSX.Element {
     }
   }, [user]);
 
+  const bannerStyles: React.CSSProperties = useMemo(() => {
+    if (user.bannerImage !== 'banner.png') {
+      return {
+        backgroundImage: `url(${user.bannerImage})`,
+      };
+    }
+
+    return {
+      backgroundColor: '#e5e5e5',
+    };
+  }, [user.bannerImage]);
+
   return (
     <MainLayout>
       <div className="w-full">
         <div
           className="relative aspect-video h-72 w-full rounded bg-cover"
-          style={{
-            backgroundImage:
-              'url(https://fastly.picsum.photos/id/665/1920/1080.jpg?hmac=_x3qHpZENUn_A2ced5pAXIFL5ZSN2KELFFsTagg-13A)',
-          }}
+          style={bannerStyles}
         >
           <LazyImage
             src={user.image}
@@ -46,7 +55,7 @@ function User(): JSX.Element {
           <div>
             <div className="flex items-baseline space-x-2">
               <h2 className="text-4xl font-medium">{user.name}</h2>
-              <CheckBadgeIcon className="inline h-5 w-5 text-midnight" />
+              {user.verified && <CheckBadgeIcon className="inline h-5 w-5 text-midnight" />}
             </div>
 
             <div className="mt-2 flex items-center space-x-2">
