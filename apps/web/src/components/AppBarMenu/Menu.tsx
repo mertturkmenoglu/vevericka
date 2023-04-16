@@ -4,6 +4,8 @@ import { Menu, Transition } from '@headlessui/react';
 import MenuItems from './MenuItems';
 import MenuButton from './MenuButton';
 import { useAuth } from '../../hooks';
+import { useFragment } from '../../generated';
+import { userFragmentDocument } from '../../graphql';
 
 export interface AppBarMenuProps {
   className?: string;
@@ -11,8 +13,9 @@ export interface AppBarMenuProps {
 
 function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
   const { data } = useAuth();
+  const me = useFragment(userFragmentDocument, data?.me);
 
-  if (!data) {
+  if (!data || !me) {
     return <></>;
   }
 
@@ -22,7 +25,7 @@ function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
         as="div"
         className="relative inline-block w-min text-left"
       >
-        <MenuButton />
+        <MenuButton src={me.image} />
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
