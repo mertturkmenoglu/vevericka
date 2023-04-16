@@ -10,7 +10,10 @@ import MoreMenu from './MoreMenu';
 import ActionButton from './ActionButton';
 import { differenceInMonths, format, formatDistanceToNowStrict } from 'date-fns';
 import { enUS } from 'date-fns/locale';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
@@ -20,6 +23,8 @@ function PostCard(props: PostCardProps): JSX.Element {
   const post = useFragment(postFragmentDocument, props.post);
   const user = useFragment(userFragmentDocument, post.user);
   const count = useFragment(countFragmentDocument, post._count);
+
+  const [open, setOpen] = useState(false);
 
   const formattedDate = useMemo(() => {
     const currentDate = new Date();
@@ -82,7 +87,10 @@ function PostCard(props: PostCardProps): JSX.Element {
             })}
           >
             {post.images.map((image) => (
-              <button key={image.id}>
+              <button
+                key={image.id}
+                onClick={() => setOpen(true)}
+              >
                 <LazyImage
                   src={image.url}
                   alt="User image"
@@ -97,6 +105,17 @@ function PostCard(props: PostCardProps): JSX.Element {
             ))}
           </div>
         )}
+
+        <Lightbox
+          open={open}
+          close={() => setOpen(false)}
+          slides={post.images.map((img) => ({ src: img.url }))}
+          styles={{
+            container: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
+        />
 
         <div className="-ml-2 mt-1 flex items-center justify-between">
           <ActionButton
