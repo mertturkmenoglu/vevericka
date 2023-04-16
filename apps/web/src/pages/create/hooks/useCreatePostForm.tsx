@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { z } from 'zod';
 import { createPostDocument, feedQueryDocument } from '../../../graphql';
 import { client } from '../../../apollo';
+import { useState } from 'react';
 
 const schema = z.object({
   text: z.string().min(1, 'Cannot leave blank').max(250, 'Too long'),
@@ -13,6 +14,7 @@ const schema = z.object({
 export type FormValues = z.infer<typeof schema>;
 
 export function useCreatePostForm() {
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [createPost, { loading }] = useMutation(createPostDocument);
   const {
     register,
@@ -28,7 +30,7 @@ export function useCreatePostForm() {
       variables: {
         payload: {
           content: formData.text,
-          imageUrls: [],
+          imageUrls: imageUrls,
           videoUrls: [],
         },
       },
@@ -62,5 +64,7 @@ export function useCreatePostForm() {
     handleSubmit,
     errors,
     onSubmit,
+    imageUrls,
+    setImageUrls,
   };
 }
