@@ -143,6 +143,12 @@ type Results {
   elapsed: ElapsedTime!
 }
 
+"""Bookmark"""
+type Bookmark {
+  id: String!
+  post: Post!
+}
+
 """Date custom scalar type"""
 scalar Date
 
@@ -157,6 +163,8 @@ type Query {
   feed(skip: Int! = 0, take: Int! = 25): Feed!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
   searchPosts(term: String!): Results!
+  bookmark(id: String!): Bookmark!
+  bookmarks(skip: Int! = 0, take: Int! = 25): [Bookmark!]!
 }
 
 type Mutation {
@@ -166,6 +174,7 @@ type Mutation {
   addRecipe(newRecipeData: NewRecipeInput!): Recipe!
   removeRecipe(id: String!): Boolean!
   updateLastSeen: String!
+  createBookmark(newBookmarkData: NewBookmarkInput!): Bookmark!
 }
 
 input NewPostInput {
@@ -178,6 +187,10 @@ input NewRecipeInput {
   title: String!
   description: String
   ingredients: [String!]!
+}
+
+input NewBookmarkInput {
+  postId: String!
 }
 
 type Subscription {

@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -17,8 +17,8 @@ enum AuthProvider {
 }
 
 model Auth {
-  sub String
-  type  AuthProvider
+  sub  String
+  type AuthProvider
 
   // Relations
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -63,6 +63,7 @@ model User {
   followers     User[]         @relation("UserFollows")
   following     User[]         @relation("UserFollows")
   shorts        Short[]        @relation("UserShorts")
+  bookmarks     Bookmark[]     @relation("UserBookmarks")
   // Meta
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
@@ -123,6 +124,7 @@ model Post {
   // Meta
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+  Bookmark  Bookmark[]
 
   @@index([userId])
 }
@@ -177,7 +179,7 @@ model Tag {
 
 model PostImage {
   // Primary Key
-  id        String      @id @default(uuid())
+  id        String   @id @default(uuid())
   // Scalar Values
   url       String
   // Relations
@@ -190,9 +192,22 @@ model PostImage {
   @@index([postId])
 }
 
+model Bookmark {
+  id        String   @id @default(uuid())
+  user      User     @relation(name: "UserBookmarks", fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([postId])
+}
+
 model PostVideo {
   // Primary Key
-  id        String      @id @default(uuid())
+  id        String   @id @default(uuid())
   // Scalar Values
   url       String
   // Relations
