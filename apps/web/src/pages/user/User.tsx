@@ -37,6 +37,8 @@ function User(): JSX.Element {
             </div>
 
             <div className="mt-2 flex items-center space-x-2">
+              <span className="text-neutral-600">{user._count.posts} Posts</span>
+              <span className="text-neutral-400">·</span>
               <span className="text-neutral-600">{user._count.followers} Followers</span>
               <span className="text-neutral-400">·</span>
               <span className="text-neutral-600">{user._count.following} Following</span>
