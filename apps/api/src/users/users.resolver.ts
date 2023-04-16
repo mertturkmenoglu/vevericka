@@ -7,6 +7,7 @@ import { User } from "./models/user.model";
 import { UsersService } from "./users.service";
 import { PubSub } from "graphql-subscriptions";
 import { LastSeen } from "./models/last-seen.model";
+import { Profile } from "./models/profile.model";
 
 const pubSub = new PubSub();
 
@@ -29,6 +30,16 @@ export class UsersResolver {
       throw new NotFoundException(id);
     }
     return user;
+  }
+
+  @Query(() => Profile)
+  @UseGuards(JwtAuthGuard)
+  async profile(@Args("id") id: string): Promise<Profile> {
+    const profile = await this.usersService.findProfileById(id);
+    if (!profile) {
+      throw new NotFoundException(id);
+    }
+    return profile;
   }
 
   @Subscription(() => LastSeen)

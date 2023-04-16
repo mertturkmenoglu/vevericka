@@ -90,6 +90,36 @@ type LastSeen {
   date: String!
 }
 
+"""UserCount"""
+type UserCount {
+  followers: Float!
+  following: Float!
+  posts: Float!
+}
+
+"""user"""
+type Profile {
+  id: String!
+  name: String!
+  image: String!
+  job: String
+  twitterHandle: String
+  school: String
+  birthDate: Date
+  website: String
+  description: String
+  verified: Boolean!
+  protected: Boolean!
+  bannerImage: String!
+  gender: String
+  genderOther: String
+  city: String
+  country: String
+  createdAt: Date!
+  updatedAt: Date!
+  _count: UserCount!
+}
+
 type PostDocument {
   id: String!
   content: String!
@@ -122,6 +152,7 @@ type Query {
   recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
   me: User!
   user(id: String!): User!
+  profile(id: String!): Profile!
   feed(skip: Int! = 0, take: Int! = 25): Feed!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
   searchPosts(term: String!): Results!

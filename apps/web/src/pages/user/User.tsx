@@ -1,14 +1,14 @@
 import { useLoaderData } from 'react-router-dom';
 import { MainLayout } from '../../layouts';
-import { GetUserByIdQuery } from '../../generated/graphql';
+import { GetProfileByIdQuery } from '../../generated/graphql';
 import { useFragment } from '../../generated';
-import { userFragmentDocument } from '../../graphql';
+import { profileFragmentDocument } from '../../graphql';
 import { LazyImage } from '../../components';
 import { BeakerIcon, CheckBadgeIcon, PlusIcon } from '@heroicons/react/24/outline';
 
 function User(): JSX.Element {
-  const data = useLoaderData() as GetUserByIdQuery;
-  const user = useFragment(userFragmentDocument, data.user);
+  const data = useLoaderData() as GetProfileByIdQuery;
+  const user = useFragment(profileFragmentDocument, data.profile);
 
   return (
     <MainLayout>
@@ -37,9 +37,9 @@ function User(): JSX.Element {
             </div>
 
             <div className="mt-2 flex items-center space-x-2">
-              <span className="text-neutral-600">42 Followers</span>
+              <span className="text-neutral-600">{user._count.followers} Followers</span>
               <span className="text-neutral-400">·</span>
-              <span className="text-neutral-600">3 Following</span>
+              <span className="text-neutral-600">{user._count.following} Following</span>
             </div>
           </div>
 
