@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { User } from "./models/user.model";
 import { Profile } from "./models/profile.model";
@@ -32,6 +32,98 @@ export class UsersService {
     });
 
     return result;
+  }
+
+  async followUser(followerId: string, followeeId: string): Promise<void> {
+    const followingCheckCount = await this.prisma.user.count({
+      where: {
+        id: followerId,
+        following: {
+          some: {
+            id: followeeId,
+          },
+        },
+      },
+    });
+
+    const isAlreadyFollowing = followingCheckCount > 0;
+
+    if (isAlreadyFollowing) {
+      throw new BadRequestException("Already following");
+    }
+
+    await this.prisma.$transaction([
+      this.prisma.user.update({
+        where: {
+          id: followerId,
+        },
+        data: {
+          following: {
+            connect: {
+              id: followeeId,
+            },
+          },
+        },
+      }),
+      this.prisma.user.update({
+        where: {
+          id: followeeId,
+        },
+        data: {
+          followers: {
+            connect: {
+              id: followerId,
+            },
+          },
+        },
+      }),
+    ]);
+  }
+
+  async unfollowUser(followerId: string, followeeId: string): Promise<void> {
+    const followingCheckCount = await this.prisma.user.count({
+      where: {
+        id: followerId,
+        following: {
+          some: {
+            id: followeeId,
+          },
+        },
+      },
+    });
+
+    const isNotFollowing = followingCheckCount === 0;
+
+    if (isNotFollowing) {
+      throw new BadRequestException("Not following");
+    }
+
+    await this.prisma.$transaction([
+      this.prisma.user.update({
+        where: {
+          id: followerId,
+        },
+        data: {
+          following: {
+            disconnect: {
+              id: followeeId,
+            },
+          },
+        },
+      }),
+      this.prisma.user.update({
+        where: {
+          id: followeeId,
+        },
+        data: {
+          followers: {
+            disconnect: {
+              id: followerId,
+            },
+          },
+        },
+      }),
+    ]);
   }
 
   async findAll(): Promise<User[]> {

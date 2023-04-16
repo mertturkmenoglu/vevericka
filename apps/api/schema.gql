@@ -173,6 +173,7 @@ type Mutation {
   deletePost(id: String!): Post
   addRecipe(newRecipeData: NewRecipeInput!): Recipe!
   removeRecipe(id: String!): Boolean!
+  interactWithUser(id: String!, interaction: String!): String!
   updateLastSeen: String!
   createBookmark(newBookmarkData: NewBookmarkInput!): Bookmark!
 }

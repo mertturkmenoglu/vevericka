@@ -8,6 +8,7 @@ import { UsersService } from "./users.service";
 import { PubSub } from "graphql-subscriptions";
 import { LastSeen } from "./models/last-seen.model";
 import { Profile } from "./models/profile.model";
+import { Interaction } from "./dto/interact.input";
 
 const pubSub = new PubSub();
 
@@ -40,6 +41,21 @@ export class UsersResolver {
       throw new NotFoundException(id);
     }
     return profile;
+  }
+
+  @Mutation(() => String)
+  @UseGuards(JwtAuthGuard)
+  async interactWithUser(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("id") id: string,
+    @Args("interaction") interaction: Interaction
+  ) {
+    if (interaction === "follow") {
+      await this.usersService.followUser(currentUser.user.id, id);
+    } else if (interaction === "unfollow") {
+      await this.usersService.unfollowUser(currentUser.user.id, id);
+    }
+    return "ok";
   }
 
   @Subscription(() => LastSeen)
