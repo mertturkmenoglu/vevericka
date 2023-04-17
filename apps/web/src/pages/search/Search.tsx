@@ -1,36 +1,56 @@
 import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
 import { MainLayout } from '../../layouts';
+import { useSearchType } from './hooks/useSearchType';
+import { useSearchData } from './hooks/useSearchData';
+import { useSearchTerm } from './hooks/useSearchTerm';
+import { TextField } from '../../components';
+import SelectSearchType from './components/SelectSearchType';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 function Settings(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const queryFromUrl = decodeURIComponent(searchParams.get('q') ?? '');
-  const [userQuery, setUserQuery] = useState(queryFromUrl);
+  const [type] = useSearchType();
+  const [term, setTerm] = useSearchTerm();
+  const { postsResult, usersResult } = useSearchData(type);
+
+  const onSearchClick = () => {
+    if (term === '') {
+      searchParams.delete('q');
+    } else {
+      searchParams.set('q', encodeURIComponent(term));
+    }
+
+    setSearchParams(searchParams);
+  };
 
   return (
     <MainLayout>
-      <div className="mt-16 flex w-full justify-center space-x-4">
-        <input
-          type="text"
-          className="w-1/3 rounded-md border border-midnight/30 py-2 px-4 placeholder:text-midnight/30"
-          value={userQuery}
-          placeholder="Type anything to search"
-          onChange={(e) => setUserQuery(e.target.value)}
-        />
-        <button
-          className="w-48 rounded-md bg-midnight py-2 text-white"
-          onClick={() => {
-            if (userQuery === '') {
-              searchParams.delete('q');
-            } else {
-              searchParams.set('q', encodeURIComponent(userQuery));
-            }
+      <div className="flex w-full flex-col">
+        <div className="mt-16 flex w-full justify-center">
+          <TextField
+            label=""
+            value={term}
+            placeholder="Type anything to search"
+            onChange={(e) => setTerm(e.target.value)}
+          />
 
-            setSearchParams(searchParams);
-          }}
-        >
-          Search
-        </button>
+          <SelectSearchType />
+
+          <button
+            className="group flex-shrink-0 bg-red-500"
+            onClick={onSearchClick}
+          >
+            <MagnifyingGlassIcon className="h-5 w-5 rounded-full p-2 text-midnight group-hover:bg-berry/10 group-hover:text-berry" />
+            <span className="sr-only">Search</span>
+          </button>
+        </div>
+
+        {term !== '' && (
+          <div className="mt-8 flex w-full justify-center space-x-4">
+            <pre>{JSON.stringify(postsResult.data, null, 2)}</pre>
+            <pre>{JSON.stringify(usersResult.data, null, 2)}</pre>
+          </div>
+        )}
       </div>
     </MainLayout>
   );
