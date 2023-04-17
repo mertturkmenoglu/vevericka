@@ -1,5 +1,4 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { GenderOptions } from "@prisma/client";
 
 @ObjectType({ description: "user" })
 export class User {
