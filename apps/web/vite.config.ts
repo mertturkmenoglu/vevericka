@@ -8,7 +8,14 @@ import codegen from 'vite-plugin-graphql-codegen';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr(), codegen()],
+  plugins: [
+    react(),
+    svgr(),
+    codegen({
+      runOnStart: false,
+      enableWatcher: true,
+    }),
+  ],
   test: {
     globals: true,
     environment: 'jsdom',
