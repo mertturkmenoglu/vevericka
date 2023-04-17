@@ -35,8 +35,11 @@ export class UsersResolver {
 
   @Query(() => Profile)
   @UseGuards(JwtAuthGuard)
-  async profile(@Args("id") id: string): Promise<Profile> {
-    const profile = await this.usersService.findProfileById(id);
+  async profile(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("id") id: string
+  ): Promise<Profile> {
+    const profile = await this.usersService.findProfileById(currentUser.user.id, id);
     if (!profile) {
       throw new NotFoundException(id);
     }

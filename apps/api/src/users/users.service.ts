@@ -15,10 +15,10 @@ export class UsersService {
     });
   }
 
-  async findProfileById(id: string): Promise<Profile> {
+  async findProfileById(thisId, otherId: string): Promise<Profile> {
     const result = await this.prisma.user.findUnique({
       where: {
-        id,
+        id: otherId,
       },
       include: {
         _count: {
@@ -31,7 +31,27 @@ export class UsersService {
       },
     });
 
-    return result;
+    const followingResult = await this.prisma.user.findUnique({
+      where: {
+        id: thisId,
+      },
+      include: {
+        following: {
+          where: {
+            id: otherId,
+          },
+        },
+      },
+    });
+
+    const isFollowing = followingResult.following.length > 0;
+    const isMe = thisId === otherId;
+
+    return {
+      ...result,
+      isFollowing,
+      isMe,
+    };
   }
 
   async followUser(followerId: string, followeeId: string): Promise<void> {

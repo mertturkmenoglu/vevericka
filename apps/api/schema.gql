@@ -118,6 +118,8 @@ type Profile {
   createdAt: Date!
   updatedAt: Date!
   _count: UserCount!
+  isFollowing: Boolean!
+  isMe: Boolean!
 }
 
 type PostDocument {

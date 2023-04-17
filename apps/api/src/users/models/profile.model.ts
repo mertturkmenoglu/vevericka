@@ -17,4 +17,10 @@ export class UserCount {
 export class Profile extends User {
   @Field(() => UserCount)
   _count: UserCount;
+
+  @Field()
+  isFollowing: boolean;
+
+  @Field()
+  isMe: boolean;
 }
