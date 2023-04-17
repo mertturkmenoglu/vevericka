@@ -19,6 +19,15 @@ import { bookmarksQueryDocument, profileDataQueryDocument } from './graphql';
 
 export const router = createBrowserRouter([
   {
+    path: '/',
+    element: (
+      <GuestRoute>
+        <HomePage />
+      </GuestRoute>
+    ),
+    errorElement: <NotFoundPage />,
+  },
+  {
     path: '/bookmarks',
     loader: async () => {
       const { data } = await client.query({
@@ -52,15 +61,6 @@ export const router = createBrowserRouter([
         <FeedPage />
       </ProtectedRoute>
     ),
-  },
-  {
-    path: '/',
-    element: (
-      <GuestRoute>
-        <HomePage />
-      </GuestRoute>
-    ),
-    errorElement: <NotFoundPage />,
   },
   {
     path: '/login',
@@ -130,6 +130,7 @@ export const router = createBrowserRouter([
 
       return data;
     },
+    errorElement: <NotFoundPage />,
     element: (
       <ProtectedRoute>
         <UserPage />
