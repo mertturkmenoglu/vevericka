@@ -18,6 +18,8 @@ export const profileFragmentDocument = graphql(/* GraphQL */ `
     genderOther
     city
     country
+    isFollowing
+    isMe
     createdAt
     updatedAt
     _count {
