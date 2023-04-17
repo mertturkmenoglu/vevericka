@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { connectBlocksFrom } from '@uploadcare/blocks/abstract/connectBlocksFrom';
 
-
-
 const STYLES = 'https://unpkg.com/@uploadcare/blocks@0.17.1/web/file-uploader-regular.min.css';
 
 export type UpdateImagesFunction = React.Dispatch<React.SetStateAction<string[]>>;
