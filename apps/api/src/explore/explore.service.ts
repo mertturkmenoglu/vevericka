@@ -30,4 +30,25 @@ export class ExploreService {
 
     return result;
   }
+
+  async getPopularTags(pagination: PaginationArgs) {
+    const result = await this.prisma.tag.findMany({
+      include: {
+        _count: {
+          select: {
+            posts: true,
+          },
+        },
+      },
+      orderBy: {
+        posts: {
+          _count: "desc",
+        },
+      },
+      skip: pagination.skip,
+      take: pagination.take,
+    });
+
+    return result;
+  }
 }

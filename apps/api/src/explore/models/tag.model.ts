@@ -1,5 +1,10 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Post } from "../../posts/models/post.model";
+
+@ObjectType({ description: "Tag Count" })
+export class TagCount {
+  @Field()
+  posts: number;
+}
 
 @ObjectType({ description: "tag" })
 export class Tag {
@@ -14,4 +19,10 @@ export class Tag {
 
   @Field()
   updatedAt: Date;
+}
+
+@ObjectType({ description: "Popular Tag" })
+export class PopularTag extends Tag {
+  @Field(() => TagCount)
+  _count: TagCount;
 }

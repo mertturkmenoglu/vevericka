@@ -2,12 +2,26 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Tag Count"""
+type TagCount {
+  posts: Float!
+}
+
 """tag"""
 type Tag {
   id: String!
   tagName: String!
   createdAt: Date!
   updatedAt: Date!
+}
+
+"""Popular Tag"""
+type PopularTag {
+  id: String!
+  tagName: String!
+  createdAt: Date!
+  updatedAt: Date!
+  _count: TagCount!
 }
 
 """Count"""
@@ -158,6 +172,7 @@ type Query {
   profile(id: String!): Profile!
   feed(skip: Int! = 0, take: Int! = 25): Feed!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
+  popularTags(skip: Int! = 0, take: Int! = 25): [PopularTag!]!
   searchPosts(term: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
   searchUsers(term: String!, skip: Int! = 0, take: Int! = 25): [User!]!
   bookmark(id: String!): Bookmark!
