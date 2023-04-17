@@ -25,6 +25,8 @@ const documents = {
     "\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n": types.MeDocument,
     "\n  query GetProfileData($id: String!, $skip: Int!, $take: Int!) {\n    profile(id: $id) {\n      ...ProfileFragment\n    }\n\n    posts(id: $id, skip: $skip, take: $take) {\n      ...PostFragment\n    }\n  }\n": types.GetProfileDataDocument,
     "\n  query GetProfileById($id: String!) {\n    profile(id: $id) {\n      ...ProfileFragment\n    }\n  }\n": types.GetProfileByIdDocument,
+    "\n  query SearchPosts($term: String!, $take: Int!, $skip: Int!) {\n    searchPosts(term: $term, take: $take, skip: $skip) {\n      ...PostFragment\n    }\n  }\n": types.SearchPostsDocument,
+    "\n  query SearchUsers($term: String!, $take: Int!, $skip: Int!) {\n    searchUsers(term: $term, take: $take, skip: $skip) {\n      ...UserFragment\n    }\n  }\n": types.SearchUsersDocument,
     "\n  query GetUserById($id: String!) {\n    user(id: $id) {\n      ...UserFragment\n    }\n  }\n": types.GetUserByIdDocument,
 };
 
@@ -90,6 +92,14 @@ export function graphql(source: "\n  query GetProfileData($id: String!, $skip: I
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GetProfileById($id: String!) {\n    profile(id: $id) {\n      ...ProfileFragment\n    }\n  }\n"): (typeof documents)["\n  query GetProfileById($id: String!) {\n    profile(id: $id) {\n      ...ProfileFragment\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query SearchPosts($term: String!, $take: Int!, $skip: Int!) {\n    searchPosts(term: $term, take: $take, skip: $skip) {\n      ...PostFragment\n    }\n  }\n"): (typeof documents)["\n  query SearchPosts($term: String!, $take: Int!, $skip: Int!) {\n    searchPosts(term: $term, take: $take, skip: $skip) {\n      ...PostFragment\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query SearchUsers($term: String!, $take: Int!, $skip: Int!) {\n    searchUsers(term: $term, take: $take, skip: $skip) {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  query SearchUsers($term: String!, $take: Int!, $skip: Int!) {\n    searchUsers(term: $term, take: $take, skip: $skip) {\n      ...UserFragment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
