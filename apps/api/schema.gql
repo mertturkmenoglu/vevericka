@@ -137,12 +137,6 @@ type ElapsedTime {
   formatted: String!
 }
 
-type Results {
-  count: Float!
-  hits: [Result!]!
-  elapsed: ElapsedTime!
-}
-
 """Bookmark"""
 type Bookmark {
   id: String!
@@ -162,7 +156,8 @@ type Query {
   profile(id: String!): Profile!
   feed(skip: Int! = 0, take: Int! = 25): Feed!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
-  searchPosts(term: String!): Results!
+  searchPosts(term: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
+  searchUsers(term: String!, skip: Int! = 0, take: Int! = 25): [User!]!
   bookmark(id: String!): Bookmark!
   bookmarks(skip: Int! = 0, take: Int! = 25): [Bookmark!]!
 }
