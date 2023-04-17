@@ -1,32 +1,47 @@
-import { PlusIcon } from '@heroicons/react/24/outline';
 import { ProfileFragmentFragment } from '../../../generated/graphql';
-import { useAppStore } from '../../../stores';
 import { Link } from 'react-router-dom';
+import FollowButton from './FollowButton';
+import { useMutation } from '@apollo/client';
+import { interactWithUserDocument } from '../../../graphql';
 
 export interface UserActionsProps {
   user: ProfileFragmentFragment;
 }
 
 function UserActions({ user }: UserActionsProps): JSX.Element {
-  const appUser = useAppStore((state) => state.user);
-
-  const isThisUser = appUser?.id === user.id;
+  const [interact, { loading }] = useMutation(interactWithUserDocument);
 
   return (
     <>
-      {!isThisUser && (
+      {!user.isMe && (
         <>
-          <button className="flex items-center rounded bg-midnight px-4 py-2 text-white transition ease-in-out hover:bg-midnight/90">
-            <PlusIcon className="h-5 w-5 text-white" />
-            <span className="ml-2">Follow</span>
-          </button>
+          <FollowButton
+            isFollowing={user.isFollowing}
+            loading={loading}
+            onClick={async () => {
+              const result = await interact({
+                variables: {
+                  followeeId: user.id,
+                  interaction: user.isFollowing ? 'unfollow' : 'follow',
+                },
+              });
+              if (result.data?.interactWithUser === 'ok') {
+                window.location.reload();
+              }
+            }}
+          />
 
-          <button className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60">
-            Message
-          </button>
+          {user.isFollowing && (
+            <Link
+              to={'/messages'}
+              className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60"
+            >
+              Message
+            </Link>
+          )}
         </>
       )}
-      {isThisUser && (
+      {user.isMe && (
         <Link
           to={'/settings'}
           className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60"
