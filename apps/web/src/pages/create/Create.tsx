@@ -1,5 +1,5 @@
 import { MainLayout } from '../../layouts';
-import { TextField } from '../../components';
+import { TextArea } from '../../components';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useCreatePostForm } from './hooks/useCreatePostForm';
@@ -62,8 +62,10 @@ function Create(): JSX.Element {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col"
         >
-          <TextField
+          <TextArea
             label=""
+            autoComplete="off"
+            rows={1}
             labelClassName="mt-4"
             placeholder="What is on your mind?"
             error={errors.text}
