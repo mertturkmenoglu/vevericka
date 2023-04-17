@@ -38,7 +38,7 @@ function User(): JSX.Element {
         </div>
 
         <div className="mx-auto mt-8 flex w-1/2">
-          <div className="divide-y-2 divide-neutral-100 [&>*]:py-2">
+          <div className="w-full divide-y-2 divide-neutral-100 [&>*]:py-2">
             {posts.map((post, index) => (
               <PostCard
                 key={index}
