@@ -2,6 +2,12 @@ import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import * as Select from '@radix-ui/react-select';
 import clsx from 'clsx';
 import React from 'react';
+import { SearchType } from '../hooks/useSearchType';
+
+export interface SelectSearchTypeProps {
+  type: SearchType;
+  setType: React.Dispatch<React.SetStateAction<SearchType>>;
+}
 
 const SelectItem = React.forwardRef<HTMLDivElement, Select.SelectItemProps>(
   ({ children, className, ...props }, forwardedRef) => {
@@ -26,9 +32,14 @@ const SelectItem = React.forwardRef<HTMLDivElement, Select.SelectItemProps>(
   }
 );
 
-function SelectSearchType(): JSX.Element {
+function SelectSearchType({ type, setType }: SelectSearchTypeProps): JSX.Element {
   return (
-    <Select.Root>
+    <Select.Root
+      defaultValue={type}
+      onValueChange={(value) => {
+        setType(value as SearchType);
+      }}
+    >
       <Select.Trigger
         className="inline-flex h-10 items-center justify-center gap-2 rounded bg-white px-4 text-sm leading-none text-midnight outline-none  data-[placeholder]:text-neutral-300"
         aria-label="Type"

@@ -6,10 +6,11 @@ import { useSearchTerm } from './hooks/useSearchTerm';
 import { TextField } from '../../components';
 import SelectSearchType from './components/SelectSearchType';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import * as Separator from '@radix-ui/react-separator';
 
 function Settings(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [type] = useSearchType();
+  const [type, setType] = useSearchType();
   const [term, setTerm] = useSearchTerm();
   const { postsResult, usersResult } = useSearchData(type);
 
@@ -26,23 +27,33 @@ function Settings(): JSX.Element {
   return (
     <MainLayout>
       <div className="flex w-full flex-col">
-        <div className="mt-16 flex w-full justify-center">
+        <div className="mt-8 flex h-full w-full items-center border-b border-midnight p-8">
           <TextField
             label=""
             value={term}
+            className="w-full"
             placeholder="Type anything to search"
             onChange={(e) => setTerm(e.target.value)}
           />
 
-          <SelectSearchType />
-
           <button
-            className="group flex-shrink-0 bg-red-500"
+            className="group p-0"
             onClick={onSearchClick}
           >
-            <MagnifyingGlassIcon className="h-5 w-5 rounded-full p-2 text-midnight group-hover:bg-berry/10 group-hover:text-berry" />
+            <MagnifyingGlassIcon className="h-10 w-10 rounded-full p-2 text-midnight group-hover:bg-berry/10 group-hover:text-berry" />
             <span className="sr-only">Search</span>
           </button>
+
+          <Separator.Root
+            className="mx-4 h-8 w-[1px] bg-midnight"
+            decorative
+            orientation="vertical"
+          />
+
+          <SelectSearchType
+            type={type}
+            setType={setType}
+          />
         </div>
 
         {term !== '' && (
