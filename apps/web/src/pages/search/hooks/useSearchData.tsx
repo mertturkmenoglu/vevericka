@@ -1,5 +1,4 @@
 import { useLazyQuery } from '@apollo/client';
-import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { searchPostsQueryDocument, searchUsersQueryDocument } from '../../../graphql';
 import { SearchType } from './useSearchType';
@@ -10,7 +9,7 @@ export function useSearchData(type: SearchType) {
   const [getPosts, postsResult] = useLazyQuery(searchPostsQueryDocument);
   const [getUsers, usersResult] = useLazyQuery(searchUsersQueryDocument);
 
-  useEffect(() => {
+  const search = () => {
     const term = searchParams.get('q');
     if (term === '' || !term) return;
 
@@ -33,10 +32,11 @@ export function useSearchData(type: SearchType) {
         },
       });
     }
-  }, [searchParams]);
+  };
 
   return {
     postsResult,
     usersResult,
+    search,
   };
 }

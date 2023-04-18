@@ -12,7 +12,7 @@ function Settings(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [type, setType] = useSearchType();
   const [term, setTerm] = useSearchTerm();
-  const { postsResult, usersResult } = useSearchData(type);
+  const { postsResult, usersResult, search } = useSearchData(type);
 
   const onSearchClick = () => {
     if (term === '') {
@@ -22,12 +22,13 @@ function Settings(): JSX.Element {
     }
 
     setSearchParams(searchParams);
+    search();
   };
 
   return (
     <MainLayout>
       <div className="flex w-full flex-col">
-        <div className="mt-8 flex h-full w-full items-center border-b border-midnight p-8">
+        <div className="items-centerp-8 mt-8 flex h-full w-full">
           <TextField
             label=""
             value={term}
@@ -58,8 +59,8 @@ function Settings(): JSX.Element {
 
         {term !== '' && (
           <div className="mt-8 flex w-full justify-center space-x-4">
-            <pre>{JSON.stringify(postsResult.data, null, 2)}</pre>
-            <pre>{JSON.stringify(usersResult.data, null, 2)}</pre>
+            {type === 'posts' && <pre>{JSON.stringify(postsResult.data, null, 2)}</pre>}
+            {type === 'users' && <pre>{JSON.stringify(usersResult.data, null, 2)}</pre>}
           </div>
         )}
       </div>
