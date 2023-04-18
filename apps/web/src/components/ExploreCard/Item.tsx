@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { ExploreItem } from './data';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { PopularTag } from '../../generated/graphql';
 
 export interface ItemProps {
-  item: ExploreItem;
+  item: PopularTag;
 }
 
 const formatCount = (count: number) => {
@@ -13,14 +13,14 @@ const formatCount = (count: number) => {
 export function Item({ item }: ItemProps): JSX.Element {
   return (
     <Link
-      to={`/explore/${encodeURIComponent(item.tag)}`}
+      to={`/explore/${encodeURIComponent(item.tagName.substring(1))}`}
       className="flex items-center justify-between py-1 text-midnight transition-all duration-200 hover:bg-midnight/10"
     >
       <div className="px-6">
-        <span className="font-medium">{item.tag}</span>
+        <span className="font-medium">{item.tagName.substring(1)}</span>
 
         <div className="flex items-baseline text-sm">
-          <span className="font-normal">{formatCount(item.count)}</span>
+          <span className="font-normal">{formatCount(item._count.posts)}</span>
           <span className="ml-1 font-light">posts</span>
         </div>
       </div>

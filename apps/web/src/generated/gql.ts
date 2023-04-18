@@ -24,6 +24,7 @@ const documents = {
     "\n  query GetUserBookmarks($skip: Int, $take: Int) {\n    bookmarks(skip: $skip, take: $take) {\n      id\n      post {\n        ...PostFragment\n      }\n    }\n  }\n": types.GetUserBookmarksDocument,
     "\n  query feedQuery($skip: Int, $take: Int) {\n    feed(skip: $skip, take: $take) {\n      posts {\n        ...PostFragment\n      }\n    }\n  }\n": types.FeedQueryDocument,
     "\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n": types.MeDocument,
+    "\n  query GetPopularTags($skip: Int!, $take: Int!) {\n    popularTags(skip: $skip, take: $take) {\n      id\n      tagName\n      _count {\n        posts\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.GetPopularTagsDocument,
     "\n  query GetProfileData($id: String!, $skip: Int!, $take: Int!) {\n    profile(id: $id) {\n      ...ProfileFragment\n    }\n\n    posts(id: $id, skip: $skip, take: $take) {\n      ...PostFragment\n    }\n  }\n": types.GetProfileDataDocument,
     "\n  query GetProfileById($id: String!) {\n    profile(id: $id) {\n      ...ProfileFragment\n    }\n  }\n": types.GetProfileByIdDocument,
     "\n  query SearchPosts($term: String!, $take: Int!, $skip: Int!) {\n    searchPosts(term: $term, take: $take, skip: $skip) {\n      ...PostFragment\n    }\n  }\n": types.SearchPostsDocument,
@@ -89,6 +90,10 @@ export function graphql(source: "\n  query feedQuery($skip: Int, $take: Int) {\n
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    me {\n      ...UserFragment\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetPopularTags($skip: Int!, $take: Int!) {\n    popularTags(skip: $skip, take: $take) {\n      id\n      tagName\n      _count {\n        posts\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query GetPopularTags($skip: Int!, $take: Int!) {\n    popularTags(skip: $skip, take: $take) {\n      id\n      tagName\n      _count {\n        posts\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
