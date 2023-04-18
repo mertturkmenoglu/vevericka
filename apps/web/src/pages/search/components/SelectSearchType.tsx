@@ -3,6 +3,7 @@ import * as Select from '@radix-ui/react-select';
 import clsx from 'clsx';
 import React from 'react';
 import { SearchType } from '../hooks/useSearchType';
+import { useSearchParams } from 'react-router-dom';
 
 export interface SelectSearchTypeProps {
   type: SearchType;
@@ -33,11 +34,14 @@ const SelectItem = React.forwardRef<HTMLDivElement, Select.SelectItemProps>(
 );
 
 function SelectSearchType({ type, setType }: SelectSearchTypeProps): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
   return (
     <Select.Root
       defaultValue={type}
       onValueChange={(value) => {
         setType(value as SearchType);
+        searchParams.set('type', value);
+        setSearchParams(searchParams);
       }}
     >
       <Select.Trigger
@@ -53,8 +57,8 @@ function SelectSearchType({ type, setType }: SelectSearchTypeProps): JSX.Element
         <Select.Content className="mt-12 overflow-hidden rounded bg-white shadow">
           <Select.Viewport className="p-2">
             <Select.Group>
-              <SelectItem value="users">Users</SelectItem>
               <SelectItem value="posts">Posts</SelectItem>
+              <SelectItem value="users">Users</SelectItem>
             </Select.Group>
           </Select.Viewport>
         </Select.Content>

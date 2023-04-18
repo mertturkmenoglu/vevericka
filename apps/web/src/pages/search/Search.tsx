@@ -3,10 +3,11 @@ import { MainLayout } from '../../layouts';
 import { useSearchType } from './hooks/useSearchType';
 import { useSearchData } from './hooks/useSearchData';
 import { useSearchTerm } from './hooks/useSearchTerm';
-import { TextField } from '../../components';
+import { Loading, TextField } from '../../components';
 import SelectSearchType from './components/SelectSearchType';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import * as Separator from '@radix-ui/react-separator';
+import SearchResult from './components/SearchResult';
 
 function Settings(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,8 +23,19 @@ function Settings(): JSX.Element {
     }
 
     setSearchParams(searchParams);
-    search();
+
+    if (term === '') return;
+    search(term);
   };
+
+  const getData = () => {
+    if (type === 'posts') return postsResult.data?.searchPosts;
+    return usersResult.data?.searchUsers;
+  };
+
+  const isLoading = postsResult.loading || usersResult.loading;
+
+  const shouldDisplayResults = !isLoading && (getData()?.length ?? 0) > 0;
 
   return (
     <MainLayout>
@@ -33,6 +45,12 @@ function Settings(): JSX.Element {
             label=""
             value={term}
             className="w-full"
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                onSearchClick();
+              }
+            }}
+            autoFocus
             placeholder="Type anything to search"
             onChange={(e) => setTerm(e.target.value)}
           />
@@ -57,10 +75,17 @@ function Settings(): JSX.Element {
           />
         </div>
 
-        {term !== '' && (
-          <div className="mt-8 flex w-full justify-center space-x-4">
-            {type === 'posts' && <pre>{JSON.stringify(postsResult.data, null, 2)}</pre>}
-            {type === 'users' && <pre>{JSON.stringify(usersResult.data, null, 2)}</pre>}
+        {isLoading && <Loading className="mx-auto mt-16" />}
+
+        {shouldDisplayResults && (
+          <div className="mx-auto my-8 flex w-2/3 flex-col space-y-4">
+            {getData()?.map((it, index) => (
+              <SearchResult
+                key={index}
+                type={type}
+                content={it}
+              />
+            ))}
           </div>
         )}
       </div>

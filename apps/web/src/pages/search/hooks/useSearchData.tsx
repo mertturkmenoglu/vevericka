@@ -1,16 +1,12 @@
 import { useLazyQuery } from '@apollo/client';
-import { useSearchParams } from 'react-router-dom';
 import { searchPostsQueryDocument, searchUsersQueryDocument } from '../../../graphql';
 import { SearchType } from './useSearchType';
 
 export function useSearchData(type: SearchType) {
-  const [searchParams] = useSearchParams();
-
   const [getPosts, postsResult] = useLazyQuery(searchPostsQueryDocument);
   const [getUsers, usersResult] = useLazyQuery(searchUsersQueryDocument);
 
-  const search = () => {
-    const term = searchParams.get('q');
+  const search = (term: string) => {
     if (term === '' || !term) return;
 
     if (type === 'posts') {
