@@ -1,49 +1,86 @@
-// import clsx from 'clsx';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { TextField } from '../../../components';
+import { LazyImage, TextField } from '../../../components';
+import { MeQuery } from '../../../generated/graphql';
+import { useFragment } from '../../../generated';
+import { updateUserMutationDocument, userFragmentDocument } from '../../../graphql';
+import { useUploadcare } from '../../../hooks';
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
 
-const accountSchema = z.object({
-  email: z.string(),
-  username: z.string(),
-});
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-type AccountInput = z.infer<typeof accountSchema>;
+interface Props {
+  user: MeQuery;
+}
 
-function AccountContainer(): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AccountInput>({
-    resolver: zodResolver(accountSchema),
-    defaultValues: {
-      email: 'john@doe.com',
-      username: 'johndoe',
+function AccountContainer({ user }: Props): JSX.Element {
+  const me = useFragment(userFragmentDocument, user.me);
+  const [profileImageUrl, setProfileImageUrl] = useState(me.image);
+  const [updateUser] = useMutation(updateUserMutationDocument);
+
+  useUploadcare({
+    id: 'profile-image-upload',
+    onDataOutput: (event) => {
+      const e = event as CustomEvent;
+      const images = e.detail.data.map((item: { cdnUrl: string }) => item.cdnUrl);
+      const firstImage = images[0];
+      setProfileImageUrl(firstImage);
     },
   });
 
   return (
-    <section className="mt-8 w-1/4">
-      <form
-        onSubmit={handleSubmit(() => {})}
-        className="space-y-4"
-      >
-        <TextField
-          label="Email"
-          disabled={true}
-          error={errors.email}
-          {...register('email', { disabled: true })}
+    <section className="mt-8 w-1/2">
+      <TextField
+        label="Your User ID"
+        disabled
+        value={me.id}
+      />
+
+      <div className="mt-8 flex items-center space-x-4">
+        <LazyImage
+          src={profileImageUrl}
+          alt="User image"
+          placeholderSrc="/user.jpg"
+          placeholderAlt="Loading"
+          className="min-h-32 min-w-32 h-32 w-32 rounded-full"
         />
 
-        <TextField
-          label="Username"
-          disabled={true}
-          error={errors.username}
-          {...register('username', { disabled: true })}
+        <div
+          id="profile-image-upload"
+          className=""
         />
-      </form>
+      </div>
+
+      <div id="banner-image-upload" />
+
+      <button
+        className="mt-8 w-full rounded bg-midnight text-white"
+        onClick={async () => {
+          const res = await updateUser({
+            variables: {
+              payload: {
+                image: profileImageUrl,
+              },
+            },
+          });
+
+          if (res.errors) {
+            toast.error('Something went wrong', {
+              type: 'error',
+              autoClose: 3000,
+            });
+          } else {
+            toast.success('Profile updated', {
+              type: 'success',
+              autoClose: 3000,
+            });
+          }
+        }}
+      >
+        Save
+      </button>
+
+      <ToastContainer />
     </section>
   );
 }
