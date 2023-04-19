@@ -23,9 +23,11 @@ export class LinkService {
       res.twitterImage?.url ||
       null;
 
+    const title = res.ogTitle || res.ogSiteName || null;
+
     return {
       url,
-      title: res.ogTitle || null,
+      title,
       description: res.ogDescription || null,
       image,
     };
