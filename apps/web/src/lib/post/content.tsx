@@ -13,14 +13,14 @@ export const getPostContent = (text: string): JSX.Element => {
   const [getMeta, { data, loading, error }] = useLazyQuery(linkPreviewQueryDocument);
 
   useEffect(() => {
-    if (firstUrl) {
+    if (firstUrl && !youtubeIframe) {
       getMeta({
         variables: {
           url: firstUrl,
         },
       });
     }
-  }, [firstUrl]);
+  }, [firstUrl, youtubeIframe]);
 
   const shouldShowLinkPreview = firstUrl && !error && data && !loading && !youtubeIframe;
 
