@@ -53,10 +53,10 @@ export type LastSeen = {
 /** Link Preview Model */
 export type LinkPreview = {
   __typename?: 'LinkPreview';
-  description: Scalars['String'];
-  image: Scalars['String'];
-  title: Scalars['String'];
-  url: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -444,7 +444,7 @@ export type LinkPreviewQueryQueryVariables = Exact<{
 }>;
 
 
-export type LinkPreviewQueryQuery = { __typename?: 'Query', linkPreview: { __typename?: 'LinkPreview', title: string, description: string, image: string, url: string } };
+export type LinkPreviewQueryQuery = { __typename?: 'Query', linkPreview: { __typename?: 'LinkPreview', title?: string | null, description?: string | null, image?: string | null, url?: string | null } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
