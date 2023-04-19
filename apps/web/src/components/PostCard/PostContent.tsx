@@ -15,10 +15,6 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
   const showYoutubeIframe = isYouTube && !hasMedia;
   const { showLinkPreview, data } = useLinkPreview(text, { hasMedia, isYouTube });
 
-  if (!data) {
-    return <></>;
-  }
-
   return (
     <>
       <div
@@ -26,7 +22,7 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
         className="text-sm"
       />
       {showYoutubeIframe && <YouTubeIframe id={youtubeId || ''} />}
-      {showLinkPreview && (
+      {showLinkPreview && data && (
         <a
           href={data.linkPreview.url ?? ''}
           className="mt-4 block rounded bg-neutral-100"
