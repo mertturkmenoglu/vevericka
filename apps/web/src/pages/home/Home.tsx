@@ -1,10 +1,19 @@
-import { Banner, Footer, LandingAppBar, LandingHero } from '../../components';
+import { Banner, Footer, LandingAppBar, LandingHero, Loading } from '../../components';
 import { useState } from 'react';
-import { useFlags } from '../../hooks';
+import { useAuth, useFlags } from '../../hooks';
 
 function Home(): JSX.Element {
+  const { loading } = useAuth();
   const [isBannerOpen, setIsBannerOpen] = useState(true);
   const { landingAppBar } = useFlags();
+
+  if (loading) {
+    return (
+      <div className="flex h-[100vh] w-screen items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex h-screen flex-col items-center">
