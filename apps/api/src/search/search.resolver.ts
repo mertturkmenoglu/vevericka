@@ -6,6 +6,8 @@ import { SearchService } from "./search.service";
 import { Post } from "src/posts/models/post.model";
 import { PaginationArgs } from "src/common/args/pagination.args";
 import { User } from "src/users/models/user.model";
+import { CurrentUser as CurrentUserDecorator } from "src/common/decorators/current-user.decorator";
+import { CurrentUser } from "src/common/types/current-user.type";
 
 @Resolver(() => Results)
 export class SearchResolver {
@@ -14,10 +16,15 @@ export class SearchResolver {
   @Query(() => [Post])
   @UseGuards(JwtAuthGuard)
   async searchPosts(
+    @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("term") term: string,
     @Args() pagination: PaginationArgs
   ): Promise<Post[]> {
-    return await this.searchService.searchPosts(term, pagination);
+    return await this.searchService.searchPosts(
+      currentUser.user.id,
+      term,
+      pagination
+    );
   }
 
   @Query(() => [User])

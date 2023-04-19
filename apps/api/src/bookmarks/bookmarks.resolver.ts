@@ -14,8 +14,14 @@ export class BookmarksResolver {
 
   @Query(() => Bookmark)
   @UseGuards(JwtAuthGuard)
-  async bookmark(@Args("id") id: string) {
-    const bookmark = await this.bookmarksService.getBookmarkById(id);
+  async bookmark(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("id") id: string
+  ) {
+    const bookmark = await this.bookmarksService.getBookmarkById(
+      currentUser.user.id,
+      id
+    );
     if (!bookmark) {
       throw new NotFoundException(id);
     }

@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { PaginationArgs } from "src/common/args/pagination.args";
 import { PrismaService } from "../prisma/prisma.service";
 import { Feed } from "./models/feed.model";
+import { postsInclude, postsVoteInclude } from "src/posts/posts.type";
+import { User } from "@prisma/client";
 
 @Injectable()
 export class FeedService {
@@ -35,24 +37,27 @@ export class FeedService {
         createdAt: "desc",
       },
       include: {
-        user: true,
-        images: true,
-        tags: true,
-        videos: true,
-        _count: {
-          select: {
-            comments: true,
-            dislikes: true,
-            likes: true,
-            tags: true,
-          },
-        },
+        ...postsInclude,
+        ...postsVoteInclude(id),
       },
       skip: pagination.skip,
       take: pagination.take,
     });
     return {
-      posts: res,
+      posts: res.map((post) => ({
+        ...post,
+        vote: this.getVote(post.likes, post.dislikes),
+      })),
     };
+  }
+
+  private getVote(likes: User[], dislikes: User[]) {
+    if (likes.length > 0) {
+      return "like";
+    } else if (dislikes.length > 0) {
+      return "dislike";
+    } else {
+      return "none";
+    }
   }
 }

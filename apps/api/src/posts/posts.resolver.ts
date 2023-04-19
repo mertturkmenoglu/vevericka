@@ -14,8 +14,11 @@ export class PostsResolver {
   constructor(private readonly postsService: PostsService) {}
 
   @Query(() => Post)
-  async post(@Args("id") id: string): Promise<Post> {
-    const post = await this.postsService.findOneById(id);
+  async post(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("id") id: string
+  ): Promise<Post> {
+    const post = await this.postsService.findOneById(currentUser.user.id, id);
     if (!post) {
       throw new NotFoundException(id);
     }
@@ -24,10 +27,15 @@ export class PostsResolver {
 
   @Query(() => [Post])
   async posts(
+    @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("id") id: string,
     @Args() pagination: PaginationArgs
   ): Promise<Post[]> {
-    const posts = await this.postsService.getPostsByUserId(id, pagination);
+    const posts = await this.postsService.getPostsByUserId(
+      currentUser.user.id,
+      id,
+      pagination
+    );
     return posts;
   }
 
@@ -62,8 +70,11 @@ export class PostsResolver {
 
   @Mutation(() => Post, { nullable: true })
   @UseGuards(JwtAuthGuard)
-  async deletePost(@Args("id") id: string): Promise<Post> {
-    const post = await this.postsService.remove(id);
+  async deletePost(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("id") id: string
+  ): Promise<Post> {
+    const post = await this.postsService.remove(currentUser.user.id, id);
 
     if (!post) {
       throw new NotFoundException(id);

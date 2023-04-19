@@ -14,3 +14,17 @@ export const postsInclude = {
     },
   },
 } as const satisfies Prisma.PostInclude;
+
+export const postsVoteInclude = (userId: string) =>
+  ({
+    likes: {
+      where: {
+        id: userId,
+      },
+    },
+    dislikes: {
+      where: {
+        id: userId,
+      },
+    },
+  } as const satisfies Prisma.PostInclude);

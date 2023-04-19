@@ -25,6 +25,9 @@ export class Post {
   @Field(() => [PostVideo])
   videos: PostVideo[];
 
+  @Field()
+  vote: string;
+
   @Field(() => Count)
   _count: Count;
 

@@ -80,6 +80,7 @@ type Post {
   tags: [Tag!]!
   images: [PostImage!]!
   videos: [PostVideo!]!
+  vote: String!
   _count: Count!
   createdAt: Date!
   updatedAt: Date!
