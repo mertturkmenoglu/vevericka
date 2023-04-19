@@ -4,16 +4,18 @@ export interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButton
   icon: TwIcon;
   text?: string | number;
   state?: 'active' | 'inactive';
+  onClick?: () => Promise<void>;
 }
 
-function ActionButton({ icon: Icon, text, state = 'inactive' }: ActionButtonProps): JSX.Element {
+function ActionButton({ icon: Icon, text, state = 'inactive', onClick }: ActionButtonProps): JSX.Element {
   const showText = text !== 0 && text !== undefined;
   return (
     <button
-      className={clsx('flex items-center space-x-1 rounded-md py-1 px-2 hover:bg-midnight/10', {
+      className={clsx('flex items-center space-x-1 rounded-md px-2 py-1 hover:bg-midnight/10', {
         'text-midnight': state === 'inactive',
         'text-berry': state === 'active',
       })}
+      onClick={onClick}
     >
       <Icon className="h-4 w-4" />
       {showText && <span className="text-sm">{text}</span>}

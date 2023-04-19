@@ -2,7 +2,7 @@ import { ArrowDownIcon, ArrowUpIcon, ArrowUpTrayIcon, ChatBubbleBottomCenterIcon
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { FragmentType, useFragment } from '../../generated';
-import { postFragmentDocument, userFragmentDocument } from '../../graphql';
+import { postFragmentDocument, userFragmentDocument, votePostDocument } from '../../graphql';
 import { countFragmentDocument } from '../../graphql/fragments/countFragment';
 import { LazyImage } from '../LazyImage';
 import MoreMenu from './MoreMenu';
@@ -14,6 +14,9 @@ import { useMemo, useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import PostContent from './PostContent';
+import { useApolloClient, useMutation } from '@apollo/client';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
@@ -25,6 +28,8 @@ function PostCard(props: PostCardProps): JSX.Element {
   const count = useFragment(countFragmentDocument, post._count);
 
   const [open, setOpen] = useState(false);
+  const [vote] = useMutation(votePostDocument);
+  const client = useApolloClient();
 
   const formattedDate = useMemo(() => {
     const currentDate = new Date();
@@ -39,6 +44,42 @@ function PostCard(props: PostCardProps): JSX.Element {
   }, [post.createdAt]);
 
   const hasMedia = post.images.length > 0 || post.videos.length > 0;
+
+  const onVote = async (value: string) => {
+    const oldVote = post.vote;
+    let newVote = 'none';
+
+    if (value === 'like') {
+      newVote = post.vote === 'like' ? 'none' : 'like';
+    } else {
+      newVote = post.vote === 'dislike' ? 'none' : 'dislike';
+    }
+
+    client.cache.modify({
+      id: post.id,
+      fields: {
+        vote: () => newVote,
+      },
+    });
+
+    const res = await vote({
+      variables: {
+        id: post.id,
+        vote: newVote,
+      },
+    });
+
+    if (res.errors) {
+      toast('Something went wrong', { type: 'error', autoClose: 3000 });
+    } else {
+      client.cache.modify({
+        id: post.id,
+        fields: {
+          vote: () => oldVote,
+        },
+      });
+    }
+  };
 
   return (
     <article
@@ -127,6 +168,7 @@ function PostCard(props: PostCardProps): JSX.Element {
             icon={ArrowUpIcon}
             text={count.likes}
             state={post.vote === 'like' ? 'active' : 'inactive'}
+            onClick={async () => onVote('like')}
           />
 
           <ActionButton
@@ -142,7 +184,7 @@ function PostCard(props: PostCardProps): JSX.Element {
 
           <ActionButton
             icon={ArrowUpTrayIcon}
-            text={count.comments}
+            text={''}
           />
         </div>
       </div>
@@ -150,6 +192,8 @@ function PostCard(props: PostCardProps): JSX.Element {
       <div className="w-1/12">
         <MoreMenu />
       </div>
+
+      <ToastContainer />
     </article>
   );
 }
