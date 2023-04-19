@@ -39,12 +39,12 @@ export const getPostContent = (text: string): JSX.Element => {
           {data.linkPreview.image && (
             <img
               src={data.linkPreview.image}
-              className="rounded-t"
+              className="aspect-video w-full rounded-t object-cover"
             />
           )}
 
           {!data.linkPreview.image && (
-            <div className="flex h-32 items-center justify-center rounded-t bg-neutral-200">
+            <div className="flex aspect-video w-full items-center justify-center rounded-t bg-neutral-200">
               <LinkIcon className="h-5 w-5 text-midnight" />
             </div>
           )}
