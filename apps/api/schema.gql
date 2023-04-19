@@ -195,6 +195,7 @@ type Mutation {
   addRecipe(newRecipeData: NewRecipeInput!): Recipe!
   removeRecipe(id: String!): Boolean!
   interactWithUser(id: String!, interaction: String!): String!
+  updateUser(payload: UpdateUserInput!): User!
   updateLastSeen: String!
   createBookmark(newBookmarkData: NewBookmarkInput!): Bookmark!
 }
@@ -209,6 +210,21 @@ input NewRecipeInput {
   title: String!
   description: String
   ingredients: [String!]!
+}
+
+input UpdateUserInput {
+  name: String
+  image: String
+  job: String
+  twitterHandle: String
+  school: String
+  birthDate: Date
+  website: String
+  description: String
+  protected: Boolean
+  bannerImage: String
+  city: String
+  country: String
 }
 
 input NewBookmarkInput {

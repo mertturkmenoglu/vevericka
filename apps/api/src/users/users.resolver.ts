@@ -9,6 +9,7 @@ import { PubSub } from "graphql-subscriptions";
 import { LastSeen } from "./models/last-seen.model";
 import { Profile } from "./models/profile.model";
 import { Interaction } from "./dto/interact.input";
+import { UpdateUserInput } from "./dto/update-user.input";
 
 const pubSub = new PubSub();
 
@@ -39,7 +40,10 @@ export class UsersResolver {
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("id") id: string
   ): Promise<Profile> {
-    const profile = await this.usersService.findProfileById(currentUser.user.id, id);
+    const profile = await this.usersService.findProfileById(
+      currentUser.user.id,
+      id
+    );
     if (!profile) {
       throw new NotFoundException(id);
     }
@@ -59,6 +63,15 @@ export class UsersResolver {
       await this.usersService.unfollowUser(currentUser.user.id, id);
     }
     return "ok";
+  }
+
+  @Mutation(() => User)
+  @UseGuards(JwtAuthGuard)
+  async updateUser(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("payload") payload: UpdateUserInput
+  ): Promise<User> {
+    return this.usersService.update(currentUser.user.id, payload);
   }
 
   @Subscription(() => LastSeen)
