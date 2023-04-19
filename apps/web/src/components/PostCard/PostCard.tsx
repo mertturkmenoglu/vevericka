@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { FragmentType, useFragment } from '../../generated';
 import { postFragmentDocument, userFragmentDocument } from '../../graphql';
 import { countFragmentDocument } from '../../graphql/fragments/countFragment';
-import { getPostContent } from '../../lib';
 import { LazyImage } from '../LazyImage';
 import MoreMenu from './MoreMenu';
 import ActionButton from './ActionButton';
@@ -14,6 +13,7 @@ import { useMemo, useState } from 'react';
 
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import PostContent from './PostContent';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
@@ -37,6 +37,8 @@ function PostCard(props: PostCardProps): JSX.Element {
 
     return formatDistanceToNowStrict(new Date(post.createdAt), { locale: enUS, addSuffix: true });
   }, [post.createdAt]);
+
+  const hasMedia = post.images.length > 0 || post.videos.length > 0;
 
   return (
     <article
@@ -75,7 +77,10 @@ function PostCard(props: PostCardProps): JSX.Element {
         </div>
 
         <div className="text-xs font-light tracking-tighter sm:text-base sm:tracking-normal">
-          {getPostContent(post.content)}
+          <PostContent
+            text={post.content}
+            hasMedia={hasMedia}
+          />
         </div>
 
         {post.images.length > 0 && (
