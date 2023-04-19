@@ -17,11 +17,17 @@ export class LinkService {
 
     const res = ogsResult.result;
 
+    const image =
+      res.ogImage?.url ||
+      res.ogImage?.at(0)?.url ||
+      res.twitterImage?.url ||
+      null;
+
     return {
       url,
       title: res.ogTitle || null,
       description: res.ogDescription || null,
-      image: res.ogImage?.url || null,
+      image,
     };
   }
 }
