@@ -19,6 +19,11 @@ export const preparePostText = (text: string): string => {
   return linkify(hashtagsDetected);
 };
 
+export const getFirstUrl = (text: string): string | null => {
+  const matches = text.match(URL_REGEX);
+  return matches ? matches[0] : null;
+};
+
 export const copyToClipboard = (text: string): void => {
   const tmpInput = document.createElement('input');
   tmpInput.value = text;
