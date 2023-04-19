@@ -21,6 +21,7 @@ const documents = {
     "\n  mutation CreatePost($payload: NewPostInput!) {\n    createPost(newPostData: $payload) {\n      ...PostFragment\n    }\n  }\n": types.CreatePostDocument,
     "\n  mutation InteractWithUserMutation($followeeId: String!, $interaction: String!) {\n    interactWithUser(id: $followeeId, interaction: $interaction)\n  }\n": types.InteractWithUserMutationDocument,
     "\n  mutation UpdateLastSeen {\n    updateLastSeen\n  }\n": types.UpdateLastSeenDocument,
+    "\n  mutation UpdateUserMutation($payload: UpdateUserInput!) {\n    updateUser(payload: $payload) {\n      ...UserFragment\n    }\n  }\n": types.UpdateUserMutationDocument,
     "\n  query GetUserBookmarks($skip: Int, $take: Int) {\n    bookmarks(skip: $skip, take: $take) {\n      id\n      post {\n        ...PostFragment\n      }\n    }\n  }\n": types.GetUserBookmarksDocument,
     "\n  query feedQuery($skip: Int, $take: Int) {\n    feed(skip: $skip, take: $take) {\n      posts {\n        ...PostFragment\n      }\n    }\n  }\n": types.FeedQueryDocument,
     "\n  query LinkPreviewQuery($url: String!) {\n    linkPreview(url: $url) {\n      title\n      description\n      image\n      url\n    }\n  }\n": types.LinkPreviewQueryDocument,
@@ -79,6 +80,10 @@ export function graphql(source: "\n  mutation InteractWithUserMutation($followee
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation UpdateLastSeen {\n    updateLastSeen\n  }\n"): (typeof documents)["\n  mutation UpdateLastSeen {\n    updateLastSeen\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateUserMutation($payload: UpdateUserInput!) {\n    updateUser(payload: $payload) {\n      ...UserFragment\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUserMutation($payload: UpdateUserInput!) {\n    updateUser(payload: $payload) {\n      ...UserFragment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

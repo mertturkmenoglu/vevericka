@@ -1,7 +1,6 @@
 import {
   UserIcon,
   IdentificationIcon,
-  KeyIcon,
   QuestionMarkCircleIcon,
   LockClosedIcon,
   ComputerDesktopIcon,
@@ -10,20 +9,20 @@ import {
   EnvelopeIcon,
   GlobeAltIcon,
 } from '@heroicons/react/24/outline';
-import { SVGProps } from 'react';
 import AccountContainer from '../containers/account';
 import ProfileContainer from '../containers/profile';
+import { MeQuery } from '../../../generated/graphql';
+import Wip from '../containers/Wip';
+
+interface ComponentProps {
+  user: MeQuery;
+}
 
 export type Category = {
   key: string;
   name: string;
-  component: () => JSX.Element;
-  icon: (
-    props: SVGProps<SVGSVGElement> & {
-      title?: string | undefined;
-      titleId?: string | undefined;
-    }
-  ) => JSX.Element;
+  component: (props: ComponentProps) => JSX.Element;
+  icon: TwIcon;
 };
 
 export const categories = [
@@ -42,49 +41,43 @@ export const categories = [
   {
     key: 'display',
     name: 'Display',
-    component: AccountContainer,
+    component: Wip,
     icon: ComputerDesktopIcon,
   },
   {
     key: 'language',
     name: 'Language',
-    component: AccountContainer,
+    component: Wip,
     icon: GlobeAltIcon,
   },
   {
     key: 'notifications',
     name: 'Notifications',
-    component: AccountContainer,
+    component: Wip,
     icon: BellIcon,
   },
   {
     key: 'email',
     name: 'Email Settings',
-    component: AccountContainer,
+    component: Wip,
     icon: EnvelopeIcon,
-  },
-  {
-    key: 'password-and-security',
-    name: 'Password and Security',
-    component: AccountContainer,
-    icon: KeyIcon,
   },
   {
     key: 'privacy',
     name: 'Privacy',
-    component: AccountContainer,
+    component: Wip,
     icon: LockClosedIcon,
   },
   {
     key: 'your-data',
     name: 'Your Data',
-    component: AccountContainer,
+    component: Wip,
     icon: CloudIcon,
   },
   {
     key: 'help',
     name: 'Help',
-    component: AccountContainer,
+    component: Wip,
     icon: QuestionMarkCircleIcon,
   },
 ] satisfies Category[];

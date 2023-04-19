@@ -1,23 +1,16 @@
 import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
 
-type THeroIcon = (
-  props: React.SVGProps<SVGSVGElement> & {
-    title?: string | undefined;
-    titleId?: string | undefined;
-  }
-) => JSX.Element;
-
 interface Props {
   name: string;
-  icon: THeroIcon;
+  icon: TwIcon;
 }
 
 function SidebarItem({ name, icon: Icon }: Props): JSX.Element {
   return (
     <Tab
       className={({ selected }) =>
-        clsx('flex w-full rounded py-2.5 px-4 text-sm font-medium leading-5 transition-all focus:outline-none', {
+        clsx('flex w-full rounded px-4 py-2.5 text-sm font-medium leading-5 transition-all focus:outline-none', {
           'bg-midnight text-white': selected,
           'text-midnight hover:bg-midnight/70 hover:text-white': !selected,
         })

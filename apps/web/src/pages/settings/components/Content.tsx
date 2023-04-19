@@ -2,8 +2,13 @@ import { Tab } from '@headlessui/react';
 import { useTabs } from '../hooks/useTabs';
 import TabList from './TabList';
 import TabPanels from './TabPanels';
+import { MeQuery } from '../../../generated/graphql';
 
-function Content(): JSX.Element {
+interface Props {
+  user: MeQuery;
+}
+
+function Content({ user }: Props): JSX.Element {
   const { defaultTabIndex, onTabChange } = useTabs();
 
   return (
@@ -13,7 +18,7 @@ function Content(): JSX.Element {
       onChange={onTabChange}
     >
       <TabList />
-      <TabPanels />
+      <TabPanels user={user} />
     </Tab.Group>
   );
 }
