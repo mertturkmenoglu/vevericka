@@ -45,7 +45,7 @@ function MoreMenu(): JSX.Element {
       as="div"
       className="relative inline-block w-min text-left"
     >
-      <Menu.Button className="group flex items-center space-x-2 rounded-full py-2 px-2 transition ease-in-out hover:bg-berry/10">
+      <Menu.Button className="group flex items-center space-x-2 rounded-full px-2 py-2 transition ease-in-out hover:bg-berry/10">
         <EllipsisVerticalIcon className="h-5 w-5 text-midnight group-hover:text-berry" />
       </Menu.Button>
       <Transition
