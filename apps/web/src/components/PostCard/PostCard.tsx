@@ -103,7 +103,7 @@ function PostCard(props: PostCardProps): JSX.Element {
                   placeholderAlt="Loading"
                   className={clsx('h-full w-full rounded-md object-cover', {
                     'aspect-square': post.images.length !== 1,
-                    'aspect-video': post.images.length === 1,
+                    'aspect-auto': post.images.length === 1,
                   })}
                 />
               </button>
