@@ -10,6 +10,7 @@ import { RecipesModule } from "./recipes/recipes.module";
 import { UsersModule } from "./users/users.module";
 import { SearchModule } from "./search/search.module";
 import { BookmarksModule } from "./bookmarks/bookmarks.module";
+import { LinkModule } from "./link/link-module";
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { BookmarksModule } from "./bookmarks/bookmarks.module";
     ExploreModule,
     SearchModule,
     BookmarksModule,
+    LinkModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: "schema.gql",
