@@ -8,16 +8,16 @@ interface Activation {
   hasMedia: boolean;
 }
 
-export function useMeta(text: string, activation: Activation) {
+export function useLinkPreview(text: string, activation: Activation) {
   const firstUrl = getFirstUrl(text);
 
-  const [getMeta, { data, loading, error }] = useLazyQuery(linkPreviewQueryDocument);
+  const [getPreview, { data, loading, error }] = useLazyQuery(linkPreviewQueryDocument);
 
   const canActivate = !activation.hasMedia && !activation.isYouTube;
 
   useEffect(() => {
     if (firstUrl && canActivate) {
-      getMeta({
+      getPreview({
         variables: {
           url: firstUrl,
         },

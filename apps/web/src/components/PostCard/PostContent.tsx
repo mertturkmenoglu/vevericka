@@ -1,7 +1,7 @@
 import { LinkIcon } from '@heroicons/react/24/outline';
 import { detectHashtags, detectUsernames, linkify } from '../../lib';
 import YouTubeIframe from './YouTubeIframe';
-import { useMeta } from './useMeta';
+import { useLinkPreview } from './useLinkPreview';
 import { useYouTube } from './useYouTube';
 
 export interface PostContentProps {
@@ -13,7 +13,7 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
   const content = linkify(detectUsernames(detectHashtags(text)));
   const { isYouTube, youtubeId } = useYouTube(content);
   const showYoutubeIframe = isYouTube && !hasMedia;
-  const { showLinkPreview, data } = useMeta(text, { hasMedia, isYouTube });
+  const { showLinkPreview, data } = useLinkPreview(text, { hasMedia, isYouTube });
 
   if (!data) {
     return <></>;
