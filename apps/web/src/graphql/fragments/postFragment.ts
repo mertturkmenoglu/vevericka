@@ -27,6 +27,7 @@ export const postFragmentDocument = graphql(/* GraphQL */ `
       createdAt
       updatedAt
     }
+    vote
     createdAt
     updatedAt
     user {

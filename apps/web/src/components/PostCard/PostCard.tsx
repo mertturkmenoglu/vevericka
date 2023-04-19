@@ -126,12 +126,13 @@ function PostCard(props: PostCardProps): JSX.Element {
           <ActionButton
             icon={ArrowUpIcon}
             text={count.likes}
-            state="active"
+            state={post.vote === 'like' ? 'active' : 'inactive'}
           />
 
           <ActionButton
             icon={ArrowDownIcon}
             text={count.dislikes}
+            state={post.vote === 'dislike' ? 'active' : 'inactive'}
           />
 
           <ActionButton
