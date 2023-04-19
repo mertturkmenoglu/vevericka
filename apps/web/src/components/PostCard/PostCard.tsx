@@ -175,6 +175,7 @@ function PostCard(props: PostCardProps): JSX.Element {
             icon={ArrowDownIcon}
             text={count.dislikes}
             state={post.vote === 'dislike' ? 'active' : 'inactive'}
+            onClick={async () => onVote('dislike')}
           />
 
           <ActionButton
