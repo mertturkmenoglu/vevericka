@@ -1,17 +1,13 @@
-import { useQuery } from '@apollo/client';
 import { PostCard, Stories, ExploreCard, Footer } from '../../components';
-import { feedQueryDocument } from '../../graphql';
 import { LoadingLayout, MainLayout } from '../../layouts';
 import { useFlags } from '../../hooks';
+import { useId } from 'react';
+import { useFeed } from './useFeed';
 
 function Feed(): JSX.Element {
+  const loadMoreId = useId();
   const flags = useFlags();
-  const { data, error, loading } = useQuery(feedQueryDocument, {
-    variables: {
-      skip: 0,
-      take: 50,
-    },
-  });
+  const { data, loading, error } = useFeed(loadMoreId);
 
   return (
     <MainLayout>
@@ -19,7 +15,7 @@ function Feed(): JSX.Element {
         {flags.stories && <Stories />}
         <LoadingLayout
           data={data}
-          loading={loading}
+          loading={loading && !data}
           error={error}
         >
           <div className="divide-y-2 divide-neutral-100 [&>*]:py-2">
@@ -30,6 +26,7 @@ function Feed(): JSX.Element {
                   post={post}
                 />
               ))}
+            <div id={loadMoreId} />
           </div>
         </LoadingLayout>
       </div>
