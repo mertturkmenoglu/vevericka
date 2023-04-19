@@ -159,6 +159,14 @@ type Bookmark {
   post: Post!
 }
 
+"""Link Preview Model"""
+type LinkPreview {
+  title: String
+  description: String
+  image: String
+  url: String
+}
+
 """Date custom scalar type"""
 scalar Date
 
@@ -177,6 +185,7 @@ type Query {
   searchUsers(term: String!, skip: Int! = 0, take: Int! = 25): [User!]!
   bookmark(id: String!): Bookmark!
   bookmarks(skip: Int! = 0, take: Int! = 25): [Bookmark!]!
+  linkPreview(url: String!): LinkPreview!
 }
 
 type Mutation {
