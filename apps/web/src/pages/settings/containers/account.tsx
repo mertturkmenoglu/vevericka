@@ -37,7 +37,6 @@ function AccountContainer({ user }: Props): JSX.Element {
     contextName: 'banner-image-upload',
     onDataOutput: (event) => {
       const e = event as CustomEvent;
-      console.log({ event, e });
       const images = e.detail.data.map((item: { cdnUrl: string }) => item.cdnUrl);
       const firstImage = images[0];
       setBannerImageUrl(firstImage);
