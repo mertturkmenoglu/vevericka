@@ -1,4 +1,4 @@
-import { Spinner } from '../../../components';
+import { Spinner } from '..';
 
 export interface CreateButtonProps {
   loading: boolean;

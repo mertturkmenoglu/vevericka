@@ -6,6 +6,7 @@ export * from './AuthButton';
 export * from './AuthGuards';
 export * from './Banner';
 export * from './Button';
+export * from './CreatePost';
 export * from './ExploreCard';
 export * from './Footer';
 export * from './LandingAppBar';
