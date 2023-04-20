@@ -15,16 +15,24 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
   const showYoutubeIframe = isYouTube && !hasMedia;
   const { showLinkPreview, data } = useLinkPreview(text, { hasMedia, isYouTube });
 
+  const urlWithValidProtocol = (url?: string | null | undefined) => {
+    if (!url || url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+
+    return `https://${url}`;
+  };
+
   return (
     <>
       <div
         dangerouslySetInnerHTML={{ __html: content }}
-        className="text-sm"
+        className="break-words break-all text-sm"
       />
       {showYoutubeIframe && <YouTubeIframe id={youtubeId || ''} />}
       {showLinkPreview && data && (
         <a
-          href={data.linkPreview.url ?? ''}
+          href={urlWithValidProtocol(data.linkPreview.url) ?? ''}
           className="mt-4 block rounded bg-neutral-100"
         >
           {data.linkPreview.image && (
@@ -49,7 +57,7 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
             {data.linkPreview.title}
           </div>
           <div
-            className="px-2 pb-2 text-xs font-light"
+            className="break-words px-2 pb-2 text-xs font-light"
             style={{
               fontFamily: 'Jost',
             }}
