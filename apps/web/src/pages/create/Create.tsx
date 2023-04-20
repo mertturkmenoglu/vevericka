@@ -1,11 +1,12 @@
 import { MainLayout } from '../../layouts';
-import { TextArea } from '../../components';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useCreatePostForm } from './hooks/useCreatePostForm';
 import CreateButton from './components/CreateButton';
 import { useUploadcare } from './hooks/useUploadcare';
+import TextAreaAutosize from 'react-textarea-autosize';
 import './uploadcare.css';
+import clsx from 'clsx';
 
 function Create(): JSX.Element {
   const { register, handleSubmit, onSubmit, errors, loading, setImageUrls } = useCreatePostForm();
@@ -22,15 +23,26 @@ function Create(): JSX.Element {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col"
         >
-          <TextArea
-            label=""
+          <TextAreaAutosize
             autoComplete="off"
-            rows={1}
-            labelClassName="mt-4"
+            minRows={1}
+            maxRows={3}
+            className={clsx(
+              'border-b border-midnight',
+              {
+                'border-red-500': errors.text?.type,
+                'focus:border-primary': !errors.text?.type,
+              },
+              'py-2 text-sm font-medium text-midnight',
+              'outline-none',
+              'placeholder:text-sm placeholder:font-light',
+              'disabled:text-neutral-500'
+            )}
             placeholder="What is on your mind?"
-            error={errors.text}
             {...register('text')}
           />
+
+          <span className="mt-2 text-sm font-medium text-red-500">{errors.text?.message}</span>
 
           <div className="mt-4 flex items-center justify-between">
             <div className="flex items-center space-x-2">
