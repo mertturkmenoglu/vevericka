@@ -3,6 +3,7 @@ import { LoadingLayout, MainLayout } from '../../layouts';
 import { useFlags } from '../../hooks';
 import { useId } from 'react';
 import { useFeed } from './useFeed';
+import { Helmet } from 'react-helmet';
 
 function Feed(): JSX.Element {
   const loadMoreId = useId();
@@ -12,6 +13,9 @@ function Feed(): JSX.Element {
   return (
     <MainLayout>
       <div className="w-1/2 space-y-8">
+        <Helmet>
+          <title>Feed | Vevericka</title>
+        </Helmet>
         {flags.stories && <Stories />}
         <LoadingLayout
           data={data}

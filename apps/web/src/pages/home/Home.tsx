@@ -1,6 +1,7 @@
 import { Banner, Footer, LandingAppBar, LandingHero, Loading } from '../../components';
 import { useState } from 'react';
 import { useAuth, useFlags } from '../../hooks';
+import { Helmet } from 'react-helmet';
 
 function Home(): JSX.Element {
   const { loading } = useAuth();
@@ -17,6 +18,9 @@ function Home(): JSX.Element {
 
   return (
     <div className="relative flex h-screen flex-col items-center">
+      <Helmet>
+        <title>Vevericka</title>
+      </Helmet>
       <Banner
         text={'Vevericka stands with Ukraine'}
         isOpen={isBannerOpen}

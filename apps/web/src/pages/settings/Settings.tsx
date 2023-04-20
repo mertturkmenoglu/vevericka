@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import { Footer } from '../../components';
 import { useAuth } from '../../hooks';
 import { MainLayout } from '../../layouts';
@@ -12,6 +13,9 @@ function Settings(): JSX.Element {
 
   return (
     <div className="relative min-h-screen">
+      <Helmet>
+        <title>Settings | Vevericka</title>
+      </Helmet>
       <MainLayout>
         <Content user={data} />
       </MainLayout>

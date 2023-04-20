@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import { MainLayout } from '../../layouts';
 import { GetUserBookmarksQuery } from '../../generated/graphql';
 import Item from './Item';
+import { Helmet } from 'react-helmet';
 
 function Bookmarks(): JSX.Element {
   const data = useLoaderData() as GetUserBookmarksQuery;
@@ -9,6 +10,9 @@ function Bookmarks(): JSX.Element {
   return (
     <MainLayout>
       <div className="mt-8">
+        <Helmet>
+          <title>Bookmarks | Vevericka</title>
+        </Helmet>
         <h2 className="text-2xl font-medium">Your Bookmarks</h2>
         <hr className="h-[1px] max-w-md border border-midnight bg-midnight" />
         <div className="mx-auto mt-16 w-1/2">

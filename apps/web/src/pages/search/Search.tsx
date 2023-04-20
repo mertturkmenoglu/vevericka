@@ -8,6 +8,7 @@ import SelectSearchType from './components/SelectSearchType';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import * as Separator from '@radix-ui/react-separator';
 import SearchResult from './components/SearchResult';
+import { Helmet } from 'react-helmet';
 
 function Settings(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,6 +41,9 @@ function Settings(): JSX.Element {
   return (
     <MainLayout>
       <div className="flex w-full flex-col">
+        <Helmet>
+          <title>Search | Vevericka</title>
+        </Helmet>
         <div className="items-centerp-8 mt-8 flex h-full w-full">
           <TextField
             label=""

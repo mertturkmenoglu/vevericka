@@ -1,10 +1,14 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 function NotFound(): JSX.Element {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
+      <Helmet>
+        <title>404 | Vevericka</title>
+      </Helmet>
       <SquirrelLogo
         className="h-12 w-12 text-berry"
         viewBox="0 0 512 512"

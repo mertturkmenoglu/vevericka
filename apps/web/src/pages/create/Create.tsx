@@ -7,6 +7,7 @@ import { useUploadcare } from './hooks/useUploadcare';
 import TextAreaAutosize from 'react-textarea-autosize';
 import './uploadcare.css';
 import clsx from 'clsx';
+import { Helmet } from 'react-helmet';
 
 function Create(): JSX.Element {
   const { register, handleSubmit, onSubmit, errors, loading, setImageUrls } = useCreatePostForm();
@@ -15,6 +16,9 @@ function Create(): JSX.Element {
   return (
     <MainLayout>
       <div className="mx-auto w-2/3">
+        <Helmet>
+          <title>New Post | Vevericka</title>
+        </Helmet>
         <div className="text-2xl font-semibold">Create a new post</div>
 
         <hr className="mt-2" />

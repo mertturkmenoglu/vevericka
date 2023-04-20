@@ -2,10 +2,14 @@ import { LoginForm } from '../../components';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 function Login(): JSX.Element {
   return (
     <div className="flex h-screen w-screen flex-col md:flex-row">
+      <Helmet>
+        <title>Login | Vevericka</title>
+      </Helmet>
       <div className="relative w-full bg-midnight px-8 py-8 md:h-full md:w-1/2 lg:w-2/3">
         <Link
           to="/"

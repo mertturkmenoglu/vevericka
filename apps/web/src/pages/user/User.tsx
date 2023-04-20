@@ -11,6 +11,7 @@ import UserActions from './components/UserActions';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import About from './components/About';
 import * as Separator from '@radix-ui/react-separator';
+import { Helmet } from 'react-helmet';
 
 function User(): JSX.Element {
   const data = useLoaderData() as GetProfileDataQuery;
@@ -28,6 +29,9 @@ function User(): JSX.Element {
   return (
     <MainLayout>
       <div className="w-full">
+        <Helmet>
+          <title>{user.name} | Vevericka</title>
+        </Helmet>
         <Banner
           bannerImage={user.bannerImage}
           image={user.image}
