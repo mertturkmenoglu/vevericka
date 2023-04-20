@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 
 export interface LazyImageProps {
@@ -24,7 +25,7 @@ function LazyImage({ src, placeholderSrc, alt, placeholderAlt, className }: Lazy
         alt={alt}
         style={{ display: isLoading ? 'none' : 'block' }}
         onLoad={() => setIsLoading(false)}
-        className={className}
+        className={clsx('object-cover', className)}
       />
     </>
   );
