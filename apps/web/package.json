@@ -35,6 +35,7 @@
     "react-textarea-autosize": "^8.4.1",
     "react-toastify": "^9.1.2",
     "swiper": "^8.4.7",
+    "url-regex": "^5.0.0",
     "yet-another-react-lightbox": "^3.4.0",
     "zod": "^3.20.2",
     "zustand": "^4.1.5"
