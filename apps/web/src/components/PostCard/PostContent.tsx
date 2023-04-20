@@ -5,6 +5,9 @@ import { useLinkPreview } from './useLinkPreview';
 import { useYouTube } from './useYouTube';
 import { useSpotify } from './useSpotify';
 import SpotifyIframe from './SpotifyIframe';
+import { useTwitter } from './useTwitter';
+import { Twitter } from 'react-bootstrap-icons';
+import clsx from 'clsx';
 
 export interface PostContentProps {
   text: string;
@@ -18,6 +21,7 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
   const showYoutubeIframe = isYouTube && !hasMedia;
   const showSpotifyIframe = isSpotify && !hasMedia;
   const { showLinkPreview, data } = useLinkPreview(text, { hasMedia, isYouTube, isSpotify });
+  const { isTwitter } = useTwitter(data?.linkPreview.url || '');
 
   const urlWithValidProtocol = (url?: string | null | undefined) => {
     if (!url || url.startsWith('http://') || url.startsWith('https://')) {
@@ -53,8 +57,14 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
           )}
 
           {!data.linkPreview.image && (
-            <div className="flex aspect-video w-full items-center justify-center rounded-t bg-neutral-200">
-              <LinkIcon className="h-5 w-5 text-midnight" />
+            <div
+              className={clsx('flex aspect-video w-full items-center justify-center rounded-t', {
+                'bg-neutral-200': !isTwitter,
+                'bg-[#1DA1F2]': isTwitter,
+              })}
+            >
+              {isTwitter && <Twitter className="h-6 w-6 text-white" />}
+              {!isTwitter && <LinkIcon className="h-5 w-5 text-midnight" />}
             </div>
           )}
 
