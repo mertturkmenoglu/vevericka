@@ -21,6 +21,7 @@ export function useCreatePostForm() {
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
@@ -66,5 +67,7 @@ export function useCreatePostForm() {
     onSubmit,
     imageUrls,
     setImageUrls,
+    setValue,
+    getValues,
   };
 }

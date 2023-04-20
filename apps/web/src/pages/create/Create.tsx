@@ -8,9 +8,13 @@ import TextAreaAutosize from 'react-textarea-autosize';
 import './uploadcare.css';
 import clsx from 'clsx';
 import { Helmet } from 'react-helmet';
+import EmojiPicker from 'emoji-picker-react';
+import { useState } from 'react';
+import { FaceSmileIcon } from '@heroicons/react/24/outline';
 
 function Create(): JSX.Element {
-  const { register, handleSubmit, onSubmit, errors, loading, setImageUrls } = useCreatePostForm();
+  const { register, handleSubmit, onSubmit, errors, loading, setImageUrls, setValue, getValues } = useCreatePostForm();
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   useUploadcare(setImageUrls);
 
   return (
@@ -51,7 +55,25 @@ function Create(): JSX.Element {
           <div className="mt-4 flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div id="img" />
-              {/*<MetaButton type="poll" /> */}
+              <button
+                type="button"
+                className="group relative flex items-center rounded-full px-2 py-2 transition duration-200 ease-in-out hover:bg-berry/10"
+                onClick={() => setShowEmojiPicker((prev) => !prev)}
+              >
+                <FaceSmileIcon className="h-5 w-5 text-berry" />
+                <span className="text-white"></span>
+                {showEmojiPicker && (
+                  <div className="absolute left-0 top-12">
+                    <EmojiPicker
+                      lazyLoadEmojis={true}
+                      onEmojiClick={(emojiObject) => {
+                        const currentValue = getValues('text');
+                        setValue('text', currentValue + emojiObject.emoji);
+                      }}
+                    />
+                  </div>
+                )}
+              </button>
             </div>
             <CreateButton loading={loading} />
           </div>
