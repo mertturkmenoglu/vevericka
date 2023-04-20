@@ -29,6 +29,7 @@ function PostCard(props: PostCardProps): JSX.Element {
   const count = useFragment(countFragmentDocument, post._count);
 
   const [open, setOpen] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
   const [vote] = useMutation(votePostDocument);
   const client = useApolloClient();
 
@@ -128,7 +129,10 @@ function PostCard(props: PostCardProps): JSX.Element {
             {post.images.map((image, index) => (
               <button
                 key={image.id}
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                  setImageIndex(index);
+                  setOpen(true);
+                }}
               >
                 <LazyImage
                   src={image.url}
@@ -152,6 +156,10 @@ function PostCard(props: PostCardProps): JSX.Element {
         <Lightbox
           open={open}
           close={() => setOpen(false)}
+          index={imageIndex}
+          carousel={{
+            finite: true,
+          }}
           slides={post.images.map((img) => ({ src: img.url }))}
           styles={{
             container: {
