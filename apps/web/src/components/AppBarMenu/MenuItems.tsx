@@ -72,7 +72,7 @@ function MenuItems({ className, userData }: MenuItemsProps): JSX.Element {
               credentials: 'include',
             });
 
-            window.location.reload();
+            window.location.replace('/');
           }}
           icon={ArrowRightOnRectangleIcon}
         />
