@@ -4,9 +4,13 @@ const ogs = require("open-graph-scraper");
 
 @Injectable()
 export class LinkService {
-  constructor() {}
+  private readonly lookupCache = new Map<string, LinkPreview>();
 
   async getLinkPreview(url: string): Promise<LinkPreview> {
+    if (this.lookupCache.has(url)) {
+      return this.lookupCache.get(url);
+    }
+
     const ogsResult = await ogs({
       url,
     });
@@ -15,21 +19,25 @@ export class LinkService {
       throw new BadRequestException("Cannot get link preview");
     }
 
-    const res = ogsResult.result;
+    const response = ogsResult.result;
 
     const image =
-      res.ogImage?.url ||
-      res.ogImage?.at(0)?.url ||
-      res.twitterImage?.url ||
+      response.ogImage?.url ||
+      response.ogImage?.at(0)?.url ||
+      response.twitterImage?.url ||
       null;
 
-    const title = res.ogTitle || res.ogSiteName || null;
+    const title = response.ogTitle || response.ogSiteName || null;
 
-    return {
+    const result = {
       url,
       title,
-      description: res.ogDescription || null,
+      description: response.ogDescription || null,
       image,
     };
+
+    this.lookupCache.set(url, result);
+
+    return result;
   }
 }
