@@ -15,11 +15,6 @@ export class TwitterStrategy extends PassportStrategy(Strategy, "twitter") {
   }
 
   async validate(accessToken: string, refreshToken: string, profile: Profile) {
-    console.log("TwitterStrategy validate", {
-      accessToken,
-      profile,
-      refreshToken,
-    });
     return profile;
   }
 }
