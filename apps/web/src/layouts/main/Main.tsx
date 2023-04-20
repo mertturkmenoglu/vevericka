@@ -12,7 +12,7 @@ function MainLayout({ mainClassName, appBarClassName, className, children, ...pr
 
   return (
     <main className={clsx('mx-auto', !flags.appBarV2 && 'container', mainClassName)}>
-      <AppBar className={clsx('py-2 px-8', appBarClassName)} />
+      <AppBar className={clsx('px-8 py-2', appBarClassName)} />
       <div
         className={clsx('mx-auto mt-8 flex max-w-5xl items-start justify-between', className)}
         {...props}
