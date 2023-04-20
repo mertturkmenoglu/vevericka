@@ -80,6 +80,12 @@ function Settings(): JSX.Element {
         </div>
 
         {isLoading && <Loading className="mx-auto mt-16" />}
+        {!isLoading && (getData()?.length ?? 0) === 0 && (
+          <div className="mx-auto mt-8 text-center text-lg font-medium">
+            <div>We couldn't find any results</div>
+            <div>Try changing your words</div>
+          </div>
+        )}
 
         {shouldDisplayResults && (
           <div className="mx-auto my-8 flex w-2/3 flex-col space-y-4">
