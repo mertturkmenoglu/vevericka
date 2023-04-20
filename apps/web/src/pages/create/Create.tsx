@@ -1,4 +1,3 @@
-import { ToastContainer } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 import { MainLayout } from '../../layouts';
 
@@ -18,7 +17,6 @@ function Create(): JSX.Element {
 
         <CreatePost />
       </div>
-      <ToastContainer />
     </MainLayout>
   );
 }

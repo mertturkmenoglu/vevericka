@@ -8,7 +8,7 @@ import { useMutation } from '@apollo/client';
 
 import * as Separator from '@radix-ui/react-separator';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
@@ -116,8 +116,6 @@ function AccountContainer({ user }: Props): JSX.Element {
       >
         Save
       </button>
-
-      <ToastContainer />
     </section>
   );
 }

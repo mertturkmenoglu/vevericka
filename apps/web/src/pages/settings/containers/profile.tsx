@@ -6,7 +6,7 @@ import { MeQuery } from '../../../generated/graphql';
 import { useFragment } from '../../../generated';
 import { updateUserMutationDocument, userFragmentDocument } from '../../../graphql';
 import { useMutation } from '@apollo/client';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const profileSchema = z.object({
@@ -152,8 +152,6 @@ function ProfileContainer({ user }: Props): JSX.Element {
           Save
         </button>
       </form>
-
-      <ToastContainer />
     </section>
   );
 }

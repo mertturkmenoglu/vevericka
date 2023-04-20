@@ -39,14 +39,12 @@ export function useCreatePostForm() {
 
     if (result.errors) {
       toast('Error creating post', {
-        theme: 'dark',
         type: 'error',
         hideProgressBar: true,
         autoClose: 5000,
       });
     } else {
       toast('Post created', {
-        theme: 'dark',
         type: 'success',
         hideProgressBar: true,
         autoClose: 5000,
