@@ -32,6 +32,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.41.1",
     "react-router-dom": "^6.6.1",
+    "react-textarea-autosize": "^8.4.1",
     "react-toastify": "^9.1.2",
     "swiper": "^8.4.7",
     "yet-another-react-lightbox": "^3.4.0",
