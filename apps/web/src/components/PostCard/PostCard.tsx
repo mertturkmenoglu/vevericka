@@ -7,9 +7,8 @@ import { countFragmentDocument } from '../../graphql/fragments/countFragment';
 import { LazyImage } from '../LazyImage';
 import MoreMenu from './MoreMenu';
 import ActionButton from './ActionButton';
-import { differenceInMonths, format, formatDistanceToNowStrict } from 'date-fns';
-import { enUS } from 'date-fns/locale';
-import { useMemo, useState } from 'react';
+
+import { useState } from 'react';
 
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
@@ -17,6 +16,8 @@ import PostContent from './PostContent';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useFormattedDate } from './useFormattedDate';
+import { useGridRoundStyles } from './useGridRoundStyles';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
@@ -31,17 +32,7 @@ function PostCard(props: PostCardProps): JSX.Element {
   const [vote] = useMutation(votePostDocument);
   const client = useApolloClient();
 
-  const formattedDate = useMemo(() => {
-    const currentDate = new Date();
-    const postDate = new Date(post.createdAt);
-
-    if (differenceInMonths(currentDate, postDate) > 1) {
-      const formatString = differenceInMonths(currentDate, postDate) > 12 ? 'MMM d, yyyy' : 'MMM d';
-      return format(postDate, formatString);
-    }
-
-    return formatDistanceToNowStrict(new Date(post.createdAt), { locale: enUS, addSuffix: true });
-  }, [post.createdAt]);
+  const formattedDate = useFormattedDate(post.createdAt);
 
   const hasMedia = post.images.length > 0 || post.videos.length > 0;
 
@@ -81,43 +72,7 @@ function PostCard(props: PostCardProps): JSX.Element {
     }
   };
 
-  const roundedStyles = (len: number, index: number) => {
-    if (len === 1) {
-      return 'rounded';
-    }
-
-    if (len === 2) {
-      if (index === 0) {
-        return 'rounded-l';
-      } else {
-        return 'rounded-r';
-      }
-    }
-
-    if (len === 3) {
-      if (index === 0) {
-        return 'rounded-l';
-      } else if (index === 1) {
-        return '';
-      } else {
-        return 'rounded-r';
-      }
-    }
-
-    if (len === 4) {
-      if (index === 0) {
-        return 'rounded-tl';
-      } else if (index === 1) {
-        return 'rounded-tr';
-      } else if (index === 2) {
-        return 'rounded-bl';
-      } else {
-        return 'rounded-br';
-      }
-    }
-
-    return '';
-  };
+  const roundedStyles = useGridRoundStyles();
 
   return (
     <article
