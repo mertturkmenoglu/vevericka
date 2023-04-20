@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 interface Activation {
   isYouTube: boolean;
+  isSpotify: boolean;
   hasMedia: boolean;
 }
 
@@ -13,7 +14,7 @@ export function useLinkPreview(text: string, activation: Activation) {
 
   const [getPreview, { data, loading, error }] = useLazyQuery(linkPreviewQueryDocument);
 
-  const canActivate = !activation.hasMedia && !activation.isYouTube;
+  const canActivate = !activation.hasMedia && !activation.isYouTube && !activation.isSpotify;
 
   useEffect(() => {
     if (firstUrl && canActivate) {

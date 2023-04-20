@@ -3,6 +3,8 @@ import { detectHashtags, detectUsernames, linkify } from '../../lib';
 import YouTubeIframe from './YouTubeIframe';
 import { useLinkPreview } from './useLinkPreview';
 import { useYouTube } from './useYouTube';
+import { useSpotify } from './useSpotify';
+import SpotifyIframe from './SpotifyIframe';
 
 export interface PostContentProps {
   text: string;
@@ -12,8 +14,10 @@ export interface PostContentProps {
 function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
   const content = linkify(detectUsernames(detectHashtags(text)));
   const { isYouTube, youtubeId } = useYouTube(content);
+  const { isSpotify, spotifyId, type } = useSpotify(content);
   const showYoutubeIframe = isYouTube && !hasMedia;
-  const { showLinkPreview, data } = useLinkPreview(text, { hasMedia, isYouTube });
+  const showSpotifyIframe = isSpotify && !hasMedia;
+  const { showLinkPreview, data } = useLinkPreview(text, { hasMedia, isYouTube, isSpotify });
 
   const urlWithValidProtocol = (url?: string | null | undefined) => {
     if (!url || url.startsWith('http://') || url.startsWith('https://')) {
@@ -30,6 +34,12 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
         className="break-words break-all text-sm"
       />
       {showYoutubeIframe && <YouTubeIframe id={youtubeId || ''} />}
+      {showSpotifyIframe && (
+        <SpotifyIframe
+          id={spotifyId || ''}
+          type={type || 'track'}
+        />
+      )}
       {showLinkPreview && data && (
         <a
           href={urlWithValidProtocol(data.linkPreview.url) ?? ''}
