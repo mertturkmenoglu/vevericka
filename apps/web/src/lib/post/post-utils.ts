@@ -1,8 +1,13 @@
-const URL_REGEX = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
+import urlRegex from 'url-regex';
+
 const USERNAME_REGEX = /@[-A-Z0-9_]+/gi;
 const HASHTAG_REGEX = /#[-A-Z0-9_]+/gi;
 
 const className = 'text-berry hover:underline';
+
+const URL_REGEX = urlRegex({
+  strict: true,
+});
 
 export const detectHashtags = (text: string): string =>
   text.replace(HASHTAG_REGEX, (h) => `<a href='/explore/${h.substr(1)}' class='${className}'>${h}</a>`);
