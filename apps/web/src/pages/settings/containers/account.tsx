@@ -6,6 +6,8 @@ import { useUploadcare } from '../../../hooks';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
+import * as Separator from '@radix-ui/react-separator';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,15 +18,29 @@ interface Props {
 function AccountContainer({ user }: Props): JSX.Element {
   const me = useFragment(userFragmentDocument, user.me);
   const [profileImageUrl, setProfileImageUrl] = useState(me.image);
+  const [bannerImageUrl, setBannerImageUrl] = useState(me.bannerImage);
   const [updateUser] = useMutation(updateUserMutationDocument);
 
   useUploadcare({
     id: 'profile-image-upload',
+    contextName: 'profile-image-upload',
     onDataOutput: (event) => {
       const e = event as CustomEvent;
       const images = e.detail.data.map((item: { cdnUrl: string }) => item.cdnUrl);
       const firstImage = images[0];
       setProfileImageUrl(firstImage);
+    },
+  });
+
+  useUploadcare({
+    id: 'banner-image-upload',
+    contextName: 'banner-image-upload',
+    onDataOutput: (event) => {
+      const e = event as CustomEvent;
+      console.log({ event, e });
+      const images = e.detail.data.map((item: { cdnUrl: string }) => item.cdnUrl);
+      const firstImage = images[0];
+      setBannerImageUrl(firstImage);
     },
   });
 
@@ -36,7 +52,9 @@ function AccountContainer({ user }: Props): JSX.Element {
         value={me.id}
       />
 
-      <div className="mt-8 flex items-center space-x-4">
+      <p className="mt-8 text-xl font-medium">Profile Image</p>
+
+      <div className="mt-2 flex items-center space-x-4">
         <LazyImage
           src={profileImageUrl}
           alt="User image"
@@ -51,7 +69,26 @@ function AccountContainer({ user }: Props): JSX.Element {
         />
       </div>
 
-      <div id="banner-image-upload" />
+      <Separator.Root
+        className="mt-4 h-[1px] w-full bg-neutral-200"
+        decorative
+        orientation="horizontal"
+      />
+
+      <div className="mt-8 flex items-center space-x-4">
+        <LazyImage
+          src={bannerImageUrl}
+          alt="User image"
+          placeholderSrc="/user.jpg"
+          placeholderAlt="Loading"
+          className="aspect-video h-32 rounded"
+        />
+
+        <div
+          id="banner-image-upload"
+          className=""
+        />
+      </div>
 
       <button
         className="mt-8 w-full rounded bg-midnight text-white"
@@ -60,6 +97,7 @@ function AccountContainer({ user }: Props): JSX.Element {
             variables: {
               payload: {
                 image: profileImageUrl,
+                bannerImage: bannerImageUrl,
               },
             },
           });
