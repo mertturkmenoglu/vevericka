@@ -14,10 +14,11 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import PostContent from './PostContent';
 import { useApolloClient, useMutation } from '@apollo/client';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useFormattedDate } from './useFormattedDate';
-import { useGridRoundStyles } from './useGridRoundStyles';
+import { useFormattedDate } from './hooks/useFormattedDate';
+import { useGridRoundStyles } from './hooks/useGridRoundStyles';
+import { copyToClipboard } from '../../lib';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
@@ -191,6 +192,11 @@ function PostCard(props: PostCardProps): JSX.Element {
           <ActionButton
             icon={ArrowUpTrayIcon}
             text={''}
+            onClick={() => {
+              const url = window.location.origin + `/p/${post.id}`;
+              copyToClipboard(url);
+              toast('Copied to clipboard', { type: 'success', autoClose: 3000 });
+            }}
           />
         </div>
       </div>
@@ -198,8 +204,6 @@ function PostCard(props: PostCardProps): JSX.Element {
       <div className="w-1/12">
         <MoreMenu />
       </div>
-
-      <ToastContainer />
     </article>
   );
 }

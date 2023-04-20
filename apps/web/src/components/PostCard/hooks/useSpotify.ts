@@ -1,4 +1,4 @@
-import { SpotifyType } from './SpotifyIframe';
+import { SpotifyType } from '../SpotifyIframe';
 
 export function useSpotify(text: string) {
   const regex = /(http|https):\/\/open\.spotify\.com\/(track|album|playlist|show|episode|artist)\/[a-zA-Z0-9]+/;

@@ -4,7 +4,7 @@ export interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButton
   icon: TwIcon;
   text?: string | number;
   state?: 'active' | 'inactive';
-  onClick?: () => Promise<void>;
+  onClick?: () => Promise<void> | void;
 }
 
 function ActionButton({ icon: Icon, text, state = 'inactive', onClick }: ActionButtonProps): JSX.Element {

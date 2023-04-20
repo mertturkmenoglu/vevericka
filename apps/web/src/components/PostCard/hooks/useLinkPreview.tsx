@@ -1,6 +1,6 @@
 import { useLazyQuery } from '@apollo/client';
-import { getFirstUrl } from '../../lib/post/post-utils';
-import { linkPreviewQueryDocument } from '../../graphql/queries/linkPreviewQuery';
+import { getFirstUrl } from '../../../lib';
+import { linkPreviewQueryDocument } from '../../../graphql/queries/linkPreviewQuery';
 import { useEffect } from 'react';
 
 interface Activation {
