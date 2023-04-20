@@ -1,4 +1,7 @@
 .my-config-class {
   --cfg-pubkey: '669d5594c42b876524c9';
   --darkmode: 0;
+  --h-accent: 335;
+  --s-accent: 78%;
+  --l-accent: 42%;
 }
