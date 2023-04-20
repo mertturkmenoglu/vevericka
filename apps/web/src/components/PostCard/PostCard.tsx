@@ -81,6 +81,44 @@ function PostCard(props: PostCardProps): JSX.Element {
     }
   };
 
+  const roundedStyles = (len: number, index: number) => {
+    if (len === 1) {
+      return 'rounded';
+    }
+
+    if (len === 2) {
+      if (index === 0) {
+        return 'rounded-l';
+      } else {
+        return 'rounded-r';
+      }
+    }
+
+    if (len === 3) {
+      if (index === 0) {
+        return 'rounded-l';
+      } else if (index === 1) {
+        return '';
+      } else {
+        return 'rounded-r';
+      }
+    }
+
+    if (len === 4) {
+      if (index === 0) {
+        return 'rounded-tl';
+      } else if (index === 1) {
+        return 'rounded-tr';
+      } else if (index === 2) {
+        return 'rounded-bl';
+      } else {
+        return 'rounded-br';
+      }
+    }
+
+    return '';
+  };
+
   return (
     <article
       className="flex items-start space-x-2"
@@ -126,13 +164,13 @@ function PostCard(props: PostCardProps): JSX.Element {
 
         {post.images.length > 0 && (
           <div
-            className={clsx('my-4 grid gap-2', {
+            className={clsx('my-4 grid gap-[1px]', {
               'mx-auto grid-cols-1': post.images.length === 1,
               'grid-cols-2': post.images.length === 2 || post.images.length === 4,
               'grid-cols-3': post.images.length === 3,
             })}
           >
-            {post.images.map((image) => (
+            {post.images.map((image, index) => (
               <button
                 key={image.id}
                 onClick={() => setOpen(true)}
@@ -142,10 +180,14 @@ function PostCard(props: PostCardProps): JSX.Element {
                   alt="User image"
                   placeholderSrc="/user.jpg"
                   placeholderAlt="Loading"
-                  className={clsx('h-full w-full rounded-md object-cover', {
-                    'aspect-square': post.images.length !== 1,
-                    'aspect-auto': post.images.length === 1,
-                  })}
+                  className={clsx(
+                    'h-full w-full object-cover',
+                    {
+                      'aspect-square': post.images.length !== 1,
+                      'aspect-auto': post.images.length === 1,
+                    },
+                    roundedStyles(post.images.length, index)
+                  )}
                 />
               </button>
             ))}
