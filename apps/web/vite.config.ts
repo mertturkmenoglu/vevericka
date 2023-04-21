@@ -5,8 +5,19 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import svgr from 'vite-plugin-svgr';
 import codegen from 'vite-plugin-graphql-codegen';
+import type { UserConfig as VitestUserConfigInterface } from 'vitest/config';
+
+const vitestConfig: VitestUserConfigInterface = {
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
+    css: true,
+  }
+};
 
 // https://vitejs.dev/config/
+
 export default defineConfig({
   plugins: [
     react(),
@@ -16,12 +27,6 @@ export default defineConfig({
       enableWatcher: true,
     }),
   ],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.ts',
-    // you might want to disable it, if you don't have tests that rely on CSS
-    // since parsing CSS is slow
-    css: true,
-  },
+  // @ts-ignore
+  test: vitestConfig.test,
 });
