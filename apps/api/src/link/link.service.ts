@@ -1,14 +1,22 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
+import Redis from "ioredis";
 import { LinkPreview } from "./models/link.model";
+
 const ogs = require("open-graph-scraper");
 
 @Injectable()
 export class LinkService {
-  private readonly lookupCache = new Map<string, LinkPreview>();
+  private readonly redis = new Redis();
+
+  private readonly cacheTTL = 60 * 10;
+
+  private readonly cacheKey = "link-preview";
 
   async getLinkPreview(url: string): Promise<LinkPreview> {
-    if (this.lookupCache.has(url)) {
-      return this.lookupCache.get(url);
+    const cached = await this.redis.get(this.keyWithPrefix(url));
+
+    if (cached) {
+      return JSON.parse(cached);
     }
 
     const ogsResult = await ogs({
@@ -36,8 +44,16 @@ export class LinkService {
       image,
     };
 
-    this.lookupCache.set(url, result);
+    await this.redis.setex(
+      this.keyWithPrefix(url),
+      this.cacheTTL,
+      JSON.stringify(result)
+    );
 
     return result;
+  }
+
+  private keyWithPrefix(s: string) {
+    return `${this.cacheKey}:${s}`;
   }
 }
