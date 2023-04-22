@@ -1,22 +1,17 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpTrayIcon, ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import Lightbox from 'yet-another-react-lightbox';
-import 'yet-another-react-lightbox/styles.css';
 import { FragmentType, useFragment } from '../../generated';
 import { countFragmentDocument, postFragmentDocument, userFragmentDocument, votePostDocument } from '../../graphql';
 import { copyToClipboard } from '../../lib';
 import { LazyImage } from '../LazyImage';
 import ActionButton from './ActionButton';
-import { useFormattedDate, useGridRoundStyles } from './hooks';
+import { useFormattedDate } from './hooks';
 import MoreMenu from './MoreMenu';
 import PostContent from './PostContent';
+import PostImages from './PostImages';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
@@ -27,8 +22,6 @@ function PostCard(props: PostCardProps): JSX.Element {
   const user = useFragment(userFragmentDocument, post.user);
   const count = useFragment(countFragmentDocument, post._count);
 
-  const [open, setOpen] = useState(false);
-  const [imageIndex, setImageIndex] = useState(0);
   const [vote] = useMutation(votePostDocument);
   const client = useApolloClient();
 
@@ -71,8 +64,6 @@ function PostCard(props: PostCardProps): JSX.Element {
       });
     }
   };
-
-  const roundedStyles = useGridRoundStyles();
 
   return (
     <article
@@ -117,55 +108,7 @@ function PostCard(props: PostCardProps): JSX.Element {
           />
         </div>
 
-        {post.images.length > 0 && (
-          <div
-            className={clsx('my-4 grid gap-[1px]', {
-              'mx-auto grid-cols-1': post.images.length === 1,
-              'grid-cols-2': post.images.length === 2 || post.images.length === 4,
-              'grid-cols-3': post.images.length === 3,
-            })}
-          >
-            {post.images.map((image, index) => (
-              <button
-                key={image.id}
-                onClick={() => {
-                  setImageIndex(index);
-                  setOpen(true);
-                }}
-              >
-                <LazyImage
-                  src={image.url}
-                  alt="User image"
-                  placeholderSrc="/user.jpg"
-                  placeholderAlt="Loading"
-                  className={clsx(
-                    'h-full w-full object-cover',
-                    {
-                      'aspect-square': post.images.length !== 1,
-                      'aspect-auto': post.images.length === 1,
-                    },
-                    roundedStyles(post.images.length, index)
-                  )}
-                />
-              </button>
-            ))}
-          </div>
-        )}
-
-        <Lightbox
-          open={open}
-          close={() => setOpen(false)}
-          index={imageIndex}
-          carousel={{
-            finite: true,
-          }}
-          slides={post.images.map((img) => ({ src: img.url }))}
-          styles={{
-            container: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            },
-          }}
-        />
+        <PostImages images={post.images} />
 
         <div className="-ml-2 mt-1 flex items-center justify-between">
           <ActionButton
