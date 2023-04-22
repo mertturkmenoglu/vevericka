@@ -21,6 +21,7 @@ export class LinkService {
 
     const ogsResult = await ogs({
       url,
+      downloadLimit: 5_000_000,
     });
 
     if (ogsResult.error) {
