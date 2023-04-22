@@ -1,6 +1,6 @@
-import React from 'react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
+import React from 'react';
 
 export interface BannerProps {
   className?: string;
@@ -20,7 +20,7 @@ function Banner({ text, cta, isOpen, setIsOpen, className, canDismiss = false }:
   }
 
   return (
-    <div className={clsx('relative flex w-full items-center justify-center bg-black py-1 px-8 text-white', className)}>
+    <div className={clsx('relative flex w-full items-center justify-center bg-black px-8 py-1 text-white', className)}>
       <div className="">{text}</div>
       {cta && (
         <a
@@ -33,7 +33,7 @@ function Banner({ text, cta, isOpen, setIsOpen, className, canDismiss = false }:
       {canDismiss && (
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute right-4 top-0 bottom-0"
+          className="absolute bottom-0 right-4 top-0"
         >
           <XMarkIcon className="h-4 w-4 text-white" />
         </button>
