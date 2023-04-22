@@ -2,7 +2,7 @@ import { Menu } from '@headlessui/react';
 import clsx from 'clsx';
 import React from 'react';
 import { useFragment } from '../../generated';
-import { userFragmentDocument } from '../../graphql';
+import { UserFragment } from '../../graphql';
 import { useAuth } from '../../hooks';
 import { Transition } from '../Transition';
 import MenuButton from './MenuButton';
@@ -14,7 +14,7 @@ export interface AppBarMenuProps {
 
 function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
   const { data } = useAuth();
-  const me = useFragment(userFragmentDocument, data?.me);
+  const me = useFragment(UserFragment, data?.me);
 
   if (!data || !me) {
     return <></>;

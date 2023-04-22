@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { LazyImage, TUserFragment } from '..';
 import { useFragment } from '../../generated';
-import { userFragmentDocument } from '../../graphql';
+import { UserFragment } from '../../graphql';
 
 interface UserCardProps {
   user: TUserFragment;
 }
 
 function UserCard({ user }: UserCardProps): JSX.Element {
-  const data = useFragment(userFragmentDocument, user);
+  const data = useFragment(UserFragment, user);
   return (
     <article>
       <Link

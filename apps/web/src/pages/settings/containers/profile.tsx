@@ -1,13 +1,13 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { TextField } from '../../../components';
-import { MeQuery } from '../../../generated/graphql';
-import { useFragment } from '../../../generated';
-import { updateUserMutationDocument, userFragmentDocument } from '../../../graphql';
 import { useMutation } from '@apollo/client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { z } from 'zod';
+import { TextField } from '../../../components';
+import { useFragment } from '../../../generated';
+import { MeQuery } from '../../../generated/graphql';
+import { updateUserMutationDocument, UserFragment } from '../../../graphql';
 
 const profileSchema = z.object({
   name: z.string().min(1).max(128),
@@ -28,7 +28,7 @@ interface Props {
 }
 
 function ProfileContainer({ user }: Props): JSX.Element {
-  const me = useFragment(userFragmentDocument, user.me);
+  const me = useFragment(UserFragment, user.me);
   const [updateUser] = useMutation(updateUserMutationDocument);
   const {
     register,

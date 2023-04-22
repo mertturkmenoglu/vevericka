@@ -1,22 +1,22 @@
-import { LazyImage, TextField } from '../../../components';
-import { MeQuery } from '../../../generated/graphql';
-import { useFragment } from '../../../generated';
-import { updateUserMutationDocument, userFragmentDocument } from '../../../graphql';
-import { useUploadcare } from '../../../hooks';
-import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import * as Separator from '@radix-ui/react-separator';
+import { useState } from 'react';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LazyImage, TextField } from '../../../components';
+import { useFragment } from '../../../generated';
+import { MeQuery } from '../../../generated/graphql';
+import { updateUserMutationDocument, UserFragment } from '../../../graphql';
+import { useUploadcare } from '../../../hooks';
 
 interface Props {
   user: MeQuery;
 }
 
 function AccountContainer({ user }: Props): JSX.Element {
-  const me = useFragment(userFragmentDocument, user.me);
+  const me = useFragment(UserFragment, user.me);
   const [profileImageUrl, setProfileImageUrl] = useState(me.image);
   const [bannerImageUrl, setBannerImageUrl] = useState(me.bannerImage);
   const [updateUser] = useMutation(updateUserMutationDocument);

@@ -1,12 +1,12 @@
 import { create } from 'zustand';
-import { UserFragmentFragment } from '../generated/graphql';
+import { UserItemFragment } from '../generated/graphql';
 
 interface AppStoreState {
-  user: UserFragmentFragment | null;
-  setUser: (user: UserFragmentFragment) => void;
+  user: UserItemFragment | null;
+  setUser: (user: UserItemFragment) => void;
 }
 
 export const useAppStore = create<AppStoreState>((set) => ({
   user: null,
-  setUser: (user: UserFragmentFragment) => set({ user }),
+  setUser: (user: UserItemFragment) => set({ user }),
 }));

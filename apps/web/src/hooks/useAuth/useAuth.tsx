@@ -1,20 +1,18 @@
 import { useQuery } from '@apollo/client';
 import { useEffect, useMemo } from 'react';
-import { meQueryDocument } from '../../graphql/queries/meQuery';
-import { useAppStore } from '../../stores';
 import { useFragment } from '../../generated';
-import { userFragmentDocument } from '../../graphql';
+import { meQueryDocument, UserFragment } from '../../graphql';
+import { useAppStore } from '../../stores';
 
 export const useAuth = () => {
   const { data, loading, error } = useQuery(meQueryDocument);
-  const user = useFragment(userFragmentDocument, data?.me);
+  const user = useFragment(UserFragment, data?.me);
   const store = useAppStore();
 
   const isAuthenticated = useMemo(() => {
     if (loading) return false;
     if (error) return false;
-    if (!data) return false;
-    return true;
+    return data;
   }, [data, loading, error]);
 
   useEffect(() => {

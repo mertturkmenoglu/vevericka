@@ -1,11 +1,11 @@
 import { LinkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Twitter, Wikipedia } from 'react-bootstrap-icons';
-import { LinkPreviewQueryQuery } from '../../generated/graphql';
+import { LinkPreviewQuery } from '../../generated/graphql';
 import { isTwitter, isWikipedia } from '../../lib';
 
 export interface LinkPreviewProps {
-  data: LinkPreviewQueryQuery;
+  data: LinkPreviewQuery;
 }
 
 function LinkPreview({ data }: LinkPreviewProps): JSX.Element {

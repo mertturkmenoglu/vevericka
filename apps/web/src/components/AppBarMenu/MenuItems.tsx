@@ -15,7 +15,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { useFragment } from '../../generated';
 import { MeQuery } from '../../generated/graphql';
-import { userFragmentDocument } from '../../graphql';
+import { UserFragment } from '../../graphql';
 import Copyright from './Copyright';
 import Item from './Item';
 
@@ -25,7 +25,7 @@ export interface MenuItemsProps {
 }
 
 function MenuItems({ className, userData }: MenuItemsProps): JSX.Element {
-  const me = useFragment(userFragmentDocument, userData.me);
+  const me = useFragment(UserFragment, userData.me);
 
   return (
     <div className={clsx(className)}>

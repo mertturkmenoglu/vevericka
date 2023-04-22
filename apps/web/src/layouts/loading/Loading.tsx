@@ -1,5 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import clsx from 'clsx';
+import React from 'react';
 import { Loading } from '../../components';
 
 export interface LoadingLayoutProps<T> extends React.HTMLAttributes<HTMLDivElement> {

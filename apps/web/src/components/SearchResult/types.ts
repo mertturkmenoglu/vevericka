@@ -1,6 +1,6 @@
 import { FragmentType } from '../../generated';
-import { postFragmentDocument, userFragmentDocument } from '../../graphql';
+import { PostFragment, UserFragment } from '../../graphql';
 
-export type TPostFragment = FragmentType<typeof postFragmentDocument>;
-export type TUserFragment = FragmentType<typeof userFragmentDocument>;
+export type TPostFragment = FragmentType<typeof PostFragment>;
+export type TUserFragment = FragmentType<typeof UserFragment>;
 export type TContent = TPostFragment | TUserFragment;

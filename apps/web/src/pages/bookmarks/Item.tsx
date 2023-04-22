@@ -1,10 +1,10 @@
 import { PostCard } from '../../components';
 import { FragmentType } from '../../generated';
-import { postFragmentDocument } from '../../graphql';
+import { PostFragment } from '../../graphql';
 
 export interface ItemProps {
   id: string;
-  post: FragmentType<typeof postFragmentDocument>;
+  post: FragmentType<typeof PostFragment>;
 }
 
 function Item({ post }: ItemProps): JSX.Element {

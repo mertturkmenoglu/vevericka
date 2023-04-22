@@ -1,13 +1,13 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
-import { ProfileFragmentFragment } from '../../generated/graphql';
+import { ProfileItemFragment } from '../../generated/graphql';
 import About from './About';
 import Banner from './Banner';
 import UserActions from './UserActions';
 import UserPrimaryInfo from './UserPrimaryInfo';
 
 export interface UserHeaderProps {
-  user: ProfileFragmentFragment;
+  user: ProfileItemFragment;
 }
 
 function UserHeader({ user }: UserHeaderProps): JSX.Element {

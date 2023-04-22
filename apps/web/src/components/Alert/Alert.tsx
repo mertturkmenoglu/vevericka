@@ -5,13 +5,13 @@ import {
   XCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import * as React from 'react';
 import clsx from 'clsx';
+import * as React from 'react';
 
 export const AlertTypeArray = ['warning', 'error', 'success', 'info'] as const;
 
 // eslint-disable-next-line prettier/prettier
-export type AlertType = typeof AlertTypeArray[number];
+export type AlertType = (typeof AlertTypeArray)[number];
 
 type ColorableProperties = 'background' | 'text' | 'accentBorder';
 
@@ -38,9 +38,7 @@ const typeColorMapping: Record<AlertType, Record<ColorableProperties, string>> =
   },
 };
 
-type IconType = (props: React.ComponentProps<'svg'> & { title?: string; titleId?: string }) => JSX.Element;
-
-const typeIconMapping: Record<AlertType, IconType> = {
+const typeIconMapping: Record<AlertType, TwIcon> = {
   warning: ExclamationTriangleIcon,
   error: XCircleIcon,
   success: CheckCircleIcon,

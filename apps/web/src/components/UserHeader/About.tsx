@@ -1,7 +1,7 @@
-import { ProfileFragmentFragment } from '../../generated/graphql';
+import { ProfileItemFragment } from '../../generated/graphql';
 
 export interface AboutProps {
-  user: ProfileFragmentFragment;
+  user: ProfileItemFragment;
 }
 
 export interface AboutItemProps {

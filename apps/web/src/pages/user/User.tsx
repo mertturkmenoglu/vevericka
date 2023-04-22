@@ -2,14 +2,14 @@ import * as Separator from '@radix-ui/react-separator';
 import { useLoaderData } from 'react-router-dom';
 import { PostCard, UserHeader } from '../../components';
 import { useFragment } from '../../generated';
-import { GetProfileDataQuery } from '../../generated/graphql';
-import { postFragmentDocument, profileFragmentDocument } from '../../graphql';
+import { ProfileDataQuery } from '../../generated/graphql';
+import { PostFragment, ProfileFragment } from '../../graphql';
 import Layout from './layout';
 
 function User(): JSX.Element {
-  const data = useLoaderData() as GetProfileDataQuery;
-  const user = useFragment(profileFragmentDocument, data.profile);
-  const posts = useFragment(postFragmentDocument, data.posts);
+  const data = useLoaderData() as ProfileDataQuery;
+  const user = useFragment(ProfileFragment, data.profile);
+  const posts = useFragment(PostFragment, data.posts);
 
   return (
     <Layout name={user.name}>

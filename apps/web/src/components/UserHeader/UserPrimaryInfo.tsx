@@ -1,8 +1,8 @@
 import { CheckBadgeIcon } from '@heroicons/react/24/outline';
-import { ProfileFragmentFragment } from '../../generated/graphql';
+import { ProfileItemFragment } from '../../generated/graphql';
 
 export interface UserPrimaryInfoProps {
-  user: ProfileFragmentFragment;
+  user: ProfileItemFragment;
 }
 
 function UserPrimaryInfo({ user }: UserPrimaryInfoProps): JSX.Element {

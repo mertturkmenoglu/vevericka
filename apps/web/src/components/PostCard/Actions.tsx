@@ -1,14 +1,14 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpTrayIcon, ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
-import { CountFragmentFragment, PostFragmentFragment } from '../../generated/graphql';
+import { CountItemFragment, PostItemFragment } from '../../generated/graphql';
 import { votePostDocument } from '../../graphql';
 import { copyToClipboard } from '../../lib';
 import ActionButton from './ActionButton';
 
 export interface ActionsProps {
-  post: PostFragmentFragment;
-  count: CountFragmentFragment;
+  post: PostItemFragment;
+  count: CountItemFragment;
 }
 
 function Actions({ post, count }: ActionsProps): JSX.Element {

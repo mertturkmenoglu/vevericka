@@ -1,8 +1,8 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../hooks';
-import { useEffect } from 'react';
 import { useMutation } from '@apollo/client';
+import React, { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { updateLastSeenDocument } from '../../graphql';
+import { useAuth } from '../../hooks';
 
 export interface ProtectedRouteProps {
   children: React.ReactNode;

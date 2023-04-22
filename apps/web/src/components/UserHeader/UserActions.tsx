@@ -1,11 +1,11 @@
 import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { ProfileFragmentFragment } from '../../generated/graphql';
+import { ProfileItemFragment } from '../../generated/graphql';
 import { interactWithUserDocument } from '../../graphql';
 import FollowButton from './FollowButton';
 
 export interface UserActionsProps {
-  user: ProfileFragmentFragment;
+  user: ProfileItemFragment;
 }
 
 function UserActions({ user }: UserActionsProps): JSX.Element {

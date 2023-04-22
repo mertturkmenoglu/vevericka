@@ -1,11 +1,11 @@
-import { useLoaderData } from 'react-router-dom';
-import { MainLayout } from '../../layouts';
-import { GetUserBookmarksQuery } from '../../generated/graphql';
-import Item from './Item';
 import { Helmet } from 'react-helmet';
+import { useLoaderData } from 'react-router-dom';
+import { BookmarksQuery } from '../../generated/graphql';
+import { MainLayout } from '../../layouts';
+import Item from './Item';
 
 function Bookmarks(): JSX.Element {
-  const data = useLoaderData() as GetUserBookmarksQuery;
+  const data = useLoaderData() as BookmarksQuery;
 
   return (
     <MainLayout>

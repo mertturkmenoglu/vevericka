@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FragmentType, useFragment } from '../../generated';
-import { countFragmentDocument, postFragmentDocument, userFragmentDocument } from '../../graphql';
+import { CountFragment, PostFragment, UserFragment } from '../../graphql';
 import { LazyImage } from '../LazyImage';
 import Actions from './Actions';
 import MoreMenu from './MoreMenu';
@@ -9,13 +9,13 @@ import PostImages from './PostImages';
 import Title from './Title';
 
 export interface PostCardProps {
-  post: FragmentType<typeof postFragmentDocument>;
+  post: FragmentType<typeof PostFragment>;
 }
 
 function PostCard(props: PostCardProps): JSX.Element {
-  const post = useFragment(postFragmentDocument, props.post);
-  const user = useFragment(userFragmentDocument, post.user);
-  const count = useFragment(countFragmentDocument, post._count);
+  const post = useFragment(PostFragment, props.post);
+  const user = useFragment(UserFragment, post.user);
+  const count = useFragment(CountFragment, post._count);
   const hasMedia = post.images.length > 0 || post.videos.length > 0;
 
   return (
