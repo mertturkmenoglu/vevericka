@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-export type SearchType = 'users' | 'posts';
+import { SearchType } from '../../components';
 
 export function useSearchType() {
   const [searchParams, setSearchParams] = useSearchParams();

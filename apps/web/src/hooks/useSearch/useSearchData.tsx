@@ -1,6 +1,6 @@
 import { useLazyQuery } from '@apollo/client';
-import { searchPostsQueryDocument, searchUsersQueryDocument } from '../../../graphql';
-import { SearchType } from './useSearchType';
+import { SearchType } from '../../components';
+import { searchPostsQueryDocument, searchUsersQueryDocument } from '../../graphql';
 
 export function useSearchData(type: SearchType) {
   const [getPosts, postsResult] = useLazyQuery(searchPostsQueryDocument);
