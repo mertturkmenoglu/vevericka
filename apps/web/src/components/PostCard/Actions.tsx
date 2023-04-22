@@ -78,7 +78,7 @@ function Actions({ post, count }: ActionsProps): JSX.Element {
         onClick={() => {
           const url = window.location.origin + `/p/${post.id}`;
           copyToClipboard(url);
-          toast('Copied to clipboard', { type: 'success', autoClose: 3000 });
+          toast('Copied to clipboard', { type: 'success', autoClose: 3000, hideProgressBar: true });
         }}
       />
     </div>
