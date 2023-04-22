@@ -1,105 +1,37 @@
-import { useSearchParams } from 'react-router-dom';
-import { MainLayout } from '../../layouts';
-import { useSearchType } from './hooks/useSearchType';
-import { useSearchData } from './hooks/useSearchData';
-import { useSearchTerm } from './hooks/useSearchTerm';
-import { Loading, TextField } from '../../components';
-import SelectSearchType from './components/SelectSearchType';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import * as Separator from '@radix-ui/react-separator';
-import SearchResult from './components/SearchResult';
-import { Helmet } from 'react-helmet';
+import { Loading, NoSearchResults, SearchArea, SearchResult } from '../../components';
+import { useSearch } from '../../hooks';
+import Layout from './layout';
 
 function Settings(): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [type, setType] = useSearchType();
-  const [term, setTerm] = useSearchTerm();
-  const { postsResult, usersResult, search } = useSearchData(type);
-
-  const onSearchClick = () => {
-    if (term === '') {
-      searchParams.delete('q');
-    } else {
-      searchParams.set('q', encodeURIComponent(term));
-    }
-
-    setSearchParams(searchParams);
-
-    if (term === '') return;
-    search(term);
-  };
-
-  const getData = () => {
-    if (type === 'posts') return postsResult.data?.searchPosts;
-    return usersResult.data?.searchUsers;
-  };
-
-  const isLoading = postsResult.loading || usersResult.loading;
-
-  const shouldDisplayResults = !isLoading && (getData()?.length ?? 0) > 0;
+  const { isLoading, isNoResult, onSearch, searchData, setTerm, setType, showResults, term, type } = useSearch();
 
   return (
-    <MainLayout>
-      <div className="flex w-full flex-col">
-        <Helmet>
-          <title>Search | Vevericka</title>
-        </Helmet>
-        <div className="items-centerp-8 mt-8 flex h-full w-full">
-          <TextField
-            label=""
-            value={term}
-            className="w-full"
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                onSearchClick();
-              }
-            }}
-            autoFocus
-            placeholder="Type anything to search"
-            onChange={(e) => setTerm(e.target.value)}
-          />
+    <Layout>
+      <SearchArea
+        className="mt-8"
+        term={term}
+        setTerm={setTerm}
+        onSearch={onSearch}
+        type={type}
+        setType={setType}
+      />
 
-          <button
-            className="group p-0"
-            onClick={onSearchClick}
-          >
-            <MagnifyingGlassIcon className="h-10 w-10 rounded-full p-2 text-midnight group-hover:bg-berry/10 group-hover:text-berry" />
-            <span className="sr-only">Search</span>
-          </button>
+      {isLoading && <Loading className="mx-auto mt-16" />}
 
-          <Separator.Root
-            className="mx-4 h-8 w-[1px] bg-midnight"
-            decorative
-            orientation="vertical"
-          />
+      {isNoResult && <NoSearchResults />}
 
-          <SelectSearchType
-            type={type}
-            setType={setType}
-          />
+      {showResults && (
+        <div className="mx-auto my-8 flex w-2/3 flex-col space-y-4">
+          {searchData?.map((it, index) => (
+            <SearchResult
+              key={index}
+              type={type}
+              content={it}
+            />
+          ))}
         </div>
-
-        {isLoading && <Loading className="mx-auto mt-16" />}
-        {!isLoading && (getData()?.length ?? 0) === 0 && (
-          <div className="mx-auto mt-8 text-center text-lg font-medium">
-            <div>We couldn't find any results</div>
-            <div>Try changing your words</div>
-          </div>
-        )}
-
-        {shouldDisplayResults && (
-          <div className="mx-auto my-8 flex w-2/3 flex-col space-y-4">
-            {getData()?.map((it, index) => (
-              <SearchResult
-                key={index}
-                type={type}
-                content={it}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </MainLayout>
+      )}
+    </Layout>
   );
 }
 
