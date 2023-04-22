@@ -1,5 +1,5 @@
-import { LazyImage } from '../../../components';
-import { useBannerStyles } from '../hooks/useBannerStyles';
+import { LazyImage } from '../index';
+import { getBannerStyles } from './banner-styles';
 
 export interface BannerProps {
   bannerImage: string;
@@ -7,7 +7,7 @@ export interface BannerProps {
 }
 
 function Banner({ bannerImage, image }: BannerProps): JSX.Element {
-  const bannerStyles = useBannerStyles(bannerImage);
+  const bannerStyles = getBannerStyles(bannerImage);
 
   return (
     <div

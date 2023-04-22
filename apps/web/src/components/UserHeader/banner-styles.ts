@@ -1,4 +1,6 @@
-export function useBannerStyles(bannerImage: string): React.CSSProperties {
+import React from 'react';
+
+export function getBannerStyles(bannerImage: string): React.CSSProperties {
   if (bannerImage !== 'banner.png') {
     return {
       backgroundImage: `url(${bannerImage})`,

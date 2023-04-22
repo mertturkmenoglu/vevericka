@@ -1,8 +1,8 @@
-import { ProfileFragmentFragment } from '../../../generated/graphql';
-import { Link } from 'react-router-dom';
-import FollowButton from './FollowButton';
 import { useMutation } from '@apollo/client';
-import { interactWithUserDocument } from '../../../graphql';
+import { Link } from 'react-router-dom';
+import { ProfileFragmentFragment } from '../../generated/graphql';
+import { interactWithUserDocument } from '../../graphql';
+import FollowButton from './FollowButton';
 
 export interface UserActionsProps {
   user: ProfileFragmentFragment;

@@ -1,4 +1,4 @@
-import { ProfileFragmentFragment } from '../../../generated/graphql';
+import { ProfileFragmentFragment } from '../../generated/graphql';
 
 export interface AboutProps {
   user: ProfileFragmentFragment;

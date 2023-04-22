@@ -1,5 +1,5 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { Spinner } from '../../../components';
+import { Spinner } from '../index';
 
 export interface FollowButtonProps {
   isFollowing: boolean;
