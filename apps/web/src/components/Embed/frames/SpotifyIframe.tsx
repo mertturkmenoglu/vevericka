@@ -1,8 +1,8 @@
-export type SpotifyType = 'track' | 'album' | 'playlist' | 'show' | 'episode' | 'artist';
+import { SpotifyType } from '../../../lib';
 
 export interface SpotifyIframeProps {
   id: string;
-  type: 'track' | 'album' | 'playlist' | 'show' | 'episode' | 'artist';
+  type: SpotifyType;
 }
 
 function SpotifyIframe({ id, type }: SpotifyIframeProps): JSX.Element {
