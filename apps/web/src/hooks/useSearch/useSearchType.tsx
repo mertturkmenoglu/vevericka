@@ -5,7 +5,7 @@ import { SearchType } from '../../components';
 export function useSearchType() {
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFromUrl = decodeURIComponent(searchParams.get('type') ?? '');
-  const typeStateTuple = useState<SearchType>(() => {
+  const typeTuple = useState<SearchType>(() => {
     if (typeFromUrl === 'users' || typeFromUrl === 'posts') return typeFromUrl;
     if (typeFromUrl === '') return 'posts';
 
@@ -15,5 +15,5 @@ export function useSearchType() {
     return 'posts';
   });
 
-  return typeStateTuple;
+  return typeTuple;
 }

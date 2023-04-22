@@ -5,7 +5,7 @@ export function useSearchTerm() {
   const [searchParams] = useSearchParams();
 
   const queryFromUrl = decodeURIComponent(searchParams.get('q') ?? '');
-  const termStateTuple = useState(queryFromUrl);
+  const termTuple = useState(queryFromUrl);
 
-  return termStateTuple;
+  return termTuple;
 }
