@@ -1,11 +1,10 @@
 import { useLazyQuery } from '@apollo/client';
-import { getFirstUrl } from '../../../lib';
-import { linkPreviewQueryDocument } from '../../../graphql/queries/linkPreviewQuery';
 import { useEffect } from 'react';
+import { linkPreviewQueryDocument } from '../../../graphql/queries/linkPreviewQuery';
+import { getFirstUrl } from '../../../lib';
 
 interface Activation {
-  isYouTube: boolean;
-  isSpotify: boolean;
+  isEmbed: boolean;
   hasMedia: boolean;
 }
 
@@ -14,7 +13,7 @@ export function useLinkPreview(text: string, activation: Activation) {
 
   const [getPreview, { data, loading, error }] = useLazyQuery(linkPreviewQueryDocument);
 
-  const canActivate = !activation.hasMedia && !activation.isYouTube && !activation.isSpotify;
+  const canActivate = !activation.hasMedia && !activation.isEmbed;
 
   useEffect(() => {
     if (firstUrl && canActivate) {
@@ -26,7 +25,7 @@ export function useLinkPreview(text: string, activation: Activation) {
     }
   }, [firstUrl, canActivate]);
 
-  const showLinkPreview = firstUrl && !error && data && !loading && canActivate;
+  const showLinkPreview = !!firstUrl && !error && !!data && !loading && canActivate;
 
   return {
     showLinkPreview,

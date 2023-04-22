@@ -1,8 +1,13 @@
-export function useYouTube(text: string) {
-  const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i;
-  const youtubeMatch = text.match(youtubeRegex);
-  const youtubeId = youtubeMatch ? youtubeMatch[1] : null;
-  const isYouTube = youtubeId !== null;
+import { getYouTubeId, isYouTube as isYouTubeFn } from '../../../lib/';
 
-  return { isYouTube, youtubeId };
+type UseYoutubeResult = { isYouTube: boolean; youtubeId: string } | { isYouTube: false; youtubeId: null };
+
+export function useYouTube(text: string): UseYoutubeResult {
+  const isYouTube = isYouTubeFn(text);
+
+  if (!isYouTube) {
+    return { isYouTube, youtubeId: null };
+  }
+
+  return { isYouTube, youtubeId: getYouTubeId(text) };
 }

@@ -1,24 +1,22 @@
+import { useApolloClient, useMutation } from '@apollo/client';
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpTrayIcon, ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
-import { FragmentType, useFragment } from '../../generated';
-import { postFragmentDocument, userFragmentDocument, votePostDocument } from '../../graphql';
-import { countFragmentDocument } from '../../graphql/fragments/countFragment';
-import { LazyImage } from '../LazyImage';
-import MoreMenu from './MoreMenu';
-import ActionButton from './ActionButton';
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
-import PostContent from './PostContent';
-import { useApolloClient, useMutation } from '@apollo/client';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useFormattedDate } from './hooks/useFormattedDate';
-import { useGridRoundStyles } from './hooks/useGridRoundStyles';
+import { FragmentType, useFragment } from '../../generated';
+import { countFragmentDocument, postFragmentDocument, userFragmentDocument, votePostDocument } from '../../graphql';
 import { copyToClipboard } from '../../lib';
+import { LazyImage } from '../LazyImage';
+import ActionButton from './ActionButton';
+import { useFormattedDate, useGridRoundStyles } from './hooks';
+import MoreMenu from './MoreMenu';
+import PostContent from './PostContent';
 
 export interface PostCardProps {
   post: FragmentType<typeof postFragmentDocument>;
