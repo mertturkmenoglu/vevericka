@@ -14,3 +14,7 @@ export function detectUsernames(text: string): string {
     (username) => `<a href='/u/${username.substring(1)}' class='${commonClassNames}'>${username}</a>`
   );
 }
+
+export function formatWhitespace(text: string): string {
+  return text.replace(/\n/gi, '<br />');
+}

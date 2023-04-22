@@ -19,6 +19,7 @@ function TextArea({ errors, register }: TextAreaProps): JSX.Element {
         minRows={1}
         maxRows={3}
         className={clsx(
+          'whitespace-pre',
           'border-b border-midnight',
           {
             'border-red-500': errors.text?.type,

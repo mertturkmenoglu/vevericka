@@ -1,11 +1,11 @@
 import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
-import { createPostDocument, feedQueryDocument } from '../../graphql';
 import { client } from '../../apollo';
-import { useState } from 'react';
+import { createPostDocument, feedQueryDocument } from '../../graphql';
 
 const schema = z.object({
   text: z.string().min(1, 'Cannot leave blank').max(250, 'Too long'),
