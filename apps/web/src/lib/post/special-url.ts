@@ -1,4 +1,4 @@
-import { spotifyRegex, twitterRegex, youtubeRegex } from './regex';
+import { spotifyRegex, twitterRegex, wikipediaRegex, youtubeRegex } from './regex';
 
 export type SpotifyType = 'track' | 'album' | 'playlist' | 'show' | 'episode' | 'artist';
 
@@ -14,6 +14,11 @@ export function isSpotify(text: string): boolean {
 
 export function isTwitter(text: string): boolean {
   const match = text.match(twitterRegex);
+  return match !== null;
+}
+
+export function isWikipedia(text: string): boolean {
+  const match = text.match(wikipediaRegex);
   return match !== null;
 }
 

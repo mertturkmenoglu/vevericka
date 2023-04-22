@@ -13,4 +13,6 @@ const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]
 
 const twitterRegex = /https?:\/\/(?:www\.)?twitter\.com/;
 
-export { usernameRegex, hashtagRegex, urlRegex, spotifyRegex, youtubeRegex, twitterRegex };
+const wikipediaRegex = /^https?:\/\/([\w.]+)wikipedia.org\/wiki\/(\w+_?)+/;
+
+export { usernameRegex, hashtagRegex, urlRegex, spotifyRegex, youtubeRegex, twitterRegex, wikipediaRegex };
