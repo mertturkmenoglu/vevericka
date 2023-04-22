@@ -1,11 +1,11 @@
 import { graphql } from '../../generated';
 
-export const postFragmentDocument = graphql(/* GraphQL */ `
-  fragment PostFragment on Post {
+export const PostFragment = graphql(/* GraphQL */ `
+  fragment PostItem on Post {
     id
     content
     _count {
-      ...CountFragment
+      ...CountItem
     }
     tags {
       id
@@ -31,7 +31,7 @@ export const postFragmentDocument = graphql(/* GraphQL */ `
     createdAt
     updatedAt
     user {
-      ...UserFragment
+      ...UserItem
     }
   }
 `);

@@ -1,7 +1,7 @@
 import { graphql } from '../../generated';
 
-export const countFragmentDocument = graphql(/* GraphQL */ `
-  fragment CountFragment on Count {
+export const CountFragment = graphql(/* GraphQL */ `
+  fragment CountItem on Count {
     dislikes
     likes
     tags

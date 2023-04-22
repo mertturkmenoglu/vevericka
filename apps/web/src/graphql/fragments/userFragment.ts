@@ -1,7 +1,7 @@
 import { graphql } from '../../generated';
 
-export const userFragmentDocument = graphql(/* GraphQL */ `
-  fragment UserFragment on User {
+export const UserFragment = graphql(/* GraphQL */ `
+  fragment UserItem on User {
     id
     name
     image

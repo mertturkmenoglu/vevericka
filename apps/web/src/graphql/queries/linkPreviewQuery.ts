@@ -1,7 +1,7 @@
 import { graphql } from '../../generated';
 
 export const linkPreviewQueryDocument = graphql(/* GraphQL */ `
-  query LinkPreviewQuery($url: String!) {
+  query LinkPreview($url: String!) {
     linkPreview(url: $url) {
       title
       description

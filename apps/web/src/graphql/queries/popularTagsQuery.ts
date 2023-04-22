@@ -1,7 +1,7 @@
 import { graphql } from '../../generated';
 
 export const popularTagsQueryDocument = graphql(/* GraphQL */ `
-  query GetPopularTags($skip: Int!, $take: Int!) {
+  query PopularTags($skip: Int!, $take: Int!) {
     popularTags(skip: $skip, take: $take) {
       id
       tagName

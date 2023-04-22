@@ -1,7 +1,7 @@
 import { graphql } from '../../generated';
 
-export const profileFragmentDocument = graphql(/* GraphQL */ `
-  fragment ProfileFragment on Profile {
+export const ProfileFragment = graphql(/* GraphQL */ `
+  fragment ProfileItem on Profile {
     id
     name
     image

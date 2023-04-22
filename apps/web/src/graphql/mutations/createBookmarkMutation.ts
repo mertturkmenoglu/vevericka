@@ -5,7 +5,7 @@ export const createBookmarkDocument = graphql(/* GraphQL */ `
     createBookmark(newBookmarkData: $payload) {
       id
       post {
-        ...PostFragment
+        ...PostItem
       }
     }
   }
