@@ -1,6 +1,3 @@
-import React from 'react';
-import clsx from 'clsx';
-
 import {
   ArrowRightOnRectangleIcon,
   AtSymbolIcon,
@@ -14,11 +11,13 @@ import {
   QuestionMarkCircleIcon,
   UserIcon,
 } from '@heroicons/react/24/outline';
-import Item from './Item';
-import Copyright from './Copyright';
+import clsx from 'clsx';
+import React from 'react';
 import { useFragment } from '../../generated';
 import { MeQuery } from '../../generated/graphql';
 import { userFragmentDocument } from '../../graphql';
+import Copyright from './Copyright';
+import Item from './Item';
 
 export interface MenuItemsProps {
   className?: string;
@@ -63,7 +62,6 @@ function MenuItems({ className, userData }: MenuItemsProps): JSX.Element {
           as="button"
           text="Logout"
           onClick={async () => {
-            // TODO: Fix cookie clearing bug
             await fetch('http://localhost:3000/oauth/logout', {
               method: 'POST',
               headers: {
