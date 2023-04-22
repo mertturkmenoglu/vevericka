@@ -1,14 +1,14 @@
-import clsx from 'clsx';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import clsx from 'clsx';
 import { useRef, useState } from 'react';
-import { LazyImage } from '../LazyImage';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import TSwiper, { Navigation, A11y } from 'swiper';
+import TSwiper, { A11y, Navigation } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { LazyImage } from '../LazyImage';
 
 const stories = [
   {
@@ -94,7 +94,7 @@ function Stories(): JSX.Element {
       >
         {stories.map((story, index) => (
           <SwiperSlide
-            className="py-4 px-2"
+            className="px-2 py-4"
             key={story.thumbnail + index}
           >
             <button>

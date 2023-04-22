@@ -1,8 +1,8 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { ReactComponent as Squirrel } from '../../assets/squirrel.svg';
 import { Link } from 'react-router-dom';
+import { ReactComponent as Squirrel } from '../../assets/squirrel.svg';
 
 export interface LandingHeroProps {
   className?: string;
@@ -36,8 +36,8 @@ function LandingHero({ className }: LandingHeroProps): JSX.Element {
       <Link
         to="/login"
         className={clsx(
-          'mx-auto mt-4 flex w-fit items-center justify-center rounded-full bg-midnight py-1 px-4 text-white',
-          'sm:mt-16 sm:py-2 sm:px-8',
+          'mx-auto mt-4 flex w-fit items-center justify-center rounded-full bg-midnight px-4 py-1 text-white',
+          'sm:mt-16 sm:px-8 sm:py-2',
           'transition delay-200 duration-200 ease-in hover:bg-opacity-80'
         )}
       >
