@@ -1,5 +1,6 @@
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import EmojiPickerComponent, { EmojiClickData } from 'emoji-picker-react';
+import React from 'react';
 
 export interface EmojiPickerProps {
   show: boolean;
