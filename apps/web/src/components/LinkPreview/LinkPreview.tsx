@@ -1,15 +1,17 @@
 import { LinkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { Twitter } from 'react-bootstrap-icons';
+import { Twitter, Wikipedia } from 'react-bootstrap-icons';
 import { LinkPreviewQueryQuery } from '../../generated/graphql';
-import { useTwitter } from './useTwitter';
+import { isTwitter, isWikipedia } from '../../lib';
 
 export interface LinkPreviewProps {
   data: LinkPreviewQueryQuery;
 }
 
 function LinkPreview({ data }: LinkPreviewProps): JSX.Element {
-  const { isTwitter } = useTwitter(data?.linkPreview.url || '');
+  const isTwitterVal = isTwitter(data?.linkPreview.url || '');
+  const isWikipediaVal = isWikipedia(data?.linkPreview.url || '');
+
   const urlWithValidProtocol = (url?: string | null | undefined) => {
     if (!url || url.startsWith('http://') || url.startsWith('https://')) {
       return url;
@@ -33,12 +35,14 @@ function LinkPreview({ data }: LinkPreviewProps): JSX.Element {
       {!data.linkPreview.image && (
         <div
           className={clsx('flex aspect-video w-full items-center justify-center rounded-t', {
-            'bg-neutral-200': !isTwitter,
-            'bg-[#1DA1F2]': isTwitter,
+            'bg-neutral-200': !isTwitterVal && !isWikipediaVal,
+            'bg-[#1DA1F2]': isTwitterVal,
+            'bg-[#C7C8CA]': isWikipediaVal,
           })}
         >
-          {isTwitter && <Twitter className="h-6 w-6 text-white" />}
-          {!isTwitter && <LinkIcon className="h-5 w-5 text-midnight" />}
+          {isTwitterVal && <Twitter className="h-16 w-16 text-white" />}
+          {!isTwitterVal && !isWikipediaVal && <LinkIcon className="h-5 w-5 text-midnight" />}
+          {isWikipediaVal && <Wikipedia className="h-16 w-16 text-black" />}
         </div>
       )}
 
