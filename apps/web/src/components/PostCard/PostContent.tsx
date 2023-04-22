@@ -1,13 +1,13 @@
 import { LinkIcon } from '@heroicons/react/24/outline';
-import { detectHashtags, detectUsernames, linkify } from '../../lib';
-import YouTubeIframe from './YouTubeIframe';
-import { useLinkPreview } from './hooks/useLinkPreview';
-import { useYouTube } from './hooks/useYouTube';
-import { useSpotify } from './hooks/useSpotify';
-import SpotifyIframe from './SpotifyIframe';
-import { useTwitter } from './hooks/useTwitter';
-import { Twitter } from 'react-bootstrap-icons';
 import clsx from 'clsx';
+import { Twitter } from 'react-bootstrap-icons';
+import { detectHashtags, detectUsernames, linkify } from '../../lib';
+import { useLinkPreview } from './hooks/useLinkPreview';
+import { useSpotify } from './hooks/useSpotify';
+import { useTwitter } from './hooks/useTwitter';
+import { useYouTube } from './hooks/useYouTube';
+import SpotifyIframe from './SpotifyIframe';
+import YouTubeIframe from './YouTubeIframe';
 
 export interface PostContentProps {
   text: string;
@@ -52,6 +52,7 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
           {data.linkPreview.image && (
             <img
               src={data.linkPreview.image}
+              alt={data.linkPreview.title || ''}
               className="aspect-video w-full rounded-t object-cover"
             />
           )}
