@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ProfileItemFragment } from '../../generated/graphql';
 
 export interface AboutProps {
@@ -32,43 +33,47 @@ function AboutItem({ title, content = '', link = false }: AboutItemProps): JSX.E
 }
 
 function About({ user }: AboutProps): JSX.Element {
+  const location = clsx(user.city, { '-': user.city && user.country }, user.country);
+
   return (
-    <div className="mt-4 grid grid-cols-3 gap-y-4">
-      <AboutItem
-        title="Job"
-        content={user.job}
-      />
-
-      <AboutItem
-        title="School"
-        content={user.school}
-      />
-
+    <div className="mt-4">
       <AboutItem
         title="Bio"
         content={user.description}
       />
 
-      <AboutItem
-        title="Location"
-        content={user.country}
-      />
+      <div className="mt-4 grid grid-cols-3 gap-y-4">
+        <AboutItem
+          title="Job"
+          content={user.job}
+        />
 
-      <AboutItem
-        title="Gender"
-        content={user.gender}
-      />
+        <AboutItem
+          title="School"
+          content={user.school}
+        />
 
-      <AboutItem
-        title="Joined"
-        content={new Date(user.createdAt).toLocaleDateString()}
-      />
+        <AboutItem
+          title="Location"
+          content={location}
+        />
 
-      <AboutItem
-        title="Website"
-        link
-        content={user.website}
-      />
+        <AboutItem
+          title="Gender"
+          content={user.gender}
+        />
+
+        <AboutItem
+          title="Website"
+          link
+          content={user.website}
+        />
+
+        <AboutItem
+          title="Joined"
+          content={new Date(user.createdAt).toLocaleDateString()}
+        />
+      </div>
     </div>
   );
 }
