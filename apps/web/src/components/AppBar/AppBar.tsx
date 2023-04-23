@@ -43,11 +43,8 @@ function AppBar({ className }: AppBarProps): JSX.Element {
         <div className="flex items-center space-x-2">
           <AppBarIcon type="create" />
           <AppBarIcon type="search" />
-
-          <AppBarIcon type="notifications" />
-
           <AppBarIcon type="messages" />
-
+          <AppBarIcon type="notifications" />
           <Menu />
         </div>
       </nav>

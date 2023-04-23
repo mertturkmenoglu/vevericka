@@ -1,7 +1,10 @@
-import { MagnifyingGlassIcon, BellIcon, EnvelopeIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { BellIcon, EnvelopeIcon, MagnifyingGlassIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { NovuProvider, PopoverNotificationCenter } from '@novu/notification-center';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { useFlags } from '../../hooks';
+import { useFragment } from '../../generated';
+import { UserFragment } from '../../graphql';
+import { useAuth, useFlags } from '../../hooks';
 
 export interface AppBarIconProps {
   type: 'create' | 'search' | 'notifications' | 'messages';
@@ -25,9 +28,40 @@ const toMapping = {
 
 function AppBarIcon({ type }: AppBarIconProps): JSX.Element {
   const flags = useFlags();
+  const { data } = useAuth();
+  const me = useFragment(UserFragment, data?.me);
 
   const Icon = iconMapping[type];
   const to = toMapping[type];
+
+  if (!me) {
+    return <></>;
+  }
+
+  if (type === 'notifications') {
+    return (
+      <NovuProvider
+        subscriberId={me.id}
+        applicationIdentifier={'Jp_dyLmH8gJi'}
+      >
+        <PopoverNotificationCenter colorScheme={'light'}>
+          {({ unseenCount }) => (
+            <button
+              className={clsx('relative flex  items-center p-2 transition ease-in-out hover:bg-midnight/5', {
+                'rounded border border-midnight/20': flags.appBarV2,
+                'group rounded-full hover:bg-berry/10': !flags.appBarV2,
+              })}
+            >
+              <BellIcon className="h-5 w-5 text-midnight group-hover:text-berry" />
+              {(unseenCount ?? 0) > 0 && (
+                <div className="absolute right-1 top-1 z-10 h-2 w-2 rounded-full bg-berry"></div>
+              )}
+            </button>
+          )}
+        </PopoverNotificationCenter>
+      </NovuProvider>
+    );
+  }
 
   return (
     <Link

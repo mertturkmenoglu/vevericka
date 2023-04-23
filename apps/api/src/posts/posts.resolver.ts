@@ -1,16 +1,19 @@
 import { NotFoundException, UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Novu } from "@novu/node";
 import { JwtAuthGuard } from "src/auth/guards";
+import { PaginationArgs } from "src/common/args/pagination.args";
+import { CurrentUser } from "src/common/types/current-user.type";
+import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
 import { NewPostInput } from "./dto/new-post.input";
+import { Vote } from "./dto/vote-post.input";
 import { Post } from "./models/post.model";
 import { PostsService } from "./posts.service";
-import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
-import { CurrentUser } from "src/common/types/current-user.type";
-import { Vote } from "./dto/vote-post.input";
-import { PaginationArgs } from "src/common/args/pagination.args";
 
 @Resolver(() => Post)
 export class PostsResolver {
+  private readonly novu = new Novu(process.env.NOVU_API_KEY);
+
   constructor(private readonly postsService: PostsService) {}
 
   @Query(() => Post)
@@ -60,13 +63,28 @@ export class PostsResolver {
     @Args("id") id: string,
     @Args("vote") vote: Vote
   ): Promise<Post> {
+    let post: Awaited<Post>;
     if (vote === "like") {
-      return this.postsService.likePost(currentUser.user.id, id);
+      post = await this.postsService.likePost(currentUser.user.id, id);
     } else if (vote === "dislike") {
-      return this.postsService.dislikePost(currentUser.user.id, id);
+      post = await this.postsService.dislikePost(currentUser.user.id, id);
     } else {
-      return this.postsService.removeVote(currentUser.user.id, id);
+      post = await this.postsService.removeVote(currentUser.user.id, id);
     }
+
+    if (vote === "like") {
+      await this.novu.trigger("post-like", {
+        to: {
+          subscriberId: post.user.id,
+        },
+        payload: {
+          postId: post.id,
+          name: currentUser.user.name,
+        },
+      });
+    }
+
+    return post;
   }
 
   @Mutation(() => Post, { nullable: true })
