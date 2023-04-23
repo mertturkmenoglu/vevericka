@@ -34,7 +34,7 @@ function Feed(): JSX.Element {
           <div id={loadMoreId} />
         </LoadingLayout>
       </div>
-      <aside className="sticky top-8 hidden w-1/2 flex-col items-end lg:flex">
+      <aside className="sticky top-20 hidden w-1/2 flex-col items-end lg:flex">
         <ExploreCard className="w-3/4" />
         <Footer className="w-3/4" />
       </aside>
