@@ -10,15 +10,15 @@ import { MeQuery } from '../../../generated/graphql';
 import { updateUserMutationDocument, UserFragment } from '../../../graphql';
 
 const profileSchema = z.object({
-  name: z.string().min(1).max(128),
-  job: z.string().max(128).optional(),
-  twitterHandle: z.string().max(32).optional(),
-  school: z.string().max(128).optional(),
-  website: z.string().max(128).optional(),
-  description: z.string().max(256).optional(),
+  name: z.string().min(1).max(64),
+  job: z.string().max(64).optional(),
+  twitterHandle: z.string().max(64).optional(),
+  school: z.string().max(64).optional(),
+  website: z.string().max(255).optional(),
+  description: z.string().max(255).optional(),
   protected: z.boolean().optional(),
-  city: z.string().max(128).optional(),
-  country: z.string().max(128).optional(),
+  city: z.string().max(64).optional(),
+  country: z.string().max(64).optional(),
 });
 
 type ProfileInput = z.infer<typeof profileSchema>;
