@@ -1,17 +1,16 @@
 import {
-  UserIcon,
-  IdentificationIcon,
-  QuestionMarkCircleIcon,
-  LockClosedIcon,
-  ComputerDesktopIcon,
   BellIcon,
   CloudIcon,
-  EnvelopeIcon,
+  ComputerDesktopIcon,
   GlobeAltIcon,
+  IdentificationIcon,
+  LockClosedIcon,
+  QuestionMarkCircleIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline';
+import { MeQuery } from '../../../generated/graphql';
 import AccountContainer from '../containers/account';
 import ProfileContainer from '../containers/profile';
-import { MeQuery } from '../../../generated/graphql';
 import Wip from '../containers/Wip';
 
 interface ComponentProps {
@@ -55,12 +54,6 @@ export const categories = [
     name: 'Notifications',
     component: Wip,
     icon: BellIcon,
-  },
-  {
-    key: 'email',
-    name: 'Email Settings',
-    component: Wip,
-    icon: EnvelopeIcon,
   },
   {
     key: 'privacy',
