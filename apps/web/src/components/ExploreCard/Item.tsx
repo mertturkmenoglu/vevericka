@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 import { PopularTag } from '../../generated/graphql';
 
 export interface ItemProps {
@@ -17,7 +17,7 @@ export function Item({ item }: ItemProps): JSX.Element {
       className="flex items-center justify-between py-1 text-midnight transition-all duration-200 hover:bg-midnight/10"
     >
       <div className="px-6">
-        <span className="font-medium">{item.tagName.substring(1)}</span>
+        <span className="break-all font-medium">{item.tagName.substring(1)}</span>
 
         <div className="flex items-baseline text-sm">
           <span className="font-normal">{formatCount(item._count.posts)}</span>
