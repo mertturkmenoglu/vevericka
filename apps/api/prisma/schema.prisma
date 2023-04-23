@@ -34,40 +34,39 @@ model Auth {
 
 model User {
   // Primary Key
-  id            String         @id @default(uuid())
+  id            String        @id @default(uuid())
   // Scalar Values
-  name          String         @db.VarChar(64)
-  image         String         @default("profile.png") @db.VarChar(512)
-  job           String?        @db.VarChar(64)
-  twitterHandle String?        @db.VarChar(64)
-  school        String?        @db.VarChar(64)
+  name          String        @db.VarChar(64)
+  image         String        @default("profile.png") @db.VarChar(512)
+  job           String?       @db.VarChar(64)
+  twitterHandle String?       @db.VarChar(64)
+  school        String?       @db.VarChar(64)
   birthDate     DateTime?
-  website       String?        @db.VarChar(255)
-  description   String?        @db.VarChar(255)
-  verified      Boolean        @default(false)
-  protected     Boolean        @default(false)
-  bannerImage   String         @default("banner.png")
-  gender        GenderOptions?
-  genderOther   String?        @db.VarChar(32)
-  city          String?        @db.VarChar(64)
-  country       String?        @db.VarChar(64)
+  website       String?       @db.VarChar(255)
+  description   String?       @db.VarChar(255)
+  verified      Boolean       @default(false)
+  protected     Boolean       @default(false)
+  bannerImage   String        @default("banner.png")
+  gender        String?       @db.VarChar(32)
+  city          String?       @db.VarChar(64)
+  country       String?       @db.VarChar(64)
   // Relations
   auth          Auth?
   speaking      Speaking[]
   wishToSpeak   WishToSpeak[]
   hobbies       Hobby[]
   features      Feature[]
-  posts         Post[]         @relation(name: "UserPosts")
-  likes         Post[]         @relation(name: "UserLikes")
-  dislikes      Post[]         @relation(name: "UserDislikes")
-  comments      Comment[]      @relation(name: "UserComments")
-  followers     User[]         @relation("UserFollows")
-  following     User[]         @relation("UserFollows")
-  shorts        Short[]        @relation("UserShorts")
-  bookmarks     Bookmark[]     @relation("UserBookmarks")
+  posts         Post[]        @relation(name: "UserPosts")
+  likes         Post[]        @relation(name: "UserLikes")
+  dislikes      Post[]        @relation(name: "UserDislikes")
+  comments      Comment[]     @relation(name: "UserComments")
+  followers     User[]        @relation("UserFollows")
+  following     User[]        @relation("UserFollows")
+  shorts        Short[]       @relation("UserShorts")
+  bookmarks     Bookmark[]    @relation("UserBookmarks")
   // Meta
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
 model Speaking {

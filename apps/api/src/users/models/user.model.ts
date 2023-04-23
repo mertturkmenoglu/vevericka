@@ -42,9 +42,6 @@ export class User {
   gender?: string;
 
   @Field({ nullable: true })
-  genderOther?: string;
-
-  @Field({ nullable: true })
   city?: string;
 
   @Field({ nullable: true })

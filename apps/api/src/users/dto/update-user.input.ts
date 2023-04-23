@@ -37,4 +37,7 @@ export class UpdateUserInput {
 
   @Field({ nullable: true })
   country?: string;
+
+  @Field({ nullable: true })
+  gender?: string;
 }

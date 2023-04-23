@@ -47,7 +47,6 @@ type User {
   protected: Boolean!
   bannerImage: String!
   gender: String
-  genderOther: String
   city: String
   country: String
   createdAt: Date!
@@ -127,7 +126,6 @@ type Profile {
   protected: Boolean!
   bannerImage: String!
   gender: String
-  genderOther: String
   city: String
   country: String
   createdAt: Date!
@@ -226,6 +224,7 @@ input UpdateUserInput {
   bannerImage: String
   city: String
   country: String
+  gender: String
 }
 
 input NewBookmarkInput {
