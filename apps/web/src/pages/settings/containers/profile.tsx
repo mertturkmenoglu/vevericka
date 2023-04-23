@@ -19,6 +19,7 @@ const profileSchema = z.object({
   protected: z.boolean().optional(),
   city: z.string().max(64).optional(),
   country: z.string().max(64).optional(),
+  gender: z.string().max(32).optional(),
 });
 
 type ProfileInput = z.infer<typeof profileSchema>;
@@ -46,6 +47,7 @@ function ProfileContainer({ user }: Props): JSX.Element {
       school: me.school || '',
       twitterHandle: me.twitterHandle || '',
       website: me.website || '',
+      gender: me.gender || '',
     },
   });
 
@@ -65,6 +67,7 @@ function ProfileContainer({ user }: Props): JSX.Element {
                 school: values.school,
                 twitterHandle: values.twitterHandle,
                 website: values.website,
+                gender: values.gender,
               },
             },
           });
@@ -93,6 +96,13 @@ function ProfileContainer({ user }: Props): JSX.Element {
           placeholder='e.g. "Software Engineer"'
           error={errors.job}
           {...register('job')}
+        />
+
+        <TextField
+          label="Gender"
+          placeholder="You can define your gender"
+          error={errors.gender}
+          {...register('gender')}
         />
 
         <TextField
