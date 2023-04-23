@@ -1,5 +1,5 @@
-import { AuthButton } from '../AuthButton';
 import { Link } from 'react-router-dom';
+import { AuthButton } from '../AuthButton';
 
 function LoginForm(): JSX.Element {
   return (
@@ -23,7 +23,7 @@ function LoginForm(): JSX.Element {
         <p>
           Need help?{' '}
           <Link
-            to="/help/login"
+            to="/help"
             className="font-semibold underline"
           >
             Check our help page
