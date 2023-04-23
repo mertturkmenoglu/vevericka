@@ -15,7 +15,6 @@ export const ProfileFragment = graphql(/* GraphQL */ `
     protected
     bannerImage
     gender
-    genderOther
     city
     country
     isFollowing

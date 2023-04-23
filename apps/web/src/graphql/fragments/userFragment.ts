@@ -15,7 +15,6 @@ export const UserFragment = graphql(/* GraphQL */ `
     protected
     bannerImage
     gender
-    genderOther
     city
     country
     createdAt
