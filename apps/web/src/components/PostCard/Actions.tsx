@@ -1,5 +1,6 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpTrayIcon, ChatBubbleBottomCenterIcon } from '@heroicons/react/24/outline';
+import { useState, useTransition } from 'react';
 import { toast } from 'react-toastify';
 import { CountItemFragment, PostItemFragment } from '../../generated/graphql';
 import { votePostDocument } from '../../graphql';
@@ -12,24 +13,60 @@ export interface ActionsProps {
 }
 
 function Actions({ post, count }: ActionsProps): JSX.Element {
+  const [, startTransition] = useTransition();
+  const [voteState, setVoteState] = useState(post.vote);
+  const [likesState, setLikesState] = useState(count.likes);
+  const [dislikesState, setDislikesState] = useState(count.dislikes);
   const [vote] = useMutation(votePostDocument);
   const client = useApolloClient();
 
   const onVote = async (value: string) => {
-    const oldVote = post.vote;
+    const oldVote = voteState;
     let newVote = 'none';
 
     if (value === 'like') {
-      newVote = post.vote === 'like' ? 'none' : 'like';
+      newVote = voteState === 'like' ? 'none' : 'like';
     } else {
-      newVote = post.vote === 'dislike' ? 'none' : 'dislike';
+      newVote = voteState === 'dislike' ? 'none' : 'dislike';
     }
 
-    client.cache.modify({
-      id: post.id,
-      fields: {
-        vote: () => newVote,
-      },
+    startTransition(() => {
+      client.cache.modify({
+        id: post.id,
+        fields: {
+          vote: () => newVote,
+        },
+      });
+
+      setVoteState(newVote);
+
+      if (newVote === 'like') {
+        if (oldVote === 'dislike') {
+          setDislikesState((prev) => prev - 1);
+          setLikesState((prev) => prev + 1);
+        }
+
+        if (oldVote === 'none') {
+          setLikesState((prev) => prev + 1);
+        }
+
+        if (oldVote === 'like') {
+          setLikesState((prev) => prev - 1);
+        }
+      } else {
+        if (oldVote === 'like') {
+          setLikesState((prev) => prev - 1);
+          setDislikesState((prev) => prev + 1);
+        }
+
+        if (oldVote === 'none') {
+          setDislikesState((prev) => prev + 1);
+        }
+
+        if (oldVote === 'dislike') {
+          setDislikesState((prev) => prev - 1);
+        }
+      }
     });
 
     const res = await vote({
@@ -49,21 +86,23 @@ function Actions({ post, count }: ActionsProps): JSX.Element {
         },
       });
     }
+
+    setVoteState(newVote);
   };
 
   return (
     <div className="-ml-2 mt-1 flex items-center justify-between">
       <ActionButton
         icon={ArrowUpIcon}
-        text={count.likes}
-        state={post.vote === 'like' ? 'active' : 'inactive'}
+        text={likesState}
+        state={voteState === 'like' ? 'active' : 'inactive'}
         onClick={async () => onVote('like')}
       />
 
       <ActionButton
         icon={ArrowDownIcon}
-        text={count.dislikes}
-        state={post.vote === 'dislike' ? 'active' : 'inactive'}
+        text={dislikesState}
+        state={voteState === 'dislike' ? 'active' : 'inactive'}
         onClick={async () => onVote('dislike')}
       />
 
