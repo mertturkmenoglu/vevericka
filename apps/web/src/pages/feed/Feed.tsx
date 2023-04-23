@@ -1,9 +1,9 @@
-import { PostCard, Stories, ExploreCard, Footer } from '../../components';
-import { LoadingLayout, MainLayout } from '../../layouts';
-import { useFlags } from '../../hooks';
 import { useId } from 'react';
-import { useFeed } from './useFeed';
 import { Helmet } from 'react-helmet';
+import { ExploreCard, Footer, PostCard, Stories } from '../../components';
+import { useFlags } from '../../hooks';
+import { LoadingLayout, MainLayout } from '../../layouts';
+import { useFeed } from './useFeed';
 
 function Feed(): JSX.Element {
   const loadMoreId = useId();
@@ -12,7 +12,7 @@ function Feed(): JSX.Element {
 
   return (
     <MainLayout>
-      <div className="w-1/2 space-y-8">
+      <div className="w-full space-y-8 lg:w-1/2">
         <Helmet>
           <title>Feed | Vevericka</title>
         </Helmet>
@@ -34,7 +34,7 @@ function Feed(): JSX.Element {
           </div>
         </LoadingLayout>
       </div>
-      <aside className="sticky top-8 flex w-1/2 flex-col items-end">
+      <aside className="sticky top-8 hidden w-1/2 flex-col items-end lg:flex">
         <ExploreCard className="w-3/4" />
         <Footer className="w-3/4" />
       </aside>
