@@ -1,10 +1,10 @@
-import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
 import clsx from 'clsx';
-import { Menu } from '../AppBarMenu';
 import { Link } from 'react-router-dom';
+import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
+import { useFlags } from '../../hooks';
+import { Menu } from '../AppBarMenu';
 import AppBarIcon from './AppBarIcon';
 import { usePageName } from './usePageName';
-import { useFlags } from '../../hooks';
 
 export interface AppBarProps {
   className?: string;
@@ -33,7 +33,7 @@ function AppBar({ className }: AppBarProps): JSX.Element {
           </Link>
 
           <h2
-            className="mt-1 hidden rounded px-2 py-1 text-xl font-normal text-midnight hover:bg-zinc-100 sm:flex"
+            className="mt-1 hidden rounded px-2 py-1 text-xl font-normal text-midnight hover:bg-neutral-200 sm:flex"
             id="app-bar-page-name"
           >
             {pageName}
