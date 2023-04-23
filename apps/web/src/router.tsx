@@ -1,21 +1,22 @@
-import { SearchPage } from './pages/search';
+import { createBrowserRouter } from 'react-router-dom';
+import { client } from './apollo';
 import { GuestRoute, ProtectedRoute } from './components';
+import { bookmarksQueryDocument, profileDataQueryDocument } from './graphql';
 import {
+  BookmarksPage,
+  ContactPage,
+  CreatePage,
+  ExplorePage,
   FeedPage,
   HomePage,
   LoginPage,
-  NotFoundPage,
-  SettingsPage,
-  NotificationsPage,
   MessagesPage,
-  CreatePage,
+  NotFoundPage,
+  NotificationsPage,
+  SearchPage,
+  SettingsPage,
   UserPage,
-  BookmarksPage,
-  ExplorePage,
 } from './pages';
-import { createBrowserRouter } from 'react-router-dom';
-import { client } from './apollo';
-import { bookmarksQueryDocument, profileDataQueryDocument } from './graphql';
 
 export const router = createBrowserRouter([
   {
@@ -136,5 +137,9 @@ export const router = createBrowserRouter([
         <UserPage />
       </ProtectedRoute>
     ),
+  },
+  {
+    path: '/contact',
+    element: <ContactPage />,
   },
 ]);
