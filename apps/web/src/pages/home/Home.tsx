@@ -1,7 +1,7 @@
-import { Banner, Footer, LandingAppBar, LandingHero, Loading } from '../../components';
 import { useState } from 'react';
-import { useAuth, useFlags } from '../../hooks';
 import { Helmet } from 'react-helmet';
+import { Banner, Features, Footer, LandingAppBar, LandingHero, Loading } from '../../components';
+import { useAuth, useFlags } from '../../hooks';
 
 function Home(): JSX.Element {
   const { loading } = useAuth();
@@ -26,12 +26,10 @@ function Home(): JSX.Element {
         isOpen={isBannerOpen}
         setIsOpen={setIsBannerOpen}
       />
-
       {landingAppBar && <LandingAppBar className="mt-4" />}
-
       <LandingHero />
-
-      <Footer className="absolute bottom-0 left-0 right-0 mx-auto" />
+      <Features className="mt-16 !max-w-[960px] p-16" />
+      <Footer className="mx-auto" />
     </div>
   );
 }

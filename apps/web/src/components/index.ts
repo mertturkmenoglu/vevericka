@@ -10,6 +10,7 @@ export * from './CreatePost';
 export * from './DotsMenu';
 export * from './Embed';
 export * from './ExploreCard';
+export * from './Features';
 export * from './Footer';
 export * from './LandingAppBar';
 export * from './LandingHero';
