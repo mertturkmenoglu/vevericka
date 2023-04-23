@@ -30,8 +30,8 @@ function Feed(): JSX.Element {
                   post={post}
                 />
               ))}
-            <div id={loadMoreId} />
           </div>
+          <div id={loadMoreId} />
         </LoadingLayout>
       </div>
       <aside className="sticky top-8 hidden w-1/2 flex-col items-end lg:flex">
