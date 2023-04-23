@@ -55,6 +55,11 @@ function About({ user }: AboutProps): JSX.Element {
       />
 
       <AboutItem
+        title="Gender"
+        content={user.gender}
+      />
+
+      <AboutItem
         title="Joined"
         content={new Date(user.createdAt).toLocaleDateString()}
       />
