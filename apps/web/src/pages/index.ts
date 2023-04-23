@@ -8,6 +8,7 @@ export * from './login';
 export * from './messages';
 export * from './notfound';
 export * from './notifications';
+export * from './post';
 export * from './search';
 export * from './settings';
 export * from './user';

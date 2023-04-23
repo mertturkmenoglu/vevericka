@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
 import { GuestRoute, ProtectedRoute } from './components';
-import { bookmarksQueryDocument, profileDataQueryDocument } from './graphql';
+import { bookmarksQueryDocument, postQueryDocument, profileDataQueryDocument } from './graphql';
 import {
   BookmarksPage,
   ContactPage,
@@ -13,6 +13,7 @@ import {
   MessagesPage,
   NotFoundPage,
   NotificationsPage,
+  PostPage,
   SearchPage,
   SettingsPage,
   UserPage,
@@ -135,6 +136,31 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <UserPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/p/:id',
+    loader: async ({ params }) => {
+      const { id } = params;
+
+      if (!id) {
+        throw new Error('Post ID is required');
+      }
+
+      const { data } = await client.query({
+        query: postQueryDocument,
+        variables: {
+          id,
+        },
+      });
+
+      return data;
+    },
+    errorElement: <NotFoundPage />,
+    element: (
+      <ProtectedRoute>
+        <PostPage />
       </ProtectedRoute>
     ),
   },

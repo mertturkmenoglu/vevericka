@@ -28,6 +28,7 @@ const documents = {
     "\n  query LinkPreview($url: String!) {\n    linkPreview(url: $url) {\n      title\n      description\n      image\n      url\n    }\n  }\n": types.LinkPreviewDocument,
     "\n  query Me {\n    me {\n      ...UserItem\n    }\n  }\n": types.MeDocument,
     "\n  query PopularTags($skip: Int!, $take: Int!) {\n    popularTags(skip: $skip, take: $take) {\n      id\n      tagName\n      _count {\n        posts\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.PopularTagsDocument,
+    "\n  query Post($id: String!) {\n    post(id: $id) {\n      ...PostItem\n    }\n  }\n": types.PostDocument,
     "\n  query ProfileData($id: String!, $skip: Int!, $take: Int!) {\n    profile(id: $id) {\n      ...ProfileItem\n    }\n\n    posts(id: $id, skip: $skip, take: $take) {\n      ...PostItem\n    }\n  }\n": types.ProfileDataDocument,
     "\n  query ProfileById($id: String!) {\n    profile(id: $id) {\n      ...ProfileItem\n    }\n  }\n": types.ProfileByIdDocument,
     "\n  query SearchPosts($term: String!, $take: Int!, $skip: Int!) {\n    searchPosts(term: $term, take: $take, skip: $skip) {\n      ...PostItem\n    }\n  }\n": types.SearchPostsDocument,
@@ -109,6 +110,10 @@ export function graphql(source: "\n  query Me {\n    me {\n      ...UserItem\n  
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query PopularTags($skip: Int!, $take: Int!) {\n    popularTags(skip: $skip, take: $take) {\n      id\n      tagName\n      _count {\n        posts\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"): (typeof documents)["\n  query PopularTags($skip: Int!, $take: Int!) {\n    popularTags(skip: $skip, take: $take) {\n      id\n      tagName\n      _count {\n        posts\n      }\n      createdAt\n      updatedAt\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Post($id: String!) {\n    post(id: $id) {\n      ...PostItem\n    }\n  }\n"): (typeof documents)["\n  query Post($id: String!) {\n    post(id: $id) {\n      ...PostItem\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

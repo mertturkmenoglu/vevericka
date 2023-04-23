@@ -6,3 +6,4 @@ export * from './profileDataQuery';
 export * from './bookmarksQuery';
 export * from './searchPostsQuery';
 export * from './searchUsersQuery';
+export * from './postQuery';
