@@ -17,6 +17,7 @@ export class PostsResolver {
   constructor(private readonly postsService: PostsService) {}
 
   @Query(() => Post)
+  @UseGuards(JwtAuthGuard)
   async post(
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("id") id: string
