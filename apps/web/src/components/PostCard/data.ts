@@ -1,4 +1,4 @@
-import { BookmarkIcon, FlagIcon, NoSymbolIcon, PaperAirplaneIcon, UserMinusIcon } from '@heroicons/react/24/outline';
+import { BookmarkIcon, FlagIcon } from '@heroicons/react/24/outline';
 
 export const moreMenuItems = [
   {
@@ -6,21 +6,21 @@ export const moreMenuItems = [
     action: () => {},
     icon: BookmarkIcon,
   },
-  {
-    text: 'Send via DM',
-    action: () => {},
-    icon: PaperAirplaneIcon,
-  },
-  {
-    text: 'Unfollow',
-    action: () => {},
-    icon: UserMinusIcon,
-  },
-  {
-    text: 'Block',
-    action: () => {},
-    icon: NoSymbolIcon,
-  },
+  // {
+  //   text: 'Send via DM',
+  //   action: () => {},
+  //   icon: PaperAirplaneIcon,
+  // },
+  // {
+  //   text: 'Unfollow',
+  //   action: () => {},
+  //   icon: UserMinusIcon,
+  // },
+  // {
+  //   text: 'Block',
+  //   action: () => {},
+  //   icon: NoSymbolIcon,
+  // },
   {
     text: 'Report',
     action: () => {},
