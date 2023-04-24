@@ -1,8 +1,8 @@
-import { LoginForm } from '../../components';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
+import { ReactComponent as SquirrelLogo } from '../../assets/squirrel.svg';
+import { LoginForm } from '../../components';
 
 function Login(): JSX.Element {
   return (
@@ -10,7 +10,7 @@ function Login(): JSX.Element {
       <Helmet>
         <title>Login | Vevericka</title>
       </Helmet>
-      <div className="relative w-full bg-midnight px-8 py-8 md:h-full md:w-1/2 lg:w-2/3">
+      <div className="relative w-full bg-midnight px-8 py-8 dark:bg-neutral-950 md:h-full md:w-1/2 lg:w-2/3">
         <Link
           to="/"
           className="flex items-center text-white"
@@ -28,7 +28,7 @@ function Login(): JSX.Element {
           <h2 className="mt-4 text-lg font-semibold text-white md:mt-8 md:text-4xl">Vevericka</h2>
         </div>
       </div>
-      <div className="mt-8 flex w-full items-center justify-center bg-white md:mt-0 md:h-full md:w-1/2 lg:w-1/3">
+      <div className="mt-8 flex w-full items-center justify-center bg-white dark:bg-midnight md:mt-0 md:h-full md:w-1/2 lg:w-1/3">
         <LoginForm />
       </div>
     </div>

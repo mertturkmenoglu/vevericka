@@ -4,7 +4,7 @@ import { AuthButton } from '../AuthButton';
 function LoginForm(): JSX.Element {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-3xl font-bold">Login in to Vevericka</h2>
+      <h2 className="text-3xl font-bold text-midnight dark:text-white">Login in to Vevericka</h2>
       <div className="mt-16 flex w-full flex-col space-y-4">
         <AuthButton provider="google" />
 
@@ -19,7 +19,7 @@ function LoginForm(): JSX.Element {
 
       <hr className="mt-8 w-full border border-midnight border-opacity-70" />
 
-      <div className="mt-4 w-full text-center text-sm text-midnight">
+      <div className="mt-4 w-full text-center text-sm text-midnight dark:text-neutral-400">
         <p>
           Need help?{' '}
           <Link
