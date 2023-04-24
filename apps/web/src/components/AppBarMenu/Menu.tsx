@@ -30,10 +30,10 @@ function AppBarMenu({ className }: AppBarMenuProps): JSX.Element {
         <Transition>
           <Menu.Items
             static
-            className="absolute right-0 z-50 mt-4 w-48 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none"
+            className="absolute right-0 z-50 mt-4 w-48 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-800"
           >
             <MenuItems
-              className="divide-y"
+              className="divide-y divide-neutral-100 dark:divide-neutral-700"
               userData={data}
             />
           </Menu.Items>

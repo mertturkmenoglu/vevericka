@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
 import { Menu } from '@headlessui/react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 export interface ItemProps {
@@ -13,12 +13,13 @@ export interface ItemProps {
 function Item({ as, href = '/', text, onClick, icon: Icon }: ItemProps): JSX.Element {
   const content = (
     <>
-      <Icon className="h-5 w-5 text-midnight group-hover:text-white" />
-      <span className="ml-2 text-sm font-medium text-midnight group-hover:text-white">{text}</span>
+      <Icon className="h-5 w-5 text-midnight group-hover:text-white dark:text-white" />
+      <span className="ml-2 text-sm font-medium text-midnight group-hover:text-white dark:text-white">{text}</span>
     </>
   );
 
-  const className = 'my-1 flex w-full items-center rounded px-2 py-1 hover:bg-midnight group transition-all';
+  const className =
+    'my-1 flex w-full items-center rounded px-2 py-1 hover:bg-midnight dark:hover:bg-neutral-600 group transition-all';
 
   const body = useMemo(() => {
     if (as === 'link') {

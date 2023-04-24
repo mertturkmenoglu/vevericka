@@ -7,9 +7,9 @@ function Copyright(): JSX.Element {
 
   return (
     <div className="flex items-center space-x-1 px-4 py-1 text-xs">
-      <span className="text-midnight">Vevericka</span>
+      <span className="text-midnight dark:text-neutral-400">Vevericka</span>
       <span className="text-berry">&copy;</span>
-      <span className="text-midnight">{year}</span>
+      <span className="text-midnight dark:text-neutral-400">{year}</span>
     </div>
   );
 }
