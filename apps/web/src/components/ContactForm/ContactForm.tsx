@@ -16,7 +16,7 @@ function ContactForm({ className }: ContactFormProps) {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex w-full items-end space-x-2">
-        <UserIcon className="mb-2 h-5 w-5 text-midnight" />
+        <UserIcon className="mb-2 h-5 w-5 text-midnight dark:text-white" />
         <TextField
           label="Full Name"
           className="w-full"
@@ -27,7 +27,7 @@ function ContactForm({ className }: ContactFormProps) {
       </div>
 
       <div className="flex w-full items-end space-x-2">
-        <EnvelopeIcon className="mb-2 h-5 w-5 text-midnight" />
+        <EnvelopeIcon className="mb-2 h-5 w-5 text-midnight dark:text-white" />
         <TextField
           label="Email Address"
           className="w-full"
@@ -38,7 +38,7 @@ function ContactForm({ className }: ContactFormProps) {
       </div>
 
       <div className="flex w-full items-end space-x-2">
-        <PhoneIcon className="mb-2 h-5 w-5 text-midnight" />
+        <PhoneIcon className="mb-2 h-5 w-5 text-midnight dark:text-white" />
         <TextField
           label="Phone Number"
           className="w-full"
@@ -49,7 +49,7 @@ function ContactForm({ className }: ContactFormProps) {
       </div>
 
       <div className="flex w-full items-end space-x-2">
-        <ChatBubbleOvalLeftIcon className="mb-2 h-5 w-5 text-midnight" />
+        <ChatBubbleOvalLeftIcon className="mb-2 h-5 w-5 text-midnight dark:text-white" />
         <TextField
           label="Subject"
           className="w-full"
@@ -60,7 +60,7 @@ function ContactForm({ className }: ContactFormProps) {
       </div>
 
       <div className="col-span-2 flex w-full items-start space-x-2">
-        <PencilIcon className="mt-2 h-5 w-5 text-midnight" />
+        <PencilIcon className="mt-2 h-5 w-5 text-midnight dark:text-white" />
         <TextArea
           label="Your Message"
           className="w-full"
@@ -70,7 +70,9 @@ function ContactForm({ className }: ContactFormProps) {
         />
       </div>
 
-      <button className="col-span-2 mx-auto mt-8 rounded bg-midnight px-8 py-2 text-white">Send</button>
+      <button className="col-span-2 mx-auto mt-8 rounded bg-midnight px-8 py-2 text-white dark:bg-neutral-800">
+        Send
+      </button>
     </form>
   );
 }
