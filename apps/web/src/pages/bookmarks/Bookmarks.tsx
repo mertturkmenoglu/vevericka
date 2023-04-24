@@ -13,8 +13,8 @@ function Bookmarks(): JSX.Element {
         <Helmet>
           <title>Bookmarks | Vevericka</title>
         </Helmet>
-        <h2 className="text-2xl font-medium">Your Bookmarks</h2>
-        <hr className="h-[1px] max-w-md border border-midnight bg-midnight" />
+        <h2 className="text-2xl font-medium text-midnight dark:text-white">Your Bookmarks</h2>
+        <hr className="h-[1px] max-w-md border border-midnight bg-midnight dark:border-white dark:bg-white" />
         <div className="mx-auto mt-16 w-1/2">
           {data.bookmarks.map((it) => (
             <Item
