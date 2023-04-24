@@ -22,16 +22,16 @@ function SearchTypeSelect({ type, setType }: SearchTypeSelectProps): JSX.Element
       }}
     >
       <Select.Trigger
-        className="inline-flex h-10 items-center justify-center gap-2 rounded bg-white px-4 text-sm leading-none text-midnight outline-none  data-[placeholder]:text-neutral-300"
+        className="inline-flex h-10 items-center justify-center gap-2 rounded bg-white px-4 text-sm leading-none text-midnight outline-none data-[placeholder]:text-neutral-300  dark:bg-neutral-800 dark:text-white"
         aria-label="Type"
       >
         <Select.Value placeholder="Type" />
-        <Select.Icon className="text-midnight">
-          <ChevronDownIcon className="h-4 w-4 text-midnight" />
+        <Select.Icon>
+          <ChevronDownIcon className="h-4 w-4 text-midnight dark:text-white" />
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
-        <Select.Content className="mt-12 overflow-hidden rounded bg-white shadow">
+        <Select.Content className="mt-12 overflow-hidden rounded bg-white shadow dark:bg-neutral-800">
           <Select.Viewport className="p-2">
             <Select.Group>
               <SelectItem value="posts">Posts</SelectItem>

@@ -34,12 +34,12 @@ function SearchArea({ term, setTerm, onSearch, type, setType, className }: Searc
         className="group p-0"
         onClick={onSearch}
       >
-        <MagnifyingGlassIcon className="h-10 w-10 rounded-full p-2 text-midnight group-hover:bg-berry/10 group-hover:text-berry" />
+        <MagnifyingGlassIcon className="h-10 w-10 rounded-full p-2 text-midnight group-hover:bg-berry/10 group-hover:text-berry dark:text-white dark:group-hover:bg-white/10 dark:group-hover:text-white" />
         <span className="sr-only">Search</span>
       </button>
 
       <Separator.Root
-        className="mx-4 h-8 w-[1px] bg-midnight"
+        className="mx-4 h-8 w-[1px] bg-midnight dark:bg-white"
         decorative
         orientation="vertical"
       />

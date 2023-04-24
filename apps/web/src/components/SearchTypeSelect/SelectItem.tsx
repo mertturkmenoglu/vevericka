@@ -10,7 +10,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, Select.SelectItemProps>(
         className={clsx(
           'relative flex h-6',
           'select-none items-center',
-          'rounded px-8 text-sm leading-none text-midnight',
+          'rounded px-8 text-sm leading-none text-midnight dark:text-white',
           'data-[highlighted]:bg-berry/10 data-[highlighted]:text-berry data-[highlighted]:outline-none',
           className
         )}
