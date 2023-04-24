@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react';
 import { toast } from 'react-toastify';
 import { CountItemFragment, PostItemFragment } from '../../generated/graphql';
 import { votePostDocument } from '../../graphql';
+import { useTheme } from '../../hooks';
 import { copyToClipboard } from '../../lib';
 import ActionButton from './ActionButton';
 
@@ -19,6 +20,7 @@ function Actions({ post, count }: ActionsProps): JSX.Element {
   const [dislikesState, setDislikesState] = useState(count.dislikes);
   const [vote] = useMutation(votePostDocument);
   const client = useApolloClient();
+  const [theme] = useTheme();
 
   const onVote = async (value: string) => {
     const oldVote = voteState;
@@ -117,7 +119,7 @@ function Actions({ post, count }: ActionsProps): JSX.Element {
         onClick={() => {
           const url = window.location.origin + `/p/${post.id}`;
           copyToClipboard(url);
-          toast('Copied link to clipboard', { type: 'success', autoClose: 3000, hideProgressBar: true });
+          toast('Copied link to clipboard', { type: 'success', autoClose: 3000, hideProgressBar: true, theme });
         }}
       />
     </div>
