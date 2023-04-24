@@ -28,6 +28,7 @@ export * from './Spinner';
 export * from './Stories';
 export * from './TextArea';
 export * from './TextField';
+export * from './ThemeProvider';
 export * from './Transition';
 export * from './UserCard';
 export * from './UserHeader';
