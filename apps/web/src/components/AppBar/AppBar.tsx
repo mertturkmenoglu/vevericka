@@ -33,7 +33,7 @@ function AppBar({ className }: AppBarProps): JSX.Element {
           </Link>
 
           <h2
-            className="mt-1 hidden rounded px-2 py-1 text-xl font-normal text-midnight hover:bg-neutral-200 sm:flex"
+            className="mt-1 hidden rounded px-2 py-1 text-xl font-normal text-midnight hover:bg-neutral-200 dark:text-white dark:hover:bg-neutral-600 sm:flex"
             id="app-bar-page-name"
           >
             {pageName}

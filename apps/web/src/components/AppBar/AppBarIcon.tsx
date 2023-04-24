@@ -47,12 +47,15 @@ function AppBarIcon({ type }: AppBarIconProps): JSX.Element {
         <PopoverNotificationCenter colorScheme={'light'}>
           {({ unseenCount }) => (
             <button
-              className={clsx('relative flex  items-center p-2 transition ease-in-out hover:bg-midnight/5', {
-                'rounded border border-midnight/20': flags.appBarV2,
-                'group rounded-full hover:bg-berry/10': !flags.appBarV2,
-              })}
+              className={clsx(
+                'relative flex  items-center p-2 transition ease-in-out hover:bg-midnight/5 dark:hover:bg-neutral-600',
+                {
+                  'rounded border border-midnight/20': flags.appBarV2,
+                  'group rounded-full hover:bg-berry/10': !flags.appBarV2,
+                }
+              )}
             >
-              <BellIcon className="h-5 w-5 text-midnight group-hover:text-berry" />
+              <BellIcon className="h-5 w-5 text-midnight group-hover:text-berry dark:text-white dark:group-hover:text-white" />
               {(unseenCount ?? 0) > 0 && (
                 <div className="absolute right-1 top-1 z-10 h-2 w-2 rounded-full bg-berry"></div>
               )}
@@ -66,12 +69,12 @@ function AppBarIcon({ type }: AppBarIconProps): JSX.Element {
   return (
     <Link
       to={to}
-      className={clsx('flex items-center  p-2 transition ease-in-out hover:bg-midnight/5', {
+      className={clsx('flex items-center p-2 transition ease-in-out hover:bg-midnight/5 dark:hover:bg-neutral-600', {
         'rounded border border-midnight/20': flags.appBarV2,
         'group rounded-full hover:bg-berry/10': !flags.appBarV2,
       })}
     >
-      <Icon className="h-5 w-5 text-midnight group-hover:text-berry" />
+      <Icon className="h-5 w-5 text-midnight group-hover:text-berry dark:text-white dark:group-hover:text-white" />
     </Link>
   );
 }
