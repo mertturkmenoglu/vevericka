@@ -12,7 +12,7 @@ function TabPanels({ user }: Props): JSX.Element {
       {categories.map((category) => (
         <Tab.Panel key={category.name}>
           <>
-            <h2 className="mb-2 text-2xl font-bold text-midnight">{category.name}</h2>
+            <h2 className="mb-2 text-2xl font-bold text-midnight dark:text-white">{category.name}</h2>
             <hr />
             <category.component user={user} />
           </>

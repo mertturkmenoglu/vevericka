@@ -51,7 +51,7 @@ function AccountContainer({ user }: Props): JSX.Element {
         value={me.id}
       />
 
-      <p className="mt-8 text-xl font-medium">Profile Image</p>
+      <p className="mt-8 text-xl font-medium text-midnight dark:text-white">Profile Image</p>
 
       <div className="mt-2 flex items-center space-x-4">
         <LazyImage
@@ -90,7 +90,7 @@ function AccountContainer({ user }: Props): JSX.Element {
       </div>
 
       <button
-        className="mt-8 w-full rounded bg-midnight text-white"
+        className="mt-8 w-full rounded bg-midnight py-1 text-white dark:bg-neutral-800"
         onClick={async () => {
           const res = await updateUser({
             variables: {

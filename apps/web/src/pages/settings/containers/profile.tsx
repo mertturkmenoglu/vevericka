@@ -93,12 +93,12 @@ function ProfileContainer({ user }: Props): JSX.Element {
             type="checkbox"
             {...register('protected')}
           />
-          <label htmlFor="protected-checkbox">Protect my profile</label>
+          <label className="text-midnight dark:text-white">Protect my profile</label>
         </div>
 
         <button
           type="submit"
-          className=" mt-8 w-auto self-start rounded bg-midnight px-16 py-2 text-white"
+          className="mt-8 w-auto self-start rounded bg-midnight px-16 py-2 text-white dark:bg-neutral-800"
         >
           Save
         </button>
