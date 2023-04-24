@@ -65,6 +65,9 @@ function PostImages({ images }: PostImagesProps): JSX.Element {
 
       <Lightbox
         open={open}
+        controller={{
+          closeOnBackdropClick: true,
+        }}
         close={() => setOpen(false)}
         index={imageIndex}
         carousel={{
