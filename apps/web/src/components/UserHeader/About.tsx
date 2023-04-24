@@ -27,7 +27,7 @@ function AboutItem({ title, content = '', link = false }: AboutItemProps): JSX.E
           {content}
         </a>
       )}
-      {!link && <span className="text-lg font-medium">{content}</span>}
+      {!link && <span className="text-lg font-medium text-midnight dark:text-white">{content}</span>}
     </div>
   );
 }

@@ -16,7 +16,7 @@ function User(): JSX.Element {
       <UserHeader user={user} />
 
       <Separator.Root
-        className="mt-2 h-[1px] w-full bg-neutral-200"
+        className="mt-2 h-[1px] w-full bg-neutral-200 dark:bg-neutral-400"
         decorative
         orientation="horizontal"
       />

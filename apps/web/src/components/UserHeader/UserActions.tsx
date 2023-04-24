@@ -34,7 +34,7 @@ function UserActions({ user }: UserActionsProps): JSX.Element {
           {user.isFollowing && (
             <Link
               to={'/messages'}
-              className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60"
+              className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60 dark:bg-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-600/80"
             >
               Message
             </Link>
@@ -44,7 +44,7 @@ function UserActions({ user }: UserActionsProps): JSX.Element {
       {user.isMe && (
         <Link
           to={'/settings'}
-          className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60"
+          className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
         >
           Settings
         </Link>

@@ -37,15 +37,11 @@ function UserHeader({ user }: UserHeaderProps): JSX.Element {
 
       <div className="mt-4">
         <button
-          className="-ml-2 flex items-center justify-center space-x-2 rounded px-2 py-2 transition duration-200 ease-in-out hover:bg-midnight/10"
+          className="-ml-2 flex items-center justify-center space-x-2 rounded px-2 py-2 text-midnight transition duration-200 ease-in-out  hover:bg-midnight/10 dark:text-white dark:hover:bg-neutral-800"
           onClick={() => setShowAbout((prev) => !prev)}
         >
           <span className="text-lg font-medium">About</span>
-          {showAbout ? (
-            <ChevronUpIcon className="h-5 w-5 text-midnight" />
-          ) : (
-            <ChevronDownIcon className="h-5 w-5 text-midnight" />
-          )}
+          {showAbout ? <ChevronUpIcon className="h-5 w-5" /> : <ChevronDownIcon className="h-5 w-5" />}
         </button>
 
         {showAbout && <About user={user} />}

@@ -13,7 +13,7 @@ function FollowButton({ isFollowing, loading, onClick }: FollowButtonProps): JSX
 
   return (
     <button
-      className="flex items-center rounded bg-midnight px-4 py-2 text-white transition ease-in-out hover:bg-midnight/90"
+      className="flex items-center rounded bg-midnight px-4 py-2 text-white transition ease-in-out hover:bg-midnight/90 dark:bg-neutral-800 dark:hover:bg-neutral-800/80"
       onClick={onClick}
     >
       {!loading && (
