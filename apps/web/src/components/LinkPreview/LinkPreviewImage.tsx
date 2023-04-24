@@ -27,7 +27,7 @@ function LinkPreviewImage({ image, isHorizontal, alt, isWikipedia, isTwitter }: 
       {!image && (
         <div
           className={clsx('flex items-center justify-center', {
-            'bg-neutral-200': !isTwitter && !isWikipedia,
+            'bg-neutral-200 dark:bg-midnight': !isTwitter && !isWikipedia,
             'bg-[#1DA1F2]': isTwitter,
             'bg-[#C7C8CA]': isWikipedia,
             'aspect-video w-full rounded-t': !isHorizontal,
@@ -35,7 +35,7 @@ function LinkPreviewImage({ image, isHorizontal, alt, isWikipedia, isTwitter }: 
           })}
         >
           {isTwitter && <Twitter className="h-16 w-16 text-white" />}
-          {!isTwitter && !isWikipedia && <LinkIcon className="h-5 w-5 text-midnight" />}
+          {!isTwitter && !isWikipedia && <LinkIcon className="h-5 w-5 text-midnight dark:text-white" />}
           {isWikipedia && <Wikipedia className="h-16 w-16 text-black" />}
         </div>
       )}

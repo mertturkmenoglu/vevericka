@@ -10,7 +10,7 @@ function LinkPreviewContent({ isHorizontal, title, description }: LinkPreviewCon
   const hasDescription = description !== '';
   return (
     <div
-      className={clsx({
+      className={clsx('text-midnight dark:text-white', {
         'py-auto flex flex-col justify-center': isHorizontal,
       })}
     >

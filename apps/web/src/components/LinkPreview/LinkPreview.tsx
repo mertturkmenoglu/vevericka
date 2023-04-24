@@ -20,7 +20,7 @@ function LinkPreview({ data: { linkPreview } }: LinkPreviewProps): JSX.Element {
   return (
     <a
       href={url}
-      className={clsx('mt-4 rounded bg-neutral-100', {
+      className={clsx('mt-4 rounded bg-neutral-100 dark:bg-neutral-600', {
         'flex h-full min-h-[8rem] items-stretch space-x-2': isHorizontal,
         block: !isHorizontal,
       })}
