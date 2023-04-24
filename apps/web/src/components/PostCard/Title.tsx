@@ -15,13 +15,13 @@ function Title({ userId, name, postId, createdAt }: TitleProps): JSX.Element {
     <div className="flex items-baseline space-x-1">
       <Link
         to={`/u/${userId}`}
-        className="text-sm font-semibold tracking-wide text-midnight hover:underline"
+        className="text-sm font-semibold tracking-wide text-midnight hover:underline dark:text-white"
       >
         {name}
       </Link>
       <Link
         to={`/p/${postId}`}
-        className="text-xs tracking-tighter text-neutral-600 hover:underline"
+        className="text-xs tracking-tighter text-neutral-600 hover:underline dark:text-neutral-400"
       >
         {formattedDate}
       </Link>

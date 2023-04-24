@@ -11,8 +11,8 @@ function MoreMenu(): JSX.Element {
           {({ active }) => (
             <button
               className={clsx('flex items-center rounded px-2 py-1 transition-all duration-200', {
-                'bg-midnight text-white': active,
-                'text-midnight': !active,
+                'bg-midnight text-white dark:bg-neutral-600': active,
+                'text-midnight dark:text-white': !active,
               })}
               onClick={item.action}
             >

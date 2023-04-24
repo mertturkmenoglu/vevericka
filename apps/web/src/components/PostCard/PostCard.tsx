@@ -19,7 +19,7 @@ function PostCard(props: PostCardProps): JSX.Element {
   const hasMedia = post.images.length > 0 || post.videos.length > 0;
 
   return (
-    <article className="flex items-start space-x-2">
+    <article className="flex items-start space-x-2 rounded bg-white p-2 dark:bg-neutral-800">
       <Link
         to={`/u/${user.id}`}
         className="w-1/12"
