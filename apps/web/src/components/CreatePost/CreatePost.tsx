@@ -1,11 +1,11 @@
+import clsx from 'clsx';
 import { useState } from 'react';
+import { useUploadcare } from '../../hooks';
+import Actions from './Actions';
+import CreateButton from './CreateButton';
+import EmojiPicker from './EmojiPicker';
 import TextArea from './TextArea';
 import { useCreatePostForm } from './useCreatePost';
-import Actions from './Actions';
-import EmojiPicker from './EmojiPicker';
-import CreateButton from './CreateButton';
-import clsx from 'clsx';
-import { useUploadcare } from '../../hooks';
 
 export interface CreatePostProps {
   className?: string;
@@ -32,6 +32,7 @@ function CreatePost({ className }: CreatePostProps): JSX.Element {
       >
         <TextArea
           errors={errors}
+          className="mt-8"
           register={register}
         />
 

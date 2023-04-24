@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet';
-import { MainLayout } from '../../layouts';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { CreatePost } from '../../components';
+import { MainLayout } from '../../layouts';
 
 function Create(): JSX.Element {
   return (
@@ -11,7 +11,7 @@ function Create(): JSX.Element {
         <Helmet>
           <title>New Post | Vevericka</title>
         </Helmet>
-        <div className="text-2xl font-semibold">Create a new post</div>
+        <div className="text-2xl font-semibold text-midnight dark:text-white">Create a new post</div>
 
         <hr className="mt-2" />
 

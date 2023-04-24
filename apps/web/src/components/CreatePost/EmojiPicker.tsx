@@ -1,6 +1,7 @@
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
-import EmojiPickerComponent, { EmojiClickData } from 'emoji-picker-react';
+import EmojiPickerComponent, { EmojiClickData, Theme } from 'emoji-picker-react';
 import React from 'react';
+import { useTheme } from '../../hooks';
 
 export interface EmojiPickerProps {
   show: boolean;
@@ -9,6 +10,8 @@ export interface EmojiPickerProps {
 }
 
 function EmojiPicker({ show, setShow, onEmojiClick }: EmojiPickerProps): JSX.Element {
+  const [theme] = useTheme();
+
   return (
     <button
       type="button"
@@ -16,10 +19,10 @@ function EmojiPicker({ show, setShow, onEmojiClick }: EmojiPickerProps): JSX.Ele
       onClick={() => setShow((prev) => !prev)}
     >
       <FaceSmileIcon className="h-5 w-5 text-berry" />
-      <span className="text-white"></span>
       {show && (
         <div className="absolute left-0 top-12">
           <EmojiPickerComponent
+            theme={theme === 'dark' ? Theme.DARK : Theme.LIGHT}
             lazyLoadEmojis={true}
             onEmojiClick={onEmojiClick}
           />

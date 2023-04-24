@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { z } from 'zod';
 import { client } from '../../apollo';
 import { createPostDocument, feedQueryDocument } from '../../graphql';
+import { useTheme } from '../../hooks';
 
 const schema = z.object({
   text: z.string().min(1, 'Cannot leave blank').max(250, 'Too long'),
@@ -25,6 +26,7 @@ export function useCreatePostForm() {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
+  const [theme] = useTheme();
 
   const onSubmit = async (formData: FormValues) => {
     const result = await createPost({
@@ -42,12 +44,14 @@ export function useCreatePostForm() {
         type: 'error',
         hideProgressBar: true,
         autoClose: 5000,
+        theme,
       });
     } else {
       toast('Post created', {
         type: 'success',
         hideProgressBar: true,
         autoClose: 5000,
+        theme,
       });
       setValue('text', '');
 
