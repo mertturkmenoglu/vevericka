@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useFragment } from '../../generated';
 import { UserFragment } from '../../graphql';
-import { useAuth, useFlags } from '../../hooks';
+import { useAuth, useFlags, useTheme } from '../../hooks';
 
 export interface AppBarIconProps {
   type: 'create' | 'search' | 'notifications' | 'messages';
@@ -30,6 +30,7 @@ function AppBarIcon({ type }: AppBarIconProps): JSX.Element {
   const flags = useFlags();
   const { data } = useAuth();
   const me = useFragment(UserFragment, data?.me);
+  const [theme] = useTheme();
 
   const Icon = iconMapping[type];
   const to = toMapping[type];
@@ -44,7 +45,7 @@ function AppBarIcon({ type }: AppBarIconProps): JSX.Element {
         subscriberId={me.id}
         applicationIdentifier={'Jp_dyLmH8gJi'}
       >
-        <PopoverNotificationCenter colorScheme={'light'}>
+        <PopoverNotificationCenter colorScheme={theme}>
           {({ unseenCount }) => (
             <button
               className={clsx(
