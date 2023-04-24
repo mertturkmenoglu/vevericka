@@ -24,8 +24,10 @@ function LandingHero({ className }: LandingHeroProps): JSX.Element {
         </motion.div>
       </div>
 
-      <h2 className="mt-8 text-2xl font-bold sm:mt-32 sm:text-5xl">We are the squirrels who say Vik!</h2>
-      <div className="mt-8 space-y-4 sm:mt-16 sm:space-y-0">
+      <h2 className="mt-8 text-2xl font-bold text-neutral-800 dark:text-white sm:mt-32 sm:text-5xl">
+        We are the squirrels who say Vik!
+      </h2>
+      <div className="mt-8 space-y-4 text-midnight dark:text-neutral-200 sm:mt-16 sm:space-y-0">
         <p>Ok, I'm going to tell you the truth. We are nuts about squirrels.</p>
         <p>
           We like to chat and share. Why shouldn't we merge these two? A social media with the concept of squirrels.
@@ -38,6 +40,7 @@ function LandingHero({ className }: LandingHeroProps): JSX.Element {
         className={clsx(
           'mx-auto mt-4 flex w-fit items-center justify-center rounded-full bg-midnight px-4 py-1 text-white',
           'sm:mt-16 sm:px-8 sm:py-2',
+          'dark:bg-neutral-800',
           'transition delay-200 duration-200 ease-in hover:bg-opacity-80'
         )}
       >

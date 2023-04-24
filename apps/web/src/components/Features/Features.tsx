@@ -8,7 +8,7 @@ export interface FeaturesProps {
 function Features({ className }: FeaturesProps): JSX.Element {
   return (
     <div className={clsx('w-full', className)}>
-      <h2 className="text-2xl font-bold">Amazing Features of Vevericka</h2>
+      <h2 className="text-2xl font-bold text-midnight dark:text-white">Amazing Features of Vevericka</h2>
       <div className="mt-16 grid grid-cols-2 gap-8">
         {items.map((item) => (
           <div
@@ -25,8 +25,8 @@ function Features({ className }: FeaturesProps): JSX.Element {
             </div>
 
             <div className="mx-auto w-2/3">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="mt-2 font-sans text-sm">{item.description}</p>
+              <h3 className="text-lg font-semibold text-midnight dark:text-white">{item.title}</h3>
+              <p className="mt-2 font-sans text-sm text-midnight dark:text-neutral-200">{item.description}</p>
             </div>
           </div>
         ))}
