@@ -27,8 +27,8 @@ function MainLayout({ mainClassName, appBarClassName, className, children, ...pr
           'container fixed left-0 right-0 top-0 z-20 mx-auto px-8 py-2',
           'transition duration-300 ease-in-out',
           {
-            'bg-white': !isScrolled,
-            'rounded-b bg-neutral-100': isScrolled,
+            'bg-white dark:bg-midnight': !isScrolled,
+            'rounded-b bg-neutral-100 dark:bg-neutral-800': isScrolled,
           },
           appBarClassName
         )}
