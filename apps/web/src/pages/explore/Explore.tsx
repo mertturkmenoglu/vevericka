@@ -43,12 +43,7 @@ function Explore(): JSX.Element {
 
   return (
     <MainLayout>
-      <div
-        className="mt-8 w-full"
-        style={{
-          fontFamily: 'Roboto, sans-serif',
-        }}
-      >
+      <div className="mt-8 w-full">
         <Helmet>
           <title>Explore | Vevericka</title>
         </Helmet>

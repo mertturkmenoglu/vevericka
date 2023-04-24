@@ -14,21 +14,13 @@ function LinkPreviewContent({ isHorizontal, title, description }: LinkPreviewCon
         'py-auto flex flex-col justify-center': isHorizontal,
       })}
     >
-      <div
-        className="mt-2 px-2 font-medium"
-        style={{
-          fontFamily: 'Jost',
-        }}
-      >
-        {title}
-      </div>
+      <div className="mt-2 px-2 font-medium">{title}</div>
       <div
         className={clsx('max-w-max text-ellipsis px-2 pb-2 text-xs font-light', {
           'break-all': !hasDescription,
           'break-words': hasDescription,
         })}
         style={{
-          fontFamily: 'Jost',
           overflowWrap: 'anywhere',
         }}
       >

@@ -17,9 +17,9 @@ export function Item({ item }: ItemProps): JSX.Element {
       className="flex items-center justify-between py-1 text-midnight transition-all duration-200 hover:bg-midnight/10"
     >
       <div className="px-6">
-        <span className="break-all font-medium">{item.tagName.substring(1)}</span>
+        <span className="break-all text-sm font-medium">{item.tagName.substring(1)}</span>
 
-        <div className="flex items-baseline text-sm">
+        <div className="flex items-baseline text-xs">
           <span className="font-normal">{formatCount(item._count.posts)}</span>
           <span className="ml-1 font-light">posts</span>
         </div>

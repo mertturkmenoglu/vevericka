@@ -5,12 +5,7 @@ import { ContactForm } from '../../components';
 
 function Contact(): JSX.Element {
   return (
-    <div
-      className="mx-auto mt-16 max-w-5xl"
-      style={{
-        fontFamily: 'Roboto, sans-serif',
-      }}
-    >
+    <div className="mx-auto mt-16 max-w-5xl">
       <SquirrelLogo
         className="mx-auto h-24 w-24 text-berry"
         viewBox="0 0 512 512"

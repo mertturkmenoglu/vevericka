@@ -11,7 +11,7 @@ module.exports = {
         midnight: "#1a1a1a"
       },
       fontFamily: {
-        sans: ["\"Jost\""]
+        sans: ["'-apple-system', BlinkMacSystemFont, 'Segoe UI', 'Open Sans', Helvetica, Arial, 'sans-serif'"]
       },
       screens: {
         sd: "896px"

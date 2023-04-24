@@ -16,7 +16,7 @@ function PostContent({ text, hasMedia }: PostContentProps): JSX.Element {
     <>
       <div
         dangerouslySetInnerHTML={{ __html: content }}
-        className="break-words break-all text-sm"
+        className="line break-words break-all text-sm leading-5"
       />
       {embed && embed}
       {showLinkPreview && data && <LinkPreview data={data} />}

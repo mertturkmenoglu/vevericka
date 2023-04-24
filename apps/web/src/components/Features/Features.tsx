@@ -7,12 +7,7 @@ export interface FeaturesProps {
 
 function Features({ className }: FeaturesProps): JSX.Element {
   return (
-    <div
-      className={clsx('w-full', className)}
-      style={{
-        fontFamily: 'Roboto, sans-serif',
-      }}
-    >
+    <div className={clsx('w-full', className)}>
       <h2 className="text-2xl font-bold">Amazing Features of Vevericka</h2>
       <div className="mt-16 grid grid-cols-2 gap-8">
         {items.map((item) => (
