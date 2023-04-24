@@ -14,19 +14,19 @@ export function Item({ item }: ItemProps): JSX.Element {
   return (
     <Link
       to={`/explore/${encodeURIComponent(item.tagName.substring(1))}`}
-      className="flex items-center justify-between py-1 text-midnight transition-all duration-200 hover:bg-midnight/10"
+      className="flex items-center justify-between py-1 text-midnight transition-all duration-200 hover:bg-midnight/10 dark:hover:bg-neutral-600"
     >
       <div className="px-6">
-        <span className="break-all text-sm font-medium">{item.tagName.substring(1)}</span>
+        <span className="break-all text-sm font-medium dark:text-neutral-200">{item.tagName.substring(1)}</span>
 
-        <div className="flex items-baseline text-xs">
+        <div className="flex items-baseline text-xs dark:text-neutral-200">
           <span className="font-normal">{formatCount(item._count.posts)}</span>
           <span className="ml-1 font-light">posts</span>
         </div>
       </div>
 
       <div className="px-6">
-        <ChevronRightIcon className="h-4 w-4" />
+        <ChevronRightIcon className="h-4 w-4 text-midnight dark:text-white" />
       </div>
     </Link>
   );
