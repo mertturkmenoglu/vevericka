@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { Twitter } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import { ProfileItemFragment } from '../../generated/graphql';
 import { interactWithUserDocument } from '../../graphql';
@@ -13,6 +14,15 @@ function UserActions({ user }: UserActionsProps): JSX.Element {
 
   return (
     <>
+      {user.twitterHandle && (
+        <Link
+          to={`https://twitter.com/${user.twitterHandle}`}
+          target="_blank"
+          className=""
+        >
+          <Twitter className="h-6 w-6 text-[#00acee]" />
+        </Link>
+      )}
       {!user.isMe && (
         <>
           <FollowButton
