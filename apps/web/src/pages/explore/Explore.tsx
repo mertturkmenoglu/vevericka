@@ -47,8 +47,8 @@ function Explore(): JSX.Element {
         <Helmet>
           <title>Explore | Vevericka</title>
         </Helmet>
-        <h2 className="text-2xl font-medium">Explore</h2>
-        <hr className="h-[1px] max-w-md border border-midnight bg-midnight" />
+        <h2 className="text-2xl font-medium text-midnight dark:text-white">Explore</h2>
+        <hr className="h-[1px] max-w-md border border-midnight bg-midnight dark:border-white dark:bg-white" />
         <LoadingLayout
           data={data}
           error={error}
@@ -56,7 +56,7 @@ function Explore(): JSX.Element {
         >
           {data && (
             <>
-              <div className="mt-4 text-lg font-bold">Tags</div>
+              <div className="mt-4 text-lg font-bold text-midnight dark:text-white">Tags</div>
               <div className="mt-4 grid w-full grid-cols-5 gap-4">
                 {data.popularTags.map((it, index) => (
                   <Link
@@ -73,11 +73,11 @@ function Explore(): JSX.Element {
                       {formatTag(it.tagName)}
                     </div>
 
-                    <div className="rounded-b bg-neutral-100 p-2 text-midnight">
-                      <p className="bg-neutral-100 text-xs text-midnight">{formatCount(it._count.posts)} posts</p>
+                    <div className="rounded-b bg-neutral-100 p-2 text-midnight dark:bg-neutral-800 dark:text-neutral-400">
+                      <p className="text-xs">{formatCount(it._count.posts)} posts</p>
                       <div className="flex items-center space-x-2">
-                        <p className="text-base font-medium text-midnight">See More</p>
-                        <ArrowRightIcon className="h-5 w-5 text-midnight opacity-0 transition duration-200 ease-in-out group-hover:opacity-100" />
+                        <p className="text-sm font-medium">See More</p>
+                        <ArrowRightIcon className="h-5 w-5 opacity-0 transition duration-200 ease-in-out group-hover:opacity-100" />
                       </div>
                     </div>
                   </Link>
