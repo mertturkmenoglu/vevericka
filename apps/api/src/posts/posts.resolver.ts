@@ -1,10 +1,13 @@
+import { InjectQueue } from "@nestjs/bull";
 import { NotFoundException, UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { Novu } from "@novu/node";
+import { Queue } from "bull";
 import { JwtAuthGuard } from "src/auth/guards";
 import { PaginationArgs } from "src/common/args/pagination.args";
 import { CurrentUser } from "src/common/types/current-user.type";
 import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
+import { BulkCreatePostsInput } from "./dto/bulk-create-posts.input";
 import { NewPostInput } from "./dto/new-post.input";
 import { Vote } from "./dto/vote-post.input";
 import { Post } from "./models/post.model";
@@ -14,7 +17,10 @@ import { PostsService } from "./posts.service";
 export class PostsResolver {
   private readonly novu = new Novu(process.env.NOVU_API_KEY);
 
-  constructor(private readonly postsService: PostsService) {}
+  constructor(
+    @InjectQueue("posts") private readonly postsQueue: Queue,
+    private readonly postsService: PostsService
+  ) {}
 
   @Query(() => Post)
   @UseGuards(JwtAuthGuard)
@@ -101,5 +107,21 @@ export class PostsResolver {
     }
 
     return post;
+  }
+
+  @Mutation(() => String)
+  @UseGuards(JwtAuthGuard)
+  async bulkCreatePosts(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("payload") payload: BulkCreatePostsInput
+  ): Promise<string> {
+    for (const post of payload.posts) {
+      await this.postsQueue.add("createPost", {
+        userId: currentUser.user.id,
+        dto: post,
+      });
+    }
+
+    return "queued";
   }
 }

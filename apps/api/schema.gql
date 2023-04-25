@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Count"""
+type Count {
+  dislikes: Float!
+  likes: Float!
+  tags: Float!
+  comments: Float!
+}
+
 """Tag Count"""
 type TagCount {
   posts: Float!
@@ -22,14 +30,6 @@ type PopularTag {
   createdAt: Date!
   updatedAt: Date!
   _count: TagCount!
-}
-
-"""Count"""
-type Count {
-  dislikes: Float!
-  likes: Float!
-  tags: Float!
-  comments: Float!
 }
 
 """user"""
@@ -85,9 +85,23 @@ type Post {
   updatedAt: Date!
 }
 
+"""Bookmark"""
+type Bookmark {
+  id: String!
+  post: Post!
+}
+
 """feed"""
 type Feed {
   posts: [Post!]!
+}
+
+"""Link Preview Model"""
+type LinkPreview {
+  title: String
+  description: String
+  image: String
+  url: String
 }
 
 """recipe """
@@ -97,6 +111,23 @@ type Recipe {
   creationDate: Date!
   ingredients: [String!]!
   title: String!
+}
+
+type PostDocument {
+  id: String!
+  content: String!
+  name: String!
+}
+
+type Result {
+  id: String!
+  score: Float!
+  document: PostDocument!
+}
+
+type ElapsedTime {
+  raw: Float!
+  formatted: String!
 }
 
 type LastSeen {
@@ -135,37 +166,6 @@ type Profile {
   isMe: Boolean!
 }
 
-type PostDocument {
-  id: String!
-  content: String!
-  name: String!
-}
-
-type Result {
-  id: String!
-  score: Float!
-  document: PostDocument!
-}
-
-type ElapsedTime {
-  raw: Float!
-  formatted: String!
-}
-
-"""Bookmark"""
-type Bookmark {
-  id: String!
-  post: Post!
-}
-
-"""Link Preview Model"""
-type LinkPreview {
-  title: String
-  description: String
-  image: String
-  url: String
-}
-
 """Date custom scalar type"""
 scalar Date
 
@@ -191,6 +191,7 @@ type Mutation {
   createPost(newPostData: NewPostInput!): Post!
   votePost(id: String!, vote: String!): Post!
   deletePost(id: String!): Post
+  bulkCreatePosts(payload: BulkCreatePostsInput!): String!
   addRecipe(newRecipeData: NewRecipeInput!): Recipe!
   removeRecipe(id: String!): Boolean!
   interactWithUser(id: String!, interaction: String!): String!
@@ -204,6 +205,10 @@ input NewPostInput {
   content: String!
   imageUrls: [String!]!
   videoUrls: [String!]!
+}
+
+input BulkCreatePostsInput {
+  posts: [NewPostInput!]!
 }
 
 input NewRecipeInput {
