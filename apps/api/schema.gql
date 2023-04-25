@@ -197,6 +197,7 @@ type Mutation {
   updateUser(payload: UpdateUserInput!): User!
   updateLastSeen: String!
   createBookmark(newBookmarkData: NewBookmarkInput!): Bookmark!
+  addOrRemoveBookmark(postId: String!): Bookmark!
 }
 
 input NewPostInput {

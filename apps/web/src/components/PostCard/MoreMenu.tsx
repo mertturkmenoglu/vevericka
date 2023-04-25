@@ -1,12 +1,19 @@
 import { Menu } from '@headlessui/react';
 import clsx from 'clsx';
+import { PostItemFragment } from '../../generated/graphql';
 import { DotsMenu } from '../DotsMenu';
-import { moreMenuItems } from './data';
+import { useMenuItems } from './useMenuItems';
 
-function MoreMenu(): JSX.Element {
+interface MoreMenuProps {
+  post: PostItemFragment;
+}
+
+function MoreMenu({ post }: MoreMenuProps): JSX.Element {
+  const items = useMenuItems();
+
   return (
     <DotsMenu>
-      {moreMenuItems.map((item) => (
+      {items.map((item) => (
         <Menu.Item key={item.text}>
           {({ active }) => (
             <button
@@ -14,7 +21,9 @@ function MoreMenu(): JSX.Element {
                 'bg-midnight text-white dark:bg-neutral-600': active,
                 'text-midnight dark:text-white': !active,
               })}
-              onClick={item.action}
+              onClick={() => {
+                item.action(post);
+              }}
             >
               <item.icon className="h-4 w-4" />
               <span className="ml-2">{item.text}</span>

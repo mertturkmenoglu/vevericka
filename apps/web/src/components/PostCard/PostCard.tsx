@@ -57,7 +57,7 @@ function PostCard(props: PostCardProps): JSX.Element {
       </div>
 
       <div className="w-1/12">
-        <MoreMenu />
+        <MoreMenu post={post} />
       </div>
     </article>
   );

@@ -1,12 +1,12 @@
-import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
-import { Bookmark } from "./models/bookmark.model";
-import { BookmarksService } from "./bookmarks.service";
 import { NotFoundException, UseGuards } from "@nestjs/common";
-import { PaginationArgs } from "src/common/args/pagination.args";
-import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
-import { CurrentUser } from "src/common/types/current-user.type";
-import { NewBookmarkInput } from "./dto/new-bookmark.input";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { JwtAuthGuard } from "src/auth/guards";
+import { PaginationArgs } from "src/common/args/pagination.args";
+import { CurrentUser } from "src/common/types/current-user.type";
+import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
+import { BookmarksService } from "./bookmarks.service";
+import { NewBookmarkInput } from "./dto/new-bookmark.input";
+import { Bookmark } from "./models/bookmark.model";
 
 @Resolver(() => Bookmark)
 export class BookmarksResolver {
@@ -49,6 +49,18 @@ export class BookmarksResolver {
     return this.bookmarksService.createBookmark(
       currentUser.user.id,
       newBookmarkData.postId
+    );
+  }
+
+  @Mutation(() => Bookmark)
+  @UseGuards(JwtAuthGuard)
+  async addOrRemoveBookmark(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("postId") postId: string
+  ) {
+    return this.bookmarksService.addOrRemoveBookmark(
+      currentUser.user.id,
+      postId
     );
   }
 }

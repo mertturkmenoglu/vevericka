@@ -17,6 +17,7 @@ const documents = {
     "\n  fragment PostItem on Post {\n    id\n    content\n    _count {\n      ...CountItem\n    }\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    vote\n    createdAt\n    updatedAt\n    user {\n      ...UserItem\n    }\n  }\n": types.PostItemFragmentDoc,
     "\n  fragment ProfileItem on Profile {\n    id\n    name\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    isFollowing\n    isMe\n    createdAt\n    updatedAt\n    _count {\n      followers\n      following\n      posts\n    }\n  }\n": types.ProfileItemFragmentDoc,
     "\n  fragment UserItem on User {\n    id\n    name\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    createdAt\n    updatedAt\n  }\n": types.UserItemFragmentDoc,
+    "\n  mutation AddOrRemoveBookmark($id: String!) {\n    addOrRemoveBookmark(postId: $id) {\n      id\n      post {\n        ...PostItem\n      }\n    }\n  }\n": types.AddOrRemoveBookmarkDocument,
     "\n  mutation CreateBookmark($payload: NewBookmarkInput!) {\n    createBookmark(newBookmarkData: $payload) {\n      id\n      post {\n        ...PostItem\n      }\n    }\n  }\n": types.CreateBookmarkDocument,
     "\n  mutation CreatePost($payload: NewPostInput!) {\n    createPost(newPostData: $payload) {\n      ...PostItem\n    }\n  }\n": types.CreatePostDocument,
     "\n  mutation InteractWithUser($followeeId: String!, $interaction: String!) {\n    interactWithUser(id: $followeeId, interaction: $interaction)\n  }\n": types.InteractWithUserDocument,
@@ -66,6 +67,10 @@ export function graphql(source: "\n  fragment ProfileItem on Profile {\n    id\n
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment UserItem on User {\n    id\n    name\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    createdAt\n    updatedAt\n  }\n"): (typeof documents)["\n  fragment UserItem on User {\n    id\n    name\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    createdAt\n    updatedAt\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation AddOrRemoveBookmark($id: String!) {\n    addOrRemoveBookmark(postId: $id) {\n      id\n      post {\n        ...PostItem\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation AddOrRemoveBookmark($id: String!) {\n    addOrRemoveBookmark(postId: $id) {\n      id\n      post {\n        ...PostItem\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
