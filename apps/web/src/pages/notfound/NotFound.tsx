@@ -29,19 +29,19 @@ function NotFound(): JSX.Element {
       <div className="mt-16 flex items-center space-x-2 divide-x-2">
         <Link
           to="/contact"
-          className="text-sm text-gray-200 hover:underline"
+          className="text-sm text-gray-800 hover:underline dark:text-gray-200"
         >
           Contact
         </Link>
         <Link
           to="/blog"
-          className="pl-2 text-sm text-gray-200 hover:underline"
+          className="pl-2 text-sm text-gray-800 hover:underline dark:text-gray-200"
         >
           Blog
         </Link>
         <a
           href="https://twitter.com/capreaee"
-          className="pl-2 text-sm text-gray-200 hover:underline"
+          className="pl-2 text-sm text-gray-800 hover:underline dark:text-gray-200"
         >
           Twitter
         </a>
