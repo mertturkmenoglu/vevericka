@@ -1,16 +1,17 @@
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
+import { BullModule } from "@nestjs/bull";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { AuthModule } from "./auth/auth.module";
+import { BookmarksModule } from "./bookmarks/bookmarks.module";
 import { ExploreModule } from "./explore/explore.module";
 import { FeedModule } from "./feed/feed.module";
+import { LinkModule } from "./link/link-module";
 import { PostsModule } from "./posts/posts.module";
 import { RecipesModule } from "./recipes/recipes.module";
-import { UsersModule } from "./users/users.module";
 import { SearchModule } from "./search/search.module";
-import { BookmarksModule } from "./bookmarks/bookmarks.module";
-import { LinkModule } from "./link/link-module";
+import { UsersModule } from "./users/users.module";
 
 @Module({
   imports: [
@@ -43,6 +44,12 @@ import { LinkModule } from "./link/link-module";
         preflightContinue: false,
         optionsSuccessStatus: 204,
         credentials: true,
+      },
+    }),
+    BullModule.forRoot({
+      redis: {
+        host: "localhost",
+        port: 6379,
       },
     }),
   ],
