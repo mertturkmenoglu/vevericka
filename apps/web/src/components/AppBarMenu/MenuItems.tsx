@@ -18,6 +18,7 @@ import { MeQuery } from '../../generated/graphql';
 import { UserFragment } from '../../graphql';
 import Copyright from './Copyright';
 import Item from './Item';
+import ThemeToggle from './ThemeToggle';
 
 export interface MenuItemsProps {
   className?: string;
@@ -57,6 +58,8 @@ function MenuItems({ className, userData }: MenuItemsProps): JSX.Element {
           text="Settings"
           icon={Cog8ToothIcon}
         />
+
+        <ThemeToggle />
 
         <Item
           as="button"
