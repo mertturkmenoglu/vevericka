@@ -115,13 +115,13 @@ export class PostsResolver {
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("payload") payload: BulkCreatePostsInput
   ): Promise<string> {
-    for (const post of payload.posts) {
-      await this.postsQueue.add("createPost", {
-        userId: currentUser.user.id,
-        dto: post,
-      });
-    }
+    await this.postsQueue.add("createPost", {
+      userId: currentUser.user.id,
+      dtos: payload.posts,
+    });
 
-    return "queued";
+    return `Queued ${
+      payload.posts.length
+    } items at ${new Date().toISOString()}`;
   }
 }
