@@ -2,7 +2,6 @@ import {
   BellIcon,
   CloudIcon,
   ComputerDesktopIcon,
-  GlobeAltIcon,
   IdentificationIcon,
   LockClosedIcon,
   QuestionMarkCircleIcon,
@@ -10,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { MeQuery } from '../../../generated/graphql';
 import AccountContainer from '../containers/account';
+import PreferencesContainer from '../containers/preferences';
 import ProfileContainer from '../containers/profile';
 import Wip from '../containers/Wip';
 
@@ -38,16 +38,10 @@ export const categories = [
     icon: IdentificationIcon,
   },
   {
-    key: 'display',
-    name: 'Display',
-    component: Wip,
+    key: 'preferences',
+    name: 'Preferences',
+    component: PreferencesContainer,
     icon: ComputerDesktopIcon,
-  },
-  {
-    key: 'language',
-    name: 'Language',
-    component: Wip,
-    icon: GlobeAltIcon,
   },
   {
     key: 'notifications',
