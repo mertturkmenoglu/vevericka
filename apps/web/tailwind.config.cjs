@@ -1,4 +1,6 @@
 /** @type {import("tailwindcss").Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   darkMode: 'class',
   content: [
@@ -12,7 +14,7 @@ module.exports = {
         midnight: "#1a1a1a"
       },
       fontFamily: {
-        sans: ["'-apple-system', BlinkMacSystemFont, 'Segoe UI', 'Open Sans', Helvetica, Arial, 'sans-serif'"]
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       screens: {
         sd: "896px"
