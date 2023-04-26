@@ -16,12 +16,12 @@ function Dialog({ children, isOpen, setIsOpen, title }: DialogProps): JSX.Elemen
       className="relative z-50"
     >
       <div
-        className="fixed inset-0 bg-black/30"
+        className="fixed inset-0 bg-black/50"
         aria-hidden="true"
       />
 
       <div className="fixed inset-0 flex w-full items-center justify-center p-4">
-        <HeadlessDialog.Panel className="mx-auto w-full max-w-lg rounded bg-white">
+        <HeadlessDialog.Panel className="mx-auto w-full max-w-lg rounded bg-white dark:bg-neutral-800">
           {title && <HeadlessDialog.Title>{title}</HeadlessDialog.Title>}
 
           {children}

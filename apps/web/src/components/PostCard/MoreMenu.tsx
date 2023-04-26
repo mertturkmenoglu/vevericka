@@ -49,14 +49,14 @@ function MoreMenu({ post }: MoreMenuProps): JSX.Element {
         >
           <div className="w-full">
             <div className="p-4">
-              <p className="text-lg font-semibold">Are you sure?</p>
+              <p className="text-lg font-semibold text-midnight dark:text-white">Are you sure?</p>
               <p className="text-sm text-neutral-500 dark:text-neutral-400">This action cannot be undone.</p>
             </div>
 
             <div className="flex items-center justify-end space-x-4 p-4">
               <button
                 className={clsx(
-                  'rounded bg-neutral-200 px-2 py-1 text-neutral-800 transition duration-200 ease-in-out'
+                  'rounded bg-neutral-200 px-2 py-1 text-neutral-800 transition duration-200 ease-in-out hover:bg-neutral-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600'
                 )}
                 onClick={() => {
                   setIsDeleteOpen(false);
