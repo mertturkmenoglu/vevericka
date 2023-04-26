@@ -115,6 +115,9 @@ export class BookmarksService {
       },
       skip: pagination.skip,
       take: pagination.take,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return res.map((bookmark) => ({
