@@ -8,6 +8,7 @@ export * from './Banner';
 export * from './Button';
 export * from './ContactForm';
 export * from './CreatePost';
+export * from './Dialog';
 export * from './DotsMenu';
 export * from './Embed';
 export * from './ExploreCard';
