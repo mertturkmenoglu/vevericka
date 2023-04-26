@@ -1,4 +1,3 @@
-import { estypes } from "@elastic/elasticsearch";
 import { Injectable } from "@nestjs/common";
 import { ElasticsearchService } from "@nestjs/elasticsearch";
 import { PaginationArgs } from "src/common/args/pagination.args";
@@ -9,8 +8,6 @@ import { PostItem } from "./models/post/post-item.model";
 import { PostResult } from "./models/post/post-result.model";
 import { UserItem } from "./models/user/user-item.model";
 import { UserResult } from "./models/user/user-result.model";
-
-type A = estypes.SearchResponse<PostItem>;
 
 @Injectable()
 export class SearchService {

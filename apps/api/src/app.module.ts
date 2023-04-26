@@ -9,7 +9,6 @@ import { ExploreModule } from "./explore/explore.module";
 import { FeedModule } from "./feed/feed.module";
 import { LinkModule } from "./link/link-module";
 import { PostsModule } from "./posts/posts.module";
-import { RecipesModule } from "./recipes/recipes.module";
 import { SearchModule } from "./search/search.module";
 import { UsersModule } from "./users/users.module";
 
@@ -20,7 +19,6 @@ import { UsersModule } from "./users/users.module";
       isGlobal: true,
     }),
     PostsModule,
-    RecipesModule,
     UsersModule,
     FeedModule,
     ExploreModule,
