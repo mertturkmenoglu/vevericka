@@ -15,6 +15,7 @@ function ExploreCard({ className }: Props): JSX.Element {
       skip: 0,
       take: 10,
     },
+    pollInterval: 1000 * 60 * 5, // Refetch every 5 minutes
   });
 
   return (
