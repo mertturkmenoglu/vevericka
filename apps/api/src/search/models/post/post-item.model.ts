@@ -1,7 +1,7 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
-export class PostDocument {
+export class PostItem {
   @Field()
   id: string;
 
@@ -9,5 +9,5 @@ export class PostDocument {
   content: string;
 
   @Field()
-  name: string;
+  userId: string;
 }

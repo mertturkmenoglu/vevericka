@@ -1,49 +1,110 @@
+import { estypes } from "@elastic/elasticsearch";
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/prisma/prisma.service";
+import { ElasticsearchService } from "@nestjs/elasticsearch";
 import { PaginationArgs } from "src/common/args/pagination.args";
 import { postsInclude, postsVoteInclude } from "src/posts/posts.type";
-import { Post } from "src/posts/models/post.model";
+import { PrismaService } from "src/prisma/prisma.service";
 import { User } from "src/users/models/user.model";
+import { PostItem } from "./models/post/post-item.model";
+import { PostResult } from "./models/post/post-result.model";
+import { UserItem } from "./models/user/user-item.model";
+import { UserResult } from "./models/user/user-result.model";
+
+type A = estypes.SearchResponse<PostItem>;
 
 @Injectable()
 export class SearchService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly elasticsearchService: ElasticsearchService,
+    private readonly prisma: PrismaService
+  ) {}
 
   async searchPosts(
     userId: string,
     term: string,
     pagination: PaginationArgs
-  ): Promise<Post[]> {
-    const res = await this.prisma.post.findMany({
-      where: {
-        content: {
-          contains: term,
+  ): Promise<PostResult> {
+    const searchResults = await this.elasticsearchService.search<PostItem>({
+      index: "posts",
+      query: {
+        match: {
+          content: {
+            query: term,
+          },
         },
       },
-      skip: pagination.skip,
-      take: pagination.take,
-      include: {
-        ...postsInclude,
-        ...postsVoteInclude(userId),
-      },
+      from: pagination.skip,
+      size: pagination.take,
     });
 
-    return res.map((post) => ({
+    const postIds = searchResults.hits.hits.map((hit) => hit._source.id);
+
+    const posts = (
+      await this.prisma.post.findMany({
+        where: {
+          id: {
+            in: postIds,
+          },
+        },
+        include: {
+          ...postsInclude,
+          ...postsVoteInclude(userId),
+        },
+      })
+    ).map((post) => ({
       ...post,
       vote: this.getVote(post.likes, post.dislikes),
     }));
+
+    return {
+      ...searchResults,
+      hits: {
+        ...searchResults.hits,
+        hits: searchResults.hits.hits.map((hit) => ({
+          ...hit,
+          _source: posts.find((post) => post.id === hit._source.id),
+        })),
+      },
+    };
   }
 
-  async searchUsers(term: string, pagination: PaginationArgs): Promise<User[]> {
-    return this.prisma.user.findMany({
-      where: {
-        name: {
-          contains: term,
+  async searchUsers(
+    term: string,
+    pagination: PaginationArgs
+  ): Promise<UserResult> {
+    const searchResults = await this.elasticsearchService.search<UserItem>({
+      index: "users",
+      query: {
+        match: {
+          name: {
+            query: term,
+          },
         },
       },
-      skip: pagination.skip,
-      take: pagination.take,
+      from: pagination.skip,
+      size: pagination.take,
     });
+
+    const userIds = searchResults.hits.hits.map((hit) => hit._source.id);
+
+    const users = await this.prisma.user.findMany({
+      where: {
+        id: {
+          in: userIds,
+        },
+      },
+    });
+
+    return {
+      ...searchResults,
+      hits: {
+        ...searchResults.hits,
+        hits: searchResults.hits.hits.map((hit) => ({
+          ...hit,
+          _source: users.find((post) => post.id === hit._source.id),
+        })),
+      },
+    };
   }
 
   private getVote(likes: User[], dislikes: User[]) {

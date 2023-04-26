@@ -1,25 +1,30 @@
-import { Resolver, Query, Args } from "@nestjs/graphql";
-import { JwtAuthGuard } from "src/auth/guards";
-import { Results } from "./models/results.model";
+import { InjectQueue } from "@nestjs/bull";
 import { UseGuards } from "@nestjs/common";
-import { SearchService } from "./search.service";
-import { Post } from "src/posts/models/post.model";
+import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+import { Queue } from "bull";
+import { JwtAuthGuard } from "src/auth/guards";
 import { PaginationArgs } from "src/common/args/pagination.args";
-import { User } from "src/users/models/user.model";
 import { CurrentUser as CurrentUserDecorator } from "src/common/decorators/current-user.decorator";
 import { CurrentUser } from "src/common/types/current-user.type";
+import { ElasticResult } from "./models/common/elastic-result.model";
+import { PostResult } from "./models/post/post-result.model";
+import { UserResult } from "./models/user/user-result.model";
+import { SearchService } from "./search.service";
 
-@Resolver(() => Results)
+@Resolver(() => ElasticResult)
 export class SearchResolver {
-  constructor(private readonly searchService: SearchService) {}
+  constructor(
+    @InjectQueue("searchIndices") private readonly searchIndicesQueue: Queue,
+    private readonly searchService: SearchService
+  ) {}
 
-  @Query(() => [Post])
+  @Query(() => PostResult)
   @UseGuards(JwtAuthGuard)
   async searchPosts(
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("term") term: string,
     @Args() pagination: PaginationArgs
-  ): Promise<Post[]> {
+  ): Promise<PostResult> {
     return await this.searchService.searchPosts(
       currentUser.user.id,
       term,
@@ -27,12 +32,19 @@ export class SearchResolver {
     );
   }
 
-  @Query(() => [User])
+  @Query(() => UserResult)
   @UseGuards(JwtAuthGuard)
   async searchUsers(
     @Args("term") term: string,
     @Args() pagination: PaginationArgs
-  ): Promise<User[]> {
+  ): Promise<UserResult> {
     return await this.searchService.searchUsers(term, pagination);
+  }
+
+  @Mutation(() => String)
+  @UseGuards(JwtAuthGuard)
+  async updateSearchIndices(): Promise<string> {
+    await this.searchIndicesQueue.add("updateSearchIndices", {});
+    return `Started updating search indices at ${new Date().toISOString()}`;
   }
 }

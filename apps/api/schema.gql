@@ -113,21 +113,49 @@ type Recipe {
   title: String!
 }
 
-type PostDocument {
-  id: String!
-  content: String!
-  name: String!
+type Shard {
+  total: Float!
+  successful: Float!
+  skipped: Float
+  failed: Float!
 }
 
-type Result {
-  id: String!
-  score: Float!
-  document: PostDocument!
+type PostHit {
+  _index: String!
+  _id: String!
+  _score: Float
+  _source: Post!
 }
 
-type ElapsedTime {
-  raw: Float!
-  formatted: String!
+type PostTopLevelHits {
+  max_score: Float
+  hits: [PostHit!]!
+}
+
+type PostResult {
+  took: Float!
+  timed_out: Boolean!
+  _shards: Shard!
+  hits: PostTopLevelHits!
+}
+
+type UserHit {
+  _index: String!
+  _id: String!
+  _score: Float
+  _source: User!
+}
+
+type UserTopLevelHits {
+  max_score: Float
+  hits: [UserHit!]!
+}
+
+type UserResult {
+  took: Float!
+  timed_out: Boolean!
+  _shards: Shard!
+  hits: UserTopLevelHits!
 }
 
 type LastSeen {
@@ -181,8 +209,8 @@ type Query {
   feed(skip: Int! = 0, take: Int! = 25): Feed!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
   popularTags(skip: Int! = 0, take: Int! = 25): [PopularTag!]!
-  searchPosts(term: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
-  searchUsers(term: String!, skip: Int! = 0, take: Int! = 25): [User!]!
+  searchPosts(term: String!, skip: Int! = 0, take: Int! = 25): PostResult!
+  searchUsers(term: String!, skip: Int! = 0, take: Int! = 25): UserResult!
   bookmark(id: String!): Bookmark!
   bookmarks(skip: Int! = 0, take: Int! = 25): [Bookmark!]!
   linkPreview(url: String!): LinkPreview!
@@ -198,6 +226,7 @@ type Mutation {
   interactWithUser(id: String!, interaction: String!): String!
   updateUser(payload: UpdateUserInput!): User!
   updateLastSeen: String!
+  updateSearchIndices: String!
   createBookmark(newBookmarkData: NewBookmarkInput!): Bookmark!
   addOrRemoveBookmark(postId: String!): Bookmark!
 }

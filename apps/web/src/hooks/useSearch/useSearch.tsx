@@ -24,8 +24,8 @@ export function useSearch() {
   };
 
   const searchData = useMemo(() => {
-    if (type === 'posts') return postsResult.data?.searchPosts;
-    return usersResult.data?.searchUsers;
+    if (type === 'posts') return postsResult.data?.searchPosts.hits.hits;
+    return usersResult.data?.searchUsers.hits.hits;
   }, [postsResult, usersResult, type]);
 
   const isLoading = postsResult.loading || usersResult.loading;

@@ -3,7 +3,25 @@ import { graphql } from '../../generated';
 export const searchUsersQueryDocument = graphql(/* GraphQL */ `
   query SearchUsers($term: String!, $take: Int!, $skip: Int!) {
     searchUsers(term: $term, take: $take, skip: $skip) {
-      ...UserItem
+      took
+      timed_out
+      _shards {
+        total
+        successful
+        skipped
+        failed
+      }
+      hits {
+        max_score
+        hits {
+          _index
+          _id
+          _score
+          _source {
+            ...UserItem
+          }
+        }
+      }
     }
   }
 `);

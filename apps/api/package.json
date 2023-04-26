@@ -20,11 +20,13 @@
     "faker:generate": "doppler run npx ts-node ./db/index.ts"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^8.7.0",
     "@nestjs/apollo": "^10.1.7",
     "@nestjs/bull": "^0.6.3",
     "@nestjs/common": "^9.2.1",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.2.1",
+    "@nestjs/elasticsearch": "^9.0.0",
     "@nestjs/graphql": "^10.1.7",
     "@nestjs/jwt": "^10.0.2",
     "@nestjs/passport": "^9.0.3",

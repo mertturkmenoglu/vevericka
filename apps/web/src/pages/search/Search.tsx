@@ -26,7 +26,7 @@ function Settings(): JSX.Element {
             <SearchResult
               key={index}
               type={type}
-              content={it}
+              content={it._source}
             />
           ))}
         </div>
