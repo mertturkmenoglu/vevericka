@@ -20,6 +20,7 @@ const documents = {
     "\n  mutation AddOrRemoveBookmark($id: String!) {\n    addOrRemoveBookmark(postId: $id) {\n      id\n      post {\n        ...PostItem\n      }\n    }\n  }\n": types.AddOrRemoveBookmarkDocument,
     "\n  mutation CreateBookmark($payload: NewBookmarkInput!) {\n    createBookmark(newBookmarkData: $payload) {\n      id\n      post {\n        ...PostItem\n      }\n    }\n  }\n": types.CreateBookmarkDocument,
     "\n  mutation CreatePost($payload: NewPostInput!) {\n    createPost(newPostData: $payload) {\n      ...PostItem\n    }\n  }\n": types.CreatePostDocument,
+    "\n  mutation DeletePost($id: String!) {\n    deletePost(id: $id) {\n      ...PostItem\n    }\n  }\n": types.DeletePostDocument,
     "\n  mutation InteractWithUser($followeeId: String!, $interaction: String!) {\n    interactWithUser(id: $followeeId, interaction: $interaction)\n  }\n": types.InteractWithUserDocument,
     "\n  mutation UpdateLastSeen {\n    updateLastSeen\n  }\n": types.UpdateLastSeenDocument,
     "\n  mutation UpdateUser($payload: UpdateUserInput!) {\n    updateUser(payload: $payload) {\n      ...UserItem\n    }\n  }\n": types.UpdateUserDocument,
@@ -80,6 +81,10 @@ export function graphql(source: "\n  mutation CreateBookmark($payload: NewBookma
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation CreatePost($payload: NewPostInput!) {\n    createPost(newPostData: $payload) {\n      ...PostItem\n    }\n  }\n"): (typeof documents)["\n  mutation CreatePost($payload: NewPostInput!) {\n    createPost(newPostData: $payload) {\n      ...PostItem\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeletePost($id: String!) {\n    deletePost(id: $id) {\n      ...PostItem\n    }\n  }\n"): (typeof documents)["\n  mutation DeletePost($id: String!) {\n    deletePost(id: $id) {\n      ...PostItem\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
