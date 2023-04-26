@@ -7,6 +7,7 @@ import { JwtAuthGuard } from "src/auth/guards";
 import { PaginationArgs } from "src/common/args/pagination.args";
 import { CurrentUser } from "src/common/types/current-user.type";
 import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
+import { SearchService } from "../search/search.service";
 import { BulkCreatePostsInput } from "./dto/bulk-create-posts.input";
 import { NewPostInput } from "./dto/new-post.input";
 import { Vote } from "./dto/vote-post.input";
@@ -19,7 +20,8 @@ export class PostsResolver {
 
   constructor(
     @InjectQueue("posts") private readonly postsQueue: Queue,
-    private readonly postsService: PostsService
+    private readonly postsService: PostsService,
+    private readonly searchService: SearchService
   ) {}
 
   @Query(() => Post)
@@ -42,12 +44,11 @@ export class PostsResolver {
     @Args("id") id: string,
     @Args() pagination: PaginationArgs
   ): Promise<Post[]> {
-    const posts = await this.postsService.getPostsByUserId(
+    return await this.postsService.getPostsByUserId(
       currentUser.user.id,
       id,
       pagination
     );
-    return posts;
   }
 
   @Mutation(() => Post)
@@ -60,6 +61,13 @@ export class PostsResolver {
       currentUser.user.id,
       newPostData
     );
+
+    await this.searchService.addPostToSearchIndex({
+      id: post.id,
+      userId: post.user.id,
+      content: post.content,
+    });
+
     return post;
   }
 
@@ -105,6 +113,8 @@ export class PostsResolver {
     if (!post) {
       throw new NotFoundException(id);
     }
+
+    await this.searchService.removePostFromSearchIndex(id);
 
     return post;
   }

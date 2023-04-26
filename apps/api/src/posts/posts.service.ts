@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { User } from "@prisma/client";
 import { PaginationArgs } from "src/common/args/pagination.args";
-import { OramaService } from "src/orama/orama.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { NewPostInput } from "./dto/new-post.input";
 import { Post } from "./models/post.model";
@@ -9,7 +8,7 @@ import { postsInclude, postsVoteInclude } from "./posts.type";
 
 @Injectable()
 export class PostsService {
-  constructor(private prisma: PrismaService, private orama: OramaService) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(userId: string, data: NewPostInput): Promise<Post> {
     const tags = this.prepareTags(data.content);
@@ -49,8 +48,6 @@ export class PostsService {
         ...postsInclude,
       },
     });
-
-    await this.orama.onPostCreated(post);
 
     return {
       ...post,

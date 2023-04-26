@@ -16,6 +16,31 @@ export class SearchService {
     private readonly prisma: PrismaService
   ) {}
 
+  async addPostToSearchIndex(postItem: PostItem) {
+    return this.elasticsearchService.index({
+      index: "posts",
+      document: postItem,
+    });
+  }
+
+  async addUserToSearchIndex(userItem: UserItem) {
+    return this.elasticsearchService.index({
+      index: "users",
+      document: userItem,
+    });
+  }
+
+  async removePostFromSearchIndex(postId: string) {
+    return this.elasticsearchService.deleteByQuery({
+      index: "posts",
+      query: {
+        match: {
+          id: postId,
+        },
+      },
+    });
+  }
+
   async searchPosts(
     userId: string,
     term: string,

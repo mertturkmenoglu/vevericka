@@ -32,8 +32,6 @@
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.2.1",
     "@novu/node": "^0.13.0",
-    "@orama/orama": "^1.0.0-beta.7",
-    "@orama/plugin-data-persistence": "^1.0.0-beta.7",
     "@prisma/client": "^4.12.0",
     "apollo-server": "^3.11.1",
     "apollo-server-express": "^3.11.1",

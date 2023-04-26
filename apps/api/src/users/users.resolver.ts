@@ -1,21 +1,25 @@
 import { NotFoundException, UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
-import { JwtAuthGuard } from "src/auth/guards";
-import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
-import { CurrentUser } from "src/common/types/current-user.type";
-import { User } from "./models/user.model";
-import { UsersService } from "./users.service";
 import { PubSub } from "graphql-subscriptions";
-import { LastSeen } from "./models/last-seen.model";
-import { Profile } from "./models/profile.model";
+import { JwtAuthGuard } from "src/auth/guards";
+import { CurrentUser } from "src/common/types/current-user.type";
+import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
+import { SearchService } from "../search/search.service";
 import { Interaction } from "./dto/interact.input";
 import { UpdateUserInput } from "./dto/update-user.input";
+import { LastSeen } from "./models/last-seen.model";
+import { Profile } from "./models/profile.model";
+import { User } from "./models/user.model";
+import { UsersService } from "./users.service";
 
 const pubSub = new PubSub();
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly searchService: SearchService
+  ) {}
 
   @Query(() => User)
   @UseGuards(JwtAuthGuard)
@@ -71,7 +75,17 @@ export class UsersResolver {
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("payload") payload: UpdateUserInput
   ): Promise<User> {
-    return this.usersService.update(currentUser.user.id, payload);
+    const user = await this.usersService.update(currentUser.user.id, payload);
+
+    await this.searchService.addUserToSearchIndex({
+      name: user.name,
+      id: user.id,
+      description: user.description ?? "",
+      protected: user.protected,
+      verified: user.verified,
+    });
+
+    return user;
   }
 
   @Subscription(() => LastSeen)

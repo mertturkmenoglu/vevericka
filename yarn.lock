@@ -2195,11 +2195,6 @@
     hey-listen "^1.0.8"
     tslib "^2.3.1"
 
-"@msgpack/msgpack@^2.7.2":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@msgpack/msgpack/-/msgpack-2.8.0.tgz#4210deb771ee3912964f14a15ddfb5ff877e70b9"
-  integrity sha512-h9u4u/jiIRKbq25PM+zymTyW6bhTzELvOoUd+AvYriWOAKpLGnIamaET3pnHYoI5iYphAHBI4ayx0MehR+VVPQ==
-
 "@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@msgpackr-extract/msgpackr-extract-darwin-arm64/-/msgpackr-extract-darwin-arm64-3.0.2.tgz#44d752c1a2dc113f15f781b7cc4f53a307e3fa38"
@@ -2465,20 +2460,6 @@
     chalk "^4.1.0"
     consola "^2.15.0"
     node-fetch "^2.6.1"
-
-"@orama/orama@1.0.0-beta.9", "@orama/orama@^1.0.0-beta.7":
-  version "1.0.0-beta.9"
-  resolved "https://registry.yarnpkg.com/@orama/orama/-/orama-1.0.0-beta.9.tgz#cfd06b2b7b2c60ea0fc6a2778dd71d98bddcfe07"
-  integrity sha512-tTszsKW3PUN2WA6W3ghoUhz4GNbnwQ9gcyZGC/e6n+SL8q8qfXjdMaRHlMJmqKAbtsDj3K/zGX60HC9YH1GKEw==
-
-"@orama/plugin-data-persistence@^1.0.0-beta.7":
-  version "1.0.0-beta.9"
-  resolved "https://registry.yarnpkg.com/@orama/plugin-data-persistence/-/plugin-data-persistence-1.0.0-beta.9.tgz#0b81e57f2c70f1577a50e874ea9a55994e79e182"
-  integrity sha512-JomzTTokGBF46cWwPdqknCq/RiSarzz2ouDq73FuebiWLTGMOrsubB5frQ/imLYn2X8DvbhUA5GFOnpBfSk4og==
-  dependencies:
-    "@msgpack/msgpack" "^2.7.2"
-    "@orama/orama" "1.0.0-beta.9"
-    dpack "^0.6.22"
 
 "@parcel/watcher@^2.1.0":
   version "2.1.0"
@@ -5564,11 +5545,6 @@ dotenv@16.0.3, dotenv@^16.0.0:
   version "16.0.3"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
   integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
-
-dpack@^0.6.22:
-  version "0.6.22"
-  resolved "https://registry.yarnpkg.com/dpack/-/dpack-0.6.22.tgz#e1c863e0145d6670d92380db1dfa93a4cf97d252"
-  integrity sha512-WGPNlW2OAE7Bj0eODMpAHUcEqxrlg01e9OFZDxQodminIgC194/cRHT7K04Z1j7AUEWTeeplYGrIv/xRdwU9Hg==
 
 dset@^3.1.2:
   version "3.1.2"

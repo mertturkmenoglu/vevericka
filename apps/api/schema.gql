@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Shard {
+  total: Float!
+  successful: Float!
+  skipped: Float
+  failed: Float!
+}
+
 """Count"""
 type Count {
   dislikes: Float!
@@ -19,16 +26,21 @@ type TagCount {
 type Tag {
   id: String!
   tagName: String!
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 """Popular Tag"""
 type PopularTag {
   id: String!
   tagName: String!
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   _count: TagCount!
 }
 
@@ -40,7 +52,7 @@ type User {
   job: String
   twitterHandle: String
   school: String
-  birthDate: Date
+  birthDate: DateTime
   website: String
   description: String
   verified: Boolean!
@@ -49,8 +61,8 @@ type User {
   gender: String
   city: String
   country: String
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """PostImage"""
@@ -58,8 +70,8 @@ type PostImage {
   id: String!
   url: String!
   postId: String!
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """PostVideo"""
@@ -67,8 +79,8 @@ type PostVideo {
   id: String!
   url: String!
   postId: String!
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """post"""
@@ -81,43 +93,8 @@ type Post {
   videos: [PostVideo!]!
   vote: String!
   _count: Count!
-  createdAt: Date!
-  updatedAt: Date!
-}
-
-"""Bookmark"""
-type Bookmark {
-  id: String!
-  post: Post!
-}
-
-"""feed"""
-type Feed {
-  posts: [Post!]!
-}
-
-"""Link Preview Model"""
-type LinkPreview {
-  title: String
-  description: String
-  image: String
-  url: String
-}
-
-"""recipe """
-type Recipe {
-  id: ID!
-  description: String
-  creationDate: Date!
-  ingredients: [String!]!
-  title: String!
-}
-
-type Shard {
-  total: Float!
-  successful: Float!
-  skipped: Float
-  failed: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type PostHit {
@@ -158,6 +135,25 @@ type UserResult {
   hits: UserTopLevelHits!
 }
 
+"""Bookmark"""
+type Bookmark {
+  id: String!
+  post: Post!
+}
+
+"""feed"""
+type Feed {
+  posts: [Post!]!
+}
+
+"""Link Preview Model"""
+type LinkPreview {
+  title: String
+  description: String
+  image: String
+  url: String
+}
+
 type LastSeen {
   id: String!
   date: String!
@@ -178,7 +174,7 @@ type Profile {
   job: String
   twitterHandle: String
   school: String
-  birthDate: Date
+  birthDate: DateTime
   website: String
   description: String
   verified: Boolean!
@@ -187,46 +183,39 @@ type Profile {
   gender: String
   city: String
   country: String
-  createdAt: Date!
-  updatedAt: Date!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   _count: UserCount!
   isFollowing: Boolean!
   isMe: Boolean!
 }
 
-"""Date custom scalar type"""
-scalar Date
-
 type Query {
+  searchPosts(term: String!, skip: Int! = 0, take: Int! = 25): PostResult!
+  searchUsers(term: String!, skip: Int! = 0, take: Int! = 25): UserResult!
   post(id: String!): Post!
   posts(id: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
   postsByTag(tag: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
-  recipe(id: String!): Recipe!
-  recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
   me: User!
   user(id: String!): User!
   profile(id: String!): Profile!
   feed(skip: Int! = 0, take: Int! = 25): Feed!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
   popularTags(skip: Int! = 0, take: Int! = 25): [PopularTag!]!
-  searchPosts(term: String!, skip: Int! = 0, take: Int! = 25): PostResult!
-  searchUsers(term: String!, skip: Int! = 0, take: Int! = 25): UserResult!
   bookmark(id: String!): Bookmark!
   bookmarks(skip: Int! = 0, take: Int! = 25): [Bookmark!]!
   linkPreview(url: String!): LinkPreview!
 }
 
 type Mutation {
+  updateSearchIndices: String!
   createPost(newPostData: NewPostInput!): Post!
   votePost(id: String!, vote: String!): Post!
   deletePost(id: String!): Post
   bulkCreatePosts(payload: BulkCreatePostsInput!): String!
-  addRecipe(newRecipeData: NewRecipeInput!): Recipe!
-  removeRecipe(id: String!): Boolean!
   interactWithUser(id: String!, interaction: String!): String!
   updateUser(payload: UpdateUserInput!): User!
   updateLastSeen: String!
-  updateSearchIndices: String!
   createBookmark(newBookmarkData: NewBookmarkInput!): Bookmark!
   addOrRemoveBookmark(postId: String!): Bookmark!
 }
@@ -241,19 +230,13 @@ input BulkCreatePostsInput {
   posts: [NewPostInput!]!
 }
 
-input NewRecipeInput {
-  title: String!
-  description: String
-  ingredients: [String!]!
-}
-
 input UpdateUserInput {
   name: String
   image: String
   job: String
   twitterHandle: String
   school: String
-  birthDate: Date
+  birthDate: DateTime
   website: String
   description: String
   protected: Boolean
@@ -268,6 +251,5 @@ input NewBookmarkInput {
 }
 
 type Subscription {
-  recipeAdded: Recipe!
   lastSeen: LastSeen!
 }

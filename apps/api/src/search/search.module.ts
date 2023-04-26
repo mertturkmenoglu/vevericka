@@ -17,5 +17,6 @@ import { SearchService } from "./search.service";
     PrismaModule,
   ],
   providers: [SearchResolver, SearchService, SearchProcessor],
+  exports: [SearchService],
 })
 export class SearchModule {}
