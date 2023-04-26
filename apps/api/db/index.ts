@@ -5,6 +5,10 @@ function concat(...args: string[]) {
   return args.join("");
 }
 
+function getOrEmpty(value: string) {
+  return Math.random() > 0.5 ? ` ${value}` : "";
+}
+
 function createFakePost() {
   const numberOfImages = faker.datatype.number({ min: 0, max: 4 });
   const images = [];
@@ -13,8 +17,6 @@ function createFakePost() {
   for (let i = 0; i < numberOfImages; i++) {
     images.push(createFakeImage());
   }
-
-  console.log("here");
 
   return {
     content: createFakePostContent(),
@@ -31,7 +33,21 @@ function createFakePostContent() {
   const urls = [url, spotifyUrl, youtubeUrl];
   const randomUrl = faker.helpers.arrayElement(urls);
   const content = faker.lorem.words(5);
-  return concat(content, Math.random() > 0.5 ? ` ${randomUrl}` : "");
+  const tags = [
+    "#vevericka",
+    "#squirrel",
+    "#supernatural",
+    "#spongebob",
+    "#eurovision",
+    "#thumbelina",
+    "#adele",
+    "#harrypotter",
+    "#lordoftherings",
+    "#starwars",
+    "#gameofthrones",
+  ];
+  const randomTag = faker.helpers.arrayElement(tags);
+  return concat(content, getOrEmpty(randomTag), getOrEmpty(randomUrl));
 }
 
 function createFakeImage() {
