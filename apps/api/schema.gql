@@ -172,6 +172,7 @@ scalar Date
 type Query {
   post(id: String!): Post!
   posts(id: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
+  postsByTag(tag: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
   me: User!

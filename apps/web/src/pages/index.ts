@@ -11,4 +11,5 @@ export * from './notifications';
 export * from './post';
 export * from './search';
 export * from './settings';
+export * from './tag';
 export * from './user';

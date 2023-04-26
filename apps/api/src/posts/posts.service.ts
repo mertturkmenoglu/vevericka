@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
+import { User } from "@prisma/client";
+import { PaginationArgs } from "src/common/args/pagination.args";
+import { OramaService } from "src/orama/orama.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { NewPostInput } from "./dto/new-post.input";
 import { Post } from "./models/post.model";
 import { postsInclude, postsVoteInclude } from "./posts.type";
-import { OramaService } from "src/orama/orama.service";
-import { PaginationArgs } from "src/common/args/pagination.args";
-import { User } from "@prisma/client";
 
 @Injectable()
 export class PostsService {
@@ -197,6 +197,36 @@ export class PostsService {
     });
 
     return res.map((post) => ({
+      ...post,
+      vote: this.getVote(post.likes, post.dislikes),
+    }));
+  }
+
+  async getPostsByTag(
+    userId: string,
+    tag: string,
+    pagination: PaginationArgs
+  ): Promise<Post[]> {
+    const res = await this.prisma.tag.findUnique({
+      where: {
+        tagName: `#${tag}`,
+      },
+      include: {
+        posts: {
+          include: {
+            ...postsInclude,
+            ...postsVoteInclude(userId),
+          },
+          skip: pagination.skip,
+          take: pagination.take,
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
+    });
+
+    return res.posts.map((post) => ({
       ...post,
       vote: this.getVote(post.likes, post.dislikes),
     }));

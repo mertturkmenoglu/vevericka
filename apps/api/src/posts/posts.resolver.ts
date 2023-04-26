@@ -109,6 +109,20 @@ export class PostsResolver {
     return post;
   }
 
+  @Query(() => [Post])
+  @UseGuards(JwtAuthGuard)
+  async postsByTag(
+    @CurrentUserDecorator() currentUser: CurrentUser,
+    @Args("tag") tag: string,
+    @Args() pagination: PaginationArgs
+  ): Promise<Post[]> {
+    return await this.postsService.getPostsByTag(
+      currentUser.user.id,
+      tag,
+      pagination
+    );
+  }
+
   @Mutation(() => String)
   @UseGuards(JwtAuthGuard)
   async bulkCreatePosts(

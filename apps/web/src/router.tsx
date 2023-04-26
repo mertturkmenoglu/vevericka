@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
 import { GuestRoute, ProtectedRoute } from './components';
 import { bookmarksQueryDocument, postQueryDocument, profileDataQueryDocument } from './graphql';
+import { postsByTagQueryDocument } from './graphql/queries/postsByTagQuery';
 import {
   BookmarksPage,
   ContactPage,
@@ -16,6 +17,7 @@ import {
   PostPage,
   SearchPage,
   SettingsPage,
+  TagPage,
   UserPage,
 } from './pages';
 
@@ -53,6 +55,33 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <ExplorePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/explore/:tag',
+    loader: async ({ params }) => {
+      const { tag } = params;
+
+      if (!tag) {
+        throw new Error('Tag is required');
+      }
+
+      const { data } = await client.query({
+        query: postsByTagQueryDocument,
+        variables: {
+          tag,
+          skip: 0,
+          take: 50,
+        },
+      });
+
+      return data;
+    },
+    errorElement: <NotFoundPage />,
+    element: (
+      <ProtectedRoute>
+        <TagPage />
       </ProtectedRoute>
     ),
   },
