@@ -18,110 +18,53 @@ enum AuthProvider {
 }
 
 model Auth {
-  sub  String
-  type AuthProvider
-
-  // Relations
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @unique
-
-  // Meta
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  sub       String
+  type      AuthProvider
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String       @unique
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 
   @@id([sub, type])
 }
 
 model User {
-  // Primary Key
-  id            String        @id @default(uuid())
-  // Scalar Values
-  name          String        @db.VarChar(64)
-  image         String        @default("profile.png") @db.VarChar(512)
-  job           String?       @db.VarChar(64)
-  twitterHandle String?       @db.VarChar(64)
-  school        String?       @db.VarChar(64)
+  id            String     @id @default(uuid())
+  name          String     @db.VarChar(64)
+  image         String     @default("profile.png") @db.VarChar(512)
+  job           String?    @db.VarChar(64)
+  twitterHandle String?    @db.VarChar(64)
+  school        String?    @db.VarChar(64)
   birthDate     DateTime?
-  website       String?       @db.VarChar(255)
-  description   String?       @db.VarChar(255)
-  verified      Boolean       @default(false)
-  protected     Boolean       @default(false)
-  bannerImage   String        @default("banner.png")
-  gender        String?       @db.VarChar(32)
-  city          String?       @db.VarChar(64)
-  country       String?       @db.VarChar(64)
-  // Relations
+  website       String?    @db.VarChar(255)
+  description   String?    @db.VarChar(255)
+  verified      Boolean    @default(false)
+  protected     Boolean    @default(false)
+  bannerImage   String     @default("banner.png")
+  gender        String?    @db.VarChar(32)
+  city          String?    @db.VarChar(64)
+  country       String?    @db.VarChar(64)
   auth          Auth?
-  speaking      Speaking[]
-  wishToSpeak   WishToSpeak[]
-  hobbies       Hobby[]
-  features      Feature[]
-  posts         Post[]        @relation(name: "UserPosts")
-  likes         Post[]        @relation(name: "UserLikes")
-  dislikes      Post[]        @relation(name: "UserDislikes")
-  comments      Comment[]     @relation(name: "UserComments")
-  followers     User[]        @relation("UserFollows")
-  following     User[]        @relation("UserFollows")
-  shorts        Short[]       @relation("UserShorts")
-  bookmarks     Bookmark[]    @relation("UserBookmarks")
-  // Meta
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-}
-
-model Speaking {
-  id          String      @id @default(uuid())
-  language    Language
-  proficiency Proficiency
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String
-
-  @@index([userId])
-}
-
-model WishToSpeak {
-  id       String   @id @default(uuid())
-  language Language
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   String
-
-  @@index([userId])
-}
-
-model Hobby {
-  id     String @id @default(uuid())
-  hobby  String @db.VarChar(64)
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
-
-  @@index([userId])
-}
-
-model Feature {
-  id          String @id @default(uuid())
-  feature     String @db.VarChar(64)
-  description String @db.VarChar(255)
-  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String
-
-  @@index([userId])
+  posts         Post[]     @relation(name: "UserPosts")
+  likes         Post[]     @relation(name: "UserLikes")
+  dislikes      Post[]     @relation(name: "UserDislikes")
+  followers     User[]     @relation("UserFollows")
+  following     User[]     @relation("UserFollows")
+  bookmarks     Bookmark[] @relation("UserBookmarks")
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
 
 model Post {
-  // Primary Key
   id        String      @id @default(uuid())
-  // Scalar Values
   content   String      @db.VarChar(255)
-  // Relations
   user      User        @relation(name: "UserPosts", fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   dislikes  User[]      @relation(name: "UserDislikes")
   likes     User[]      @relation(name: "UserLikes")
   tags      Tag[]       @relation(name: "PostTags")
-  comments  Comment[]   @relation(name: "PostComments")
   images    PostImage[] @relation(name: "PostImages")
   videos    PostVideo[] @relation(name: "PostVideos")
-  // Meta
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Bookmark  Bookmark[]
@@ -129,63 +72,32 @@ model Post {
   @@index([userId])
 }
 
-model Short {
-  // Primary Key
-  id        String   @id @default(uuid())
-  // Scalar Values
-  url       String   @db.VarChar(255)
-  // Relations
-  user      User     @relation(name: "UserShorts", fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  // Meta
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-}
-
-model Comment {
-  // Primary Key
-  id        String   @id @default(uuid())
-  // Scalar Values
-  content   String   @db.VarChar(255)
-  // Relations
-  user      User     @relation(name: "UserComments", fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  post      Post     @relation(name: "PostComments", fields: [postId], references: [id], onDelete: Cascade)
-  postId    String
-  // Meta
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-  @@index([postId])
-}
-
 model Tag {
-  // Primary Key
   id        String   @id @default(uuid())
-  // Scalar Values
   tagName   String   @unique @db.VarChar(254)
-  // Relations
   posts     Post[]   @relation(name: "PostTags")
-  // Meta
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Indices
   @@index(tagName)
 }
 
 model PostImage {
-  // Primary Key
   id        String   @id @default(uuid())
-  // Scalar Values
   url       String
-  // Relations
   post      Post     @relation(name: "PostImages", fields: [postId], references: [id], onDelete: Cascade)
   postId    String
-  // Meta
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
+}
+
+model PostVideo {
+  id        String   @id @default(uuid())
+  url       String
+  post      Post     @relation(name: "PostVideos", fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -203,59 +115,4 @@ model Bookmark {
 
   @@index([userId])
   @@index([postId])
-}
-
-model PostVideo {
-  // Primary Key
-  id        String   @id @default(uuid())
-  // Scalar Values
-  url       String
-  // Relations
-  post      Post     @relation(name: "PostVideos", fields: [postId], references: [id], onDelete: Cascade)
-  postId    String
-  // Meta
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([postId])
-}
-
-///
-/// ENUMS
-///
-
-enum GenderOptions {
-  MALE
-  FEMALE
-  OTHER
-}
-
-enum Language {
-  ZH
-  ES
-  EN
-  PT
-  RU
-  JA
-  TR
-  KO
-  FR
-  DE
-  IT
-  AR
-  ID
-  PL
-  RO
-  NL
-  KU
-  EL
-  HU
-  CS
-}
-
-enum Proficiency {
-  ELEMENTARY
-  INTERMEDIATE
-  PROFESSIONAL
-  NATIVE
 }
