@@ -14,7 +14,6 @@ type Count {
   dislikes: Float!
   likes: Float!
   tags: Float!
-  comments: Float!
 }
 
 """Tag Count"""
