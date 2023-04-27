@@ -11,8 +11,6 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
