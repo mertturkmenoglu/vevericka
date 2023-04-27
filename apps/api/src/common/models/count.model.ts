@@ -10,7 +10,4 @@ export class Count {
 
   @Field()
   tags: number;
-
-  @Field()
-  comments: number;
 }

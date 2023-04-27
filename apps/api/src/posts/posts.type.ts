@@ -7,7 +7,6 @@ export const postsInclude = {
   videos: true,
   _count: {
     select: {
-      comments: true,
       dislikes: true,
       likes: true,
       tags: true,

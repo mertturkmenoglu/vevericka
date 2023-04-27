@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { Tag } from "@prisma/client";
 import { PaginationArgs } from "../common/args/pagination.args";
 import { PrismaService } from "../prisma/prisma.service";
 
@@ -15,7 +14,6 @@ export class ExploreService {
           take: 10,
           include: {
             user: true,
-            comments: true,
           },
         },
       },
