@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  fragment CountItem on Count {\n    dislikes\n    likes\n    tags\n    comments\n  }\n": types.CountItemFragmentDoc,
+    "\n  fragment CountItem on Count {\n    dislikes\n    likes\n    tags\n  }\n": types.CountItemFragmentDoc,
     "\n  fragment PostItem on Post {\n    id\n    content\n    _count {\n      ...CountItem\n    }\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    vote\n    createdAt\n    updatedAt\n    user {\n      ...UserItem\n    }\n  }\n": types.PostItemFragmentDoc,
     "\n  fragment ProfileItem on Profile {\n    id\n    name\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    isFollowing\n    isMe\n    createdAt\n    updatedAt\n    _count {\n      followers\n      following\n      posts\n    }\n  }\n": types.ProfileItemFragmentDoc,
     "\n  fragment UserItem on User {\n    id\n    name\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    createdAt\n    updatedAt\n  }\n": types.UserItemFragmentDoc,
@@ -56,7 +56,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment CountItem on Count {\n    dislikes\n    likes\n    tags\n    comments\n  }\n"): (typeof documents)["\n  fragment CountItem on Count {\n    dislikes\n    likes\n    tags\n    comments\n  }\n"];
+export function graphql(source: "\n  fragment CountItem on Count {\n    dislikes\n    likes\n    tags\n  }\n"): (typeof documents)["\n  fragment CountItem on Count {\n    dislikes\n    likes\n    tags\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

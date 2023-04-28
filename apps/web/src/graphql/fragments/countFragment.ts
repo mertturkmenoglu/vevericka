@@ -5,6 +5,5 @@ export const CountFragment = graphql(/* GraphQL */ `
     dislikes
     likes
     tags
-    comments
   }
 `);
