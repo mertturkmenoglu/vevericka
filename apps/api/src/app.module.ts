@@ -1,8 +1,10 @@
 import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 import {BullModule} from "@nestjs/bull";
+import {CacheModule} from "@nestjs/cache-manager";
 import {Module} from "@nestjs/common";
 import {ConfigModule} from "@nestjs/config";
 import {GraphQLModule} from "@nestjs/graphql";
+import * as RedisStore from "cache-manager-ioredis";
 import {AuthModule} from "./auth/auth.module";
 import {BookmarksModule} from "./bookmarks/bookmarks.module";
 import {ExploreModule} from "./explore/explore.module";
@@ -15,6 +17,10 @@ import {UsersModule} from "./users/users.module";
 @Module({
   imports: [
     AuthModule,
+    CacheModule.register({
+      isGlobal: true,
+      store: RedisStore
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
