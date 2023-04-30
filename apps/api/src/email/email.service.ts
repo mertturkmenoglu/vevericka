@@ -1,20 +1,16 @@
-import { MailerService } from "@nestjs-modules/mailer";
+import { InjectQueue } from "@nestjs/bull";
 import { Injectable } from "@nestjs/common";
+import { Queue } from "bull";
 
 @Injectable()
 export class EmailService {
-  constructor(private readonly mailerService: MailerService) {}
-  async sendSigninNotificationEmail(to: string): Promise<boolean> {
-    await this.mailerService.sendMail({
-      to,
-      from: process.env.NODEMAILER_FROM_EMAIL,
-      subject: "Vevericka Sign In",
-      template: "signin",
-      context: {
-        name: to,
-      },
-    });
+  constructor(@InjectQueue("emails") private readonly emailsQueue: Queue) {}
 
+  async sendSigninNotificationEmail(
+    to: string,
+    name: string
+  ): Promise<boolean> {
+    await this.emailsQueue.add("sendSigninNotificationEmail", { to, name });
     return true;
   }
 }

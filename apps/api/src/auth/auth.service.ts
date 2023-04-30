@@ -96,7 +96,7 @@ export class AuthService {
       email,
     };
 
-    await this.emailService.sendSigninNotificationEmail(email);
+    await this.emailService.sendSigninNotificationEmail(email, name);
 
     return `Bearer ${this.jwtService.sign(payload)}`;
   }
