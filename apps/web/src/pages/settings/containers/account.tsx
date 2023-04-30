@@ -51,6 +51,13 @@ function AccountContainer({ user }: Props): JSX.Element {
         value={me.id}
       />
 
+      <TextField
+        label="Your Email"
+        className="mt-4"
+        disabled
+        value={me.email}
+      />
+
       <p className="mt-8 text-xl font-medium text-midnight dark:text-white">Profile Image</p>
 
       <div className="mt-2 flex items-center space-x-4">

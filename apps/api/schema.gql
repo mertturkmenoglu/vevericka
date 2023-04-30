@@ -47,6 +47,7 @@ type PopularTag {
 type User {
   id: String!
   name: String!
+  email: String!
   image: String!
   job: String
   twitterHandle: String
@@ -169,6 +170,7 @@ type UserCount {
 type Profile {
   id: String!
   name: String!
+  email: String!
   image: String!
   job: String
   twitterHandle: String

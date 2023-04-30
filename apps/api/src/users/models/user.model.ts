@@ -9,6 +9,9 @@ export class User {
   name: string;
 
   @Field()
+  email: string;
+
+  @Field()
   image: string;
 
   @Field({ nullable: true })

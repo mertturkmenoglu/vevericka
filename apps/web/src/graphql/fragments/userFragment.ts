@@ -4,6 +4,7 @@ export const UserFragment = graphql(/* GraphQL */ `
   fragment UserItem on User {
     id
     name
+    email
     image
     job
     twitterHandle
