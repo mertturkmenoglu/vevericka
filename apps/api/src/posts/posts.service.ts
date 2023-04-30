@@ -90,7 +90,7 @@ export class PostsService {
       pagination
     );
 
-    return posts.map(this.mapQueryResultToResponse);
+    return posts.map(this.mapQueryResultToResponse.bind(this));
   }
 
   async getPostsByTag(
@@ -117,7 +117,7 @@ export class PostsService {
       },
     });
 
-    return res.posts.map(this.mapQueryResultToResponse);
+    return res.posts.map(this.mapQueryResultToResponse.bind(this));
   }
 
   private prepareTags(content: string): string[] {
