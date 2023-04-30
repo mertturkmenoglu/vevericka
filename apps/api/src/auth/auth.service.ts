@@ -6,6 +6,7 @@ import { Profile as DiscordProfile } from "passport-discord";
 import { Profile as GoogleProfile } from "passport-google-oauth20";
 import { Profile as SpotifyProfile } from "passport-spotify";
 import { PrismaService } from "src/prisma/prisma.service";
+import { EmailService } from "../email/email.service";
 import { SearchService } from "../search/search.service";
 import { JwtPayload } from "./types/jwt-payload.type";
 import { OAuthType } from "./types/oauth.type";
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
-    private readonly searchService: SearchService
+    private readonly searchService: SearchService,
+    private readonly emailService: EmailService
   ) {}
 
   async login(user: Profile): Promise<string> {
@@ -93,6 +95,8 @@ export class AuthService {
       type: info.type,
       email,
     };
+
+    await this.emailService.sendSigninNotificationEmail(email);
 
     return `Bearer ${this.jwtService.sign(payload)}`;
   }

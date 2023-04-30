@@ -11,7 +11,8 @@
       "apps/*"
     ],
     "nohoist": [
-      "**/@nestjs/**"
+      "**/@nestjs/**",
+      "**/@nestjs-modules/**"
     ]
   },
   "scripts": {

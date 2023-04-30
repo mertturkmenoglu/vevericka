@@ -62,6 +62,7 @@ export class AuthController {
     const webClientRedirectUrl = `${BASE}/feed`;
     const user: Profile = req.user as Profile;
     const token = await this.authService.login(user);
+
     return res
       .cookie("jwt-access", token, {
         httpOnly: process.env.NODE_ENV !== "development",
