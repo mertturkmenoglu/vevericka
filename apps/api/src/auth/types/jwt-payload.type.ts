@@ -6,4 +6,5 @@ export interface JwtPayload {
   image: string;
   id: string;
   name: string;
+  email: string;
 }

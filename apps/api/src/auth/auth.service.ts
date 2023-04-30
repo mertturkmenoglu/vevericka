@@ -3,10 +3,8 @@ import { JwtService } from "@nestjs/jwt";
 import { AuthProvider } from "@prisma/client";
 import { Profile } from "passport";
 import { Profile as DiscordProfile } from "passport-discord";
-import { Profile as GitHubProfile } from "passport-github";
 import { Profile as GoogleProfile } from "passport-google-oauth20";
 import { Profile as SpotifyProfile } from "passport-spotify";
-import { Profile as TwitterProfile } from "passport-twitter";
 import { PrismaService } from "src/prisma/prisma.service";
 import { SearchService } from "../search/search.service";
 import { JwtPayload } from "./types/jwt-payload.type";
@@ -25,6 +23,23 @@ export class AuthService {
     const type = user.provider.toUpperCase() as AuthProvider;
     let userId: string;
 
+    let email: string;
+
+    switch (type) {
+      case "DISCORD": {
+        email = (user as any).email;
+        break;
+      }
+      case "GOOGLE": {
+        email = (user as any).emails[0].value;
+        break;
+      }
+      case "SPOTIFY": {
+        email = (user as any).emails[0].value;
+        break;
+      }
+    }
+
     try {
       // User exist, signin user
       let authUser = await this.prisma.auth.findUniqueOrThrow({
@@ -41,6 +56,7 @@ export class AuthService {
         data: {
           name,
           image,
+          email,
           auth: {
             connectOrCreate: {
               where: {
@@ -75,6 +91,7 @@ export class AuthService {
       id: userId,
       name,
       type: info.type,
+      email,
     };
 
     return `Bearer ${this.jwtService.sign(payload)}`;
@@ -114,16 +131,6 @@ export class AuthService {
       };
     }
 
-    if (user.provider === "github") {
-      const u = user as GitHubProfile;
-      return {
-        sub: u.id,
-        image: u.photos[0].value,
-        type: u.provider as OAuthType,
-        name: u.displayName,
-      };
-    }
-
     if (user.provider === "spotify") {
       const u = user as unknown as SpotifyProfile;
       return {
@@ -133,13 +140,5 @@ export class AuthService {
         name: u.displayName,
       };
     }
-
-    const u = user as TwitterProfile;
-    return {
-      sub: u.id,
-      image: u.photos[0].value,
-      type: u.provider as OAuthType,
-      name: u.displayName,
-    };
   }
 }

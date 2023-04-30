@@ -11,8 +11,6 @@ datasource db {
 
 enum AuthProvider {
   GOOGLE
-  TWITTER
-  GITHUB
   DISCORD
   SPOTIFY
 }
@@ -31,6 +29,7 @@ model Auth {
 model User {
   id            String     @id @default(uuid())
   name          String     @db.VarChar(64)
+  email         String     @db.VarChar(255)
   image         String     @default("profile.png") @db.VarChar(512)
   job           String?    @db.VarChar(64)
   twitterHandle String?    @db.VarChar(64)

@@ -8,11 +8,9 @@ import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import {
   DiscordStrategy,
-  GitHubStrategy,
   GoogleStrategy,
   JwtStrategy,
   SpotifyStrategy,
-  TwitterStrategy,
 } from "./strategies";
 
 @Module({
@@ -38,11 +36,9 @@ import {
   providers: [
     AuthService,
     DiscordStrategy,
-    GitHubStrategy,
     GoogleStrategy,
     JwtStrategy,
     SpotifyStrategy,
-    TwitterStrategy,
   ],
   controllers: [AuthController],
 })

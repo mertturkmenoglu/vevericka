@@ -1,16 +1,14 @@
 import { Controller, Get, Post, Req, Res, UseGuards } from "@nestjs/common";
-import { Profile } from "passport";
-import {
-  SpotifyGuard,
-  GitHubGuard,
-  TwitterGuard,
-  GoogleGuard,
-  DiscordGuard,
-  JwtAuthGuard,
-} from "./guards";
-import { AuthService } from "./auth.service";
-import { Request, Response } from "express";
 import { ConfigService } from "@nestjs/config";
+import { Request, Response } from "express";
+import { Profile } from "passport";
+import { AuthService } from "./auth.service";
+import {
+  DiscordGuard,
+  GoogleGuard,
+  JwtAuthGuard,
+  SpotifyGuard,
+} from "./guards";
 
 @Controller("oauth")
 export class AuthController {
@@ -30,14 +28,6 @@ export class AuthController {
   @UseGuards(GoogleGuard)
   async googleLogin() {}
 
-  @Get("github")
-  @UseGuards(GitHubGuard)
-  async githubLogin() {}
-
-  @Get("twitter")
-  @UseGuards(TwitterGuard)
-  async twitterLogin() {}
-
   @Get("spotify")
   @UseGuards(SpotifyGuard)
   async spotifyLogin() {}
@@ -49,18 +39,6 @@ export class AuthController {
   @Get("callback/google")
   @UseGuards(GoogleGuard)
   googleAuthCallback(@Req() req: Request, @Res() res: Response) {
-    return this.addCookieAndRedirect(req, res);
-  }
-
-  @Get("callback/github")
-  @UseGuards(GitHubGuard)
-  githubAuthCallback(@Req() req: Request, @Res() res: Response) {
-    return this.addCookieAndRedirect(req, res);
-  }
-
-  @Get("callback/twitter")
-  @UseGuards(TwitterGuard)
-  twitterAuthCallback(@Req() req: Request, @Res() res: Response) {
     return this.addCookieAndRedirect(req, res);
   }
 
