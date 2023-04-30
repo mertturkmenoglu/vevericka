@@ -77,15 +77,11 @@ export class PostsResolver {
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("id") id: string,
     @Args("vote") vote: Vote
-  ): Promise<Post> {
-    let post: Awaited<Post>;
-    if (vote === "like") {
-      post = await this.postsService.likePost(currentUser.user.id, id);
-    } else if (vote === "dislike") {
-      post = await this.postsService.dislikePost(currentUser.user.id, id);
-    } else {
-      post = await this.postsService.removeVote(currentUser.user.id, id);
-    }
+  ): Promise<boolean> {
+    const userId = currentUser.user.id;
+    const result = await this.postsService.changeVote(userId, id, vote);
+
+    const post = await this.postsService.findOneById(userId, id);
 
     if (vote === "like") {
       await this.novu.trigger("post-like", {
@@ -99,7 +95,7 @@ export class PostsResolver {
       });
     }
 
-    return post;
+    return result;
   }
 
   @Mutation(() => Post, { nullable: true })
@@ -107,16 +103,16 @@ export class PostsResolver {
   async deletePost(
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("id") id: string
-  ): Promise<Post> {
-    const post = await this.postsService.remove(currentUser.user.id, id);
+  ): Promise<boolean> {
+    const result = await this.postsService.remove(id);
 
-    if (!post) {
+    if (!result) {
       throw new NotFoundException(id);
     }
 
     await this.searchService.removePostFromSearchIndex(id);
 
-    return post;
+    return result;
   }
 
   @Query(() => [Post])

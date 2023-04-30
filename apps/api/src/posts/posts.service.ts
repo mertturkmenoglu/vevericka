@@ -3,12 +3,17 @@ import { User } from "@prisma/client";
 import { PaginationArgs } from "src/common/args/pagination.args";
 import { PrismaService } from "../prisma/prisma.service";
 import { NewPostInput } from "./dto/new-post.input";
+import { Vote } from "./dto/vote-post.input";
 import { Post } from "./models/post.model";
-import { postsInclude, postsVoteInclude } from "./posts.type";
+import { PostsRepository } from "./posts.repository";
+import { postsInclude, postsVoteInclude, TPostResult } from "./posts.type";
 
 @Injectable()
 export class PostsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly repository: PostsRepository
+  ) {}
 
   async create(userId: string, data: NewPostInput): Promise<Post> {
     const tags = this.prepareTags(data.content);
@@ -55,122 +60,23 @@ export class PostsService {
     };
   }
 
-  async likePost(userId: string, postId: string): Promise<Post> {
-    const post = await this.prisma.post.update({
-      where: {
-        id: postId,
-      },
-      data: {
-        likes: {
-          connect: {
-            id: userId,
-          },
-        },
-        dislikes: {
-          disconnect: {
-            id: userId,
-          },
-        },
-      },
-      include: {
-        ...postsInclude,
-      },
-    });
-
-    return {
-      ...post,
-      vote: "like",
-    };
-  }
-
-  async dislikePost(userId: string, postId: string): Promise<Post> {
-    const post = await this.prisma.post.update({
-      where: {
-        id: postId,
-      },
-      data: {
-        likes: {
-          disconnect: {
-            id: userId,
-          },
-        },
-        dislikes: {
-          connect: {
-            id: userId,
-          },
-        },
-      },
-      include: {
-        ...postsInclude,
-      },
-    });
-
-    return {
-      ...post,
-      vote: "dislike",
-    };
-  }
-
-  async removeVote(userId: string, postId: string): Promise<Post> {
-    const post = await this.prisma.post.update({
-      where: {
-        id: postId,
-      },
-      data: {
-        likes: {
-          disconnect: {
-            id: userId,
-          },
-        },
-        dislikes: {
-          disconnect: {
-            id: userId,
-          },
-        },
-      },
-      include: {
-        ...postsInclude,
-      },
-    });
-
-    return {
-      ...post,
-      vote: "none",
-    };
+  async changeVote(
+    userId: string,
+    postId: string,
+    vote: Vote
+  ): Promise<boolean> {
+    await this.repository.changeVote(userId, postId, vote);
+    return true;
   }
 
   async findOneById(userId: string, id: string): Promise<Post> {
-    const post = await this.prisma.post.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        ...postsInclude,
-        ...postsVoteInclude(userId),
-      },
-    });
-
-    return {
-      ...post,
-      vote: this.getVote(post.likes, post.dislikes),
-    };
+    const post = await this.repository.findOneById(userId, id);
+    return this.mapQueryResultToResponse(post);
   }
 
-  async remove(userId: string, id: string): Promise<Post | null> {
-    const post = await this.prisma.post.delete({
-      where: {
-        id,
-      },
-      include: {
-        ...postsInclude,
-        ...postsVoteInclude(userId),
-      },
-    });
-
-    return {
-      ...post,
-      vote: this.getVote(post.likes, post.dislikes),
-    };
+  async remove(id: string): Promise<boolean> {
+    await this.repository.deleteOneById(id);
+    return true;
   }
 
   async getPostsByUserId(
@@ -178,25 +84,13 @@ export class PostsService {
     userId: string,
     pagination: PaginationArgs
   ): Promise<Post[]> {
-    const res = await this.prisma.post.findMany({
-      where: {
-        userId,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        ...postsInclude,
-        ...postsVoteInclude(thisUserId),
-      },
-      skip: pagination.skip,
-      take: pagination.take,
-    });
+    const posts = await this.repository.findManyByThisUserIdAndUserId(
+      thisUserId,
+      userId,
+      pagination
+    );
 
-    return res.map((post) => ({
-      ...post,
-      vote: this.getVote(post.likes, post.dislikes),
-    }));
+    return posts.map(this.mapQueryResultToResponse);
   }
 
   async getPostsByTag(
@@ -223,10 +117,7 @@ export class PostsService {
       },
     });
 
-    return res.posts.map((post) => ({
-      ...post,
-      vote: this.getVote(post.likes, post.dislikes),
-    }));
+    return res.posts.map(this.mapQueryResultToResponse);
   }
 
   private prepareTags(content: string): string[] {
@@ -243,5 +134,12 @@ export class PostsService {
     } else {
       return "none";
     }
+  }
+
+  private mapQueryResultToResponse(post: TPostResult) {
+    return {
+      ...post,
+      vote: this.getVote(post.likes, post.dislikes),
+    };
   }
 }
