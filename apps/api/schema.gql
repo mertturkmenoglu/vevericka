@@ -154,6 +154,17 @@ type LinkPreview {
   url: String
 }
 
+type Story {
+  id: String!
+  user: User!
+  duration: Int!
+  source: String!
+  seen: Boolean!
+  endsAt: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type LastSeen {
   id: String!
   date: String!
@@ -206,6 +217,9 @@ type Query {
   bookmark(id: String!): Bookmark!
   bookmarks(skip: Int! = 0, take: Int! = 25): [Bookmark!]!
   linkPreview(url: String!): LinkPreview!
+  story(id: String!): Story!
+  stories(id: String!): [Story!]!
+  storyFeed: [Story!]!
 }
 
 type Mutation {
@@ -219,6 +233,9 @@ type Mutation {
   updateLastSeen: String!
   createBookmark(newBookmarkData: NewBookmarkInput!): Bookmark!
   addOrRemoveBookmark(postId: String!): Bookmark!
+  createStory(payload: CreateStoryInput!): Story!
+  deleteStory(id: String!): Story!
+  markStoryAsSeen(id: String!): Story!
 }
 
 input NewPostInput {
@@ -249,6 +266,12 @@ input UpdateUserInput {
 
 input NewBookmarkInput {
   postId: String!
+}
+
+input CreateStoryInput {
+  source: String!
+  duration: Float!
+  endsAt: DateTime!
 }
 
 type Subscription {

@@ -6,6 +6,7 @@ import { CacheModule } from "@nestjs/cache-manager";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
+import { ScheduleModule } from "@nestjs/schedule";
 import * as RedisStore from "cache-manager-ioredis";
 import { AuthModule } from "./auth/auth.module";
 import { BookmarksModule } from "./bookmarks/bookmarks.module";
@@ -14,6 +15,7 @@ import { FeedModule } from "./feed/feed.module";
 import { LinkModule } from "./link/link-module";
 import { PostsModule } from "./posts/posts.module";
 import { SearchModule } from "./search/search.module";
+import { StoriesModule } from "./stories/stories.module";
 import { UsersModule } from "./users/users.module";
 
 @Module({
@@ -33,6 +35,7 @@ import { UsersModule } from "./users/users.module";
     SearchModule,
     BookmarksModule,
     LinkModule,
+    StoriesModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: "schema.gql",
@@ -63,6 +66,7 @@ import { UsersModule } from "./users/users.module";
         port: 6379,
       },
     }),
+    ScheduleModule.forRoot(),
   ],
 })
 export class AppModule {}

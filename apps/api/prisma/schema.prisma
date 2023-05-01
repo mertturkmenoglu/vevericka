@@ -50,8 +50,10 @@ model User {
   followers     User[]     @relation("UserFollows")
   following     User[]     @relation("UserFollows")
   bookmarks     Bookmark[] @relation("UserBookmarks")
+  seenStories   Story[]    @relation("UserSeenStories")
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
+  stories       Story[]
 }
 
 model Post {
@@ -114,4 +116,21 @@ model Bookmark {
 
   @@index([userId])
   @@index([postId])
+}
+
+model Story {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  seenBy User[] @relation(name: "UserSeenStories")
+
+  duration Int
+
+  source String
+
+  endsAt    DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
