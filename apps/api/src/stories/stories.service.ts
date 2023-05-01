@@ -1,7 +1,8 @@
 import { InjectQueue } from "@nestjs/bull";
-import { Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { Queue } from "bull";
+import { AxiomService } from "../axiom/axiom.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateStoryInput } from "./dto/create-story.input";
 import { Story } from "./models/story.model";
@@ -9,11 +10,10 @@ import { TStoryResult } from "./stories.type";
 
 @Injectable()
 export class StoriesService {
-  private readonly logger = new Logger(StoriesService.name);
-
   constructor(
     private readonly prisma: PrismaService,
-    @InjectQueue("stories") private storiesQueue: Queue
+    @InjectQueue("stories") private storiesQueue: Queue,
+    private readonly axiomService: AxiomService
   ) {}
 
   async findOneById(userId: string, id: string): Promise<Story> {
@@ -159,7 +159,7 @@ export class StoriesService {
   @Cron("0 * * * * *")
   async checkStoryEndTimes() {
     const now = new Date();
-    this.logger.verbose(
+    await this.axiomService.sendString(
       `Running Cron job. Checking for stories that have ended at ${now}`
     );
 
@@ -176,12 +176,12 @@ export class StoriesService {
         ids: stories.map((story) => story.id),
       });
 
-      this.logger.verbose(
+      await this.axiomService.sendString(
         `Found ${stories.length} stories to delete. Added to queue.`
       );
     }
 
-    this.logger.verbose("Ending checkStoryEndTimes cron job.");
+    await this.axiomService.sendString("Ending checkStoryEndTimes cron job.");
   }
 
   private mapResultToStory(result: TStoryResult): Story {
