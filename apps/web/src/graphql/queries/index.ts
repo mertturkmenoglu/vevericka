@@ -6,4 +6,7 @@ export * from './profileDataQuery';
 export * from './bookmarksQuery';
 export * from './searchPostsQuery';
 export * from './searchUsersQuery';
+export * from './storiesQuery';
+export * from './storyFeedQuery';
+export * from './storyQuery';
 export * from './postQuery';
