@@ -13,7 +13,7 @@ const vitestConfig: VitestUserConfigInterface = {
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
     css: true,
-  }
+  },
 };
 
 // https://vitejs.dev/config/
@@ -25,6 +25,7 @@ export default defineConfig({
     codegen({
       runOnStart: false,
       enableWatcher: true,
+      runOnBuild: false,
     }),
   ],
   // @ts-ignore
