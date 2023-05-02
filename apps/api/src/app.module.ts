@@ -65,10 +65,7 @@ import { UsersModule } from "./users/users.module";
       },
     }),
     BullModule.forRoot({
-      redis: {
-        host: "localhost",
-        port: 6379,
-      },
+      redis: process.env.REDIS_URL,
     }),
     ScheduleModule.forRoot(),
   ],
