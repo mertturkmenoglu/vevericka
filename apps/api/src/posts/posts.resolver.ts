@@ -6,6 +6,7 @@ import { Queue } from "bull";
 import { JwtAuthGuard } from "src/auth/guards";
 import { PaginationArgs } from "src/common/args/pagination.args";
 import { CurrentUser } from "src/common/types/current-user.type";
+import { AxiomService } from "../axiom/axiom.service";
 import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
 import { SearchService } from "../search/search.service";
 import { BulkCreatePostsInput } from "./dto/bulk-create-posts.input";
@@ -21,7 +22,8 @@ export class PostsResolver {
   constructor(
     @InjectQueue("posts") private readonly postsQueue: Queue,
     private readonly postsService: PostsService,
-    private readonly searchService: SearchService
+    private readonly searchService: SearchService,
+    private readonly axiomService: AxiomService
   ) {}
 
   @Query(() => Post)
@@ -140,8 +142,16 @@ export class PostsResolver {
       dtos: payload.posts,
     });
 
-    return `Queued ${
+    const message = `Queued ${
       payload.posts.length
     } items at ${new Date().toISOString()}`;
+
+    await this.axiomService.sendEvents({
+      message,
+      type: "bulkCreatePosts",
+      userId: currentUser.user.id,
+    });
+
+    return message;
   }
 }

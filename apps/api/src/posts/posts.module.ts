@@ -1,5 +1,6 @@
 import { BullModule } from "@nestjs/bull";
 import { Module } from "@nestjs/common";
+import { AxiomModule } from "../axiom/axiom.module";
 import { PrismaModule } from "../prisma/prisma.module";
 import { SearchModule } from "../search/search.module";
 import { PostsProcessor } from "./posts.processor";
@@ -15,6 +16,7 @@ import { PostsService } from "./posts.service";
     BullModule.registerQueue({
       name: "posts",
     }),
+    AxiomModule,
   ],
 })
 export class PostsModule {}
