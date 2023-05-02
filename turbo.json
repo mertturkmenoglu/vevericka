@@ -9,6 +9,7 @@
     "build": {
       "outputs": ["apps/web/dist", "apps/api/dist"]
     },
+    "start:prod": {},
     "lint": {}
   }
 }
