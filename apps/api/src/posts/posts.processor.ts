@@ -25,7 +25,7 @@ export class PostsProcessor {
 
   @OnQueueError()
   async onQueueError(job: Job, error: Error) {
-    const message = `Job ${job.name} failed with error: ${error.message}`;
+    const message = `Job ${job.name} failed with error: ${error?.message}`;
     this.logger.error(message);
     await this.axiomService.sendEvents({
       message,
