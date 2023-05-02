@@ -6,13 +6,17 @@ import {
 } from "@nestjs/bull";
 import { Logger } from "@nestjs/common";
 import { Job } from "bull";
+import { AxiomService } from "../axiom/axiom.service";
 import { PostsService } from "./posts.service";
 
 @Processor("posts")
 export class PostsProcessor {
   private readonly logger = new Logger(PostsProcessor.name);
 
-  constructor(private readonly postsService: PostsService) {}
+  constructor(
+    private readonly postsService: PostsService,
+    private readonly axiomService: AxiomService
+  ) {}
 
   @OnQueueCompleted()
   async onQueueCompleted(job: Job) {
@@ -21,7 +25,17 @@ export class PostsProcessor {
 
   @OnQueueError()
   async onQueueError(job: Job, error: Error) {
-    this.logger.error(`Job ${job.name} failed with error: ${error.message}`);
+    const message = `Job ${job.name} failed with error: ${error.message}`;
+    this.logger.error(message);
+    await this.axiomService.sendEvents({
+      message,
+      job: {
+        name: job.name,
+        id: job.id,
+        failedReason: job.failedReason,
+        queue: job.queue,
+      },
+    });
   }
 
   @Process("createPost")
