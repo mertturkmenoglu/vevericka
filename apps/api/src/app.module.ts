@@ -5,11 +5,14 @@ import { BullModule } from "@nestjs/bull";
 import { CacheModule } from "@nestjs/cache-manager";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { APP_FILTER } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ScheduleModule } from "@nestjs/schedule";
 import * as RedisStore from "cache-manager-ioredis";
 import { AuthModule } from "./auth/auth.module";
+import { AxiomModule } from "./axiom/axiom.module";
 import { BookmarksModule } from "./bookmarks/bookmarks.module";
+import { GlobalAxiomFilter } from "./common/filters/global-axiom.filter";
 import { ExploreModule } from "./explore/explore.module";
 import { FeedModule } from "./feed/feed.module";
 import { LinkModule } from "./link/link-module";
@@ -36,6 +39,7 @@ import { UsersModule } from "./users/users.module";
     BookmarksModule,
     LinkModule,
     StoriesModule,
+    AxiomModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: "schema.gql",
@@ -67,6 +71,12 @@ import { UsersModule } from "./users/users.module";
       },
     }),
     ScheduleModule.forRoot(),
+  ],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: GlobalAxiomFilter,
+    },
   ],
 })
 export class AppModule {}
