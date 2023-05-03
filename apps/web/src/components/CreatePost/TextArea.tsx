@@ -23,7 +23,7 @@ function TextArea({ errors, register, className }: TextAreaProps): JSX.Element {
           'whitespace-pre bg-transparent',
           'border-b border-midnight dark:border-neutral-400',
           {
-            'border-red-500': errors.text?.type,
+            'border-red-base': errors.text?.type,
             'focus:border-primary': !errors.text?.type,
           },
           'py-2 text-sm font-medium text-midnight dark:text-white',
@@ -36,7 +36,7 @@ function TextArea({ errors, register, className }: TextAreaProps): JSX.Element {
         {...register('text')}
       />
 
-      <span className="mt-2 text-sm font-medium text-red-500">{errors.text?.message}</span>
+      <span className="mt-2 text-sm font-medium text-red-base">{errors.text?.message}</span>
     </>
   );
 }

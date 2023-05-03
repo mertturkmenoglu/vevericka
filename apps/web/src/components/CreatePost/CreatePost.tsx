@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { useUploadcare } from '../../hooks';
+import { Button } from '../Button';
 import Actions from './Actions';
-import CreateButton from './CreateButton';
 import EmojiPicker from './EmojiPicker';
 import TextArea from './TextArea';
 import { useCreatePostForm } from './useCreatePost';
@@ -25,34 +25,38 @@ function CreatePost({ className }: CreatePostProps): JSX.Element {
   });
 
   return (
-    <>
-      <form
-        className={clsx('flex flex-col', className)}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <TextArea
-          errors={errors}
-          className="mt-8"
-          register={register}
-        />
+    <form
+      className={clsx('flex flex-col', className)}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <TextArea
+        errors={errors}
+        className="mt-8"
+        register={register}
+      />
 
-        <Actions>
-          <div className="flex items-center space-x-2">
-            <div id="post-create" />
-            <EmojiPicker
-              show={showEmojiPicker}
-              setShow={setShowEmojiPicker}
-              onEmojiClick={(emoji) => {
-                const currentValue = getValues('text');
-                setValue('text', currentValue + emoji.emoji);
-              }}
-            />
-          </div>
+      <Actions>
+        <div className="flex items-center space-x-2">
+          <div id="post-create" />
+          <EmojiPicker
+            show={showEmojiPicker}
+            setShow={setShowEmojiPicker}
+            onEmojiClick={(emoji) => {
+              const currentValue = getValues('text');
+              setValue('text', currentValue + emoji.emoji);
+            }}
+          />
+        </div>
 
-          <CreateButton loading={loading} />
-        </Actions>
-      </form>
-    </>
+        <Button
+          loading={loading}
+          variant="midnight"
+          size="medium"
+        >
+          Create
+        </Button>
+      </Actions>
+    </form>
   );
 }
 
