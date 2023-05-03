@@ -1,8 +1,9 @@
+import { useMutation } from '@apollo/client';
 import clsx from 'clsx';
 import { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import { FragmentType, useFragment } from '../../generated';
-import { StoryFragment, UserFragment } from '../../graphql';
+import { markStoryAsSeenDocument, StoryFragment, UserFragment } from '../../graphql';
 import { LazyImage } from '../LazyImage';
 
 export interface StoryItemProps {
@@ -12,11 +13,17 @@ export interface StoryItemProps {
 function StoryItem({ story }: StoryItemProps): JSX.Element {
   const [open, setOpen] = useState(false);
   const s = useFragment(StoryFragment, story);
+  const [markStoryAsSeenMutation] = useMutation(markStoryAsSeenDocument, {
+    variables: {
+      id: s.id,
+    },
+  });
   const user = useFragment(UserFragment, s.user);
 
   return (
     <button
-      onClick={() => {
+      onClick={async () => {
+        await markStoryAsSeenMutation();
         setOpen(true);
         setTimeout(() => {
           setOpen(false);

@@ -1,49 +1,74 @@
 import { useQuery } from '@apollo/client';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick-theme.css';
+import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
+import TSwiper, { A11y, Navigation, Pagination } from 'swiper';
 
-import 'slick-carousel/slick/slick.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { StoryFeedDocument } from '../../generated/graphql';
 import StoryItem from './StoryItem';
 
 function Stories(): JSX.Element {
   const { data, error, loading } = useQuery(StoryFeedDocument);
+  const [controller, setController] = useState<TSwiper | null>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   if (loading) return <div>Loading...</div>;
 
   if (error) return <div>Error! {error.message}</div>;
 
   return (
-    <Slider
-      infinite={false}
-      slidesToShow={6}
-      slidesToScroll={6}
-      arrows={true}
-      autoplay={false}
-      accessibility={true}
-      centerMode={false}
-      draggable={true}
-      swipe={true}
-      nextArrow={
-        <button className="hover:cursor-pointer">
-          <ChevronRightIcon className="h-8 w-8 text-midnight" />
-        </button>
-      }
-      prevArrow={
-        <button className="hover:cursor-pointer">
-          <ChevronLeftIcon className="h-8 w-8 text-midnight" />
-        </button>
-      }
-    >
-      {data &&
-        data.storyFeed.map((story, index) => (
-          <StoryItem
-            story={story}
-            key={index}
-          />
-        ))}
-    </Slider>
+    <div className="flex items-center space-x-2">
+      <button className="ml-2 flex h-10 w-10 items-center justify-center rounded-full bg-berry/10">
+        <PlusIcon className="h-6 w-6 text-berry" />
+        <span className="sr-only">Create Story</span>
+      </button>
+
+      <button
+        disabled={isBeginning}
+        className="text-midnight disabled:text-neutral-400"
+        onClick={() => {
+          controller?.slidePrev();
+        }}
+      >
+        <ChevronLeftIcon className="h-6 w-6" />
+      </button>
+      <Swiper
+        modules={[Navigation, Pagination, A11y]}
+        slidesPerView={4}
+        className={'h-20 flex-1'}
+        onSwiper={(swiper) => {
+          setController(swiper);
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
+        }}
+        onSlideChange={(swiper) => {
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
+        }}
+      >
+        {data &&
+          data.storyFeed.map((story, index) => (
+            <SwiperSlide key={index}>
+              <StoryItem story={story} />
+            </SwiperSlide>
+          ))}
+      </Swiper>
+      <button
+        disabled={isEnd}
+        className="text-midnight disabled:text-neutral-400"
+        onClick={() => {
+          controller?.slideNext();
+        }}
+      >
+        <ChevronRightIcon className="h-6 w-6" />
+      </button>
+    </div>
   );
 }
 
