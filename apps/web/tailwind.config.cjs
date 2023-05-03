@@ -11,7 +11,21 @@ module.exports = {
     extend: {
       colors: {
         berry: "#be185d",
-        midnight: "#1a1a1a"
+        midnight: "#1a1a1a",
+        "titanium-yellow": "#F3EB0B",
+        "midnight-blue": "#003566",
+        teal: {
+          ...defaultTheme.colors.teal,
+          base: "#367588",
+        },
+        "emerald": {
+          ...defaultTheme.colors.emerald,
+          base: "#00A86B",
+        },
+        "red": {
+          ...defaultTheme.colors.red,
+          base: "#C92519",
+        },
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
