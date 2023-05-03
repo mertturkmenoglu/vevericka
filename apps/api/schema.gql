@@ -165,6 +165,12 @@ type Story {
   updatedAt: DateTime!
 }
 
+type StoryFeedElement {
+  user: User!
+  stories: [Story!]!
+  hasSeenAll: Boolean!
+}
+
 type LastSeen {
   id: String!
   date: String!
@@ -219,7 +225,7 @@ type Query {
   linkPreview(url: String!): LinkPreview!
   story(id: String!): Story!
   stories(id: String!): [Story!]!
-  storyFeed: [Story!]!
+  storyFeed: [StoryFeedElement!]!
 }
 
 type Mutation {

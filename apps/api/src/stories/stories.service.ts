@@ -5,6 +5,7 @@ import { Queue } from "bull";
 import { AxiomService } from "../axiom/axiom.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateStoryInput } from "./dto/create-story.input";
+import { StoryFeedElement } from "./models/story-feed-element";
 import { Story } from "./models/story.model";
 import { TStoryResult } from "./stories.type";
 
@@ -57,7 +58,7 @@ export class StoriesService {
     return result.map(this.mapResultToStory.bind(this));
   }
 
-  async getStoryFeedByUserId(userId: string): Promise<Story[]> {
+  async getStoryFeedByUserId(userId: string): Promise<StoryFeedElement[]> {
     const result = await this.prisma.story.findMany({
       where: {
         user: {
@@ -85,7 +86,31 @@ export class StoriesService {
       },
     });
 
-    return result.map(this.mapResultToStory.bind(this));
+    const stories = result.map((story) => this.mapResultToStory(story));
+    const grouped: StoryFeedElement[] = [];
+
+    for (const story of stories) {
+      const existing = grouped.find((s) => s.user.id === story.user.id);
+
+      if (existing) {
+        existing.stories.push(story);
+      } else {
+        grouped.push({
+          user: story.user,
+          stories: [story],
+          hasSeenAll: false,
+        });
+      }
+    }
+
+    return grouped.map((group) => {
+      const hasSeenAll = group.stories.every((s) => s.seen);
+
+      return {
+        ...group,
+        hasSeenAll,
+      };
+    });
   }
 
   async createStory(userId: string, dto: CreateStoryInput): Promise<Story> {

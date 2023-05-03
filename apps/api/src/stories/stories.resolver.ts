@@ -4,6 +4,7 @@ import { JwtAuthGuard } from "../auth/guards";
 import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
 import { CurrentUser } from "../common/types/current-user.type";
 import { CreateStoryInput } from "./dto/create-story.input";
+import { StoryFeedElement } from "./models/story-feed-element";
 import { Story } from "./models/story.model";
 import { StoriesService } from "./stories.service";
 
@@ -29,7 +30,7 @@ export class StoriesResolver {
     return this.storiesService.getStoriesByUserId(currentUser.user.id, id);
   }
 
-  @Query(() => [Story])
+  @Query(() => [StoryFeedElement])
   @UseGuards(JwtAuthGuard)
   async storyFeed(@CurrentUserDecorator() currentUser: CurrentUser) {
     return this.storiesService.getStoryFeedByUserId(currentUser.user.id);
