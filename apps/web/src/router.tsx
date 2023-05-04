@@ -1,33 +1,35 @@
+import React, { Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
-import { GuestRoute, ProtectedRoute } from './components';
+import { GuestRoute, Loading, ProtectedRoute } from './components';
 import { bookmarksQueryDocument, postQueryDocument, profileQueryDocument } from './graphql';
 import { postsByTagQueryDocument } from './graphql/queries/postsByTagQuery';
-import {
-  BookmarksPage,
-  ContactPage,
-  CreatePage,
-  ExplorePage,
-  FeedPage,
-  FollowRequestsPage,
-  HomePage,
-  LoginPage,
-  MessagesPage,
-  NotFoundPage,
-  NotificationsPage,
-  PostPage,
-  SearchPage,
-  SettingsPage,
-  TagPage,
-  UserPage,
-} from './pages';
+
+const BookmarksPage = React.lazy(() => import('./pages/bookmarks/Bookmarks'));
+const ContactPage = React.lazy(() => import('./pages/contact/Contact'));
+const CreatePage = React.lazy(() => import('./pages/create/Create'));
+const ExplorePage = React.lazy(() => import('./pages/explore/Explore'));
+const FeedPage = React.lazy(() => import('./pages/feed/Feed'));
+const FollowRequestsPage = React.lazy(() => import('./pages/follow-requests/FollowRequests'));
+const HomePage = React.lazy(() => import('./pages/home/Home'));
+const LoginPage = React.lazy(() => import('./pages/login/Login'));
+const MessagesPage = React.lazy(() => import('./pages/messages/Messages'));
+const NotFoundPage = React.lazy(() => import('./pages/notfound/NotFound'));
+const NotificationsPage = React.lazy(() => import('./pages/notifications/Notifications'));
+const PostPage = React.lazy(() => import('./pages/post/Post'));
+const SearchPage = React.lazy(() => import('./pages/search/Search'));
+const SettingsPage = React.lazy(() => import('./pages/settings/Settings'));
+const TagPage = React.lazy(() => import('./pages/tag/Tag'));
+const UserPage = React.lazy(() => import('./pages/user/User'));
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: (
       <GuestRoute>
-        <HomePage />
+        <Suspense fallback={<Loading />}>
+          <HomePage />
+        </Suspense>
       </GuestRoute>
     ),
     errorElement: <NotFoundPage />,
@@ -47,7 +49,9 @@ export const router = createBrowserRouter([
     },
     element: (
       <ProtectedRoute>
-        <BookmarksPage />
+        <Suspense fallback={<Loading />}>
+          <BookmarksPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -55,7 +59,9 @@ export const router = createBrowserRouter([
     path: '/explore',
     element: (
       <ProtectedRoute>
-        <ExplorePage />
+        <Suspense fallback={<Loading />}>
+          <ExplorePage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -82,7 +88,9 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     element: (
       <ProtectedRoute>
-        <TagPage />
+        <Suspense fallback={<Loading />}>
+          <TagPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -90,7 +98,9 @@ export const router = createBrowserRouter([
     path: '/feed',
     element: (
       <ProtectedRoute>
-        <FeedPage />
+        <Suspense fallback={<Loading />}>
+          <FeedPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -98,7 +108,9 @@ export const router = createBrowserRouter([
     path: '/login',
     element: (
       <GuestRoute>
-        <LoginPage />
+        <Suspense fallback={<Loading />}>
+          <LoginPage />
+        </Suspense>
       </GuestRoute>
     ),
   },
@@ -106,7 +118,9 @@ export const router = createBrowserRouter([
     path: '/messages',
     element: (
       <ProtectedRoute>
-        <MessagesPage />
+        <Suspense fallback={<Loading />}>
+          <MessagesPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -114,7 +128,9 @@ export const router = createBrowserRouter([
     path: '/notifications',
     element: (
       <ProtectedRoute>
-        <NotificationsPage />
+        <Suspense fallback={<Loading />}>
+          <NotificationsPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -122,7 +138,9 @@ export const router = createBrowserRouter([
     path: '/search',
     element: (
       <ProtectedRoute>
-        <SearchPage />
+        <Suspense fallback={<Loading />}>
+          <SearchPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -130,7 +148,9 @@ export const router = createBrowserRouter([
     path: '/settings',
     element: (
       <ProtectedRoute>
-        <SettingsPage />
+        <Suspense fallback={<Loading />}>
+          <SettingsPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -138,7 +158,9 @@ export const router = createBrowserRouter([
     path: '/create',
     element: (
       <ProtectedRoute>
-        <CreatePage />
+        <Suspense fallback={<Loading />}>
+          <CreatePage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -163,7 +185,9 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     element: (
       <ProtectedRoute>
-        <UserPage />
+        <Suspense fallback={<Loading />}>
+          <UserPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
@@ -188,19 +212,27 @@ export const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     element: (
       <ProtectedRoute>
-        <PostPage />
+        <Suspense fallback={<Loading />}>
+          <PostPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
   {
     path: '/contact',
-    element: <ContactPage />,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ContactPage />
+      </Suspense>
+    ),
   },
   {
     path: '/follow-requests',
     element: (
       <ProtectedRoute>
-        <FollowRequestsPage />
+        <Suspense fallback={<Loading />}>
+          <FollowRequestsPage />
+        </Suspense>
       </ProtectedRoute>
     ),
   },
