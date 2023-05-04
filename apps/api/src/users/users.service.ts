@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
-import { User } from "./models/user.model";
-import { Profile } from "./models/profile.model";
 import { UpdateUserInput } from "./dto/update-user.input";
+import { Profile } from "./models/profile.model";
+import { User } from "./models/user.model";
 
 @Injectable()
 export class UsersService {
@@ -45,12 +45,21 @@ export class UsersService {
       },
     });
 
+    const pendingFollowRequest = await this.prisma.followRequest.findFirst({
+      where: {
+        fromId: thisId,
+        toId: otherId,
+      },
+    });
+
     const isFollowing = followingResult.following.length > 0;
+    const hasPendingFollowRequest = !!pendingFollowRequest;
     const isMe = thisId === otherId;
 
     return {
       ...result,
       isFollowing,
+      hasPendingFollowRequest,
       isMe,
     };
   }
@@ -73,32 +82,74 @@ export class UsersService {
       throw new BadRequestException("Already following");
     }
 
-    await this.prisma.$transaction([
-      this.prisma.user.update({
-        where: {
-          id: followerId,
-        },
-        data: {
-          following: {
-            connect: {
-              id: followeeId,
+    const followee = await this.prisma.user.findUnique({
+      where: {
+        id: followeeId,
+      },
+    });
+
+    if (!followee) {
+      throw new BadRequestException("User not found");
+    }
+
+    if (!followee.protected) {
+      await this.prisma.$transaction([
+        this.prisma.user.update({
+          where: {
+            id: followerId,
+          },
+          data: {
+            following: {
+              connect: {
+                id: followeeId,
+              },
             },
           },
-        },
-      }),
-      this.prisma.user.update({
-        where: {
-          id: followeeId,
-        },
-        data: {
-          followers: {
-            connect: {
-              id: followerId,
+        }),
+        this.prisma.user.update({
+          where: {
+            id: followeeId,
+          },
+          data: {
+            followers: {
+              connect: {
+                id: followerId,
+              },
             },
           },
+        }),
+      ]);
+
+      return;
+    }
+
+    const existingRequest = await this.prisma.followRequest.findFirst({
+      where: {
+        fromId: followerId,
+        toId: followeeId,
+      },
+    });
+
+    if (existingRequest) {
+      throw new BadRequestException("Request already sent");
+    }
+
+    await this.prisma.followRequest.create({
+      data: {
+        from: {
+          connect: {
+            id: followerId,
+          },
         },
-      }),
-    ]);
+        to: {
+          connect: {
+            id: followeeId,
+          },
+        },
+      },
+    });
+
+    return;
   }
 
   async unfollowUser(followerId: string, followeeId: string): Promise<void> {
@@ -148,8 +199,7 @@ export class UsersService {
   }
 
   async findAll(): Promise<User[]> {
-    const res = await this.prisma.user.findMany();
-    return res;
+    return this.prisma.user.findMany();
   }
 
   async update(id: string, payload: UpdateUserInput): Promise<User> {

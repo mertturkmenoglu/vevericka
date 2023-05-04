@@ -22,5 +22,8 @@ export class Profile extends User {
   isFollowing: boolean;
 
   @Field()
+  hasPendingFollowRequest: boolean;
+
+  @Field()
   isMe: boolean;
 }

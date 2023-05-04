@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  fragment CountItem on Count {\n    dislikes\n    likes\n    tags\n  }\n": types.CountItemFragmentDoc,
     "\n  fragment PostItem on Post {\n    id\n    content\n    _count {\n      ...CountItem\n    }\n    tags {\n      id\n      tagName\n      createdAt\n      updatedAt\n    }\n    images {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    videos {\n      id\n      url\n      postId\n      createdAt\n      updatedAt\n    }\n    vote\n    createdAt\n    updatedAt\n    user {\n      ...UserItem\n    }\n  }\n": types.PostItemFragmentDoc,
-    "\n  fragment ProfileItem on Profile {\n    id\n    name\n    email\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    isFollowing\n    isMe\n    createdAt\n    updatedAt\n    _count {\n      followers\n      following\n      posts\n    }\n  }\n": types.ProfileItemFragmentDoc,
+    "\n  fragment ProfileItem on Profile {\n    id\n    name\n    email\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    isFollowing\n    hasPendingFollowRequest\n    isMe\n    createdAt\n    updatedAt\n    _count {\n      followers\n      following\n      posts\n    }\n  }\n": types.ProfileItemFragmentDoc,
     "\n  fragment StoryFeedItem on StoryFeedElement {\n    user {\n      ...UserItem\n    }\n    stories {\n      ...StoryItem\n    }\n    hasSeenAll\n  }\n": types.StoryFeedItemFragmentDoc,
     "\n  fragment StoryItem on Story {\n    id\n    user {\n      ...UserItem\n    }\n    duration\n    source\n    seen\n    endsAt\n    createdAt\n    updatedAt\n  }\n": types.StoryItemFragmentDoc,
     "\n  fragment UserItem on User {\n    id\n    name\n    email\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    createdAt\n    updatedAt\n  }\n": types.UserItemFragmentDoc,
@@ -37,6 +37,7 @@ const documents = {
     "\n  query PopularTags($skip: Int!, $take: Int!) {\n    popularTags(skip: $skip, take: $take) {\n      id\n      tagName\n      _count {\n        posts\n      }\n      createdAt\n      updatedAt\n    }\n  }\n": types.PopularTagsDocument,
     "\n  query Post($id: String!) {\n    post(id: $id) {\n      ...PostItem\n    }\n  }\n": types.PostDocument,
     "\n  query PostsByTag($tag: String!, $skip: Int!, $take: Int!) {\n    postsByTag(tag: $tag, skip: $skip, take: $take) {\n      ...PostItem\n    }\n  }\n": types.PostsByTagDocument,
+    "\n  query Posts($id: String!, $skip: Int!, $take: Int!) {\n    posts(id: $id, skip: $skip, take: $take) {\n      ...PostItem\n    }\n  }\n": types.PostsDocument,
     "\n  query ProfileData($id: String!, $skip: Int!, $take: Int!) {\n    profile(id: $id) {\n      ...ProfileItem\n    }\n\n    posts(id: $id, skip: $skip, take: $take) {\n      ...PostItem\n    }\n  }\n": types.ProfileDataDocument,
     "\n  query ProfileById($id: String!) {\n    profile(id: $id) {\n      ...ProfileItem\n    }\n  }\n": types.ProfileByIdDocument,
     "\n  query SearchPosts($term: String!, $take: Int!, $skip: Int!) {\n    searchPosts(term: $term, take: $take, skip: $skip) {\n      took\n      timed_out\n      _shards {\n        total\n        successful\n        skipped\n        failed\n      }\n      hits {\n        max_score\n        hits {\n          _index\n          _id\n          _score\n          _source {\n            ...PostItem\n          }\n        }\n      }\n    }\n  }\n": types.SearchPostsDocument,
@@ -72,7 +73,7 @@ export function graphql(source: "\n  fragment PostItem on Post {\n    id\n    co
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment ProfileItem on Profile {\n    id\n    name\n    email\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    isFollowing\n    isMe\n    createdAt\n    updatedAt\n    _count {\n      followers\n      following\n      posts\n    }\n  }\n"): (typeof documents)["\n  fragment ProfileItem on Profile {\n    id\n    name\n    email\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    isFollowing\n    isMe\n    createdAt\n    updatedAt\n    _count {\n      followers\n      following\n      posts\n    }\n  }\n"];
+export function graphql(source: "\n  fragment ProfileItem on Profile {\n    id\n    name\n    email\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    isFollowing\n    hasPendingFollowRequest\n    isMe\n    createdAt\n    updatedAt\n    _count {\n      followers\n      following\n      posts\n    }\n  }\n"): (typeof documents)["\n  fragment ProfileItem on Profile {\n    id\n    name\n    email\n    image\n    job\n    twitterHandle\n    school\n    birthDate\n    website\n    description\n    verified\n    protected\n    bannerImage\n    gender\n    city\n    country\n    isFollowing\n    hasPendingFollowRequest\n    isMe\n    createdAt\n    updatedAt\n    _count {\n      followers\n      following\n      posts\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -157,6 +158,10 @@ export function graphql(source: "\n  query Post($id: String!) {\n    post(id: $i
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query PostsByTag($tag: String!, $skip: Int!, $take: Int!) {\n    postsByTag(tag: $tag, skip: $skip, take: $take) {\n      ...PostItem\n    }\n  }\n"): (typeof documents)["\n  query PostsByTag($tag: String!, $skip: Int!, $take: Int!) {\n    postsByTag(tag: $tag, skip: $skip, take: $take) {\n      ...PostItem\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Posts($id: String!, $skip: Int!, $take: Int!) {\n    posts(id: $id, skip: $skip, take: $take) {\n      ...PostItem\n    }\n  }\n"): (typeof documents)["\n  query Posts($id: String!, $skip: Int!, $take: Int!) {\n    posts(id: $id, skip: $skip, take: $take) {\n      ...PostItem\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

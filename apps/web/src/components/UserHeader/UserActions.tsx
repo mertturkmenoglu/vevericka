@@ -27,8 +27,13 @@ function UserActions({ user }: UserActionsProps): JSX.Element {
         <>
           <FollowButton
             isFollowing={user.isFollowing}
+            hasPendingFollowRequest={user.hasPendingFollowRequest}
             loading={loading}
             onClick={async () => {
+              if (user.hasPendingFollowRequest) {
+                return;
+              }
+
               const result = await interact({
                 variables: {
                   followeeId: user.id,

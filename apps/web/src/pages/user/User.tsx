@@ -1,15 +1,34 @@
+import { useLazyQuery } from '@apollo/client';
 import * as Separator from '@radix-ui/react-separator';
+import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { PostCard, UserHeader } from '../../components';
+import { Loading, PostCard, UserHeader } from '../../components';
 import { useFragment } from '../../generated';
-import { ProfileDataQuery } from '../../generated/graphql';
-import { PostFragment, ProfileFragment } from '../../graphql';
+import { ProfileByIdQuery } from '../../generated/graphql';
+import { ProfileFragment } from '../../graphql';
+import { postsQueryDocument } from '../../graphql/queries/postsQuery';
 import Layout from './layout';
 
 function User(): JSX.Element {
-  const data = useLoaderData() as ProfileDataQuery;
+  const data = useLoaderData() as ProfileByIdQuery;
   const user = useFragment(ProfileFragment, data.profile);
-  const posts = useFragment(PostFragment, data.posts);
+  const [getPosts, { data: postsData, error, loading }] = useLazyQuery(postsQueryDocument, {
+    variables: {
+      id: user.id,
+      skip: 0,
+      take: 50,
+    },
+  });
+
+  useEffect(() => {
+    const fn = async () => {
+      if (!user.protected) {
+        await getPosts();
+      }
+    };
+
+    fn();
+  }, [user]);
 
   return (
     <Layout name={user.name}>
@@ -23,12 +42,15 @@ function User(): JSX.Element {
 
       <div className="mx-auto mt-8 flex w-1/2">
         <div className="w-full divide-y-2 divide-neutral-100 [&>*]:py-2">
-          {posts.map((post, index) => (
-            <PostCard
-              key={index}
-              post={post as any}
-            />
-          ))}
+          {loading && <Loading />}
+          {error && <div>Error! {error.message}</div>}
+          {postsData &&
+            postsData.posts.map((post, index) => (
+              <PostCard
+                key={index}
+                post={post}
+              />
+            ))}
         </div>
       </div>
     </Layout>

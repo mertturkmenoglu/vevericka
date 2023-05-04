@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { client } from './apollo';
 import { GuestRoute, ProtectedRoute } from './components';
-import { bookmarksQueryDocument, postQueryDocument, profileDataQueryDocument } from './graphql';
+import { bookmarksQueryDocument, postQueryDocument, profileQueryDocument } from './graphql';
 import { postsByTagQueryDocument } from './graphql/queries/postsByTagQuery';
 import {
   BookmarksPage,
@@ -150,16 +150,14 @@ export const router = createBrowserRouter([
         throw new Error('User ID is required');
       }
 
-      const { data } = await client.query({
-        query: profileDataQueryDocument,
+      const { data: profileData } = await client.query({
+        query: profileQueryDocument,
         variables: {
           id,
-          skip: 0,
-          take: 50,
         },
       });
 
-      return data;
+      return profileData;
     },
     errorElement: <NotFoundPage />,
     element: (

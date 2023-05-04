@@ -27,33 +27,35 @@ model Auth {
 }
 
 model User {
-  id            String     @id @default(uuid())
-  name          String     @db.VarChar(64)
-  email         String     @db.VarChar(255)
-  image         String     @default("profile.png") @db.VarChar(512)
-  job           String?    @db.VarChar(64)
-  twitterHandle String?    @db.VarChar(64)
-  school        String?    @db.VarChar(64)
-  birthDate     DateTime?
-  website       String?    @db.VarChar(255)
-  description   String?    @db.VarChar(255)
-  verified      Boolean    @default(false)
-  protected     Boolean    @default(false)
-  bannerImage   String     @default("banner.png")
-  gender        String?    @db.VarChar(32)
-  city          String?    @db.VarChar(64)
-  country       String?    @db.VarChar(64)
-  auth          Auth?
-  posts         Post[]     @relation(name: "UserPosts")
-  likes         Post[]     @relation(name: "UserLikes")
-  dislikes      Post[]     @relation(name: "UserDislikes")
-  followers     User[]     @relation("UserFollows")
-  following     User[]     @relation("UserFollows")
-  bookmarks     Bookmark[] @relation("UserBookmarks")
-  seenStories   Story[]    @relation("UserSeenStories")
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-  stories       Story[]
+  id                 String          @id @default(uuid())
+  name               String          @db.VarChar(64)
+  email              String          @db.VarChar(255)
+  image              String          @default("profile.png") @db.VarChar(512)
+  job                String?         @db.VarChar(64)
+  twitterHandle      String?         @db.VarChar(64)
+  school             String?         @db.VarChar(64)
+  birthDate          DateTime?
+  website            String?         @db.VarChar(255)
+  description        String?         @db.VarChar(255)
+  verified           Boolean         @default(false)
+  protected          Boolean         @default(false)
+  bannerImage        String          @default("banner.png")
+  gender             String?         @db.VarChar(32)
+  city               String?         @db.VarChar(64)
+  country            String?         @db.VarChar(64)
+  auth               Auth?
+  posts              Post[]          @relation(name: "UserPosts")
+  likes              Post[]          @relation(name: "UserLikes")
+  dislikes           Post[]          @relation(name: "UserDislikes")
+  followers          User[]          @relation("UserFollows")
+  following          User[]          @relation("UserFollows")
+  bookmarks          Bookmark[]      @relation("UserBookmarks")
+  seenStories        Story[]         @relation("UserSeenStories")
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  stories            Story[]
+  followRequests     FollowRequest[] @relation(name: "UserFollowRequestsFrom")
+  sentFollowRequests FollowRequest[] @relation(name: "UserFollowRequestsTo")
 }
 
 model Post {
@@ -71,6 +73,17 @@ model Post {
   Bookmark  Bookmark[]
 
   @@index([userId])
+}
+
+model FollowRequest {
+  id     String @id @default(uuid())
+  from   User   @relation(name: "UserFollowRequestsFrom", fields: [fromId], references: [id], onDelete: Cascade)
+  fromId String
+  to     User   @relation(name: "UserFollowRequestsTo", fields: [toId], references: [id], onDelete: Cascade)
+  toId   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Tag {

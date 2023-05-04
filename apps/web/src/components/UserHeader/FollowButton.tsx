@@ -1,15 +1,24 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { useMemo } from 'react';
 import { Spinner } from '../index';
 
 export interface FollowButtonProps {
   isFollowing: boolean;
+  hasPendingFollowRequest: boolean;
   loading: boolean;
   onClick: () => Promise<void>;
 }
 
-function FollowButton({ isFollowing, loading, onClick }: FollowButtonProps): JSX.Element {
-  const followText = isFollowing ? 'Following' : 'Follow';
-  const Icon = isFollowing ? <></> : <PlusIcon className="h-5 w-5 text-white" />;
+function FollowButton({ isFollowing, hasPendingFollowRequest, loading, onClick }: FollowButtonProps): JSX.Element {
+  const followText = useMemo(() => {
+    if (hasPendingFollowRequest) {
+      return 'Pending';
+    }
+
+    return isFollowing ? 'Following' : 'Follow';
+  }, [hasPendingFollowRequest, isFollowing]);
+
+  const Icon = isFollowing || hasPendingFollowRequest ? <></> : <PlusIcon className="h-5 w-5 text-white" />;
 
   return (
     <button

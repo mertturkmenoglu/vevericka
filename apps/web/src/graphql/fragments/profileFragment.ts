@@ -19,6 +19,7 @@ export const ProfileFragment = graphql(/* GraphQL */ `
     city
     country
     isFollowing
+    hasPendingFollowRequest
     isMe
     createdAt
     updatedAt
