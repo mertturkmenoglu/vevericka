@@ -12,7 +12,7 @@ function Feed(): JSX.Element {
 
   return (
     <MainLayout>
-      <div className="w-full space-y-8 lg:w-1/2">
+      <div className="w-full space-y-4 lg:w-1/2">
         <Helmet>
           <title>Feed | Vevericka</title>
         </Helmet>
