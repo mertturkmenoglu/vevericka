@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import clsx from 'clsx';
 import { Twitter } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import { ProfileItemFragment } from '../../generated/graphql';
@@ -11,6 +12,14 @@ export interface UserActionsProps {
 
 function UserActions({ user }: UserActionsProps): JSX.Element {
   const [interact, { loading }] = useMutation(interactWithUserDocument);
+
+  const linkStyles = clsx(
+    'rounded bg-neutral-200',
+    'px-4 py-2 text-neutral-600',
+    'transition ease-in-out',
+    'hover:bg-opacity-60',
+    'dark:bg-neutral-600 dark:text-neutral-200'
+  );
 
   return (
     <>
@@ -49,7 +58,7 @@ function UserActions({ user }: UserActionsProps): JSX.Element {
           {user.isFollowing && (
             <Link
               to={'/messages'}
-              className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60 dark:bg-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-600/80"
+              className={linkStyles}
             >
               Message
             </Link>
@@ -57,12 +66,20 @@ function UserActions({ user }: UserActionsProps): JSX.Element {
         </>
       )}
       {user.isMe && (
-        <Link
-          to={'/settings'}
-          className="rounded bg-neutral-200 px-4 py-2 text-neutral-600 transition ease-in-out hover:bg-neutral-200/60 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
-        >
-          Settings
-        </Link>
+        <>
+          <Link
+            to={'/follow-requests'}
+            className={linkStyles}
+          >
+            Follow Requests
+          </Link>
+          <Link
+            to={'/settings'}
+            className={linkStyles}
+          >
+            Settings
+          </Link>
+        </>
       )}
     </>
   );
