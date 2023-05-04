@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import { connectBlocksFrom } from '@uploadcare/blocks/abstract/connectBlocksFrom';
+import { useEffect } from 'react';
 import './uploadcare.css';
 
 const STYLES = 'https://unpkg.com/@uploadcare/blocks@0.17.1/web/file-uploader-regular.min.css';
@@ -20,6 +20,8 @@ export function useUploadcare({ id, contextName, onDataOutput }: UploadcareOptio
       }
 
       const el = document.getElementById(id);
+
+      console.log('el', el);
 
       if (el?.hasChildNodes()) {
         return;
@@ -50,5 +52,5 @@ export function useUploadcare({ id, contextName, onDataOutput }: UploadcareOptio
     return () => {
       window.removeEventListener('LR_DATA_OUTPUT', onOutput);
     };
-  }, []);
+  }, [id, contextName, onDataOutput]);
 }

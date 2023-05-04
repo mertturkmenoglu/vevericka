@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import TSwiper, { A11y, Navigation, Pagination } from 'swiper';
 
@@ -10,6 +10,7 @@ import 'swiper/css/scrollbar';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { StoryFeedDocument } from '../../generated/graphql';
+import CreateStory from './CreateStory';
 import StoryItem from './StoryItem';
 
 function Stories(): JSX.Element {
@@ -24,11 +25,7 @@ function Stories(): JSX.Element {
 
   return (
     <div className="flex items-center space-x-2 rounded bg-white py-2 dark:bg-neutral-800">
-      <button className="ml-2 flex h-10 w-10 items-center justify-center rounded-full bg-berry/10">
-        <PlusIcon className="h-6 w-6 text-berry" />
-        <span className="sr-only">Create Story</span>
-      </button>
-
+      <CreateStory />
       {data && (
         <>
           {data.storyFeed.length > 0 && (
