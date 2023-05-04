@@ -3,6 +3,7 @@ export * from './contact';
 export * from './create';
 export * from './explore';
 export * from './feed';
+export * from './follow-requests';
 export * from './home';
 export * from './login';
 export * from './messages';

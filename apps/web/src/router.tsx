@@ -9,6 +9,7 @@ import {
   CreatePage,
   ExplorePage,
   FeedPage,
+  FollowRequestsPage,
   HomePage,
   LoginPage,
   MessagesPage,
@@ -194,5 +195,13 @@ export const router = createBrowserRouter([
   {
     path: '/contact',
     element: <ContactPage />,
+  },
+  {
+    path: '/follow-requests',
+    element: (
+      <ProtectedRoute>
+        <FollowRequestsPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
