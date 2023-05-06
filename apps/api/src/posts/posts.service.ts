@@ -56,6 +56,10 @@ export class PostsService {
 
     return {
       ...post,
+      poll: {
+        ...post.poll,
+        choices: post.poll.choices.toString(),
+      },
       vote: "none",
     };
   }
@@ -139,6 +143,10 @@ export class PostsService {
   private mapQueryResultToResponse(post: TPostResult) {
     return {
       ...post,
+      poll: {
+        ...post.poll,
+        choices: post.poll.choices.toString(),
+      },
       vote: this.getVote(post.likes, post.dislikes),
     };
   }
