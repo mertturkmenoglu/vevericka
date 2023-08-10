@@ -4,7 +4,7 @@ export function useFlags() {
   const data = useMemo(() => {
     return {
       landingAppBar: true,
-      stories: true,
+      stories: false,
       appBarV2: false,
     };
   }, []);
