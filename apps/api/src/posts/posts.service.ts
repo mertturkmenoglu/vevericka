@@ -56,10 +56,6 @@ export class PostsService {
 
     return {
       ...post,
-      poll: {
-        ...post.poll,
-        choices: post.poll.choices.toString(),
-      },
       vote: "none",
     };
   }

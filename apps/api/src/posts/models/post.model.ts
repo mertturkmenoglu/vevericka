@@ -29,9 +29,6 @@ export class Post {
   @Field()
   vote: string;
 
-  @Field(() => Poll, { nullable: true })
-  poll?: Poll;
-
   @Field(() => Count)
   _count: Count;
 

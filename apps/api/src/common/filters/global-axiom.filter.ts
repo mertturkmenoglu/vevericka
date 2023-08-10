@@ -28,7 +28,7 @@ export class GlobalAxiomFilter implements GqlExceptionFilter {
       statusCode: status,
       timestamp: new Date().toISOString(),
       context: {
-        body: req.body,
+        body: req?.body,
         message: (exception as any).message,
       },
     };
