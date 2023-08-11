@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "builder": "swc",
+    "typeCheck": true,
     "plugins": [
       {
         "name": "@nestjs/graphql",
