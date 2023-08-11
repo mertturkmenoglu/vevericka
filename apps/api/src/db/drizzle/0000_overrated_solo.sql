@@ -5,80 +5,79 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "auths" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"sub" varchar(256),
-	"type" "auth_providers",
-	"user_id" uuid,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"sub" varchar(256) NOT NULL,
+	"type" "auth_providers" NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "bookmarks" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"user_id" uuid,
-	"post_id" uuid,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id" uuid NOT NULL,
+	"post_id" uuid NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "follow_requests" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"from_id" uuid,
-	"to_id" uuid,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"from_id" uuid NOT NULL,
+	"to_id" uuid NOT NULL,
 	"accepted" boolean DEFAULT false,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "post_dislikes" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"user_id" uuid,
-	"post_id" uuid,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id" uuid NOT NULL,
+	"post_id" uuid NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "post_images" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"post_id" uuid,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"post_id" uuid NOT NULL,
 	"image" varchar(256) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "post_likes" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"user_id" uuid,
-	"post_id" uuid,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id" uuid NOT NULL,
+	"post_id" uuid NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "post_tags" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"post_id" uuid,
-	"tag_id" uuid
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"post_id" uuid NOT NULL,
+	"tag_id" uuid NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "post_videos" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"post_id" uuid,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"post_id" uuid NOT NULL,
 	"video" varchar(256) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "posts" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"content" varchar(256) NOT NULL,
-	"user_id" uuid,
+	"user_id" uuid NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "tags" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"tag" varchar(256) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" varchar(256) NOT NULL,
 	"email" varchar(256) NOT NULL,
 	"image" varchar(256) DEFAULT 'profile.png',
@@ -93,7 +92,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"banner" varchar(256),
 	"gender" varchar(256),
 	"location" varchar(256),
-	"auth_id" uuid,
+	"auth_id" uuid NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now(),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
