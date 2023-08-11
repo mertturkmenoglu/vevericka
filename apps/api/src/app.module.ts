@@ -52,9 +52,9 @@ import { UsersModule } from "./users/users.module";
       stopOnTerminationSignals: false,
     }),
     MailerModule.forRoot({
-      transport: `smtps://${process.env.NODEMAILER_AUTH_EMAIL}:${process.env.NODEMAILER_AUTH_PASSWORD}@smtp.gmail.com`,
+      transport: `smtps://${process.env["NODEMAILER_AUTH_EMAIL"]}:${process.env["NODEMAILER_AUTH_PASSWORD"]}@smtp.gmail.com`,
       defaults: {
-        from: `"Vevericka" <${process.env.NODEMAILER_FROM_EMAIL}>`,
+        from: `"Vevericka" <${process.env["NODEMAILER_FROM_EMAIL"]}>`,
       },
       template: {
         dir: __dirname + "/email/templates",
@@ -65,7 +65,7 @@ import { UsersModule } from "./users/users.module";
       },
     }),
     BullModule.forRoot({
-      redis: process.env.REDIS_URL,
+      redis: process.env["REDIS_URL"],
     }),
     ScheduleModule.forRoot(),
   ],
