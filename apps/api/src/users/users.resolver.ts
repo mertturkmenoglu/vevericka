@@ -1,8 +1,8 @@
 import { NotFoundException, UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
 import { PubSub } from "graphql-subscriptions";
-import { JwtAuthGuard } from "src/auth/guards";
-import { CurrentUser } from "src/common/types/current-user.type";
+import { JwtAuthGuard } from "../auth/guards";
+import { CurrentUser } from "../common/types/current-user.type";
 import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
 import { SearchService } from "../search/search.service";
 import { Interaction } from "./dto/interact.input";
@@ -59,7 +59,7 @@ export class UsersResolver {
   async interactWithUser(
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("id") id: string,
-    @Args("interaction") interaction: Interaction
+    @Args("interaction") interaction: string
   ) {
     if (interaction === "follow") {
       await this.usersService.followUser(currentUser.user.id, id);

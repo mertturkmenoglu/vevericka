@@ -69,9 +69,10 @@ export class PostsService {
     return true;
   }
 
-  async findOneById(userId: string, id: string): Promise<Post> {
+  async findOneById(userId: string, id: string): Promise<Post | null> {
     const post = await this.repository.findOneById(userId, id);
-    return this.mapQueryResultToResponse(post);
+    const res = this.mapQueryResultToResponse(post);
+    return null;
   }
 
   async remove(id: string): Promise<boolean> {
@@ -139,10 +140,6 @@ export class PostsService {
   private mapQueryResultToResponse(post: TPostResult) {
     return {
       ...post,
-      poll: {
-        ...post.poll,
-        choices: post.poll.choices.toString(),
-      },
       vote: this.getVote(post.likes, post.dislikes),
     };
   }

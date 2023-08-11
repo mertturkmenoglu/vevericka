@@ -17,7 +17,6 @@ export const postsInclude = {
   images: true,
   tags: true,
   videos: true,
-  poll: true,
   _count: {
     select: {
       dislikes: true,

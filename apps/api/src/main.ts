@@ -1,6 +1,6 @@
 import { ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-import * as cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 import { AppModule } from "./app.module";
 import { PrismaService } from "./prisma/prisma.service";
 
@@ -21,9 +21,6 @@ async function bootstrap() {
   await app.listen(PORT);
 
   console.log(`Application is running on: ${await app.getUrl()}`);
-
-  const prismaService = app.get(PrismaService);
-  await prismaService.enableShutdownHooks(app);
 }
 
 bootstrap();

@@ -3,9 +3,9 @@ import { NotFoundException, UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { Novu } from "@novu/node";
 import { Queue } from "bull";
-import { JwtAuthGuard } from "src/auth/guards";
-import { PaginationArgs } from "src/common/args/pagination.args";
-import { CurrentUser } from "src/common/types/current-user.type";
+import { JwtAuthGuard } from "../auth/guards";
+import { PaginationArgs } from "../common/args/pagination.args";
+import { CurrentUser } from "../common/types/current-user.type";
 import { AxiomService } from "../axiom/axiom.service";
 import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
 import { SearchService } from "../search/search.service";
@@ -78,10 +78,10 @@ export class PostsResolver {
   async votePost(
     @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("id") id: string,
-    @Args("vote") vote: Vote
+    @Args("vote") vote: string,
   ): Promise<boolean> {
     const userId = currentUser.user.id;
-    const result = await this.postsService.changeVote(userId, id, vote);
+    const result = await this.postsService.changeVote(userId, id, vote as Vote);
 
     const post = await this.postsService.findOneById(userId, id);
 

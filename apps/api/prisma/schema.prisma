@@ -56,7 +56,6 @@ model User {
   stories            Story[]
   followRequests     FollowRequest[] @relation(name: "UserFollowRequestsFrom")
   sentFollowRequests FollowRequest[] @relation(name: "UserFollowRequestsTo")
-  pollVotes          PollVote[]
 }
 
 model Post {
@@ -72,7 +71,6 @@ model Post {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Bookmark  Bookmark[]
-  poll      Poll?
 
   @@index([userId])
 }
@@ -148,27 +146,4 @@ model Story {
   updatedAt DateTime @updatedAt
 
   @@index([userId])
-}
-
-model Poll {
-  id        String     @id @default(uuid())
-  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String     @unique
-  name      String
-  endsAt    DateTime
-  choices   Json
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  votes     PollVote[]
-}
-
-model PollVote {
-  id        String   @id @default(uuid())
-  poll      Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
-  pollId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  choiceId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

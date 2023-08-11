@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { ElasticsearchService } from "@nestjs/elasticsearch";
-import { PaginationArgs } from "src/common/args/pagination.args";
-import { postsInclude, postsVoteInclude } from "src/posts/posts.type";
-import { PrismaService } from "src/prisma/prisma.service";
-import { User } from "src/users/models/user.model";
+import { PaginationArgs } from "../common/args/pagination.args";
+import { postsInclude, postsVoteInclude } from "../posts/posts.type";
+import { PrismaService } from "../prisma/prisma.service";
+import { User } from "../users/models/user.model";
 import { PostItem } from "./models/post/post-item.model";
 import { PostResult } from "./models/post/post-result.model";
 import { UserItem } from "./models/user/user-item.model";

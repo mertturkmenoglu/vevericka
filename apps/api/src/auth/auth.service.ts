@@ -5,7 +5,7 @@ import { Profile } from "passport";
 import { Profile as DiscordProfile } from "passport-discord";
 import { Profile as GoogleProfile } from "passport-google-oauth20";
 import { Profile as SpotifyProfile } from "passport-spotify";
-import { PrismaService } from "src/prisma/prisma.service";
+import { PrismaService } from "../prisma/prisma.service";
 import { EmailService } from "../email/email.service";
 import { SearchService } from "../search/search.service";
 import { JwtPayload } from "./types/jwt-payload.type";

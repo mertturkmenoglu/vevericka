@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { User } from "@prisma/client";
-import { PaginationArgs } from "src/common/args/pagination.args";
-import { postsInclude, postsVoteInclude } from "src/posts/posts.type";
-import { PrismaService } from "src/prisma/prisma.service";
+import { PaginationArgs } from "../common/args/pagination.args";
+import { postsInclude, postsVoteInclude } from "../posts/posts.type";
+import { PrismaService } from "../prisma/prisma.service";
 import { Bookmark } from "./models/bookmark.model";
 
 @Injectable()

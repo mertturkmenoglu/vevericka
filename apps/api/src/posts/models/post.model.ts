@@ -1,6 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Count } from "src/common/models/count.model";
-import { Tag } from "src/explore/models/tag.model";
+import { Count } from "../../common/models/count.model";
+import { Tag } from "../../explore/models/tag.model";
 import { User } from "../../users/models/user.model";
 import { PostImage } from "./post-image.model";
 import { PostVideo } from "./post-video.model";

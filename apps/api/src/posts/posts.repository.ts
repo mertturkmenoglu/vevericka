@@ -28,16 +28,17 @@ export class PostsRepository {
     });
   }
 
-  async findOneById(userId: string, id: string): Promise<TPostResult> {
-    return this.prisma.post.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        ...postsInclude,
-        ...postsVoteInclude(userId),
-      },
-    });
+  async findOneById(userId: string, id: string): Promise<TPostResult | null> {
+    return null;
+    // return this.prisma.post.findUnique({
+    //   where: {
+    //     id,
+    //   },
+    //   include: {
+    //     ...postsInclude,
+    //     ...postsVoteInclude(userId),
+    //   },
+    // });
   }
 
   async deleteOneById(id: string): Promise<void> {
@@ -53,19 +54,20 @@ export class PostsRepository {
     userId: string,
     { skip, take }: PaginationArgs
   ): Promise<TPostResult[]> {
-    return this.prisma.post.findMany({
-      where: {
-        userId,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        ...postsInclude,
-        ...postsVoteInclude(thisUserId),
-      },
-      skip,
-      take,
-    });
+    return [];
+    // return this.prisma.post.findMany({
+    //   where: {
+    //     userId,
+    //   },
+    //   orderBy: {
+    //     createdAt: "desc",
+    //   },
+    //   include: {
+    //     ...postsInclude,
+    //     ...postsVoteInclude(thisUserId),
+    //   },
+    //   skip,
+    //   take,
+    // });
   }
 }
