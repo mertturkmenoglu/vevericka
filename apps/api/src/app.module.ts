@@ -3,10 +3,16 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ExampleModule } from './example/example.module';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { DbModule } from '@/db/db.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    DbModule,
     ExampleModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
