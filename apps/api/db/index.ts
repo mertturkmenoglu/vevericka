@@ -10,7 +10,7 @@ function getOrEmpty(value: string) {
 }
 
 function createFakePost() {
-  const numberOfImages = faker.datatype.number({ min: 0, max: 4 });
+  const numberOfImages = faker.number.int({ min: 0, max: 4 });
   const images = [];
   const videos = [];
 
@@ -51,7 +51,7 @@ function createFakePostContent() {
 }
 
 function createFakeImage() {
-  return faker.image.animals(1080, 720, true);
+  return faker.image.urlLoremFlickr({ category: 'animals', width: 1080, height: 720 });
 }
 
 function createFakePosts(num: number) {
