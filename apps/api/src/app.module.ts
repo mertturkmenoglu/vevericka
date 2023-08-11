@@ -8,6 +8,10 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@/auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
 import { GlobalAxiomFilter } from '@/common/filters/global-axiom.filter';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { BullModule } from '@nestjs/bull';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -25,6 +29,23 @@ import { GlobalAxiomFilter } from '@/common/filters/global-axiom.filter';
       stopOnTerminationSignals: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
+    MailerModule.forRoot({
+      transport: `smtps://${process.env['NODEMAILER_AUTH_EMAIL']}:${process.env['NODEMAILER_AUTH_PASSWORD']}@smtp.gmail.com`,
+      defaults: {
+        from: `"Vevericka" <${process.env['NODEMAILER_FROM_EMAIL']}>`,
+      },
+      template: {
+        dir: __dirname + '/email/templates',
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
+        },
+      },
+    }),
+    BullModule.forRoot({
+      url: process.env['REDIS_URL'] ?? '',
+    }),
+    ScheduleModule.forRoot(),
   ],
   providers: [
     {
