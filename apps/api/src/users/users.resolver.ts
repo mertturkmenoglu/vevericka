@@ -1,16 +1,15 @@
-import { NotFoundException, UseGuards } from "@nestjs/common";
-import { Args, Mutation, Query, Resolver, Subscription } from "@nestjs/graphql";
-import { PubSub } from "graphql-subscriptions";
-import { JwtAuthGuard } from "../auth/guards";
-import { CurrentUser } from "../common/types/current-user.type";
-import { CurrentUser as CurrentUserDecorator } from "../common/decorators/current-user.decorator";
-import { SearchService } from "../search/search.service";
-import { Interaction } from "./dto/interact.input";
-import { UpdateUserInput } from "./dto/update-user.input";
-import { LastSeen } from "./models/last-seen.model";
-import { Profile } from "./models/profile.model";
-import { User } from "./models/user.model";
-import { UsersService } from "./users.service";
+import {NotFoundException, UseGuards} from "@nestjs/common";
+import {Args, Mutation, Query, Resolver, Subscription} from "@nestjs/graphql";
+import {PubSub} from "graphql-subscriptions";
+import {JwtAuthGuard} from "../auth/guards";
+import {CurrentUser} from "../common/types/current-user.type";
+import {CurrentUser as CurrentUserDecorator} from "../common/decorators/current-user.decorator";
+import {SearchService} from "../search/search.service";
+import {UpdateUserInput} from "./dto/update-user.input";
+import {LastSeen} from "./models/last-seen.model";
+import {Profile} from "./models/profile.model";
+import {User} from "./models/user.model";
+import {UsersService} from "./users.service";
 
 const pubSub = new PubSub();
 
@@ -24,8 +23,7 @@ export class UsersResolver {
   @Query(() => User)
   @UseGuards(JwtAuthGuard)
   async me(@CurrentUserDecorator() currentUser: CurrentUser): Promise<User> {
-    const user = await this.usersService.findOneById(currentUser.user.id);
-    return user;
+    return await this.usersService.findOneById(currentUser.user.id);
   }
 
   @Query(() => User)
