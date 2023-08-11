@@ -62,12 +62,15 @@ export class AuthController {
     const webClientRedirectUrl = `${BASE}/feed`;
     const user: Profile = req.user as Profile;
     const token = await this.authService.login(user);
+    
+    const isDevEnv = process.env["NODE_ENV"] === "development";
+    const cookieMaxAge = 1000 * 60 * 60 * 24 * 7;
 
     return res
       .cookie("jwt-access", token, {
-        httpOnly: process.env.NODE_ENV !== "development",
-        secure: process.env.NODE_ENV !== "development",
-        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: !isDevEnv,
+        secure: !isDevEnv,
+        maxAge: cookieMaxAge,
         path: "/",
       })
       .redirect(webClientRedirectUrl);
