@@ -37,5 +37,3 @@ yarn-error.log*
 
 # VSCode
 .vscode
-
-apps/api/src/metadata.ts
