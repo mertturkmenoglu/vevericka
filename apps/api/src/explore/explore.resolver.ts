@@ -1,9 +1,9 @@
-import { UseGuards } from "@nestjs/common";
-import { Args, Resolver, Query } from "@nestjs/graphql";
-import { JwtAuthGuard } from "../auth/guards";
-import { PaginationArgs } from "../common/args/pagination.args";
-import { ExploreService } from "./explore.service";
-import { PopularTag, Tag } from "./models/tag.model";
+import {UseGuards} from "@nestjs/common";
+import {Args, Query, Resolver} from "@nestjs/graphql";
+import {JwtAuthGuard} from "../auth/guards";
+import {PaginationArgs} from "../common/args/pagination.args";
+import {ExploreService} from "./explore.service";
+import {PopularTag, Tag} from "./models/tag.model";
 
 @Resolver(() => Tag)
 export class ExploreResolver {
@@ -12,14 +12,12 @@ export class ExploreResolver {
   @UseGuards(JwtAuthGuard)
   @Query(() => [Tag])
   async tags(@Args() pagination: PaginationArgs): Promise<Tag[]> {
-    const tags = await this.exploreService.getTags(pagination);
-    return tags;
+    return await this.exploreService.getTags(pagination);
   }
 
   @Query(() => [PopularTag])
   @UseGuards(JwtAuthGuard)
   async popularTags(@Args() pagination: PaginationArgs): Promise<PopularTag[]> {
-    const tags = await this.exploreService.getPopularTags(pagination);
-    return tags;
+    return await this.exploreService.getPopularTags(pagination);
   }
 }

@@ -1,13 +1,13 @@
-import { Injectable } from "@nestjs/common";
-import { PaginationArgs } from "../common/args/pagination.args";
-import { PrismaService } from "../prisma/prisma.service";
+import {Injectable} from "@nestjs/common";
+import {PaginationArgs} from "../common/args/pagination.args";
+import {PrismaService} from "../prisma/prisma.service";
 
 @Injectable()
 export class ExploreService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getTags(pagination: PaginationArgs) {
-    const result = await this.prisma.tag.findMany({
+    return this.prisma.tag.findMany({
       include: {
         _count: true,
         posts: {
@@ -25,12 +25,10 @@ export class ExploreService {
       skip: pagination.skip,
       take: pagination.take,
     });
-
-    return result;
   }
 
   async getPopularTags(pagination: PaginationArgs) {
-    const result = await this.prisma.tag.findMany({
+    return this.prisma.tag.findMany({
       include: {
         _count: {
           select: {
@@ -46,7 +44,5 @@ export class ExploreService {
       skip: pagination.skip,
       take: pagination.take,
     });
-
-    return result;
   }
 }
