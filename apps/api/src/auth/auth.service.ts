@@ -4,7 +4,7 @@ import { Profile } from 'passport';
 import { Profile as DiscordProfile } from 'passport-discord';
 import { Profile as GoogleProfile } from 'passport-google-oauth20';
 import { Profile as SpotifyProfile } from 'passport-spotify';
-// import { EmailService } from '../email/email.service';
+import { EmailService } from '@/email/email.service';
 // import { SearchService } from '../search/search.service';
 import { JwtPayload } from './types/jwt-payload.type';
 import { OAuthType } from './types/oauth.type';
@@ -16,7 +16,8 @@ import { and, eq } from 'drizzle-orm';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly db: DbService, // private readonly searchService: SearchService, // private readonly emailService: EmailService,
+    private readonly db: DbService, // private readonly searchService: SearchService,
+    private readonly emailService: EmailService,
   ) {}
 
   async login(user: Profile): Promise<string> {
@@ -99,7 +100,7 @@ export class AuthService {
       email,
     };
 
-    // await this.emailService.sendSigninNotificationEmail(email, name);
+    await this.emailService.sendSigninNotificationEmail(email, name);
 
     return `Bearer ${this.jwtService.sign(payload)}`;
   }
