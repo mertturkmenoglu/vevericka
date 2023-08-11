@@ -4,7 +4,7 @@ import { Injectable } from "@nestjs/common";
 @Injectable()
 export class AxiomService {
   private readonly client = new Client();
-  private readonly dataset = process.env.AXIOM_DATASET;
+  private readonly dataset = process.env["AXIOM_DATASET"];
 
   async sendEvents(events: Array<object> | object) {
     return await this.client.ingestEvents(this.dataset, events);
