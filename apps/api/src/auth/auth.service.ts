@@ -43,7 +43,7 @@ export class AuthService {
     }
 
     try {
-      // User exist, signin user
+      // User exist, sign in user
       let authUser = await this.prisma.auth.findUniqueOrThrow({
         where: {
           sub_type: {
