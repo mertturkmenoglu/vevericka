@@ -6,6 +6,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { DbModule } from '@/db/db.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '@/auth/auth.module';
+import { APP_FILTER } from '@nestjs/core';
+import { GlobalAxiomFilter } from '@/common/filters/global-axiom.filter';
 
 @Module({
   imports: [
@@ -23,6 +25,12 @@ import { AuthModule } from '@/auth/auth.module';
       stopOnTerminationSignals: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
+  ],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: GlobalAxiomFilter,
+    },
   ],
 })
 export class AppModule {}
