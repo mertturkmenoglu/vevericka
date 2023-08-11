@@ -19,7 +19,7 @@ export class EmailProcessor {
     const { to, name } = job.data;
     await this.mailerService.sendMail({
       to,
-      from: process.env.NODEMAILER_FROM_EMAIL,
+      from: process.env["NODEMAILER_FROM_EMAIL"],
       subject: "Vevericka Sign In",
       template: "signin",
       context: {
