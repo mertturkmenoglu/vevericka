@@ -17,7 +17,7 @@ import { PostsService } from "./posts.service";
 
 @Resolver(() => Post)
 export class PostsResolver {
-  private readonly novu = new Novu(process.env.NOVU_API_KEY);
+  private readonly novu = new Novu(process.env["NOVU_API_KEY"]);
 
   constructor(
     @InjectQueue("posts") private readonly postsQueue: Queue,
@@ -103,7 +103,6 @@ export class PostsResolver {
   @Mutation(() => Post, { nullable: true })
   @UseGuards(JwtAuthGuard)
   async deletePost(
-    @CurrentUserDecorator() currentUser: CurrentUser,
     @Args("id") id: string
   ): Promise<boolean> {
     const result = await this.postsService.remove(id);
