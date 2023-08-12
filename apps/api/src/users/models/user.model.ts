@@ -14,22 +14,22 @@ export class User {
   @Field()
   image!: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   job!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   twitterHandle!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   school!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   birthDate!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   website!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   description!: string | null;
 
   @Field()
@@ -41,10 +41,10 @@ export class User {
   @Field()
   banner!: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   gender!: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   location!: string | null;
 
   @Field()
