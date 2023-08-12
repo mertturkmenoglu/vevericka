@@ -1,9 +1,7 @@
 import { NotFoundException, UseGuards } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { JwtAuthGuard } from '@/auth/guards';
-import { PaginationArgs } from '@/common/args/pagination.args';
-import { CurrentUser as CurrentUserDecorator } from '../common/decorators/current-user.decorator';
-import { CurrentUser } from '@/common/types/current-user.type';
+import { JwtAuthGuard } from '@/auth';
+import { PaginationArgs, CurrentUser, TCurrentUser } from '@/common';
 import { FeedService } from './feed.service';
 import { Feed } from './models/feed.model';
 import { TPost } from '@/db/schema';
@@ -15,7 +13,7 @@ export class FeedResolver {
   @Query(() => Feed)
   @UseGuards(JwtAuthGuard)
   async feed(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args() pagination: PaginationArgs,
   ): Promise<TPost[]> {
     const feed = await this.feedService.getUserFeed(
