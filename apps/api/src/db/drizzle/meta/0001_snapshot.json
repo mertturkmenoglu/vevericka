@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "74658866-0901-4e49-80c1-12ea17adc222",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "35e852a5-84e8-484b-bbce-22c08958d566",
+  "prevId": "74658866-0901-4e49-80c1-12ea17adc222",
   "tables": {
     "auths": {
       "name": "auths",
@@ -254,9 +254,9 @@
           "primaryKey": false,
           "notNull": true
         },
-        "tag_id": {
-          "name": "tag_id",
-          "type": "uuid",
+        "tag": {
+          "name": "tag",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         }
@@ -269,19 +269,6 @@
           "tableTo": "posts",
           "columnsFrom": [
             "post_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "post_tags_tag_id_tags_id_fk": {
-          "name": "post_tags_tag_id_tags_id_fk",
-          "tableFrom": "post_tags",
-          "tableTo": "tags",
-          "columnsFrom": [
-            "tag_id"
           ],
           "columnsTo": [
             "id"
@@ -646,6 +633,8 @@
   "_meta": {
     "schemas": {},
     "tables": {},
-    "columns": {}
+    "columns": {
+      "\"post_tags\".\"tag_id\"": "\"post_tags\".\"tag\""
+    }
   }
 }
