@@ -8,7 +8,7 @@ import { EmailService } from '@/email/email.service';
 import { SearchService } from '@/search/search.service';
 import { JwtPayload, OAuthType } from '@/auth/types';
 import { DbService } from '@/db/db.service';
-import { auths, TAuth, users } from '@/db/schema';
+import { auths, TAuth, users } from '@/db';
 import { and, eq } from 'drizzle-orm';
 
 @Injectable()

@@ -4,7 +4,7 @@ import { JwtAuthGuard } from '@/auth';
 import { PaginationArgs, CurrentUser, TCurrentUser } from '@/common';
 import { FeedService } from './feed.service';
 import { Feed } from './models/feed.model';
-import { TPost } from '@/db/schema';
+import { TPost } from '@/db';
 
 @Resolver(() => Feed)
 export class FeedResolver {

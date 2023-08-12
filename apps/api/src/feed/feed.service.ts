@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from '@/common';
 import { DbService } from '@/db/db.service';
-import { follows, posts, TPost } from '@/db/schema';
+import { follows, posts, TPost } from '@/db';
 import { desc, eq, inArray } from 'drizzle-orm';
 
 @Injectable()

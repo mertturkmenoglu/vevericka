@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from '@/common/args/pagination.args';
 import { Vote } from '@/posts/dto';
 import { DbService } from '@/db/db.service';
-import { posts, postVotes } from '@/db/schema';
+import { posts, postVotes } from '@/db';
 import { and, desc, eq } from 'drizzle-orm';
 
 @Injectable()

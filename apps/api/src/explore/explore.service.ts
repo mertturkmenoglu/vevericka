@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from '@/common';
 import { DbService } from '@/db/db.service';
-import { tags } from '@/db/schema';
+import { tags } from '@/db';
 
 @Injectable()
 export class ExploreService {
