@@ -1,5 +1,5 @@
-import { Field, ObjectType } from "@nestjs/graphql";
-import { Shard } from "./shard.model";
+import { Field, ObjectType } from '@nestjs/graphql';
+import { Shard } from './shard.model';
 
 @ObjectType()
 export class ElasticResult {
