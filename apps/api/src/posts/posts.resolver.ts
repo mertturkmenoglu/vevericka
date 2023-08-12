@@ -3,16 +3,12 @@ import { NotFoundException, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Novu } from '@novu/node';
 import { Queue } from 'bull';
-import { JwtAuthGuard } from '@/auth/guards';
-import { PaginationArgs } from '@/common/args/pagination.args';
-import { CurrentUser } from '@/common/types/current-user.type';
+import { JwtAuthGuard } from '@/auth';
+import { PaginationArgs, CurrentUser, TCurrentUser } from '@/common';
 import { AxiomService } from '@/axiom/axiom.service';
-import { CurrentUser as CurrentUserDecorator } from '../common/decorators/current-user.decorator';
-// import { SearchService } from "../search/search.service";
-import { BulkCreatePostsInput } from './dto/bulk-create-posts.input';
-import { NewPostInput } from './dto/new-post.input';
-import { Vote } from './dto/vote-post.input';
-import { Post } from './models/post.model';
+import { SearchService } from '@/search/search.service';
+import { NewPostInput, BulkCreatePostsInput, Vote } from '@/posts/dto';
+import { Post } from '@/posts/models';
 import { PostsService } from './posts.service';
 
 @Resolver(() => Post)
@@ -22,14 +18,14 @@ export class PostsResolver {
   constructor(
     @InjectQueue('posts') private readonly postsQueue: Queue,
     private readonly postsService: PostsService,
-    // private readonly searchService: SearchService,
+    private readonly searchService: SearchService,
     private readonly axiomService: AxiomService,
   ) {}
 
   @Query(() => Post)
   @UseGuards(JwtAuthGuard)
   async post(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('id') id: string,
   ): Promise<Post> {
     const post = await this.postsService.findOneById(currentUser.user.id, id);
@@ -42,7 +38,7 @@ export class PostsResolver {
   @Query(() => [Post])
   @UseGuards(JwtAuthGuard)
   async posts(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('id') id: string,
     @Args() pagination: PaginationArgs,
   ): Promise<Post[]> {
@@ -56,22 +52,27 @@ export class PostsResolver {
   @Mutation(() => Post)
   @UseGuards(JwtAuthGuard)
   async createPost(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('newPostData') newPostData: NewPostInput,
   ): Promise<Post> {
-    // await this.searchService.addPostToSearchIndex({
-    //   id: post.id,
-    //   userId: post.user.id,
-    //   content: post.content,
-    // });
+    const result = await this.postsService.create(
+      currentUser.user.id,
+      newPostData,
+    );
 
-    return await this.postsService.create(currentUser.user.id, newPostData);
+    await this.searchService.addPostToSearchIndex({
+      id: result.id,
+      userId: result.user.id,
+      content: result.content,
+    });
+
+    return result;
   }
 
   @Mutation(() => Post)
   @UseGuards(JwtAuthGuard)
   async votePost(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('id') id: string,
     @Args('vote') vote: string,
   ): Promise<boolean> {
@@ -108,7 +109,7 @@ export class PostsResolver {
       throw new NotFoundException(id);
     }
 
-    // await this.searchService.removePostFromSearchIndex(id);
+    await this.searchService.removePostFromSearchIndex(id);
 
     return result;
   }
@@ -116,7 +117,7 @@ export class PostsResolver {
   @Query(() => [Post])
   @UseGuards(JwtAuthGuard)
   async postsByTag(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('tag') tag: string,
     @Args() pagination: PaginationArgs,
   ): Promise<Post[]> {
@@ -130,7 +131,7 @@ export class PostsResolver {
   @Mutation(() => String)
   @UseGuards(JwtAuthGuard)
   async bulkCreatePosts(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('payload') payload: BulkCreatePostsInput,
   ): Promise<string> {
     await this.postsQueue.add('createPost', {

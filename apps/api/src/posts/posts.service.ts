@@ -1,62 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { PaginationArgs } from 'src/common/args/pagination.args';
-import { NewPostInput } from './dto/new-post.input';
-import { Vote } from './dto/vote-post.input';
-import { Post } from './models/post.model';
+import { NewPostInput, Vote } from '@/posts/dto';
+import { Post } from '@/posts/models';
 import { PostsRepository } from './posts.repository';
-import { postsInclude, postsVoteInclude, TPostResult } from './posts.type';
-import { DbService } from '@/db/db.service';
+import { User } from '@/users/models/user.model';
 
 @Injectable()
 export class PostsService {
-  constructor(
-    private readonly db: DbService,
-    private readonly repository: PostsRepository,
-  ) {}
+  constructor(private readonly repository: PostsRepository) {}
 
   async create(userId: string, data: NewPostInput): Promise<Post> {
-    const tags = this.prepareTags(data.content);
-
-    await this.prisma.tag.createMany({
-      data: tags.map((tag) => ({ tagName: tag })),
-      skipDuplicates: true,
-    });
-
-    const post = await this.prisma.post.create({
-      data: {
-        content: data.content,
-        tags: {
-          connect: tags.map((tag) => ({ tagName: tag })),
-        },
-        images: {
-          createMany: {
-            data: data.imageUrls.map((url) => ({
-              url,
-            })),
-          },
-        },
-        videos: {
-          createMany: {
-            data: data.videoUrls.map((url) => ({
-              url,
-            })),
-          },
-        },
-        user: {
-          connect: {
-            id: userId,
-          },
-        },
-      },
-      include: {
-        ...postsInclude,
-      },
-    });
-
-    return {
-      ...post,
-      vote: 'none',
-    };
+    console.log(userId, data);
+    throw new NotImplementedException();
   }
 
   async changeVote(
@@ -70,7 +25,7 @@ export class PostsService {
 
   async findOneById(userId: string, id: string): Promise<Post | null> {
     const post = await this.repository.findOneById(userId, id);
-    const res = this.mapQueryResultToResponse(post);
+    this.mapQueryResultToResponse(post);
     return null;
   }
 
@@ -98,30 +53,8 @@ export class PostsService {
     tag: string,
     pagination: PaginationArgs,
   ): Promise<Post[]> {
-    const res = await this.prisma.tag.findUnique({
-      where: {
-        tagName: `#${tag}`,
-      },
-      include: {
-        posts: {
-          include: {
-            ...postsInclude,
-            ...postsVoteInclude(userId),
-          },
-          skip: pagination.skip,
-          take: pagination.take,
-          orderBy: {
-            createdAt: 'desc',
-          },
-        },
-      },
-    });
-
-    if (!res) {
-      return [];
-    }
-
-    return res.posts.map(this.mapQueryResultToResponse.bind(this));
+    console.log(userId, tag, pagination);
+    return [];
   }
 
   private prepareTags(content: string): string[] {
@@ -140,7 +73,7 @@ export class PostsService {
     }
   }
 
-  private mapQueryResultToResponse(post: TPostResult) {
+  private mapQueryResultToResponse(post: any) {
     return {
       ...post,
       vote: this.getVote(post.likes, post.dislikes),

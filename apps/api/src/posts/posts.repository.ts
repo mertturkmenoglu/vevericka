@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from '@/common/args/pagination.args';
-import { Vote } from './dto/vote-post.input';
+import { Vote } from '@/posts/dto';
 import { DbService } from '@/db/db.service';
 import { posts, postVotes } from '@/db/schema';
-import { and, eq } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 
 @Injectable()
 export class PostsRepository {
@@ -51,16 +51,16 @@ export class PostsRepository {
   }
 
   async findOneById(userId: string, id: string): Promise<any | null> {
-    return null;
-    // return this.prisma.post.findUnique({
-    //   where: {
-    //     id,
-    //   },
-    //   include: {
-    //     ...postsInclude,
-    //     ...postsVoteInclude(userId),
-    //   },
-    // });
+    const results = await this.db.client
+      .select()
+      .from(posts)
+      .where(eq(posts.id, id));
+
+    if (results.length === 0) {
+      return null;
+    }
+
+    return results[0];
   }
 
   async deleteOneById(id: string): Promise<void> {
@@ -72,20 +72,12 @@ export class PostsRepository {
     targetUserId: string,
     { skip, take }: PaginationArgs,
   ): Promise<any[]> {
-    return [];
-    // return this.prisma.post.findMany({
-    //   where: {
-    //     userId,
-    //   },
-    //   orderBy: {
-    //     createdAt: "desc",
-    //   },
-    //   include: {
-    //     ...postsInclude,
-    //     ...postsVoteInclude(thisUserId),
-    //   },
-    //   skip,
-    //   take,
-    // });
+    return await this.db.client
+      .select()
+      .from(posts)
+      .where(eq(posts.userId, targetUserId))
+      .orderBy(desc(posts.createdAt))
+      .limit(take)
+      .offset(skip);
   }
 }

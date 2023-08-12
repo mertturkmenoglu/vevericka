@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Count } from '@/common/models/count.model';
+import { Count } from '@/common';
 import { Tag } from '@/explore/models/tag.model';
 import { User } from '@/users/models/user.model';
 import { PostImage } from './post-image.model';
