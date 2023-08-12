@@ -16,6 +16,8 @@ export const authProvidersEnum = pgEnum('auth_providers', [
   'spotify',
 ]);
 
+export const postVotesEnum = pgEnum('post_votes_enum', ['like', 'dislike']);
+
 export const auths = pgTable('auths', {
   id: uuid('id').primaryKey().defaultRandom(),
   sub: varchar('sub', { length: 256 }).notNull(),
@@ -61,7 +63,7 @@ export const posts = pgTable('posts', {
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
 
-export const postLikes = pgTable('post_likes', {
+export const postVotes = pgTable('post_votes', {
   id: uuid('id').primaryKey().defaultRandom(),
   userId: uuid('user_id')
     .references(() => users.id)
@@ -69,18 +71,7 @@ export const postLikes = pgTable('post_likes', {
   postId: uuid('post_id')
     .references(() => posts.id)
     .notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
-  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
-});
-
-export const postDislikes = pgTable('post_dislikes', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  userId: uuid('user_id')
-    .references(() => users.id)
-    .notNull(),
-  postId: uuid('post_id')
-    .references(() => posts.id)
-    .notNull(),
+  vote: postVotesEnum('vote').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
@@ -95,9 +86,7 @@ export const postTags = pgTable('post_tags', {
   postId: uuid('post_id')
     .references(() => posts.id)
     .notNull(),
-  tagId: uuid('tag_id')
-    .references(() => tags.id)
-    .notNull(),
+  tag: varchar('tag', { length: 256 }).notNull(),
 });
 
 export const postImages = pgTable('post_images', {
@@ -127,6 +116,8 @@ export const bookmarks = pgTable('bookmarks', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
+
+export type TBookmark = InferModel<typeof bookmarks>;
 
 export const followRequests = pgTable('follow_requests', {
   id: uuid('id').primaryKey().defaultRandom(),
