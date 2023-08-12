@@ -75,6 +75,8 @@ export const posts = pgTable('posts', {
     .defaultNow(),
 });
 
+export type TPost = InferModel<typeof posts>;
+
 export const postVotes = pgTable('post_votes', {
   id: uuid('id').primaryKey().defaultRandom(),
   userId: uuid('user_id')
@@ -154,4 +156,14 @@ export const followRequests = pgTable('follow_requests', {
   updatedAt: timestamp('updated_at', { withTimezone: true })
     .notNull()
     .defaultNow(),
+});
+
+export const follows = pgTable('follows', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  followingId: uuid('following_id')
+    .references(() => users.id)
+    .notNull(),
+  followerId: uuid('follower_id')
+    .references(() => users.id)
+    .notNull(),
 });
