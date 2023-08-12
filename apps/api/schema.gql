@@ -2,11 +2,188 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Example"""
-type Example {
+type Shard {
+  total: Float!
+  successful: Float!
+  skipped: Float
+  failed: Float!
+}
+
+"""Count"""
+type Count {
+  dislikes: Float!
+  likes: Float!
+  tags: Float!
+}
+
+"""tag"""
+type Tag {
   id: String!
+  tag: String!
+}
+
+"""Popular Tag"""
+type PopularTag {
+  id: String!
+  tag: String!
+  count: Float!
+}
+
+"""user"""
+type User {
+  id: String!
+  name: String!
+  email: String!
+  image: String!
+  job: String
+  twitterHandle: String
+  school: String
+  birthDate: String
+  website: String
+  description: String
+  verified: Boolean!
+  protected: Boolean!
+  banner: String!
+  gender: String
+  location: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""PostImage"""
+type PostImage {
+  id: String!
+  url: String!
+}
+
+"""PostVideo"""
+type PostVideo {
+  id: String!
+  url: String!
+}
+
+"""post"""
+type Post {
+  id: String!
+  content: String!
+  user: User!
+  tags: [Tag!]!
+  images: [PostImage!]!
+  videos: [PostVideo!]!
+  vote: String!
+  _count: Count!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PostHit {
+  _index: String!
+  _id: String!
+  _score: Float
+  _source: Post!
+}
+
+type PostTopLevelHits {
+  max_score: Float
+  hits: [PostHit!]!
+}
+
+type PostResult {
+  took: Float!
+  timed_out: Boolean!
+  _shards: Shard!
+  hits: PostTopLevelHits!
+}
+
+type UserHit {
+  _index: String!
+  _id: String!
+  _score: Float
+  _source: User!
+}
+
+type UserTopLevelHits {
+  max_score: Float
+  hits: [UserHit!]!
+}
+
+type UserResult {
+  took: Float!
+  timed_out: Boolean!
+  _shards: Shard!
+  hits: UserTopLevelHits!
+}
+
+"""Bookmark"""
+type Bookmark {
+  id: String!
+  post: Post!
+}
+
+"""feed"""
+type Feed {
+  posts: [Post!]!
+}
+
+"""Link Preview Model"""
+type LinkPreview {
+  title: String
+  description: String
+  image: String
+  url: String
+}
+
+type LastSeen {
+  id: String!
+  date: String!
 }
 
 type Query {
-  example(id: String!): Example!
+  searchPosts: PostResult!
+  searchUsers: UserResult!
+  bookmark(id: String!): Bookmark!
+  bookmarks(skip: Int! = 0, take: Int! = 25): [Bookmark!]!
+  tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
+  popularTags(skip: Int! = 0, take: Int! = 25): [PopularTag!]!
+  feed(skip: Int! = 0, take: Int! = 25): Feed!
+  linkPreview(url: String!): LinkPreview!
+  post(id: String!): Post!
+  posts(id: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
+  postsByTag(tag: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
+  me: User!
+  user(id: String!): User!
+}
+
+type Mutation {
+  updateSearchIndices: String!
+  createBookmark(newBookmarkData: NewBookmarkInput!): Bookmark!
+  addOrRemoveBookmark(postId: String!): Bookmark!
+  createPost(newPostData: NewPostInput!): Post!
+  votePost(id: String!, vote: String!): Post!
+  deletePost(id: String!): Post
+  bulkCreatePosts(payload: BulkCreatePostsInput!): String!
+  updateLastSeen: String!
+}
+
+input NewBookmarkInput {
+  postId: String!
+}
+
+input NewPostInput {
+  content: String!
+  imageUrls: [String!]!
+  videoUrls: [String!]!
+}
+
+input BulkCreatePostsInput {
+  posts: [NewPostInput!]!
+}
+
+type Subscription {
+  lastSeen: LastSeen!
 }
