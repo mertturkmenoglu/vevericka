@@ -1,9 +1,7 @@
 import { NotFoundException, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { JwtAuthGuard } from '@/auth/guards';
-import { PaginationArgs } from '@/common/args/pagination.args';
-import { CurrentUser } from '@/common/types/current-user.type';
-import { CurrentUser as CurrentUserDecorator } from '../common/decorators/current-user.decorator';
+import { PaginationArgs, TCurrentUser, CurrentUser } from '@/common';
 import { BookmarksService } from './bookmarks.service';
 import { NewBookmarkInput } from './dto/new-bookmark.input';
 import { Bookmark } from './models/bookmark.model';
@@ -15,7 +13,7 @@ export class BookmarksResolver {
   @Query(() => Bookmark)
   @UseGuards(JwtAuthGuard)
   async bookmark(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('id') id: string,
   ) {
     const bookmark = await this.bookmarksService.getBookmarkById(
@@ -31,7 +29,7 @@ export class BookmarksResolver {
   @Query(() => [Bookmark])
   @UseGuards(JwtAuthGuard)
   async bookmarks(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args() pagination: PaginationArgs,
   ) {
     return this.bookmarksService.getUsersBookmarks(
@@ -43,7 +41,7 @@ export class BookmarksResolver {
   @Mutation(() => Bookmark)
   @UseGuards(JwtAuthGuard)
   async createBookmark(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('newBookmarkData') newBookmarkData: NewBookmarkInput,
   ) {
     return this.bookmarksService.createBookmark(
@@ -55,7 +53,7 @@ export class BookmarksResolver {
   @Mutation(() => Bookmark)
   @UseGuards(JwtAuthGuard)
   async addOrRemoveBookmark(
-    @CurrentUserDecorator() currentUser: CurrentUser,
+    @CurrentUser() currentUser: TCurrentUser,
     @Args('postId') postId: string,
   ) {
     return this.bookmarksService.addOrRemoveBookmark(

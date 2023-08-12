@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PaginationArgs } from '@/common/args/pagination.args';
+import { PaginationArgs } from '@/common';
 import { DbService } from '@/db/db.service';
 import { bookmarks, TBookmark } from '@/db/schema';
 import { and, desc, eq } from 'drizzle-orm';
