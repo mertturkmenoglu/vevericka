@@ -1,7 +1,7 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { JwtAuthGuard } from '@/auth/guards';
-import { PaginationArgs } from '@/common/args/pagination.args';
+import { JwtAuthGuard } from '@/auth';
+import { PaginationArgs } from '@/common';
 import { ExploreService } from './explore.service';
 import { PopularTag, Tag } from './models/tag.model';
 
