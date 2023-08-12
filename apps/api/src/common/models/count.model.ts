@@ -1,6 +1,6 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, ObjectType } from '@nestjs/graphql';
 
-@ObjectType({ description: "Count" })
+@ObjectType({ description: 'Count' })
 export class Count {
   @Field()
   dislikes!: number;
