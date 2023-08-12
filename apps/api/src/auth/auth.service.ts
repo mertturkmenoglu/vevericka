@@ -5,9 +5,8 @@ import { Profile as DiscordProfile } from 'passport-discord';
 import { Profile as GoogleProfile } from 'passport-google-oauth20';
 import { Profile as SpotifyProfile } from 'passport-spotify';
 import { EmailService } from '@/email/email.service';
-// import { SearchService } from '../search/search.service';
-import { JwtPayload } from './types/jwt-payload.type';
-import { OAuthType } from './types/oauth.type';
+import { SearchService } from '@/search/search.service';
+import { JwtPayload, OAuthType } from '@/auth/types';
 import { DbService } from '@/db/db.service';
 import { auths, TAuth, users } from '@/db/schema';
 import { and, eq } from 'drizzle-orm';
@@ -16,7 +15,8 @@ import { and, eq } from 'drizzle-orm';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly db: DbService, // private readonly searchService: SearchService,
+    private readonly db: DbService,
+    private readonly searchService: SearchService,
     private readonly emailService: EmailService,
   ) {}
 
@@ -80,13 +80,13 @@ export class AuthService {
 
       const user = createUserResult[0];
 
-      // await this.searchService.addUserToSearchIndex({
-      //   id: user.id,
-      //   name: user.name,
-      //   verified: user.verified,
-      //   protected: user.protected,
-      //   description: user.description ?? '',
-      // });
+      await this.searchService.addUserToSearchIndex({
+        id: user.id,
+        name: user.name,
+        verified: user.verified,
+        protected: user.protected,
+        description: user.description ?? '',
+      });
 
       userId = user.id;
     }

@@ -1,4 +1,4 @@
-import { OAuthType } from './oauth.type';
+import { OAuthType } from '@/auth';
 
 export interface JwtPayload {
   type: OAuthType;
