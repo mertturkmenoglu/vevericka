@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { DbModule } from '@/db/db.module';
-// import { EmailModule } from '../email/email.module';
+import { EmailModule } from '@/email/email.module';
 // import { SearchModule } from '../search/search.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -19,7 +19,7 @@ import {
     DbModule,
     PassportModule,
     // SearchModule,
-    // EmailModule,
+    EmailModule,
     JwtModule.registerAsync({
       useFactory: async () => {
         return {
