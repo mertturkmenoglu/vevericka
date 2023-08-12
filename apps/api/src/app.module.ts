@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ExampleModule } from './example/example.module';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { DbModule } from '@/db/db.module';
 import { ConfigModule } from '@nestjs/config';
@@ -19,7 +18,6 @@ import { AxiomModule } from '@/axiom/axiom.module';
     AuthModule,
     AxiomModule,
     DbModule,
-    ExampleModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
