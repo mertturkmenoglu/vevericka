@@ -3,19 +3,19 @@ import {
   OnQueueError,
   Process,
   Processor,
-} from "@nestjs/bull";
-import { Logger } from "@nestjs/common";
-import { Job } from "bull";
-import { AxiomService } from "../axiom/axiom.service";
-import { PostsService } from "./posts.service";
+} from '@nestjs/bull';
+import { Logger } from '@nestjs/common';
+import { Job } from 'bull';
+import { AxiomService } from '@/axiom/axiom.service';
+import { PostsService } from './posts.service';
 
-@Processor("posts")
+@Processor('posts')
 export class PostsProcessor {
   private readonly logger = new Logger(PostsProcessor.name);
 
   constructor(
     private readonly postsService: PostsService,
-    private readonly axiomService: AxiomService
+    private readonly axiomService: AxiomService,
   ) {}
 
   @OnQueueCompleted()
@@ -38,7 +38,7 @@ export class PostsProcessor {
     });
   }
 
-  @Process("createPost")
+  @Process('createPost')
   async createPost(job: Job) {
     const { dtos, userId } = job.data;
     let i = 1;
@@ -47,6 +47,6 @@ export class PostsProcessor {
       await job.progress((i / dtos.length) * 100);
       i++;
     }
-    return "done";
+    return 'done';
   }
 }

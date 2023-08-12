@@ -1,18 +1,17 @@
-import { Injectable } from "@nestjs/common";
-import { User } from "@prisma/client";
-import { PaginationArgs } from "src/common/args/pagination.args";
-import { PrismaService } from "../prisma/prisma.service";
-import { NewPostInput } from "./dto/new-post.input";
-import { Vote } from "./dto/vote-post.input";
-import { Post } from "./models/post.model";
-import { PostsRepository } from "./posts.repository";
-import { postsInclude, postsVoteInclude, TPostResult } from "./posts.type";
+import { Injectable } from '@nestjs/common';
+import { PaginationArgs } from 'src/common/args/pagination.args';
+import { NewPostInput } from './dto/new-post.input';
+import { Vote } from './dto/vote-post.input';
+import { Post } from './models/post.model';
+import { PostsRepository } from './posts.repository';
+import { postsInclude, postsVoteInclude, TPostResult } from './posts.type';
+import { DbService } from '@/db/db.service';
 
 @Injectable()
 export class PostsService {
   constructor(
-    private prisma: PrismaService,
-    private readonly repository: PostsRepository
+    private readonly db: DbService,
+    private readonly repository: PostsRepository,
   ) {}
 
   async create(userId: string, data: NewPostInput): Promise<Post> {
@@ -56,14 +55,14 @@ export class PostsService {
 
     return {
       ...post,
-      vote: "none",
+      vote: 'none',
     };
   }
 
   async changeVote(
     userId: string,
     postId: string,
-    vote: Vote
+    vote: Vote,
   ): Promise<boolean> {
     await this.repository.changeVote(userId, postId, vote);
     return true;
@@ -83,21 +82,21 @@ export class PostsService {
   async getPostsByUserId(
     thisUserId: string,
     userId: string,
-    pagination: PaginationArgs
+    pagination: PaginationArgs,
   ): Promise<Post[]> {
     const posts = await this.repository.findManyByThisUserIdAndUserId(
       thisUserId,
       userId,
-      pagination
+      pagination,
     );
-    
+
     return posts.map(this.mapQueryResultToResponse.bind(this));
   }
 
   async getPostsByTag(
     userId: string,
     tag: string,
-    pagination: PaginationArgs
+    pagination: PaginationArgs,
   ): Promise<Post[]> {
     const res = await this.prisma.tag.findUnique({
       where: {
@@ -112,12 +111,12 @@ export class PostsService {
           skip: pagination.skip,
           take: pagination.take,
           orderBy: {
-            createdAt: "desc",
+            createdAt: 'desc',
           },
         },
       },
     });
-    
+
     if (!res) {
       return [];
     }
@@ -133,11 +132,11 @@ export class PostsService {
 
   private getVote(likes: User[], dislikes: User[]) {
     if (likes.length > 0) {
-      return "like";
+      return 'like';
     } else if (dislikes.length > 0) {
-      return "dislike";
+      return 'dislike';
     } else {
-      return "none";
+      return 'none';
     }
   }
 
