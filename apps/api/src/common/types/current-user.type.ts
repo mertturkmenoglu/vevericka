@@ -1,4 +1,4 @@
-export interface CurrentUser {
+export interface TCurrentUser {
   email: string;
   user: {
     id: string;
