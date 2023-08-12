@@ -37,3 +37,4 @@ yarn-error.log*
 
 # VSCode
 .vscode
+**/metadata.ts
