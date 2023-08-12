@@ -12,10 +12,12 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { BullModule } from '@nestjs/bull';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AxiomModule } from '@/axiom/axiom.module';
 
 @Module({
   imports: [
     AuthModule,
+    AxiomModule,
     DbModule,
     ExampleModule,
     ConfigModule.forRoot({
@@ -43,7 +45,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       },
     }),
     BullModule.forRoot({
-      url: process.env['REDIS_URL'] ?? '',
+      redis: process.env['REDIS_URL'] ?? '',
     }),
     ScheduleModule.forRoot(),
   ],
