@@ -3,9 +3,7 @@ import { UseGuards } from '@nestjs/common';
 import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Queue } from 'bull';
 import { JwtAuthGuard } from '@/auth/guards';
-import { ElasticResult } from './models/common/elastic-result.model';
-import { PostResult } from './models/post/post-result.model';
-import { UserResult } from './models/user/user-result.model';
+import { ElasticResult, PostResult, UserResult } from '@/search/models';
 import { SearchService } from './search.service';
 
 @Resolver(() => ElasticResult)

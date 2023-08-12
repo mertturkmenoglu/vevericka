@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-import { PostItem } from './models/post/post-item.model';
-import { PostResult } from './models/post/post-result.model';
-import { UserItem } from './models/user/user-item.model';
-import { UserResult } from './models/user/user-result.model';
+import { PostItem, PostResult, UserItem, UserResult } from '@/search/models';
 
 @Injectable()
 export class SearchService {
