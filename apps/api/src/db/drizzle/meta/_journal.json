@@ -15,6 +15,27 @@
       "when": 1691847833620,
       "tag": "0001_salty_legion",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1691849804122,
+      "tag": "0002_slow_harpoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1691849936675,
+      "tag": "0003_fine_thunderball",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1691850046833,
+      "tag": "0004_dazzling_malice",
+      "breakpoints": true
     }
   ]
 }
