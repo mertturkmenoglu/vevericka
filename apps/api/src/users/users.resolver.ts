@@ -1,9 +1,8 @@
 import { NotFoundException, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
-import { JwtAuthGuard } from '@/auth/guards';
-import { CurrentUser } from '@/common/types/current-user.type';
-import { CurrentUser as CurrentUserDecorator } from '../common/decorators/current-user.decorator';
+import { JwtAuthGuard } from '@/auth';
+import { CurrentUser, TCurrentUser } from '@/common';
 import { LastSeen } from './models/last-seen.model';
 import { User } from './models/user.model';
 import { UsersService } from './users.service';
@@ -16,9 +15,7 @@ export class UsersResolver {
 
   @Query(() => User)
   @UseGuards(JwtAuthGuard)
-  async me(
-    @CurrentUserDecorator() currentUser: CurrentUser,
-  ): Promise<User | null> {
+  async me(@CurrentUser() currentUser: TCurrentUser): Promise<User | null> {
     return await this.usersService.findOneById(currentUser.user.id);
   }
 
@@ -39,7 +36,7 @@ export class UsersResolver {
 
   @Mutation(() => String)
   @UseGuards(JwtAuthGuard)
-  async updateLastSeen(@CurrentUserDecorator() currentUser: CurrentUser) {
+  async updateLastSeen(@CurrentUser() currentUser: TCurrentUser) {
     await pubSub.publish('lastSeen', {
       lastSeen: {
         id: currentUser.user.id,
