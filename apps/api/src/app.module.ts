@@ -12,15 +12,30 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { BullModule } from '@nestjs/bull';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AxiomModule } from '@/axiom/axiom.module';
+import { BookmarksModule } from '@/bookmarks/bookmarks.module';
+import { EmailModule } from '@/email/email.module';
+import { ExploreModule } from '@/explore/explore.module';
+import { FeedModule } from '@/feed/feed.module';
+import { LinkModule } from '@/link/link-module';
+import { PostsModule } from '@/posts/posts.module';
+import { SearchModule } from '@/search/search.module';
+import { UsersModule } from '@/users/users.module';
 
 @Module({
   imports: [
     AuthModule,
     AxiomModule,
-    DbModule,
+    BookmarksModule,
+    BullModule.forRoot({
+      redis: process.env['REDIS_URL'] ?? '',
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    DbModule,
+    EmailModule,
+    ExploreModule,
+    FeedModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
@@ -29,6 +44,7 @@ import { AxiomModule } from '@/axiom/axiom.module';
       stopOnTerminationSignals: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
+    LinkModule,
     MailerModule.forRoot({
       transport: `smtps://${process.env['NODEMAILER_AUTH_EMAIL']}:${process.env['NODEMAILER_AUTH_PASSWORD']}@smtp.gmail.com`,
       defaults: {
@@ -42,10 +58,10 @@ import { AxiomModule } from '@/axiom/axiom.module';
         },
       },
     }),
-    BullModule.forRoot({
-      redis: process.env['REDIS_URL'] ?? '',
-    }),
+    PostsModule,
+    SearchModule,
     ScheduleModule.forRoot(),
+    UsersModule,
   ],
   providers: [
     {
