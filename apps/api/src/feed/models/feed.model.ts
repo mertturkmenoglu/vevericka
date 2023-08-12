@@ -1,5 +1,5 @@
-import { Field, ObjectType } from "@nestjs/graphql";
-import { Post } from "../../posts/models/post.model";
+import { Field, ObjectType } from '@nestjs/graphql';
+import { Post } from '@/posts/models/post.model';
 
 @ObjectType()
 export class FieldPosts {
@@ -7,7 +7,7 @@ export class FieldPosts {
   edges!: Post[];
 }
 
-@ObjectType({ description: "feed" })
+@ObjectType({ description: 'feed' })
 export class Feed {
   @Field(() => [Post])
   posts!: Post[];
