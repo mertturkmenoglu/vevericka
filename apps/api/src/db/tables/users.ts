@@ -40,28 +40,24 @@ export const users = pgTable('users', {
     .defaultNow(),
 });
 
-export const userDescriptions = pgTable('user_descriptions', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  userId: uuid('user_id')
-    .references(() => users.id)
-    .notNull(),
-  description: varchar('description', { length: 256 }).notNull(),
-});
-
 export const userDescriptionTags = pgTable('user_description_tags', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userDescriptionId: uuid('user_description_id')
-    .references(() => userDescriptions.id)
+  start: smallint('start').notNull(),
+  end: smallint('end').notNull(),
+  userId: uuid('user_id')
+    .references(() => users.id)
     .notNull(),
   tagId: uuid('tag_id')
     .references(() => tags.id)
     .notNull(),
 });
 
+export type TUserDescriptionTag = InferModel<typeof userDescriptionTags>;
+
 export const userDescriptionUrls = pgTable('user_description_urls', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userDescriptionId: uuid('user_description_id')
-    .references(() => userDescriptions.id)
+  userId: uuid('user_id')
+    .references(() => users.id)
     .notNull(),
   url: varchar('url', { length: 256 }).notNull(),
   start: smallint('start').notNull(),
@@ -69,10 +65,12 @@ export const userDescriptionUrls = pgTable('user_description_urls', {
   meta: json('meta').notNull(),
 });
 
+export type TUserDescriptionUrl = InferModel<typeof userDescriptionUrls>;
+
 export const userDescriptionMentions = pgTable('user_description_mentions', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userDescriptionId: uuid('user_description_id')
-    .references(() => userDescriptions.id)
+  userId: uuid('user_id')
+    .references(() => users.id)
     .notNull(),
   mention: varchar('mention', { length: 256 }).notNull(),
   mentionedUserId: uuid('mentioned_user_id').references(() => users.id),
@@ -80,4 +78,33 @@ export const userDescriptionMentions = pgTable('user_description_mentions', {
   end: smallint('end').notNull(),
 });
 
+export type TUserDescriptionMention = InferModel<
+  typeof userDescriptionMentions
+>;
+
 export type TUser = InferModel<typeof users>;
+
+export type TUserProfileDescription = {
+  description: {
+    description: string | null;
+    tags: TUserDescriptionTag[];
+    urls: TUserDescriptionUrl[];
+    mentions: TUserDescriptionMention[];
+  };
+};
+
+export type TUserProfileCount = {
+  followers: number;
+  following: number;
+  posts: number;
+};
+
+export type TUserProfileMeta = {
+  isFollowing: boolean;
+  hasPendingFollowRequest: boolean;
+  isMe: boolean;
+  count: TUserProfileCount;
+};
+
+export type TUserProfile = Omit<TUser, 'description'> &
+  TUserProfileDescription & { meta: TUserProfileMeta };

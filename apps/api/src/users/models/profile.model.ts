@@ -16,7 +16,7 @@ export class UserCount {
 @ObjectType({ description: 'user' })
 export class Profile extends User {
   @Field(() => UserCount)
-  _count!: UserCount;
+  count!: UserCount;
 
   @Field()
   isFollowing!: boolean;
