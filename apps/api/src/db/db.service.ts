@@ -1,18 +1,19 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import postgres from 'postgres';
-import { drizzle } from 'drizzle-orm/postgres-js';
+import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
+import * as schema from './tables';
 
 @Injectable()
 export class DbService implements OnModuleInit {
-  public client!: ReturnType<typeof drizzle>;
+  public client!: PostgresJsDatabase<typeof schema>;
   private readonly connectionString!: string;
   private readonly postgresClient!: postgres.Sql;
 
   constructor() {
     this.connectionString = process.env['DATABASE_URL'] ?? '';
     this.postgresClient = postgres(this.connectionString);
-    this.client = drizzle(this.postgresClient);
+    this.client = drizzle(this.postgresClient, { schema });
   }
 
   async migrateDb() {
