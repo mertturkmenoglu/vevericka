@@ -85,7 +85,7 @@ export type TUserDescriptionMention = InferModel<
 export type TUser = InferModel<typeof users>;
 
 export type TUserProfileDescription = {
-  description: {
+  descriptionMeta: {
     description: string | null;
     tags: TUserDescriptionTag[];
     urls: TUserDescriptionUrl[];
@@ -106,5 +106,5 @@ export type TUserProfileMeta = {
   count: TUserProfileCount;
 };
 
-export type TUserProfile = Omit<TUser, 'description'> &
+export type TUserProfile = TUser &
   TUserProfileDescription & { meta: TUserProfileMeta };
