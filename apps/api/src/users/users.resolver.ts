@@ -6,6 +6,7 @@ import { CurrentUser, TCurrentUser } from '@/common';
 import { LastSeen } from './models/last-seen.model';
 import { User } from './models/user.model';
 import { UsersService } from './users.service';
+import { Profile } from '@/users/models/profile.model';
 
 const pubSub = new PubSub();
 
@@ -27,6 +28,24 @@ export class UsersResolver {
       throw new NotFoundException(id);
     }
     return user;
+  }
+
+  @Query(() => Profile)
+  @UseGuards(JwtAuthGuard)
+  async profile(
+    @Args('id') id: string,
+    @CurrentUser() currentUser: TCurrentUser,
+  ): Promise<Profile> {
+    const profile = await this.usersService.findOneProfileById(
+      currentUser.user.id,
+      id,
+    );
+
+    if (!profile) {
+      throw new NotFoundException(id);
+    }
+
+    return profile;
   }
 
   @Subscription(() => LastSeen)
