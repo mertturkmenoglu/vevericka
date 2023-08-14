@@ -1,6 +1,7 @@
 import {
   boolean,
   date,
+  integer,
   json,
   pgTable,
   smallint,
@@ -28,6 +29,9 @@ export const users = pgTable('users', {
   banner: varchar('banner', { length: 256 }).notNull().default('banner.png'),
   gender: varchar('gender', { length: 256 }),
   location: varchar('location', { length: 256 }),
+  postsCount: integer('posts_count').default(0).notNull(),
+  followersCount: integer('followers_count').default(0).notNull(),
+  followingCount: integer('following_count').default(0).notNull(),
   authId: uuid('auth_id')
     .references(() => auths.id)
     .notNull(),
