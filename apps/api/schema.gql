@@ -143,6 +143,52 @@ type LastSeen {
   date: String!
 }
 
+"""UserCount"""
+type UserCount {
+  followers: Float!
+  following: Float!
+  posts: Float!
+}
+
+"""ProfileMeta"""
+type ProfileMeta {
+  isMe: Boolean!
+  isFollowing: Boolean!
+  hasPendingFollowRequest: Boolean!
+  count: UserCount!
+}
+
+"""ProfileDescription"""
+type ProfileDescription {
+  description: String
+  tags: [String!]!
+  urls: [String!]!
+  mentions: [String!]!
+}
+
+"""user"""
+type Profile {
+  id: String!
+  name: String!
+  email: String!
+  image: String!
+  job: String
+  twitterHandle: String
+  school: String
+  birthDate: String
+  website: String
+  description: String
+  verified: Boolean!
+  protected: Boolean!
+  banner: String!
+  gender: String
+  location: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  descriptionMeta: ProfileDescription!
+  meta: ProfileMeta!
+}
+
 type Query {
   searchPosts: PostResult!
   searchUsers: UserResult!
@@ -157,6 +203,7 @@ type Query {
   postsByTag(tag: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
   me: User!
   user(id: String!): User!
+  profile(id: String!): Profile!
 }
 
 type Mutation {
