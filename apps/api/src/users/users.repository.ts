@@ -3,7 +3,6 @@ import { DbService } from '@/db/db.service';
 import {
   followRequests,
   follows,
-  posts,
   TUserProfile,
   userDescriptionMentions,
   userDescriptionTags,
@@ -27,6 +26,10 @@ export class UsersRepository {
         .where(eq(users.id, id))
         .limit(1);
 
+      if (usersResults.length === 0) {
+        return null;
+      }
+
       const tagsResults = await tx
         .select()
         .from(userDescriptionTags)
@@ -42,26 +45,9 @@ export class UsersRepository {
         .from(userDescriptionMentions)
         .where(eq(userDescriptionMentions.userId, id));
 
-      const followersResults = await tx
-        .select({ count: sql<number>`count(*)` })
-        .from(follows)
-        .where(eq(follows.followingId, id));
-
-      const followersCount = followersResults[0].count;
-
-      const followingResults = await tx
-        .select({ count: sql<number>`count(*)` })
-        .from(follows)
-        .where(eq(follows.followerId, id));
-
-      const followingCount = followingResults[0].count;
-
-      const postsResults = await tx
-        .select({ count: sql<number>`count(*)` })
-        .from(posts)
-        .where(eq(posts.userId, id));
-
-      const postsCount = postsResults[0].count;
+      const followersCount = usersResults[0].followersCount;
+      const followingCount = usersResults[0].followingCount;
+      const postsCount = usersResults[0].postsCount;
 
       const isFollowingResults = await tx
         .select({ count: sql<number>`count(*)` })
@@ -98,6 +84,10 @@ export class UsersRepository {
       };
     });
 
+    if (!results) {
+      return null;
+    }
+
     if (results.users.length === 0) {
       return null;
     }
@@ -114,7 +104,7 @@ export class UsersRepository {
 
     return {
       ...user,
-      description: {
+      descriptionMeta: {
         description: user.description,
         tags,
         urls,
