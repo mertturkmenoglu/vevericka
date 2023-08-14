@@ -1,10 +1,12 @@
 import {
   boolean,
+  index,
   json,
   pgEnum,
   pgTable,
   smallint,
   timestamp,
+  uniqueIndex,
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
@@ -31,25 +33,33 @@ export const postReferencesEnum = pgEnum('post_references_enum', [
   'quoted',
 ]);
 
-export const posts = pgTable('posts', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  content: varchar('content', { length: 256 }).notNull(),
-  source: varchar('source', { length: 32 }),
-  location: varchar('location', { length: 32 }),
-  sensitive: boolean('sensitive').notNull().default(false),
-  replySetting: postReplyTypesEnum('reply_setting')
-    .notNull()
-    .default('default'),
-  userId: uuid('user_id')
-    .references(() => users.id)
-    .notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-  updatedAt: timestamp('updated_at', { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
+export const posts = pgTable(
+  'posts',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    content: varchar('content', { length: 256 }).notNull(),
+    source: varchar('source', { length: 32 }),
+    location: varchar('location', { length: 32 }),
+    sensitive: boolean('sensitive').notNull().default(false),
+    replySetting: postReplyTypesEnum('reply_setting')
+      .notNull()
+      .default('default'),
+    userId: uuid('user_id')
+      .references(() => users.id)
+      .notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => {
+    return {
+      authorIdx: index('author_idx').on(t.userId),
+    };
+  },
+);
 
 export const postsRelations = relations(posts, ({ one }) => ({
   user: one(users, {
@@ -58,16 +68,25 @@ export const postsRelations = relations(posts, ({ one }) => ({
   }),
 }));
 
-export const postReferences = pgTable('post_references', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  postId: uuid('post_id')
-    .references(() => posts.id)
-    .notNull(),
-  referenceId: uuid('reference_id')
-    .references(() => posts.id)
-    .notNull(),
-  type: postReferencesEnum('type').notNull(),
-});
+export const postReferences = pgTable(
+  'post_references',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    postId: uuid('post_id')
+      .references(() => posts.id)
+      .notNull(),
+    referenceId: uuid('reference_id')
+      .references(() => posts.id)
+      .notNull(),
+    type: postReferencesEnum('type').notNull(),
+  },
+  (t) => {
+    return {
+      postIdx: index('post_idx').on(t.postId),
+      referenceIdx: index('reference_idx').on(t.referenceId),
+    };
+  },
+);
 
 export const postReferencesRelations = relations(postReferences, ({ one }) => ({
   post: one(posts, {
@@ -82,108 +101,185 @@ export const postReferencesRelations = relations(postReferences, ({ one }) => ({
 
 export type TPost = InferModel<typeof posts>;
 
-export const postVotes = pgTable('post_votes', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  userId: uuid('user_id')
-    .references(() => users.id)
-    .notNull(),
-  postId: uuid('post_id')
-    .references(() => posts.id)
-    .notNull(),
-  vote: postVotesEnum('vote').notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-  updatedAt: timestamp('updated_at', { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
+export const postVotes = pgTable(
+  'post_votes',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id')
+      .references(() => users.id)
+      .notNull(),
+    postId: uuid('post_id')
+      .references(() => posts.id)
+      .notNull(),
+    vote: postVotesEnum('vote').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => {
+    return {
+      userIdx: index('user_idx').on(t.userId),
+      postIdx: index('post_idx').on(t.postId),
+    };
+  },
+);
 
-export const tags = pgTable('tags', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  tag: varchar('tag', { length: 256 }).notNull(),
-});
+export const tags = pgTable(
+  'tags',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    tag: varchar('tag', { length: 256 }).notNull().unique(),
+  },
+  (t) => {
+    return {
+      tagIdx: uniqueIndex('tag_idx').on(t.tag),
+    };
+  },
+);
 
-export const postTags = pgTable('post_tags', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  postId: uuid('post_id')
-    .references(() => posts.id)
-    .notNull(),
-  tagId: uuid('tag_id')
-    .references(() => tags.id)
-    .notNull(),
-  start: smallint('start').notNull(),
-  end: smallint('end').notNull(),
-});
+export const postTags = pgTable(
+  'post_tags',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    postId: uuid('post_id')
+      .references(() => posts.id)
+      .notNull(),
+    tagId: uuid('tag_id')
+      .references(() => tags.id)
+      .notNull(),
+    start: smallint('start').notNull(),
+    end: smallint('end').notNull(),
+  },
+  (t) => {
+    return {
+      postIdx: index('post_idx').on(t.postId),
+      tagIdx: index('tag_idx').on(t.tagId),
+    };
+  },
+);
 
-export const postUrls = pgTable('post_urls', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  postId: uuid('post_id')
-    .references(() => posts.id)
-    .notNull(),
-  url: varchar('url', { length: 256 }).notNull(),
-  start: smallint('start').notNull(),
-  end: smallint('end').notNull(),
-  meta: json('meta').notNull(),
-});
+export const postUrls = pgTable(
+  'post_urls',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    postId: uuid('post_id')
+      .references(() => posts.id)
+      .notNull(),
+    url: varchar('url', { length: 256 }).notNull(),
+    start: smallint('start').notNull(),
+    end: smallint('end').notNull(),
+    meta: json('meta').notNull(),
+  },
+  (t) => {
+    return {
+      postIdx: index('post_idx').on(t.postId),
+    };
+  },
+);
 
-export const postMentions = pgTable('post_mentions', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  postId: uuid('post_id')
-    .references(() => posts.id)
-    .notNull(),
-  mention: varchar('mention', { length: 256 }).notNull(),
-  mentionedUserId: uuid('mentioned_user_id').references(() => users.id),
-  start: smallint('start').notNull(),
-  end: smallint('end').notNull(),
-});
+export const postMentions = pgTable(
+  'post_mentions',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    postId: uuid('post_id')
+      .references(() => posts.id)
+      .notNull(),
+    mention: varchar('mention', { length: 256 }).notNull(),
+    mentionedUserId: uuid('mentioned_user_id').references(() => users.id),
+    start: smallint('start').notNull(),
+    end: smallint('end').notNull(),
+  },
+  (t) => {
+    return {
+      postIdx: index('post_idx').on(t.postId),
+      mentionedUserIdx: index('mentioned_user_idx').on(t.mentionedUserId),
+    };
+  },
+);
 
-export const postAttachments = pgTable('post_attachments', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  postId: uuid('post_id')
-    .references(() => posts.id)
-    .notNull(),
-  type: postAttachmentsEnum('type').notNull(),
-  url: varchar('url', { length: 256 }).notNull(),
-  width: smallint('width'),
-  height: smallint('height'),
-  duration: smallint('duration'),
-  order: smallint('order').notNull(),
-});
+export const postAttachments = pgTable(
+  'post_attachments',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    postId: uuid('post_id')
+      .references(() => posts.id)
+      .notNull(),
+    type: postAttachmentsEnum('type').notNull(),
+    url: varchar('url', { length: 256 }).notNull(),
+    width: smallint('width'),
+    height: smallint('height'),
+    duration: smallint('duration'),
+    order: smallint('order').notNull(),
+  },
+  (t) => {
+    return {
+      postIdx: index('post_idx').on(t.postId),
+    };
+  },
+);
 
-export const polls = pgTable('poll', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  postId: uuid('post_id')
-    .references(() => posts.id)
-    .notNull(),
-  start: timestamp('start', { withTimezone: true }).notNull(),
-  end: timestamp('end', { withTimezone: true }).notNull(),
-});
+export const polls = pgTable(
+  'poll',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    postId: uuid('post_id')
+      .references(() => posts.id)
+      .notNull(),
+    start: timestamp('start', { withTimezone: true }).notNull(),
+    end: timestamp('end', { withTimezone: true }).notNull(),
+  },
+  (t) => {
+    return {
+      postIdx: index('post_idx').on(t.postId),
+    };
+  },
+);
 
-export const pollOptions = pgTable('poll_options', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  pollId: uuid('poll_id')
-    .references(() => polls.id)
-    .notNull(),
-  option: varchar('option', { length: 32 }).notNull(),
-  order: smallint('order').notNull(),
-});
+export const pollOptions = pgTable(
+  'poll_options',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    pollId: uuid('poll_id')
+      .references(() => polls.id)
+      .notNull(),
+    option: varchar('option', { length: 32 }).notNull(),
+    order: smallint('order').notNull(),
+  },
+  (t) => {
+    return {
+      pollIdx: index('poll_idx').on(t.pollId),
+    };
+  },
+);
 
-export const pollVotes = pgTable('poll_votes', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  pollId: uuid('poll_id')
-    .references(() => polls.id)
-    .notNull(),
-  userId: uuid('user_id')
-    .references(() => users.id)
-    .notNull(),
-  optionId: uuid('option_id')
-    .references(() => pollOptions.id)
-    .notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-  updatedAt: timestamp('updated_at', { withTimezone: true })
-    .notNull()
-    .defaultNow(),
-});
+export const pollVotes = pgTable(
+  'poll_votes',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    pollId: uuid('poll_id')
+      .references(() => polls.id)
+      .notNull(),
+    userId: uuid('user_id')
+      .references(() => users.id)
+      .notNull(),
+    optionId: uuid('option_id')
+      .references(() => pollOptions.id)
+      .notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => {
+    return {
+      pollIdx: index('poll_idx').on(t.pollId),
+      userIdx: index('user_idx').on(t.userId),
+      optionIdx: index('option_idx').on(t.optionId),
+    };
+  },
+);
