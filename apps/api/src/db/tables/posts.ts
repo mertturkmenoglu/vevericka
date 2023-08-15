@@ -9,9 +9,10 @@ import {
   uniqueIndex,
   uuid,
   varchar,
+  AnyPgColumn,
 } from 'drizzle-orm/pg-core';
 import { users } from '@/db/tables/users';
-import { InferModel, relations } from 'drizzle-orm';
+import { InferModel } from 'drizzle-orm';
 
 export const postVotesEnum = pgEnum('post_votes_enum', ['like', 'dislike']);
 
@@ -37,10 +38,12 @@ export const posts = pgTable(
   'posts',
   {
     id: uuid('id').primaryKey().defaultRandom(),
-    content: varchar('content', { length: 256 }).notNull(),
+    content: varchar('content', { length: 256 }),
     source: varchar('source', { length: 32 }),
     location: varchar('location', { length: 32 }),
     sensitive: boolean('sensitive').notNull().default(false),
+    referenceId: uuid('reference_id').references((): AnyPgColumn => posts.id),
+    referenceType: postReferencesEnum('reference_type'),
     replySetting: postReplyTypesEnum('reply_setting')
       .notNull()
       .default('default'),
@@ -57,49 +60,13 @@ export const posts = pgTable(
   (t) => {
     return {
       authorIdx: index('author_idx').on(t.userId),
-    };
-  },
-);
-
-export const postsRelations = relations(posts, ({ one }) => ({
-  user: one(users, {
-    fields: [posts.userId],
-    references: [users.id],
-  }),
-}));
-
-export const postReferences = pgTable(
-  'post_references',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    postId: uuid('post_id')
-      .references(() => posts.id)
-      .notNull(),
-    referenceId: uuid('reference_id')
-      .references(() => posts.id)
-      .notNull(),
-    type: postReferencesEnum('type').notNull(),
-  },
-  (t) => {
-    return {
-      postIdx: index('post_idx').on(t.postId),
       referenceIdx: index('reference_idx').on(t.referenceId),
     };
   },
 );
 
-export const postReferencesRelations = relations(postReferences, ({ one }) => ({
-  post: one(posts, {
-    fields: [postReferences.postId],
-    references: [posts.id],
-  }),
-  reference: one(posts, {
-    fields: [postReferences.referenceId],
-    references: [posts.id],
-  }),
-}));
-
 export type TPost = InferModel<typeof posts>;
+export type TNewPost = InferModel<typeof posts, 'insert'>;
 
 export const postVotes = pgTable(
   'post_votes',
