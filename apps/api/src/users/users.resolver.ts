@@ -17,7 +17,6 @@ export class UsersResolver {
   @Query(() => User)
   @UseGuards(JwtAuthGuard)
   async me(@CurrentUser() currentUser: TCurrentUser): Promise<User | null> {
-    console.log({ currentUser });
     return await this.usersService.findOneById(currentUser.id);
   }
 
@@ -37,7 +36,6 @@ export class UsersResolver {
     @Args('id') id: string,
     @CurrentUser() currentUser: TCurrentUser,
   ): Promise<Profile> {
-    console.log({ currentUser });
     const profile = await this.usersService.findOneProfileById(
       currentUser.id,
       id,
