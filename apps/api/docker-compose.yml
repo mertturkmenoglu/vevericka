@@ -53,6 +53,8 @@ services:
     networks:
       - search_net
     restart: unless-stopped
+    ports:
+      - "9200:9200"
     ulimits:
       memlock:
         soft: -1
