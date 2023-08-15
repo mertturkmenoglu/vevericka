@@ -13,6 +13,8 @@ import {
   JwtStrategy,
   SpotifyStrategy,
 } from './strategies';
+import { AuthRepository } from '@/auth/auth.repository';
+import { UsersRepository } from '@/users/users.repository';
 
 @Module({
   imports: [
@@ -41,6 +43,8 @@ import {
     GoogleStrategy,
     JwtStrategy,
     SpotifyStrategy,
+    AuthRepository,
+    UsersRepository,
   ],
   controllers: [AuthController],
 })

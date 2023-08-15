@@ -7,15 +7,16 @@ import { Profile as SpotifyProfile } from 'passport-spotify';
 import { EmailService } from '@/email/email.service';
 import { SearchService } from '@/search/search.service';
 import { JwtPayload, OAuthType } from '@/auth/types';
-import { DbService } from '@/db/db.service';
-import { auths, TAuth, TNewUser, users } from '@/db/tables';
-import { and, eq } from 'drizzle-orm';
+import { TAuth } from '@/db/tables';
+import { AuthRepository } from '@/auth/auth.repository';
+import { UsersRepository } from '@/users/users.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly db: DbService,
+    private readonly authRepository: AuthRepository,
+    private readonly usersRepository: UsersRepository,
     private readonly searchService: SearchService,
     private readonly emailService: EmailService,
   ) {}
@@ -23,92 +24,48 @@ export class AuthService {
   async login(user: Profile): Promise<string> {
     const { image, sub, name, ...info } = this.getUserInfoBasedOnProvider(user);
     const type = user.provider as TAuth['type'];
-    let userId: string;
+    let userId: string | null = null;
+    const email = this.getEmailBasedOnType(type, user);
+    const authRes = await this.authRepository.findAuthBySubAndType(sub, type);
 
-    let email: string;
-
-    switch (type) {
-      case 'discord': {
-        email = (user as any).email;
-        break;
+    if (authRes) {
+      const userRes = await this.usersRepository.findOneUserByAuthId(
+        authRes.id,
+      );
+      if (userRes) {
+        userId = userRes.id;
       }
-      case 'google': {
-        email = (user as any).emails[0].value;
-        break;
-      }
-      case 'spotify': {
-        email = (user as any).emails[0].value;
-        break;
-      }
-      default: {
-        throw new Error('Invalid OAuth type');
-      }
-    }
-
-    const res = await this.db.client
-      .select()
-      .from(auths)
-      .where(and(eq(auths.sub, sub), eq(auths.type, type)))
-      .limit(1);
-
-    if (res.length > 0) {
-      const authId = res[0].id;
-      const userResult = await this.db.client
-        .select()
-        .from(users)
-        .where(eq(users.authId, authId))
-        .limit(1);
-
-      userId = userResult[0].id;
     } else {
-      const createAuthResult = await this.db.client
-        .insert(auths)
-        .values({
-          sub,
-          type,
-        })
-        .returning();
+      const authResult = await this.authRepository.createAuth(sub, type);
 
-      const authId = createAuthResult[0].id;
+      if (!authResult) {
+        throw new Error('Cannot create auth');
+      }
 
-      const data: TNewUser = {
+      const res = await this.usersRepository.createOneUser({
         name,
         email,
         image,
-        job: null,
-        twitterHandle: null,
-        school: null,
-        birthDate: null,
-        website: null,
-        description: null,
-        gender: null,
-        location: null,
-        pinnedPostId: null,
-        authId,
-        verified: false,
-        protected: false,
-        banner: 'banner.png',
-        postsCount: 0,
-        followersCount: 0,
-        followingCount: 0,
-      };
-
-      const createUserResult = await this.db.client
-        .insert(users)
-        .values(data)
-        .returning();
-
-      const user = createUserResult[0];
-
-      await this.searchService.addUserToSearchIndex({
-        id: user.id,
-        name: user.name,
-        verified: user.verified,
-        protected: user.protected,
-        description: user.description ?? '',
+        authId: authResult.id,
       });
 
-      userId = user.id;
+      if (!res) {
+        throw new Error('Cannot create user');
+      }
+
+      await this.searchService.addUserToSearchIndex({
+        id: res.id,
+        name: res.name,
+        verified: res.verified,
+        protected: res.protected,
+        description: res.description ?? '',
+      });
+
+      userId = res.id;
+    }
+
+    if (!userId) {
+      throw new Error('Cannot get user id');
     }
 
     const payload: JwtPayload = {
@@ -125,8 +82,8 @@ export class AuthService {
     return `Bearer ${this.jwtService.sign(payload)}`;
   }
 
-  async findAuthById(id: string) {
-    return this.db.client.select().from(auths).where(eq(auths.id, id));
+  async findAuthById(id: string): Promise<TAuth | null> {
+    return this.authRepository.findAuthById(id);
   }
 
   private getUserInfoBasedOnProvider(user: Profile) {
@@ -161,5 +118,29 @@ export class AuthService {
     }
 
     throw new Error('Cannot get info based on provider');
+  }
+
+  private getEmailBasedOnType(type: TAuth['type'], user: Profile): string {
+    let email: string;
+
+    switch (type) {
+      case 'discord': {
+        email = (user as any).email;
+        break;
+      }
+      case 'google': {
+        email = (user as any).emails[0].value;
+        break;
+      }
+      case 'spotify': {
+        email = (user as any).emails[0].value;
+        break;
+      }
+      default: {
+        throw new Error('Invalid OAuth type');
+      }
+    }
+
+    return email;
   }
 }
