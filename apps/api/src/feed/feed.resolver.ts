@@ -16,12 +16,9 @@ export class FeedResolver {
     @CurrentUser() currentUser: TCurrentUser,
     @Args() pagination: PaginationArgs,
   ): Promise<TPost[]> {
-    const feed = await this.feedService.getUserFeed(
-      currentUser.user.id,
-      pagination,
-    );
+    const feed = await this.feedService.getUserFeed(currentUser.id, pagination);
     if (!feed) {
-      throw new NotFoundException(currentUser.user.id);
+      throw new NotFoundException(currentUser.id);
     }
     return feed;
   }

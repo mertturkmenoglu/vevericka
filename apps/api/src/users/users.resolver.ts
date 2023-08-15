@@ -17,7 +17,8 @@ export class UsersResolver {
   @Query(() => User)
   @UseGuards(JwtAuthGuard)
   async me(@CurrentUser() currentUser: TCurrentUser): Promise<User | null> {
-    return await this.usersService.findOneById(currentUser.user.id);
+    console.log({ currentUser });
+    return await this.usersService.findOneById(currentUser.id);
   }
 
   @Query(() => User)
@@ -36,8 +37,9 @@ export class UsersResolver {
     @Args('id') id: string,
     @CurrentUser() currentUser: TCurrentUser,
   ): Promise<Profile> {
+    console.log({ currentUser });
     const profile = await this.usersService.findOneProfileById(
-      currentUser.user.id,
+      currentUser.id,
       id,
     );
 
@@ -58,7 +60,7 @@ export class UsersResolver {
   async updateLastSeen(@CurrentUser() currentUser: TCurrentUser) {
     await pubSub.publish('lastSeen', {
       lastSeen: {
-        id: currentUser.user.id,
+        id: currentUser.id,
         date: new Date().toISOString(),
       },
     });

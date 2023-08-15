@@ -17,7 +17,7 @@ export class BookmarksResolver {
     @Args('id') id: string,
   ) {
     const bookmark = await this.bookmarksService.getBookmarkById(
-      currentUser.user.id,
+      currentUser.id,
       id,
     );
     if (!bookmark) {
@@ -32,10 +32,7 @@ export class BookmarksResolver {
     @CurrentUser() currentUser: TCurrentUser,
     @Args() pagination: PaginationArgs,
   ) {
-    return this.bookmarksService.getUsersBookmarks(
-      currentUser.user.id,
-      pagination,
-    );
+    return this.bookmarksService.getUsersBookmarks(currentUser.id, pagination);
   }
 
   @Mutation(() => Bookmark)
@@ -45,7 +42,7 @@ export class BookmarksResolver {
     @Args('newBookmarkData') newBookmarkData: NewBookmarkInput,
   ) {
     return this.bookmarksService.createBookmark(
-      currentUser.user.id,
+      currentUser.id,
       newBookmarkData.postId,
     );
   }
@@ -56,9 +53,6 @@ export class BookmarksResolver {
     @CurrentUser() currentUser: TCurrentUser,
     @Args('postId') postId: string,
   ) {
-    return this.bookmarksService.addOrRemoveBookmark(
-      currentUser.user.id,
-      postId,
-    );
+    return this.bookmarksService.addOrRemoveBookmark(currentUser.id, postId);
   }
 }

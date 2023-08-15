@@ -28,7 +28,7 @@ export class PostsResolver {
     @CurrentUser() currentUser: TCurrentUser,
     @Args('id') id: string,
   ): Promise<Post> {
-    const post = await this.postsService.findOneById(currentUser.user.id, id);
+    const post = await this.postsService.findOneById(currentUser.id, id);
     if (!post) {
       throw new NotFoundException(id);
     }
@@ -43,7 +43,7 @@ export class PostsResolver {
     @Args() pagination: PaginationArgs,
   ): Promise<Post[]> {
     return await this.postsService.getPostsByUserId(
-      currentUser.user.id,
+      currentUser.id,
       id,
       pagination,
     );
@@ -55,10 +55,7 @@ export class PostsResolver {
     @CurrentUser() currentUser: TCurrentUser,
     @Args('newPostData') newPostData: NewPostInput,
   ): Promise<Post> {
-    const result = await this.postsService.create(
-      currentUser.user.id,
-      newPostData,
-    );
+    const result = await this.postsService.create(currentUser.id, newPostData);
 
     await this.searchService.addPostToSearchIndex({
       id: result.id,
@@ -76,7 +73,7 @@ export class PostsResolver {
     @Args('id') id: string,
     @Args('vote') vote: string,
   ): Promise<boolean> {
-    const userId = currentUser.user.id;
+    const userId = currentUser.id;
     const result = await this.postsService.changeVote(userId, id, vote as Vote);
 
     const post = await this.postsService.findOneById(userId, id);
@@ -92,7 +89,7 @@ export class PostsResolver {
         },
         payload: {
           postId: post.id,
-          name: currentUser.user.name,
+          name: currentUser.name,
         },
       });
     }
@@ -122,7 +119,7 @@ export class PostsResolver {
     @Args() pagination: PaginationArgs,
   ): Promise<Post[]> {
     return await this.postsService.getPostsByTag(
-      currentUser.user.id,
+      currentUser.id,
       tag,
       pagination,
     );
@@ -135,7 +132,7 @@ export class PostsResolver {
     @Args('payload') payload: BulkCreatePostsInput,
   ): Promise<string> {
     await this.postsQueue.add('createPost', {
-      userId: currentUser.user.id,
+      userId: currentUser.id,
       dtos: payload.posts,
     });
 
@@ -146,7 +143,7 @@ export class PostsResolver {
     await this.axiomService.sendEvents({
       message,
       type: 'bulkCreatePosts',
-      userId: currentUser.user.id,
+      userId: currentUser.id,
     });
 
     return message;
