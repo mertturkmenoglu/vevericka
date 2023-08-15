@@ -139,6 +139,20 @@ export class UsersRepository {
     return results[0];
   }
 
+  async findOneUserById(id: string): Promise<TUser | null> {
+    const results = await this.db.client
+      .select()
+      .from(users)
+      .where(eq(users.id, id))
+      .limit(1);
+
+    if (results.length === 0) {
+      return null;
+    }
+
+    return results[0];
+  }
+
   async createOneUser(payload: TNewUser): Promise<TUser | null> {
     const results = await this.db.client
       .insert(users)
