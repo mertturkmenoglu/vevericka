@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from '@/common';
 import { DbService } from '@/db/db.service';
-import { tags } from '@/db';
+import { tags } from '@/db/tables';
 
 @Injectable()
 export class ExploreService {
   constructor(private readonly db: DbService) {}
 
   async getTags(pagination: PaginationArgs) {
-    return await this.db.client
+    return this.db.client
       .select()
       .from(tags)
       .limit(pagination.take)

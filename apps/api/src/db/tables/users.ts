@@ -10,8 +10,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { InferModel } from 'drizzle-orm';
-import { auths } from '@/db/tables/auths';
-import { tags } from '@/db';
+import { auths, tags } from '@/db/tables';
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -43,6 +42,8 @@ export const users = pgTable('users', {
     .notNull()
     .defaultNow(),
 });
+
+export type TNewUser = InferModel<typeof users, 'insert'>;
 
 export const userDescriptionTags = pgTable('user_description_tags', {
   id: uuid('id').primaryKey().defaultRandom(),

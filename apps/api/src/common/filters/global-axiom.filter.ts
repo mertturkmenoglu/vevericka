@@ -17,6 +17,8 @@ export class GlobalAxiomFilter implements GqlExceptionFilter {
     const isDev = process.env.NODE_ENV === 'development';
     const ctx = gqlHost.getContext();
 
+    console.error({ exception });
+
     const status =
       exception instanceof HttpException
         ? exception.getStatus()

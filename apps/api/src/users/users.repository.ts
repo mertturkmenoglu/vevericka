@@ -8,7 +8,7 @@ import {
   userDescriptionTags,
   userDescriptionUrls,
   users,
-} from '@/db';
+} from '@/db/tables';
 import { and, eq, sql } from 'drizzle-orm';
 
 @Injectable()

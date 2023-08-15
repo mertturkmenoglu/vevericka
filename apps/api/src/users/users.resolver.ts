@@ -7,6 +7,9 @@ import { LastSeen } from './models/last-seen.model';
 import { User } from './models/user.model';
 import { UsersService } from './users.service';
 import { Profile } from '@/users/models/profile.model';
+import { getTableColumns } from 'drizzle-orm';
+import { users } from '@/db/tables';
+import { getTableConfig } from 'drizzle-orm/pg-core';
 
 const pubSub = new PubSub();
 
@@ -21,8 +24,12 @@ export class UsersResolver {
   }
 
   @Query(() => User)
-  @UseGuards(JwtAuthGuard)
+  //   @UseGuards(JwtAuthGuard)
   async user(@Args('id') id: string): Promise<User> {
+    const cols = getTableColumns(users);
+    const cfg = getTableConfig(users);
+    console.log({ cols, cfg });
+    console.log('here1');
     const user = await this.usersService.findOneById(id);
     if (!user) {
       throw new NotFoundException(id);

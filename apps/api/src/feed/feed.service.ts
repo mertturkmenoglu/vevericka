@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from '@/common';
 import { DbService } from '@/db/db.service';
-import { follows, posts, TPost } from '@/db';
+import { follows, posts, TPost } from '@/db/tables';
 import { desc, eq, inArray } from 'drizzle-orm';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class FeedService {
   async getUserFeed(id: string, pagination: PaginationArgs): Promise<TPost[]> {
     const followingIds = await this.getFollowingUsersIds(id);
 
-    return await this.db.client
+    return this.db.client
       .select()
       .from(posts)
       .where(inArray(posts.userId, followingIds))

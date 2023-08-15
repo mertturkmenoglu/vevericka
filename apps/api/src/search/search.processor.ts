@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { Job } from 'bull';
 import { DbService } from '@/db/db.service';
-import { posts, users } from '@/db';
+import { posts, users } from '@/db/tables';
 import { eq, sql } from 'drizzle-orm';
 
 @Processor('searchIndices')

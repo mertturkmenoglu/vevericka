@@ -158,12 +158,41 @@ type ProfileMeta {
   count: UserCount!
 }
 
+"""ProfileDescriptionTag"""
+type ProfileDescriptionTag {
+  id: String!
+  userId: String!
+  tagId: String!
+  start: Float!
+  end: Float!
+}
+
+"""ProfileDescriptionUrl"""
+type ProfileDescriptionUrl {
+  id: String!
+  userId: String!
+  start: Float!
+  end: Float!
+  meta: String!
+  url: String!
+}
+
+"""ProfileDescriptionMention"""
+type ProfileDescriptionMention {
+  id: String!
+  userId: String!
+  start: Float!
+  end: Float!
+  mention: String!
+  mentionedUserId: String
+}
+
 """ProfileDescription"""
 type ProfileDescription {
   description: String
-  tags: [String!]!
-  urls: [String!]!
-  mentions: [String!]!
+  tags: [ProfileDescriptionTag!]!
+  urls: [ProfileDescriptionUrl!]!
+  mentions: [ProfileDescriptionMention!]!
 }
 
 """user"""

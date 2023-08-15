@@ -8,7 +8,7 @@ import { EmailService } from '@/email/email.service';
 import { SearchService } from '@/search/search.service';
 import { JwtPayload, OAuthType } from '@/auth/types';
 import { DbService } from '@/db/db.service';
-import { auths, TAuth, users } from '@/db';
+import { auths, TAuth, TNewUser, users } from '@/db/tables';
 import { and, eq } from 'drizzle-orm';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class AuthService {
 
   async login(user: Profile): Promise<string> {
     const { image, sub, name, ...info } = this.getUserInfoBasedOnProvider(user);
-    const type = user.provider.toUpperCase() as TAuth['type'];
+    const type = user.provider as TAuth['type'];
     let userId: string;
 
     let email: string;
@@ -52,10 +52,11 @@ export class AuthService {
       .limit(1);
 
     if (res.length > 0) {
+      const authId = res[0].id;
       const userResult = await this.db.client
         .select()
         .from(users)
-        .where(eq(users.authId, res[0].id))
+        .where(eq(users.authId, authId))
         .limit(1);
 
       userId = userResult[0].id;
@@ -68,14 +69,33 @@ export class AuthService {
         })
         .returning();
 
+      const authId = createAuthResult[0].id;
+
+      const data: TNewUser = {
+        name,
+        email,
+        image,
+        job: null,
+        twitterHandle: null,
+        school: null,
+        birthDate: null,
+        website: null,
+        description: null,
+        gender: null,
+        location: null,
+        pinnedPostId: null,
+        authId,
+        verified: false,
+        protected: false,
+        banner: 'banner.png',
+        postsCount: 0,
+        followersCount: 0,
+        followingCount: 0,
+      };
+
       const createUserResult = await this.db.client
         .insert(users)
-        .values({
-          name,
-          email,
-          image,
-          authId: createAuthResult[0].id,
-        })
+        .values(data)
         .returning();
 
       const user = createUserResult[0];
