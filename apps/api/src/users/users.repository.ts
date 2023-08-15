@@ -3,6 +3,8 @@ import { DbService } from '@/db/db.service';
 import {
   followRequests,
   follows,
+  TNewUser,
+  TUser,
   TUserProfile,
   userDescriptionMentions,
   userDescriptionTags,
@@ -121,5 +123,32 @@ export class UsersRepository {
         },
       },
     };
+  }
+
+  async findOneUserByAuthId(authId: string): Promise<TUser | null> {
+    const results = await this.db.client
+      .select()
+      .from(users)
+      .where(eq(users.authId, authId))
+      .limit(1);
+
+    if (results.length === 0) {
+      return null;
+    }
+
+    return results[0];
+  }
+
+  async createOneUser(payload: TNewUser): Promise<TUser | null> {
+    const results = await this.db.client
+      .insert(users)
+      .values(payload)
+      .returning();
+
+    if (results.length === 0) {
+      return null;
+    }
+
+    return results[0];
   }
 }
