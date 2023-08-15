@@ -7,14 +7,14 @@ import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
 import DateTimePicker from 'react-datetime-picker';
 import 'react-datetime-picker/dist/DateTimePicker.css';
-import { createStoryDocument } from '../../graphql';
+// import { createStoryDocument } from '../../graphql';
 import { useUploadcare } from '../../hooks';
 import { Dialog } from '../Dialog';
 
 function CreateStory(): JSX.Element {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [duration, setDuration] = useState(5);
-  const [createStory] = useMutation(createStoryDocument);
+  // const [createStory] = useMutation(createStoryDocument);
   const [mediaUrl, setMediaUrl] = useState('');
   const [endDate, setEndDate] = useState<Date | null>(null);
 
@@ -81,25 +81,25 @@ function CreateStory(): JSX.Element {
           <div className="flex items-center justify-end space-x-4">
             <button
               className={clsx('rounded bg-midnight px-4 py-1 text-white transition duration-200 ease-in-out')}
-              onClick={async () => {
-                if (mediaUrl && mediaUrl !== '' && endDate) {
-                  const response = await createStory({
-                    variables: {
-                      payload: {
-                        duration,
-                        source: mediaUrl,
-                        endsAt: endDate?.toISOString(),
-                      },
-                    },
-                  });
-
-                  if ((response?.errors?.length ?? 0) > 0) {
-                    console.error(response.errors);
-                  } else {
-                    setIsCreateOpen(false);
-                  }
-                }
-              }}
+              // onClick={async () => {
+              //   if (mediaUrl && mediaUrl !== '' && endDate) {
+              //     const response = await createStory({
+              //       variables: {
+              //         payload: {
+              //           duration,
+              //           source: mediaUrl,
+              //           endsAt: endDate?.toISOString(),
+              //         },
+              //       },
+              //     });
+              //
+              //     if ((response?.errors?.length ?? 0) > 0) {
+              //       console.error(response.errors);
+              //     } else {
+              //       setIsCreateOpen(false);
+              //     }
+              //   }
+              // }}
             >
               Create
             </button>

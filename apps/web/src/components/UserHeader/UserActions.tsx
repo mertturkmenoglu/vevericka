@@ -1,9 +1,9 @@
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 import clsx from 'clsx';
 import { Twitter } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import { ProfileItemFragment } from '../../generated/graphql';
-import { interactWithUserDocument } from '../../graphql';
+// import { interactWithUserDocument } from '../../graphql';
 import FollowButton from './FollowButton';
 
 export interface UserActionsProps {
@@ -11,7 +11,7 @@ export interface UserActionsProps {
 }
 
 function UserActions({ user }: UserActionsProps): JSX.Element {
-  const [interact, { loading }] = useMutation(interactWithUserDocument);
+  // const [interact, { loading }] = useMutation(interactWithUserDocument);
 
   const linkStyles = clsx(
     'rounded bg-neutral-200',
@@ -32,30 +32,30 @@ function UserActions({ user }: UserActionsProps): JSX.Element {
           <Twitter className="h-6 w-6 text-[#00acee]" />
         </Link>
       )}
-      {!user.isMe && (
+      {!user.meta.isMe && (
         <>
           <FollowButton
-            isFollowing={user.isFollowing}
-            hasPendingFollowRequest={user.hasPendingFollowRequest}
-            loading={loading}
+            isFollowing={user.meta.isFollowing}
+            hasPendingFollowRequest={user.meta.hasPendingFollowRequest}
+            loading={false}
             onClick={async () => {
-              if (user.hasPendingFollowRequest) {
+              if (user.meta.hasPendingFollowRequest) {
                 return;
               }
 
-              const result = await interact({
-                variables: {
-                  followeeId: user.id,
-                  interaction: user.isFollowing ? 'unfollow' : 'follow',
-                },
-              });
-              if (result.data?.interactWithUser === 'ok') {
-                window.location.reload();
-              }
+              // const result = await interact({
+              //   variables: {
+              //     followeeId: user.id,
+              //     interaction: user.isFollowing ? 'unfollow' : 'follow',
+              //   },
+              // });
+              // if (result.data?.interactWithUser === 'ok') {
+              //   window.location.reload();
+              // }
             }}
           />
 
-          {user.isFollowing && (
+          {user.meta.isFollowing && (
             <Link
               to={'/messages'}
               className={linkStyles}
@@ -65,7 +65,7 @@ function UserActions({ user }: UserActionsProps): JSX.Element {
           )}
         </>
       )}
-      {user.isMe && (
+      {user.meta.isMe && (
         <>
           <Link
             to={'/follow-requests'}

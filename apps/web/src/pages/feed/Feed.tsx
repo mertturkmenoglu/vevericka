@@ -1,15 +1,15 @@
-import React, { Suspense, useId } from 'react';
+import React, { useId } from 'react';
 import { Helmet } from 'react-helmet';
-import { ExploreCard, Footer, Loading, PostCard } from '../../components';
-import { useFlags } from '../../hooks';
+import { ExploreCard, Footer, PostCard } from '../../components';
+// import { useFlags } from '../../hooks';
 import { LoadingLayout, MainLayout } from '../../layouts';
 import { useFeed } from './useFeed';
 
-const Stories = React.lazy(() => import('../../components/Stories/Stories'));
+// const Stories = React.lazy(() => import('../../components/Stories/Stories'));
 
 function Feed(): JSX.Element {
   const loadMoreId = useId();
-  const flags = useFlags();
+  // const flags = useFlags();
   const { data, loading, error } = useFeed(loadMoreId);
 
   return (
@@ -18,11 +18,11 @@ function Feed(): JSX.Element {
         <Helmet>
           <title>Feed | Vevericka</title>
         </Helmet>
-        {flags.stories && (
-          <Suspense fallback={<Loading />}>
-            <Stories />
-          </Suspense>
-        )}
+        {/*{flags.stories && (*/}
+        {/*  <Suspense fallback={<Loading />}>*/}
+        {/*    <Stories />*/}
+        {/*  </Suspense>*/}
+        {/*)}*/}
         <LoadingLayout
           data={data}
           loading={loading && !data}
