@@ -9,23 +9,15 @@ export const PostFragment = graphql(/* GraphQL */ `
     }
     tags {
       id
-      tagName
-      createdAt
-      updatedAt
+      tag
     }
     images {
       id
       url
-      postId
-      createdAt
-      updatedAt
     }
     videos {
       id
       url
-      postId
-      createdAt
-      updatedAt
     }
     vote
     createdAt

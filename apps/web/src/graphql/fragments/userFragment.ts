@@ -14,10 +14,9 @@ export const UserFragment = graphql(/* GraphQL */ `
     description
     verified
     protected
-    bannerImage
+    banner
     gender
-    city
-    country
+    location
     createdAt
     updatedAt
   }

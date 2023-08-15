@@ -14,19 +14,20 @@ export const ProfileFragment = graphql(/* GraphQL */ `
     description
     verified
     protected
-    bannerImage
+    banner
     gender
-    city
-    country
-    isFollowing
-    hasPendingFollowRequest
-    isMe
+    location
+    meta {
+      hasPendingFollowRequest
+      isFollowing
+      isMe
+      count {
+        followers
+        following
+        posts
+      }
+    }
     createdAt
     updatedAt
-    _count {
-      followers
-      following
-      posts
-    }
   }
 `);
