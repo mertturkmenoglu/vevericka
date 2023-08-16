@@ -57,20 +57,8 @@ export class PostsRepository {
       where: eq(posts.id, id),
       with: {
         user: true,
-        tags: {
-          with: {
-            tag: true,
-          },
-        },
-        mentions: true,
-        urls: true,
         votes: true,
-        attachments: true,
-        poll: {
-          with: {
-            options: true,
-          },
-        },
+        poll: true,
       },
     });
 
