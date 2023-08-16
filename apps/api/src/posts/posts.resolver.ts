@@ -1,5 +1,9 @@
 import { InjectQueue } from '@nestjs/bull';
-import { NotFoundException, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  NotFoundException,
+  UseGuards,
+} from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Novu } from '@novu/node';
 import { Queue } from 'bull';
@@ -57,11 +61,17 @@ export class PostsResolver {
   ): Promise<Post> {
     const result = await this.postsService.create(currentUser.id, newPostData);
 
-    await this.searchService.addPostToSearchIndex({
-      id: result.id,
-      userId: result.user.id,
-      content: result.content,
-    });
+    if (!result) {
+      throw new BadRequestException('Could not create post');
+    }
+
+    if (result.content) {
+      await this.searchService.addPostToSearchIndex({
+        id: result.id,
+        userId: result.user.id,
+        content: result.content,
+      });
+    }
 
     return result;
   }
