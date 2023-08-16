@@ -9,26 +9,6 @@ type Shard {
   failed: Float!
 }
 
-"""Count"""
-type Count {
-  dislikes: Float!
-  likes: Float!
-  tags: Float!
-}
-
-"""tag"""
-type Tag {
-  id: String!
-  tag: String!
-}
-
-"""Popular Tag"""
-type PopularTag {
-  id: String!
-  tag: String!
-  count: Float!
-}
-
 """user"""
 type User {
   id: String!
@@ -55,28 +35,29 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-"""PostImage"""
-type PostImage {
+"""Post Tag"""
+type PostTag {
   id: String!
-  url: String!
-}
-
-"""PostVideo"""
-type PostVideo {
-  id: String!
-  url: String!
+  tagId: String!
+  tag: String!
+  start: Float!
+  end: Float!
 }
 
 """post"""
 type Post {
   id: String!
-  content: String!
+  content: String
+  source: String
+  location: String
+  sensitive: Boolean!
+  referenceId: String
+  reference: Post
+  referenceType: String
+  replySetting: String!
+  userId: String
   user: User!
-  tags: [Tag!]!
-  images: [PostImage!]!
-  videos: [PostVideo!]!
-  vote: String!
-  _count: Count!
+  tags: [PostTag!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -123,6 +104,19 @@ type UserResult {
 type Bookmark {
   id: String!
   post: Post!
+}
+
+"""tag"""
+type Tag {
+  id: String!
+  tag: String!
+}
+
+"""Popular Tag"""
+type PopularTag {
+  id: String!
+  tag: String!
+  count: Float!
 }
 
 """feed"""

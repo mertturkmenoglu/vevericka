@@ -1,35 +1,175 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Count } from '@/common';
-import { Tag } from '@/explore/models/tag.model';
 import { User } from '@/users/models/user.model';
-import { PostImage } from './post-image.model';
-import { PostVideo } from './post-video.model';
+
+@ObjectType({ description: 'Post Tag' })
+export class PostTag {
+  @Field()
+  id!: string;
+
+  @Field()
+  tagId!: string;
+
+  @Field()
+  tag!: string;
+
+  @Field()
+  start!: number;
+
+  @Field()
+  end!: number;
+}
+
+@ObjectType({ description: 'Post Url' })
+export class PostUrl {
+  @Field()
+  id!: string;
+
+  @Field()
+  url!: string;
+
+  @Field()
+  start!: number;
+
+  @Field()
+  end!: number;
+
+  @Field()
+  meta!: string;
+
+  @Field(() => PostLinkPreview, { nullable: true })
+  linkPreview!: PostLinkPreview | null;
+}
+
+@ObjectType({ description: 'Post Link Preview' })
+export class PostLinkPreview {
+  @Field()
+  id!: string;
+
+  @Field()
+  urlId!: string;
+}
+
+@ObjectType({ description: 'Post Mention' })
+export class PostMention {
+  @Field()
+  id!: string;
+
+  @Field()
+  mention!: string;
+
+  @Field(() => String, { nullable: true })
+  mentionedUserId!: string | null;
+
+  @Field(() => User, { nullable: true })
+  mentionedUser!: User | null;
+
+  @Field()
+  start!: number;
+
+  @Field()
+  end!: number;
+}
+
+@ObjectType({ description: 'Post Attachment' })
+export class PostAttachment {
+  @Field()
+  id!: string;
+
+  @Field()
+  type!: string;
+
+  @Field()
+  url!: string;
+
+  @Field(() => Number, { nullable: true })
+  width!: number | null;
+
+  @Field(() => Number, { nullable: true })
+  height!: number | null;
+
+  @Field(() => Number, { nullable: true })
+  duration!: number | null;
+
+  @Field()
+  order!: number;
+}
+
+@ObjectType({ description: 'Post Poll Option' })
+export class PostPollOption {
+  @Field()
+  id!: string;
+
+  @Field()
+  option!: string;
+
+  @Field()
+  order!: number;
+}
+
+@ObjectType({ description: 'Post Poll' })
+export class PostPoll {
+  @Field()
+  id!: string;
+
+  @Field()
+  start!: Date;
+
+  @Field()
+  end!: Date;
+
+  @Field(() => [PostPollOption])
+  options!: PostPollOption[];
+}
 
 @ObjectType({ description: 'post' })
 export class Post {
   @Field()
   id!: string;
 
+  @Field(() => String, { nullable: true })
+  content!: string | null;
+
+  @Field(() => String, { nullable: true })
+  source!: string | null;
+
+  @Field(() => String, { nullable: true })
+  location!: string | null;
+
   @Field()
-  content!: string;
+  sensitive!: boolean;
+
+  @Field(() => String, { nullable: true })
+  referenceId!: string | null;
+
+  @Field(() => Post, { nullable: true })
+  reference!: Post | null;
+
+  @Field(() => String, { nullable: true })
+  referenceType!: string | null;
+
+  @Field()
+  replySetting!: string;
+
+  @Field(() => String, { nullable: true })
+  userId!: string | null;
 
   @Field(() => User)
   user!: User;
 
-  @Field(() => [Tag])
-  tags!: Tag[];
+  @Field(() => [PostTag])
+  tags!: PostTag[];
 
-  @Field(() => [PostImage])
-  images!: PostImage[];
+  @Field(() => PostPoll, { nullable: true })
+  poll!: PostPoll | null;
 
-  @Field(() => [PostVideo])
-  videos!: PostVideo[];
+  @Field(() => [PostAttachment])
+  attachments!: PostAttachment[];
 
-  @Field()
-  vote!: string;
+  @Field(() => [PostMention])
+  mentions!: PostMention[];
 
-  @Field(() => Count)
-  _count!: Count;
+  @Field(() => [PostUrl])
+  urls!: PostUrl[];
 
   @Field()
   createdAt!: Date;
