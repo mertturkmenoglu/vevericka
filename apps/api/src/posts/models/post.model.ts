@@ -1,74 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from '@/users/models/user.model';
-
-@ObjectType({ description: 'Tag' })
-export class PTag {
-  @Field()
-  id!: string;
-
-  @Field()
-  tag!: string;
-}
-
-@ObjectType({ description: 'Post Tag' })
-export class PostTag {
-  @Field()
-  id!: string;
-
-  @Field()
-  tagId!: string;
-
-  @Field(() => PTag)
-  tag!: PTag;
-
-  @Field()
-  start!: number;
-
-  @Field()
-  end!: number;
-}
-
-@ObjectType({ description: 'Post Url' })
-export class PostUrl {
-  @Field()
-  id!: string;
-
-  @Field()
-  url!: string;
-
-  @Field()
-  start!: number;
-
-  @Field()
-  end!: number;
-
-  @Field()
-  meta!: string;
-}
-
-@ObjectType({ description: 'Post Mention' })
-export class PostMention {
-  @Field()
-  id!: string;
-
-  @Field()
-  mention!: string;
-
-  @Field(() => String, { nullable: true })
-  mentionedUserId!: string | null;
-
-  @Field()
-  start!: number;
-
-  @Field()
-  end!: number;
-}
+import { TextMeta } from '@/common/models/text-meta.model';
 
 @ObjectType({ description: 'Post Attachment' })
 export class PostAttachment {
-  @Field()
-  id!: string;
-
   @Field()
   type!: string;
 
@@ -81,11 +16,17 @@ export class PostAttachment {
   @Field(() => Number, { nullable: true })
   height!: number | null;
 
-  @Field(() => Number, { nullable: true })
-  duration!: number | null;
-
   @Field()
   order!: number;
+}
+
+@ObjectType({ description: 'Post Image Attachment' })
+export class PostImageAttachment extends PostAttachment {}
+
+@ObjectType({ description: 'Post Video Attachment' })
+export class PostVideoAttachment extends PostAttachment {
+  @Field(() => Number, { nullable: true })
+  duration!: number | null;
 }
 
 @ObjectType({ description: 'Post Poll Option' })
@@ -147,20 +88,11 @@ export class Post {
   @Field(() => User)
   user!: User;
 
-  @Field(() => [PostTag])
-  tags!: PostTag[];
-
-  @Field(() => PostPoll, { nullable: true })
-  poll!: PostPoll | null;
+  @Field(() => TextMeta)
+  meta!: TextMeta;
 
   @Field(() => [PostAttachment])
   attachments!: PostAttachment[];
-
-  @Field(() => [PostMention])
-  mentions!: PostMention[];
-
-  @Field(() => [PostUrl])
-  urls!: PostUrl[];
 
   @Field()
   createdAt!: Date;
