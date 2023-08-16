@@ -35,11 +35,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+"""Tag"""
+type PTag {
+  id: String!
+  tag: String!
+}
+
 """Post Tag"""
 type PostTag {
   id: String!
   tagId: String!
-  tag: String!
+  tag: PTag!
   start: Float!
   end: Float!
 }
@@ -51,13 +57,6 @@ type PostUrl {
   start: Float!
   end: Float!
   meta: String!
-  linkPreview: PostLinkPreview
-}
-
-"""Post Link Preview"""
-type PostLinkPreview {
-  id: String!
-  urlId: String!
 }
 
 """Post Mention"""
@@ -65,7 +64,6 @@ type PostMention {
   id: String!
   mention: String!
   mentionedUserId: String
-  mentionedUser: User
   start: Float!
   end: Float!
 }
@@ -104,7 +102,6 @@ type Post {
   location: String
   sensitive: Boolean!
   referenceId: String
-  reference: Post
   referenceType: String
   replySetting: String!
   userId: String
@@ -301,9 +298,35 @@ input NewBookmarkInput {
 }
 
 input NewPostInput {
-  content: String!
-  imageUrls: [String!]!
-  videoUrls: [String!]!
+  content: String
+  source: String
+  location: String
+  sensitive: Boolean
+  referenceId: String
+  referenceType: String
+  replySetting: String
+  attachments: [NewPostAttachmentInput!]!
+  poll: NewPostPollInput
+}
+
+input NewPostAttachmentInput {
+  type: String!
+  url: String!
+  width: Float
+  height: Float
+  duration: Float
+  order: Float!
+}
+
+input NewPostPollInput {
+  start: DateTime!
+  end: DateTime!
+  options: [NewPostPollOptionInput!]!
+}
+
+input NewPostPollOptionInput {
+  option: String!
+  order: Float!
 }
 
 input BulkCreatePostsInput {

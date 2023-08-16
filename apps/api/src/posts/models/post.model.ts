@@ -1,6 +1,15 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from '@/users/models/user.model';
 
+@ObjectType({ description: 'Tag' })
+export class PTag {
+  @Field()
+  id!: string;
+
+  @Field()
+  tag!: string;
+}
+
 @ObjectType({ description: 'Post Tag' })
 export class PostTag {
   @Field()
@@ -9,8 +18,8 @@ export class PostTag {
   @Field()
   tagId!: string;
 
-  @Field()
-  tag!: string;
+  @Field(() => PTag)
+  tag!: PTag;
 
   @Field()
   start!: number;
@@ -35,18 +44,6 @@ export class PostUrl {
 
   @Field()
   meta!: string;
-
-  @Field(() => PostLinkPreview, { nullable: true })
-  linkPreview!: PostLinkPreview | null;
-}
-
-@ObjectType({ description: 'Post Link Preview' })
-export class PostLinkPreview {
-  @Field()
-  id!: string;
-
-  @Field()
-  urlId!: string;
 }
 
 @ObjectType({ description: 'Post Mention' })
@@ -59,9 +56,6 @@ export class PostMention {
 
   @Field(() => String, { nullable: true })
   mentionedUserId!: string | null;
-
-  @Field(() => User, { nullable: true })
-  mentionedUser!: User | null;
 
   @Field()
   start!: number;
@@ -140,9 +134,6 @@ export class Post {
 
   @Field(() => String, { nullable: true })
   referenceId!: string | null;
-
-  @Field(() => Post, { nullable: true })
-  reference!: Post | null;
 
   @Field(() => String, { nullable: true })
   referenceType!: string | null;
