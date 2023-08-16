@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from '@/common/args/pagination.args';
-import { Vote } from '@/posts/dto';
+import { NewPostInput, Vote } from '@/posts/dto';
 import { DbService } from '@/db/db.service';
-import { posts, postVotes, TNewPost, TPost } from '@/db/tables';
+import { posts, postVotes, TPost } from '@/db/tables';
 import { and, desc, eq } from 'drizzle-orm';
 import { extractEntitiesWithIndices } from 'twitter-text';
+import { Post } from '@/posts/models';
 
 @Injectable()
 export class PostsRepository {
@@ -51,38 +52,38 @@ export class PostsRepository {
       .where(eq(postVotes.id, prevVote.id));
   }
 
-  async findOneById(userId: string, id: string): Promise<any | null> {
+  async findOneById(userId: string, id: string): Promise<Post | null> {
     const res = await this.db.client.query.posts.findMany({
       where: eq(posts.id, id),
       with: {
         user: true,
-        tags: true,
+        tags: {
+          with: {
+            tag: true,
+          },
+        },
         mentions: true,
         urls: true,
         votes: true,
         attachments: true,
-        poll: true,
+        poll: {
+          with: {
+            options: true,
+          },
+        },
       },
     });
 
-    console.log({ res });
-    const results = await this.db.client
-      .select()
-      .from(posts)
-      .where(eq(posts.id, id));
-
-    if (results.length === 0) {
-      return null;
-    }
-
-    return results[0];
+    return res[0];
   }
 
   async deleteOneById(id: string): Promise<void> {
     await this.db.client.delete(posts).where(eq(posts.id, id));
   }
 
-  async create(data: TNewPost): Promise<TPost | null> {
+  async create(data: NewPostInput): Promise<TPost | null> {
+    this.checkPossibleInputs(data);
+
     const text = data.content;
     if (!text) {
       return null;
@@ -93,13 +94,6 @@ export class PostsRepository {
       console.log({ e });
     }
     return null;
-    //const post = await this.db.client.insert(posts).values(data).returning();
-
-    // if (post.length === 0) {
-    //   return null;
-    // }
-    //
-    // return post[0];
   }
 
   async findManyByThisUserIdAndUserId(
@@ -107,12 +101,75 @@ export class PostsRepository {
     targetUserId: string,
     { skip, take }: PaginationArgs,
   ): Promise<any[]> {
-    return await this.db.client
+    return this.db.client
       .select()
       .from(posts)
       .where(eq(posts.userId, targetUserId))
       .orderBy(desc(posts.createdAt))
       .limit(take)
       .offset(skip);
+  }
+
+  private checkPossibleInputs(data: NewPostInput) {
+    if (!data.poll && data.attachments.length === 0 && !data.content) {
+      throw new Error('Post must have content, attachments, or a poll');
+    }
+
+    if (data.poll) {
+      this.checkPoll(data);
+      if (data.attachments.length > 0) {
+        throw new Error('Cannot have poll and attachments in the same post');
+      }
+    }
+
+    this.checkAttachments(data);
+  }
+
+  private checkAttachments(data: NewPostInput) {
+    if (data.attachments.length > 0) {
+      if (data.poll) {
+        throw new Error('Cannot have poll and attachments in the same post');
+      }
+
+      if (data.attachments.length > 4) {
+        throw new Error('Cannot have more than 4 attachments');
+      }
+
+      const sortedAttachmentsOrder = data.attachments
+        .map((a) => a.order)
+        .sort((a, b) => a - b);
+
+      for (let i = 0; i < sortedAttachmentsOrder.length; i++) {
+        if (sortedAttachmentsOrder[i] !== i) {
+          throw new Error('Attachments order must be sequential');
+        }
+      }
+    }
+  }
+
+  private checkPoll(data: NewPostInput) {
+    if (!data.poll) {
+      return;
+    }
+
+    if (data.poll.options.length < 2) {
+      throw new Error('Poll must have at least two options');
+    }
+
+    if (data.poll.options.length > 4) {
+      throw new Error('Poll must have at most four options');
+    }
+
+    if (data.poll.start > data.poll.end) {
+      throw new Error('Poll start must be before poll end');
+    }
+
+    if (data.poll.end < new Date()) {
+      throw new Error('Poll end must be in the future');
+    }
+
+    if (data.poll.start < new Date()) {
+      throw new Error('Poll start must be in the future');
+    }
   }
 }
