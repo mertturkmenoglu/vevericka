@@ -42,10 +42,13 @@ export class AuthService {
         throw new Error('Cannot create auth');
       }
 
+      const tmpUsername = this.generateUsernameBasedOnEmail(email);
+
       const res = await this.usersRepository.createOneUser({
         name,
         email,
         image,
+        username: tmpUsername,
         authId: authResult.id,
       });
 
@@ -84,6 +87,12 @@ export class AuthService {
 
   async findAuthById(id: string): Promise<TAuth | null> {
     return this.authRepository.findAuthById(id);
+  }
+
+  private generateUsernameBasedOnEmail(email: string): string {
+    return (
+      email.split('@')[0].slice(12).trim() + Date.now().toString().slice(-4)
+    );
   }
 
   private getUserInfoBasedOnProvider(user: Profile) {
