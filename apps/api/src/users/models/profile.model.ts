@@ -1,18 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './user.model';
 
-@ObjectType({ description: 'UserCount' })
-export class UserCount {
-  @Field()
-  followers!: number;
-
-  @Field()
-  following!: number;
-
-  @Field()
-  posts!: number;
-}
-
 @ObjectType({ description: 'ProfileMeta' })
 export class ProfileMeta {
   @Field()
@@ -23,9 +11,6 @@ export class ProfileMeta {
 
   @Field()
   hasPendingFollowRequest!: boolean;
-
-  @Field(() => UserCount)
-  count!: UserCount;
 }
 
 @ObjectType({ description: 'ProfileDescriptionTag' })
@@ -105,9 +90,6 @@ export class ProfileDescription {
 
 @ObjectType({ description: 'user' })
 export class Profile extends User {
-  @Field(() => ProfileDescription)
-  descriptionMeta!: ProfileDescription;
-
   @Field(() => ProfileMeta)
   meta!: ProfileMeta;
 }
