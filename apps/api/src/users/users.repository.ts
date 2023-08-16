@@ -6,9 +6,6 @@ import {
   TNewUser,
   TUser,
   TUserProfile,
-  userDescriptionMentions,
-  userDescriptionTags,
-  userDescriptionUrls,
   users,
 } from '@/db/tables';
 import { and, eq, sql } from 'drizzle-orm';
@@ -32,33 +29,12 @@ export class UsersRepository {
         return null;
       }
 
-      const tagsResults = await tx
-        .select()
-        .from(userDescriptionTags)
-        .where(eq(userDescriptionTags.userId, id));
-
-      const urlsResults = await tx
-        .select()
-        .from(userDescriptionUrls)
-        .where(eq(userDescriptionUrls.userId, id));
-
-      const mentionsResults = await tx
-        .select()
-        .from(userDescriptionMentions)
-        .where(eq(userDescriptionMentions.userId, id));
-
-      const followersCount = usersResults[0].followersCount;
-      const followingCount = usersResults[0].followingCount;
-      const postsCount = usersResults[0].postsCount;
-
       const isFollowingResults = await tx
         .select({ count: sql<number>`count(*)` })
         .from(follows)
         .where(
           and(eq(follows.followerId, thisUserId), eq(follows.followingId, id)),
         );
-
-      const isFollowing = isFollowingResults[0].count > 0;
 
       const hasPendingFollowRequestResults = await tx
         .select({ count: sql<number>`count(*)` })
@@ -70,19 +46,10 @@ export class UsersRepository {
           ),
         );
 
-      const hasPendingFollowRequest =
-        hasPendingFollowRequestResults[0].count > 0;
-
       return {
         users: usersResults,
-        user_description_tags: tagsResults,
-        user_description_urls: urlsResults,
-        user_description_mentions: mentionsResults,
-        followers_count: followersCount,
-        following_count: followingCount,
-        posts_count: postsCount,
-        is_following: isFollowing,
-        has_pending_follow_request: hasPendingFollowRequest,
+        isFollowing: isFollowingResults[0].count > 0,
+        hasPendingFollowRequest: hasPendingFollowRequestResults[0].count > 0,
       };
     });
 
@@ -95,32 +62,13 @@ export class UsersRepository {
     }
 
     const user = results.users[0];
-    const tags = results.user_description_tags;
-    const urls = results.user_description_urls;
-    const mentions = results.user_description_mentions;
-    const followersCount = results.followers_count;
-    const followingCount = results.following_count;
-    const postsCount = results.posts_count;
-    const isFollowing = results.is_following;
-    const hasPendingFollowRequest = results.has_pending_follow_request;
 
     return {
       ...user,
-      descriptionMeta: {
-        description: user.description,
-        tags,
-        urls,
-        mentions,
-      },
       meta: {
         isMe: thisUserId === id,
-        isFollowing,
-        hasPendingFollowRequest,
-        count: {
-          followers: followersCount,
-          following: followingCount,
-          posts: postsCount,
-        },
+        isFollowing: results.isFollowing,
+        hasPendingFollowRequest: results.hasPendingFollowRequest,
       },
     };
   }
