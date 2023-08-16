@@ -12,7 +12,14 @@ export class PostsService {
   async create(userId: string, data: NewPostInput): Promise<Post | null> {
     await this.repository.create({
       content: data.content,
-      userId,
+      source: null,
+      location: null,
+      sensitive: false,
+      referenceId: null,
+      referenceType: null,
+      replySetting: 'everyone',
+      attachments: [],
+      poll: null,
     });
     return null;
   }
