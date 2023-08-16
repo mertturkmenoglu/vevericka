@@ -147,6 +147,13 @@ export const postUrls = pgTable(
   },
 );
 
+export const postLinkPreviews = pgTable('post_link_previews', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  urlId: uuid('url_id')
+    .references(() => postUrls.id)
+    .notNull(),
+});
+
 export const postMentions = pgTable(
   'post_mentions',
   {
