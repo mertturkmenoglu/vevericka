@@ -4,16 +4,16 @@ import {
   integer,
   json,
   pgTable,
-  smallint,
   timestamp,
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
 import { InferModel } from 'drizzle-orm';
-import { auths, tags } from '@/db/tables';
+import { auths, TTextMeta } from '@/db/tables';
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
+  username: varchar('username', { length: 256 }).notNull().unique(),
   name: varchar('name', { length: 256 }).notNull(),
   email: varchar('email', { length: 256 }).notNull().unique(),
   image: varchar('image', { length: 256 }).notNull().default('profile.png'),
@@ -23,6 +23,7 @@ export const users = pgTable('users', {
   birthDate: date('birth_date'),
   website: varchar('website', { length: 256 }),
   description: varchar('description', { length: 256 }),
+  descriptionMeta: json('description_meta').$type<TTextMeta>(),
   verified: boolean('verified').default(false).notNull(),
   protected: boolean('protected').default(false).notNull(),
   banner: varchar('banner', { length: 256 }).notNull().default('banner.png'),
@@ -44,72 +45,12 @@ export const users = pgTable('users', {
 });
 
 export type TNewUser = InferModel<typeof users, 'insert'>;
-
-export const userDescriptionTags = pgTable('user_description_tags', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  start: smallint('start').notNull(),
-  end: smallint('end').notNull(),
-  userId: uuid('user_id')
-    .references(() => users.id)
-    .notNull(),
-  tagId: uuid('tag_id')
-    .references(() => tags.id)
-    .notNull(),
-});
-
-export type TUserDescriptionTag = InferModel<typeof userDescriptionTags>;
-
-export const userDescriptionUrls = pgTable('user_description_urls', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  userId: uuid('user_id')
-    .references(() => users.id)
-    .notNull(),
-  url: varchar('url', { length: 256 }).notNull(),
-  start: smallint('start').notNull(),
-  end: smallint('end').notNull(),
-  meta: json('meta').notNull(),
-});
-
-export type TUserDescriptionUrl = InferModel<typeof userDescriptionUrls>;
-
-export const userDescriptionMentions = pgTable('user_description_mentions', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  userId: uuid('user_id')
-    .references(() => users.id)
-    .notNull(),
-  mention: varchar('mention', { length: 256 }).notNull(),
-  mentionedUserId: uuid('mentioned_user_id').references(() => users.id),
-  start: smallint('start').notNull(),
-  end: smallint('end').notNull(),
-});
-
-export type TUserDescriptionMention = InferModel<
-  typeof userDescriptionMentions
->;
-
 export type TUser = InferModel<typeof users>;
-
-export type TUserProfileDescription = {
-  descriptionMeta: {
-    description: string | null;
-    tags: TUserDescriptionTag[];
-    urls: TUserDescriptionUrl[];
-    mentions: TUserDescriptionMention[];
-  };
-};
-
-export type TUserProfileCount = {
-  followers: number;
-  following: number;
-  posts: number;
-};
 
 export type TUserProfileMeta = {
   isFollowing: boolean;
   hasPendingFollowRequest: boolean;
   isMe: boolean;
-  count: TUserProfileCount;
 };
 
-export type TUserProfile = TUser &
-  TUserProfileDescription & { meta: TUserProfileMeta };
+export type TUserProfile = TUser & { meta: TUserProfileMeta };
