@@ -1,16 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { users } from '@/db/tables/users';
-import {
-  pollOptions,
-  polls,
-  postAttachments,
-  postMentions,
-  posts,
-  postTags,
-  postUrls,
-  postVotes,
-  tags,
-} from '@/db/tables/posts';
+import { polls, posts, postVotes } from '@/db/tables/posts';
 
 export const postsRelations = relations(posts, ({ one, many }) => ({
   user: one(users, {
@@ -22,10 +12,6 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
     references: [posts.id],
   }),
   votes: many(postVotes),
-  tags: many(postTags),
-  urls: many(postUrls),
-  mentions: many(postMentions),
-  attachments: many(postAttachments),
   poll: one(polls),
 }));
 
@@ -40,45 +26,9 @@ export const postVotesRelations = relations(postVotes, ({ one }) => ({
   }),
 }));
 
-export const postTagsRelations = relations(postTags, ({ one }) => ({
-  post: one(posts, {
-    fields: [postTags.postId],
-    references: [posts.id],
-  }),
-  tag: one(tags, {
-    fields: [postTags.tagId],
-    references: [tags.id],
-  }),
-}));
-
-export const postUrlsRelations = relations(postUrls, ({ one }) => ({
-  post: one(posts, {
-    fields: [postUrls.postId],
-    references: [posts.id],
-  }),
-}));
-
-export const postMentionsRelations = relations(postMentions, ({ one }) => ({
-  post: one(posts, {
-    fields: [postMentions.postId],
-    references: [posts.id],
-  }),
-}));
-
-export const postAttachmentsRelations = relations(
-  postAttachments,
-  ({ one }) => ({
-    post: one(posts, {
-      fields: [postAttachments.postId],
-      references: [posts.id],
-    }),
-  }),
-);
-
-export const postPollRelations = relations(polls, ({ one, many }) => ({
+export const postPollRelations = relations(polls, ({ one }) => ({
   post: one(posts, {
     fields: [polls.postId],
     references: [posts.id],
   }),
-  options: many(pollOptions),
 }));
