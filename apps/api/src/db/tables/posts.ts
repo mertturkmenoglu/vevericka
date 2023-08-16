@@ -6,20 +6,15 @@ import {
   pgTable,
   smallint,
   timestamp,
-  uniqueIndex,
   uuid,
   varchar,
   AnyPgColumn,
 } from 'drizzle-orm/pg-core';
 import { users } from '@/db/tables/users';
 import { InferModel } from 'drizzle-orm';
+import { TTextMeta } from '@/db/tables/types';
 
 export const postVotesEnum = pgEnum('post_votes_enum', ['like', 'dislike']);
-
-export const postAttachmentsEnum = pgEnum('post_attachments_enum', [
-  'image',
-  'video',
-]);
 
 export const postReplyTypesEnum = pgEnum('post_reply_types_enum', [
   'default',
@@ -34,6 +29,19 @@ export const postReferencesEnum = pgEnum('post_references_enum', [
   'quoted',
 ]);
 
+export type TPostAttachment = {
+  url: string;
+  height: number | null;
+  width: number | null;
+  order: number;
+} & ({ type: 'image' } | { type: 'video'; duration: number | null });
+
+export type TPostPollOption = {
+  option: string;
+  order: number;
+  count: number;
+};
+
 export const posts = pgTable(
   'posts',
   {
@@ -44,6 +52,8 @@ export const posts = pgTable(
     sensitive: boolean('sensitive').notNull().default(false),
     referenceId: uuid('reference_id').references((): AnyPgColumn => posts.id),
     referenceType: postReferencesEnum('reference_type'),
+    meta: json('meta').$type<TTextMeta>(),
+    attachments: json('attachments').$type<TPostAttachment[]>(),
     replySetting: postReplyTypesEnum('reply_setting')
       .notNull()
       .default('default'),
@@ -66,7 +76,6 @@ export const posts = pgTable(
 );
 
 export type TPost = InferModel<typeof posts>;
-export type TNewPost = InferModel<typeof posts, 'insert'>;
 
 export const postVotes = pgTable(
   'post_votes',
@@ -94,100 +103,6 @@ export const postVotes = pgTable(
   },
 );
 
-export const tags = pgTable(
-  'tags',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    tag: varchar('tag', { length: 256 }).notNull().unique(),
-  },
-  (t) => {
-    return {
-      tagIdx: uniqueIndex('tag_idx').on(t.tag),
-    };
-  },
-);
-
-export const postTags = pgTable(
-  'post_tags',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    postId: uuid('post_id')
-      .references(() => posts.id)
-      .notNull(),
-    tagId: uuid('tag_id')
-      .references(() => tags.id)
-      .notNull(),
-    start: smallint('start').notNull(),
-    end: smallint('end').notNull(),
-  },
-  (t) => {
-    return {
-      postIdx: index('post_idx').on(t.postId),
-      tagIdx: index('tag_idx').on(t.tagId),
-    };
-  },
-);
-
-export const postUrls = pgTable(
-  'post_urls',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    postId: uuid('post_id')
-      .references(() => posts.id)
-      .notNull(),
-    url: varchar('url', { length: 256 }).notNull(),
-    start: smallint('start').notNull(),
-    end: smallint('end').notNull(),
-    meta: json('meta').notNull().$type<string>(),
-  },
-  (t) => {
-    return {
-      postIdx: index('post_idx').on(t.postId),
-    };
-  },
-);
-
-export const postMentions = pgTable(
-  'post_mentions',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    postId: uuid('post_id')
-      .references(() => posts.id)
-      .notNull(),
-    mention: varchar('mention', { length: 256 }).notNull(),
-    mentionedUserId: uuid('mentioned_user_id').references(() => users.id),
-    start: smallint('start').notNull(),
-    end: smallint('end').notNull(),
-  },
-  (t) => {
-    return {
-      postIdx: index('post_idx').on(t.postId),
-      mentionedUserIdx: index('mentioned_user_idx').on(t.mentionedUserId),
-    };
-  },
-);
-
-export const postAttachments = pgTable(
-  'post_attachments',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    postId: uuid('post_id')
-      .references(() => posts.id)
-      .notNull(),
-    type: postAttachmentsEnum('type').notNull(),
-    url: varchar('url', { length: 256 }).notNull(),
-    width: smallint('width'),
-    height: smallint('height'),
-    duration: smallint('duration'),
-    order: smallint('order').notNull(),
-  },
-  (t) => {
-    return {
-      postIdx: index('post_idx').on(t.postId),
-    };
-  },
-);
-
 export const polls = pgTable(
   'poll',
   {
@@ -197,27 +112,11 @@ export const polls = pgTable(
       .notNull(),
     start: timestamp('start', { withTimezone: true }).notNull(),
     end: timestamp('end', { withTimezone: true }).notNull(),
+    options: json('options').$type<TPostPollOption[]>(),
   },
   (t) => {
     return {
       postIdx: index('post_idx').on(t.postId),
-    };
-  },
-);
-
-export const pollOptions = pgTable(
-  'poll_options',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    pollId: uuid('poll_id')
-      .references(() => polls.id)
-      .notNull(),
-    option: varchar('option', { length: 32 }).notNull(),
-    order: smallint('order').notNull(),
-  },
-  (t) => {
-    return {
-      pollIdx: index('poll_idx').on(t.pollId),
     };
   },
 );
@@ -232,9 +131,7 @@ export const pollVotes = pgTable(
     userId: uuid('user_id')
       .references(() => users.id)
       .notNull(),
-    optionId: uuid('option_id')
-      .references(() => pollOptions.id)
-      .notNull(),
+    option: smallint('option').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
       .defaultNow(),
@@ -246,7 +143,6 @@ export const pollVotes = pgTable(
     return {
       pollIdx: index('poll_idx').on(t.pollId),
       userIdx: index('user_idx').on(t.userId),
-      optionIdx: index('option_idx').on(t.optionId),
     };
   },
 );
