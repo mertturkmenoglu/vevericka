@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from 'src/common/args/pagination.args';
 import { NewPostInput, Vote } from '@/posts/dto';
 import { Post } from '@/posts/models';
@@ -9,9 +9,12 @@ import { User } from '@/users/models/user.model';
 export class PostsService {
   constructor(private readonly repository: PostsRepository) {}
 
-  async create(userId: string, data: NewPostInput): Promise<Post> {
-    console.log(userId, data);
-    throw new NotImplementedException();
+  async create(userId: string, data: NewPostInput): Promise<Post | null> {
+    await this.repository.create({
+      content: data.content,
+      userId,
+    });
+    return null;
   }
 
   async changeVote(
@@ -55,12 +58,6 @@ export class PostsService {
   ): Promise<Post[]> {
     console.log(userId, tag, pagination);
     return [];
-  }
-
-  private prepareTags(content: string): string[] {
-    const hashtagRegex = /#[-A-Z0-9_]+/gi;
-    const tags = content.match(hashtagRegex);
-    return tags || [];
   }
 
   private getVote(likes: User[], dislikes: User[]) {

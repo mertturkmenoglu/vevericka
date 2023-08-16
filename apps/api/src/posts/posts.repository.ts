@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { PaginationArgs } from '@/common/args/pagination.args';
 import { Vote } from '@/posts/dto';
 import { DbService } from '@/db/db.service';
-import { posts, postVotes } from '@/db/tables';
+import { posts, postVotes, TNewPost, TPost } from '@/db/tables';
 import { and, desc, eq } from 'drizzle-orm';
+import { extractEntitiesWithIndices } from 'twitter-text';
 
 @Injectable()
 export class PostsRepository {
@@ -51,6 +52,20 @@ export class PostsRepository {
   }
 
   async findOneById(userId: string, id: string): Promise<any | null> {
+    const res = await this.db.client.query.posts.findMany({
+      where: eq(posts.id, id),
+      with: {
+        user: true,
+        tags: true,
+        mentions: true,
+        urls: true,
+        votes: true,
+        attachments: true,
+        poll: true,
+      },
+    });
+
+    console.log({ res });
     const results = await this.db.client
       .select()
       .from(posts)
@@ -65,6 +80,26 @@ export class PostsRepository {
 
   async deleteOneById(id: string): Promise<void> {
     await this.db.client.delete(posts).where(eq(posts.id, id));
+  }
+
+  async create(data: TNewPost): Promise<TPost | null> {
+    const text = data.content;
+    if (!text) {
+      return null;
+    }
+    const entities = extractEntitiesWithIndices(text);
+
+    for (const e of entities) {
+      console.log({ e });
+    }
+    return null;
+    //const post = await this.db.client.insert(posts).values(data).returning();
+
+    // if (post.length === 0) {
+    //   return null;
+    // }
+    //
+    // return post[0];
   }
 
   async findManyByThisUserIdAndUserId(
