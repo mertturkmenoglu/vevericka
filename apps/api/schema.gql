@@ -35,47 +35,50 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-"""Tag"""
-type PTag {
-  id: String!
-  tag: String!
+"""TextMeta"""
+type TextMeta {
+  mentions: [MentionEntity!]!
+  tags: [TagEntity!]!
+  urls: [UrlEntity!]!
 }
 
-"""Post Tag"""
-type PostTag {
+"""MentionEntity"""
+type MentionEntity {
+  username: String!
+  start: Float!
+  end: Float!
+  referenceId: String
+}
+
+"""TagEntity"""
+type TagEntity {
   id: String!
-  tagId: String!
-  tag: PTag!
+  tag: String!
   start: Float!
   end: Float!
 }
 
-"""Post Url"""
-type PostUrl {
-  id: String!
+"""UrlEntity"""
+type UrlEntity {
   url: String!
   start: Float!
   end: Float!
-  meta: String!
+  meta: UrlEntityMeta
 }
 
-"""Post Mention"""
-type PostMention {
-  id: String!
-  mention: String!
-  mentionedUserId: String
-  start: Float!
-  end: Float!
+"""UrlEntityMeta"""
+type UrlEntityMeta {
+  title: String
+  description: String
+  image: String
 }
 
 """Post Attachment"""
 type PostAttachment {
-  id: String!
   type: String!
   url: String!
   width: Float
   height: Float
-  duration: Float
   order: Float!
 }
 
@@ -84,14 +87,6 @@ type PostPollOption {
   id: String!
   option: String!
   order: Float!
-}
-
-"""Post Poll"""
-type PostPoll {
-  id: String!
-  start: DateTime!
-  end: DateTime!
-  options: [PostPollOption!]!
 }
 
 """post"""
@@ -106,11 +101,8 @@ type Post {
   replySetting: String!
   userId: String
   user: User!
-  tags: [PostTag!]!
-  poll: PostPoll
+  meta: TextMeta!
   attachments: [PostAttachment!]!
-  mentions: [PostMention!]!
-  urls: [PostUrl!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -190,19 +182,11 @@ type LastSeen {
   date: String!
 }
 
-"""UserCount"""
-type UserCount {
-  followers: Float!
-  following: Float!
-  posts: Float!
-}
-
 """ProfileMeta"""
 type ProfileMeta {
   isMe: Boolean!
   isFollowing: Boolean!
   hasPendingFollowRequest: Boolean!
-  count: UserCount!
 }
 
 """ProfileDescriptionTag"""
@@ -234,14 +218,6 @@ type ProfileDescriptionMention {
   mentionedUserId: String
 }
 
-"""ProfileDescription"""
-type ProfileDescription {
-  description: String
-  tags: [ProfileDescriptionTag!]!
-  urls: [ProfileDescriptionUrl!]!
-  mentions: [ProfileDescriptionMention!]!
-}
-
 """user"""
 type Profile {
   id: String!
@@ -261,7 +237,6 @@ type Profile {
   location: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  descriptionMeta: ProfileDescription!
   meta: ProfileMeta!
 }
 
