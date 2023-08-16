@@ -1,6 +1,7 @@
 import { relations } from 'drizzle-orm';
 import { users } from '@/db/tables/users';
 import {
+  pollOptions,
   polls,
   postAttachments,
   postMentions,
@@ -15,6 +16,10 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
   user: one(users, {
     fields: [posts.userId],
     references: [users.id],
+  }),
+  reference: one(posts, {
+    fields: [posts.referenceId],
+    references: [posts.id],
   }),
   votes: many(postVotes),
   tags: many(postTags),
@@ -70,9 +75,10 @@ export const postAttachmentsRelations = relations(
   }),
 );
 
-export const postPollRelations = relations(polls, ({ one }) => ({
+export const postPollRelations = relations(polls, ({ one, many }) => ({
   post: one(posts, {
     fields: [polls.postId],
     references: [posts.id],
   }),
+  options: many(pollOptions),
 }));
