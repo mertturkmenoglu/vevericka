@@ -52,8 +52,8 @@ export const posts = pgTable(
     sensitive: boolean('sensitive').notNull().default(false),
     referenceId: uuid('reference_id').references((): AnyPgColumn => posts.id),
     referenceType: postReferencesEnum('reference_type'),
-    meta: json('meta').$type<TTextMeta>(),
-    attachments: json('attachments').$type<TPostAttachment[]>(),
+    meta: json('meta').$type<TTextMeta>().notNull(),
+    attachments: json('attachments').$type<TPostAttachment[]>().notNull(),
     replySetting: postReplyTypesEnum('reply_setting')
       .notNull()
       .default('default'),
