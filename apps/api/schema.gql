@@ -44,6 +44,58 @@ type PostTag {
   end: Float!
 }
 
+"""Post Url"""
+type PostUrl {
+  id: String!
+  url: String!
+  start: Float!
+  end: Float!
+  meta: String!
+  linkPreview: PostLinkPreview
+}
+
+"""Post Link Preview"""
+type PostLinkPreview {
+  id: String!
+  urlId: String!
+}
+
+"""Post Mention"""
+type PostMention {
+  id: String!
+  mention: String!
+  mentionedUserId: String
+  mentionedUser: User
+  start: Float!
+  end: Float!
+}
+
+"""Post Attachment"""
+type PostAttachment {
+  id: String!
+  type: String!
+  url: String!
+  width: Float
+  height: Float
+  duration: Float
+  order: Float!
+}
+
+"""Post Poll Option"""
+type PostPollOption {
+  id: String!
+  option: String!
+  order: Float!
+}
+
+"""Post Poll"""
+type PostPoll {
+  id: String!
+  start: DateTime!
+  end: DateTime!
+  options: [PostPollOption!]!
+}
+
 """post"""
 type Post {
   id: String!
@@ -58,6 +110,10 @@ type Post {
   userId: String
   user: User!
   tags: [PostTag!]!
+  poll: PostPoll
+  attachments: [PostAttachment!]!
+  mentions: [PostMention!]!
+  urls: [PostUrl!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
