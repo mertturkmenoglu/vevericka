@@ -149,6 +149,8 @@ type UserResult {
 type Bookmark {
   id: String!
   post: Post!
+  postId: String!
+  resolveBookmarkPost: Post
 }
 
 """tag"""
@@ -245,13 +247,13 @@ type Query {
   searchUsers: UserResult!
   bookmark(id: String!): Bookmark!
   bookmarks(skip: Int! = 0, take: Int! = 25): [Bookmark!]!
+  post(id: String!): Post!
+  posts(id: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
+  postsByTag(tag: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
   tags(skip: Int! = 0, take: Int! = 25): [Tag!]!
   popularTags(skip: Int! = 0, take: Int! = 25): [PopularTag!]!
   feed(skip: Int! = 0, take: Int! = 25): Feed!
   linkPreview(url: String!): LinkPreview!
-  post(id: String!): Post!
-  posts(id: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
-  postsByTag(tag: String!, skip: Int! = 0, take: Int! = 25): [Post!]!
   me: User!
   user(id: String!): User!
   profile(id: String!): Profile!
