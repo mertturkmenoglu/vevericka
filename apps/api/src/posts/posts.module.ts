@@ -18,5 +18,6 @@ import { DbModule } from '@/db/db.module';
     }),
     AxiomModule,
   ],
+  exports: [PostsService],
 })
 export class PostsModule {}

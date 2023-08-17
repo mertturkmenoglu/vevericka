@@ -8,11 +8,9 @@ export class NewPostInput {
   content!: string | null;
 
   @Field(() => String, { nullable: true })
-  @MaxLength(32)
   source!: string | null;
 
   @Field(() => String, { nullable: true })
-  @MaxLength(32)
   location!: string | null;
 
   @Field(() => Boolean, { nullable: true })
