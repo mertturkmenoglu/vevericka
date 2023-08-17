@@ -10,7 +10,7 @@ export const bookmarks = pgTable(
     userId: uuid('user_id')
       .references(() => users.id, { onDelete: 'cascade' })
       .notNull(),
-    postId: uuid('post_id').references(() => posts.id),
+    postId: uuid('post_id').references(() => posts.id, { onDelete: 'cascade' }),
     createdAt: timestamp('created_at', { withTimezone: true })
       .notNull()
       .defaultNow(),
