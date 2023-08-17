@@ -15,6 +15,13 @@
       "when": 1692209803112,
       "tag": "0001_remarkable_kabuki",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1692233796285,
+      "tag": "0002_cute_jubilee",
+      "breakpoints": true
     }
   ]
 }
