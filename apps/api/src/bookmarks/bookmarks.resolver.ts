@@ -1,14 +1,28 @@
 import { NotFoundException, UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Context,
+  GqlExecutionContext,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { JwtAuthGuard } from '@/auth/guards';
 import { PaginationArgs, TCurrentUser, CurrentUser } from '@/common';
 import { BookmarksService } from './bookmarks.service';
 import { NewBookmarkInput } from './dto/new-bookmark.input';
 import { Bookmark } from './models/bookmark.model';
+import { PostsService } from '@/posts/posts.service';
+import { Post } from '@/posts/models';
 
 @Resolver(() => Bookmark)
 export class BookmarksResolver {
-  constructor(private readonly bookmarksService: BookmarksService) {}
+  constructor(
+    private readonly bookmarksService: BookmarksService,
+    private readonly postsService: PostsService,
+  ) {}
 
   @Query(() => Bookmark)
   @UseGuards(JwtAuthGuard)
@@ -26,6 +40,14 @@ export class BookmarksResolver {
     return bookmark;
   }
 
+  @ResolveField(() => Post, { nullable: true })
+  async resolveBookmarkPost(
+    @Parent() bookmark: Bookmark,
+    @Context() ctx: GqlExecutionContext,
+  ) {
+    const userId = ctx.getContext().req.user.id;
+    return this.postsService.findOneById(userId, bookmark.postId);
+  }
   @Query(() => [Bookmark])
   @UseGuards(JwtAuthGuard)
   async bookmarks(

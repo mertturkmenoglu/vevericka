@@ -8,4 +8,7 @@ export class Bookmark {
 
   @Field(() => Post)
   post!: Post;
+
+  @Field()
+  postId!: string;
 }
