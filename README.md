@@ -7,9 +7,9 @@
 * Doppler CLI
 ## Running
 * Clone the repo
+* Configure the Doppler CLI in the root directory.
 * Go to `apps/web` and run `yarn` to install dependencies.
 * Go to `apps/api` and:
-    * Configure Doppler CLI in this directory.
     * Run `docker compose up` to start Docker containers.
     * Run `yarn` to install dependencies.
 * Run the database migrations using `doppler run yarn generate`.
